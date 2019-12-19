@@ -1,0 +1,441 @@
+{
+    "id": "7d53afa56091a0829de54d77b387cebb",
+    "name": "Polygon",
+    "description": null,
+    "auth": null,
+    "events": null,
+    "variables": [],
+    "order": [],
+    "folders_order": [],
+    "folders": [],
+    "requests": [
+        {
+            "id": "9faa01bc326d81469f25965f2e600f1b",
+            "name": "Available Companies",
+            "url": "http:\/\/api.polygon.io\/\/v1\/companies",
+            "description": "Get a list of the traded companies that polygon.io streams. Company includes some details about the company which we hope to add more to soon.\n",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "sort",
+                    "description": "Which field to sort by. For desc place a `-` in front of the field name. eg `?sort=-marketcap`",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "perpage",
+                    "description": "How many items to be on each page during pagination",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "page",
+                    "description": "Which page of results to return",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "7d53afa56091a0829de54d77b387cebb",
+            "rawModeData": ""
+        },
+        {
+            "id": "23e23a340ee3f13118f924145f5ed087",
+            "name": "Available Currencies",
+            "url": "http:\/\/api.polygon.io\/\/v1\/currencies",
+            "description": "Get a list of the currencies that polygon.io streams.\n",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "7d53afa56091a0829de54d77b387cebb",
+            "rawModeData": ""
+        },
+        {
+            "id": "9ba98066e1634fd54bce2ee4977cdbdc",
+            "name": "Historic Aggregates",
+            "url": "http:\/\/api.polygon.io\/\/v1\/historic\/agg\/{size}\/{symbol}\/{date}",
+            "description": "Get historic aggregations for a symbol.\n",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "size",
+                    "description": "Size of the aggregation. `second` or `minute`",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "symbol",
+                    "description": "Symbol of the company to retrieve",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "date",
+                    "description": "Date\/Day of the historic ticks to retreive",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "offset",
+                    "description": "Timestamp offset, used for pagination",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "limit",
+                    "description": "Limit the size of response, max: 10000",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "7d53afa56091a0829de54d77b387cebb",
+            "rawModeData": ""
+        },
+        {
+            "id": "ee220e547196bab4860c1fc21ba8d010",
+            "name": "Historic Forex Ticks",
+            "url": "http:\/\/api.polygon.io\/\/v1\/historic\/forex\/{from}\/{to}\/{date}",
+            "description": "Get historic ticks for a currency pair. Example for **USD\/JPY** the from would be **USD** and to would be **JPY**. The date formatted like **2017-6-22**\n",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "from",
+                    "description": "From Symbol of the currency pair",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "to",
+                    "description": "To Symbol of the currency pair",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "date",
+                    "description": "Date\/Day of the historic ticks to retreive",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "offset",
+                    "description": "Timestamp offset, used for pagination",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "limit",
+                    "description": "Limit the size of response, max: 10000",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "7d53afa56091a0829de54d77b387cebb",
+            "rawModeData": ""
+        },
+        {
+            "id": "f04d7f0595098d564bd0af4a9e751997",
+            "name": "Historic Quotes",
+            "url": "http:\/\/api.polygon.io\/\/v1\/historic\/quotes\/{symbol}\/{date}",
+            "description": "Get historic quotes for a symbol.\n",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "symbol",
+                    "description": "Symbol of the company to retrieve",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "date",
+                    "description": "Date\/Day of the historic ticks to retreive",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "offset",
+                    "description": "Timestamp offset, used for pagination",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "limit",
+                    "description": "Limit the size of response, max: 10000",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "7d53afa56091a0829de54d77b387cebb",
+            "rawModeData": ""
+        },
+        {
+            "id": "9875019c2bf55c32949b4cfbcd975f07",
+            "name": "Historic Trades",
+            "url": "http:\/\/api.polygon.io\/\/v1\/historic\/trades\/{symbol}\/{date}",
+            "description": "Get historic trades for a symbol.\n",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "symbol",
+                    "description": "Symbol of the company to retrieve",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "date",
+                    "description": "Date\/Day of the historic ticks to retreive",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "offset",
+                    "description": "Timestamp offset, used for pagination",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "limit",
+                    "description": "Limit the size of response, max: 10000",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "7d53afa56091a0829de54d77b387cebb",
+            "rawModeData": ""
+        },
+        {
+            "id": "5bfe741b153f714cc05e06094a541171",
+            "name": "Last Trade for a Currency Pair",
+            "url": "http:\/\/api.polygon.io\/\/v1\/last\/currencies\/{from}\/{to}",
+            "description": "Get Last Trade Tick for a Currency Pair.\n",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "from",
+                    "description": "From Symbol of the currency pair",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "to",
+                    "description": "To Symbol of the currency pair",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "7d53afa56091a0829de54d77b387cebb",
+            "rawModeData": ""
+        },
+        {
+            "id": "f67e0c0f734a66b7e6a21cdb7d7fbf67",
+            "name": "Last Trade for a Symbol",
+            "url": "http:\/\/api.polygon.io\/\/v1\/last\/stocks\/{symbol}",
+            "description": "Get the last trade for a given stock.\n",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "symbol",
+                    "description": "Symbol of the company to retrieve",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "7d53afa56091a0829de54d77b387cebb",
+            "rawModeData": ""
+        },
+        {
+            "id": "4bb6cef1cafbebe8d7a24a47e2144611",
+            "name": "Last Quote for a Currency Pair",
+            "url": "http:\/\/api.polygon.io\/\/v1\/last_quote\/currencies\/{from}\/{to}",
+            "description": "Get Last Quote Tick for a Currency Pair.\n",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "from",
+                    "description": "From Symbol of the currency pair",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "to",
+                    "description": "To Symbol of the currency pair",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "7d53afa56091a0829de54d77b387cebb",
+            "rawModeData": ""
+        },
+        {
+            "id": "1bb0ca2a4427f4c0e65f90eab1e3d4a7",
+            "name": "Last Quote for a Symbol",
+            "url": "http:\/\/api.polygon.io\/\/v1\/last_quote\/stocks\/{symbol}",
+            "description": "Get the last quote tick for a given stock.\n",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "symbol",
+                    "description": "Symbol of the company to retrieve",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "7d53afa56091a0829de54d77b387cebb",
+            "rawModeData": ""
+        }
+    ]
+}
