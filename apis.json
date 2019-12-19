@@ -1,0 +1,81 @@
+{
+    "name": "Polygon",
+    "description": "Polygon.io offers streaming realtime data for stocks\/equities, ETFs, Indecies and Forex\/Currencies including crypto currencies. Our Real-Time Stock Data APIs help you build the future on fintech.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/logos\/polygon-logo.png",
+    "tags": [
+        "financial",
+        "general data",
+        "have api",
+        "have swagger",
+        "market data",
+        "new",
+        "service api"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/polygon\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Polygon",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/logos\/polygon-logo.png",
+            "humanURL": "https:\/\/polygon.io",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/polygon.json"
+                },
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/polygon-openapi.json"
+                },
+                {
+                    "type": "x-postman-collecction",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/polygon-postman-collection.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Blog",
+            "url": "https:\/\/polygon.io\/blog\/"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "https:\/\/polygon.io\/blog\/rss\/"
+        },
+        {
+            "type": "Documentation",
+            "url": "https:\/\/polygon.io\/docs\/#getting-started"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/polygon-io"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/28486-2019-09-04-12-27-07.json"
+        },
+        {
+            "type": "Registration",
+            "url": "https:\/\/polygon.io\/signup"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/polygon_io"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/polygon.io"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/polygon.io"
+        }
+    ]
+}
