@@ -1,0 +1,32 @@
+aid: polygon
+name: Polygon
+description: "Historical stock market data"
+url: https://polygon.io/
+specificationVersion: '0.20'
+created: '2026-05-28'
+modified: '2026-05-28'
+x-source: public-apis/public-apis
+x-category: "Finance"
+x-tier: 3
+x-tier-reason: bulk-registered-from-public-apis
+tags:
+  - Finance
+  - Public APIs
+apis:
+  - name: Polygon
+    description: "Historical stock market data"
+    humanURL: https://polygon.io/
+    baseURL: https://polygon.io/
+    tags:
+      - Finance
+    properties:
+      - type: Documentation
+        url: https://polygon.io/
+common:
+  - type: Website
+    url: https://polygon.io/
+  - type: PublicAPIsListing
+    url: https://github.com/public-apis/public-apis
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
