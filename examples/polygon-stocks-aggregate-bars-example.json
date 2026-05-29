@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2026-05-01/2026-05-07?adjusted=true&sort=asc&limit=120",
+    "headers": {
+      "Authorization": "Bearer YOUR_POLYGON_API_KEY"
+    }
+  },
+  "response": {
+    "ticker": "AAPL",
+    "queryCount": 5,
+    "resultsCount": 5,
+    "adjusted": true,
+    "results": [
+      { "v": 65213400, "vw": 187.43, "o": 186.25, "c": 188.10, "h": 188.90, "l": 185.80, "t": 1746086400000, "n": 612345 },
+      { "v": 58124100, "vw": 188.92, "o": 188.30, "c": 189.65, "h": 190.05, "l": 187.78, "t": 1746172800000, "n": 580102 },
+      { "v": 49801200, "vw": 190.10, "o": 189.70, "c": 191.20, "h": 191.85, "l": 189.20, "t": 1746259200000, "n": 510200 },
+      { "v": 71203355, "vw": 191.55, "o": 191.20, "c": 192.40, "h": 193.10, "l": 190.55, "t": 1746345600000, "n": 644580 },
+      { "v": 60123410, "vw": 192.30, "o": 192.50, "c": 191.85, "h": 193.55, "l": 191.05, "t": 1746432000000, "n": 588301 }
+    ],
+    "status": "OK",
+    "request_id": "5f1e3c0d-polygon-aggregates-example",
+    "count": 5
+  }
+}

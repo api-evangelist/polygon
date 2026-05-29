@@ -1,0 +1,277 @@
+openapi: 3.1.0
+info:
+  title: Polygon Crypto REST API
+  version: '1.0'
+  description: |
+    Polygon Crypto API exposes aggregated cross-exchange data for crypto
+    pairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec
+    covers aggregates, daily open/close, snapshots, and level-2 books.
+    Auth uses an API key via `apiKey` query parameter or
+    `Authorization: Bearer`.
+  contact:
+    name: Polygon Documentation
+    url: https://polygon.io/docs/crypto
+servers:
+  - url: https://api.polygon.io
+    description: Polygon REST API
+security:
+  - apiKeyQuery: []
+  - bearerAuth: []
+tags:
+  - name: Aggregates
+    description: Crypto aggregate bars.
+  - name: DailyBars
+    description: Daily open/close.
+  - name: Snapshots
+    description: Snapshot endpoints.
+  - name: Books
+    description: Level-2 order book.
+paths:
+  /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}:
+    get:
+      tags: [Aggregates]
+      operationId: getCryptoAggregateBars
+      summary: Get Aggregate Bars For A Crypto Pair
+      description: Aggregate bars for a crypto pair (e.g., X:BTCUSD).
+      parameters:
+        - in: path
+          name: cryptoTicker
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: multiplier
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: timespan
+          required: true
+          schema:
+            type: string
+            enum: [minute, hour, day, week, month, quarter, year]
+        - in: path
+          name: from
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: to
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Crypto aggregate bars response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregatesResponse'
+  /v1/open-close/crypto/{from}/{to}/{date}:
+    get:
+      tags: [DailyBars]
+      operationId: getCryptoDailyOpenClose
+      summary: Get Daily Open Close For A Crypto Pair
+      description: Get the open/close prices on a specific date for a crypto pair.
+      parameters:
+        - in: path
+          name: from
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: to
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: date
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Crypto daily open/close response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CryptoDailyOpenCloseResponse'
+  /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}:
+    get:
+      tags: [Snapshots]
+      operationId: getCryptoSnapshotForTicker
+      summary: Get Snapshot For A Crypto Ticker
+      parameters:
+        - in: path
+          name: ticker
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Crypto snapshot response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CryptoSnapshotResponse'
+  /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book:
+    get:
+      tags: [Books]
+      operationId: getCryptoL2Book
+      summary: Get Level Two Book For A Crypto Pair
+      description: Returns the current Level-2 book for a crypto ticker.
+      parameters:
+        - in: path
+          name: ticker
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Level-2 book response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CryptoBookResponse'
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+  schemas:
+    AggregateBar:
+      type: object
+      properties:
+        v:
+          type: number
+        vw:
+          type: number
+        o:
+          type: number
+        c:
+          type: number
+        h:
+          type: number
+        l:
+          type: number
+        t:
+          type: integer
+          format: int64
+        n:
+          type: integer
+    AggregatesResponse:
+      type: object
+      properties:
+        ticker:
+          type: string
+        status:
+          type: string
+        request_id:
+          type: string
+        resultsCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregateBar'
+    CryptoDailyOpenCloseResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        symbol:
+          type: string
+        isUTC:
+          type: boolean
+        day:
+          type: string
+          format: date
+        open:
+          type: number
+        close:
+          type: number
+        openTrades:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        closingTrades:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    CryptoSnapshot:
+      type: object
+      properties:
+        ticker:
+          type: string
+        day:
+          type: object
+          additionalProperties: true
+        lastTrade:
+          type: object
+          additionalProperties: true
+        min:
+          type: object
+          additionalProperties: true
+        prevDay:
+          type: object
+          additionalProperties: true
+        updated:
+          type: integer
+          format: int64
+    CryptoSnapshotResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        ticker:
+          $ref: '#/components/schemas/CryptoSnapshot'
+    BookLevel:
+      type: object
+      properties:
+        p:
+          type: number
+          description: Price level.
+        x:
+          type: object
+          additionalProperties:
+            type: number
+          description: Map of exchange ID to size.
+    CryptoBookResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        data:
+          type: object
+          properties:
+            ticker:
+              type: string
+            bids:
+              type: array
+              items:
+                $ref: '#/components/schemas/BookLevel'
+            asks:
+              type: array
+              items:
+                $ref: '#/components/schemas/BookLevel'
+            bidCount:
+              type: number
+            askCount:
+              type: number
+            spread:
+              type: number
+            updated:
+              type: integer
+              format: int64

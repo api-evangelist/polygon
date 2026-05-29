@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/polygon/main/json-schema/polygon-options-contract-schema.json",
+  "title": "Polygon Options Contract",
+  "type": "object",
+  "description": "An OPRA-licensed option contract reference returned by Polygon Reference / Options APIs.",
+  "properties": {
+    "cfi": { "type": "string" },
+    "contract_type": { "type": "string", "enum": ["call","put"] },
+    "exercise_style": { "type": "string", "enum": ["american","european","bermudan"] },
+    "expiration_date": { "type": "string", "format": "date" },
+    "primary_exchange": { "type": "string" },
+    "shares_per_contract": { "type": "integer" },
+    "strike_price": { "type": "number" },
+    "ticker": { "type": "string", "description": "OCC-style contract ticker, e.g. O:AAPL250620C00200000." },
+    "underlying_ticker": { "type": "string" }
+  },
+  "required": ["ticker","contract_type","expiration_date","strike_price","underlying_ticker"]
+}

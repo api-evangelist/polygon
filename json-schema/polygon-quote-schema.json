@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/polygon/main/json-schema/polygon-quote-schema.json",
+  "title": "Polygon NBBO Quote Tick",
+  "type": "object",
+  "description": "A National Best Bid and Offer quote tick from the Polygon WebSocket cluster.",
+  "properties": {
+    "ev": { "type": "string", "const": "Q" },
+    "sym": { "type": "string" },
+    "bx": { "type": "integer", "description": "Bid exchange ID." },
+    "bp": { "type": "number", "description": "Best bid price." },
+    "bs": { "type": "integer", "description": "Bid size." },
+    "ax": { "type": "integer", "description": "Ask exchange ID." },
+    "ap": { "type": "number", "description": "Best ask price." },
+    "as": { "type": "integer", "description": "Ask size." },
+    "t": { "type": "integer", "description": "SIP timestamp (Unix milliseconds)." }
+  },
+  "required": ["ev","sym","bp","ap","t"]
+}

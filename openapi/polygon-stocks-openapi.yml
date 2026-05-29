@@ -1,0 +1,265 @@
+openapi: 3.1.0
+info:
+  title: Polygon Stocks REST API
+  version: '1.0'
+  description: |
+    Polygon (rebranded as Massive in early 2026) exposes real-time and
+    historical US equity market data via a REST API at
+    `https://api.polygon.io`. This specification covers a representative
+    subset of the Stocks API: aggregate bars, daily open/close,
+    grouped daily bars, and previous-close. Authentication uses an API
+    key, sent either as the `apiKey` query parameter or as
+    `Authorization: Bearer <apiKey>`.
+  contact:
+    name: Polygon Documentation
+    url: https://polygon.io/docs/stocks
+servers:
+  - url: https://api.polygon.io
+    description: Polygon REST API
+security:
+  - apiKeyQuery: []
+  - bearerAuth: []
+tags:
+  - name: Aggregates
+    description: Aggregate (OHLC) bar data for equities.
+  - name: DailyBars
+    description: Daily open/close and grouped daily bars.
+paths:
+  /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}:
+    get:
+      tags: [Aggregates]
+      operationId: getStocksAggregateBars
+      summary: Get Aggregate Bars For A Stock Ticker
+      description: |
+        Returns aggregate bars for a stock over a given date range in
+        custom time window sizes (e.g., 5-minute bars between two dates).
+      parameters:
+        - in: path
+          name: stocksTicker
+          required: true
+          schema:
+            type: string
+          description: Case-sensitive stock ticker symbol (e.g., AAPL).
+        - in: path
+          name: multiplier
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: Size of the timespan multiplier.
+        - in: path
+          name: timespan
+          required: true
+          schema:
+            type: string
+            enum: [second, minute, hour, day, week, month, quarter, year]
+        - in: path
+          name: from
+          required: true
+          schema:
+            type: string
+          description: Start of the aggregate window (YYYY-MM-DD or millisecond timestamp).
+        - in: path
+          name: to
+          required: true
+          schema:
+            type: string
+          description: End of the aggregate window (YYYY-MM-DD or millisecond timestamp).
+        - in: query
+          name: adjusted
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: sort
+          schema:
+            type: string
+            enum: [asc, desc]
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50000
+            default: 5000
+      responses:
+        '200':
+          description: Aggregate bars response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregatesResponse'
+  /v1/open-close/{stocksTicker}/{date}:
+    get:
+      tags: [DailyBars]
+      operationId: getStocksDailyOpenClose
+      summary: Get Daily Open Close For A Stock Ticker
+      description: Returns the open, close, high, and low for a stock ticker on a specific date.
+      parameters:
+        - in: path
+          name: stocksTicker
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: date
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: adjusted
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Daily open/close response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyOpenCloseResponse'
+  /v2/aggs/grouped/locale/us/market/stocks/{date}:
+    get:
+      tags: [DailyBars]
+      operationId: getStocksGroupedDailyBars
+      summary: Get Grouped Daily Bars For US Stocks
+      description: Returns daily aggregate bars for all US stock tickers on a specific date.
+      parameters:
+        - in: path
+          name: date
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: adjusted
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: include_otc
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Grouped daily bars response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregatesResponse'
+  /v2/aggs/ticker/{stocksTicker}/prev:
+    get:
+      tags: [DailyBars]
+      operationId: getStocksPreviousClose
+      summary: Get Previous Close For A Stock Ticker
+      description: Returns the previous trading day's open, close, high, and low for a stock ticker.
+      parameters:
+        - in: path
+          name: stocksTicker
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: adjusted
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Previous close response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregatesResponse'
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+  schemas:
+    AggregateBar:
+      type: object
+      properties:
+        T:
+          type: string
+          description: Ticker symbol (only present on certain endpoints).
+        v:
+          type: number
+          description: Trading volume.
+        vw:
+          type: number
+          description: Volume-weighted average price.
+        o:
+          type: number
+          description: Open price.
+        c:
+          type: number
+          description: Close price.
+        h:
+          type: number
+          description: High price.
+        l:
+          type: number
+          description: Low price.
+        t:
+          type: integer
+          format: int64
+          description: Unix millisecond timestamp.
+        n:
+          type: integer
+          description: Number of transactions.
+    AggregatesResponse:
+      type: object
+      properties:
+        ticker:
+          type: string
+        adjusted:
+          type: boolean
+        queryCount:
+          type: integer
+        resultsCount:
+          type: integer
+        status:
+          type: string
+        request_id:
+          type: string
+        count:
+          type: integer
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregateBar'
+    DailyOpenCloseResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        from:
+          type: string
+          format: date
+        symbol:
+          type: string
+        open:
+          type: number
+        high:
+          type: number
+        low:
+          type: number
+        close:
+          type: number
+        volume:
+          type: number
+        afterHours:
+          type: number
+        preMarket:
+          type: number

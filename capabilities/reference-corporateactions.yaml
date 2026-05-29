@@ -1,0 +1,150 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Polygon Reference REST API — CorporateActions"
+  description: >-
+    Reference — CorporateActions. 2 operations. Lead operation: List Stock Splits.
+    Self-contained Naftiko capability covering one Polygon business surface.
+  tags:
+    - Polygon
+    - Reference
+    - CorporateActions
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+binds:
+  - namespace: env
+    keys:
+      POLYGON_API_KEY: POLYGON_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "reference-corporateactions"
+      baseUri: "https://api.polygon.io"
+      description: "Polygon Reference REST API — CorporateActions business capability."
+      authentication:
+        type: bearer
+        token: "{{env.POLYGON_API_KEY}}"
+      resources:
+        - name: "reference-splits"
+          path: "/v3/reference/splits"
+          operations:
+            - name: "listStockSplits"
+              method: GET
+              description: "List Stock Splits"
+              inputParameters:
+                - name: "ticker"
+                  in: query
+                  type: string
+                  required: false
+                - name: "execution_date"
+                  in: query
+                  type: string
+                  required: false
+                - name: "limit"
+                  in: query
+                  type: integer
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "reference-dividends"
+          path: "/v3/reference/dividends"
+          operations:
+            - name: "listDividends"
+              method: GET
+              description: "List Stock Dividends"
+              inputParameters:
+                - name: "ticker"
+                  in: query
+                  type: string
+                  required: false
+                - name: "ex_dividend_date"
+                  in: query
+                  type: string
+                  required: false
+                - name: "limit"
+                  in: query
+                  type: integer
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "reference-corporateactions-rest"
+      port: 8080
+      description: "REST adapter for Polygon Reference REST API — CorporateActions."
+      resources:
+        - path: "/v1/v3/reference/splits"
+          name: "reference-splits"
+          description: "REST surface for reference-splits."
+          operations:
+            - method: GET
+              name: "listStockSplits"
+              description: "List Stock Splits"
+              call: "reference-corporateactions.listStockSplits"
+              with:
+                ticker: "rest.ticker"
+                execution_date: "rest.execution_date"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/v3/reference/dividends"
+          name: "reference-dividends"
+          description: "REST surface for reference-dividends."
+          operations:
+            - method: GET
+              name: "listDividends"
+              description: "List Stock Dividends"
+              call: "reference-corporateactions.listDividends"
+              with:
+                ticker: "rest.ticker"
+                ex_dividend_date: "rest.ex_dividend_date"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      namespace: "reference-corporateactions-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Polygon Reference REST API — CorporateActions."
+      tools:
+        - name: "list-stock-splits"
+          description: "List Stock Splits"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "reference-corporateactions.listStockSplits"
+          with:
+            ticker: "tools.ticker"
+            execution_date: "tools.execution_date"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-stock-dividends"
+          description: "List Stock Dividends"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "reference-corporateactions.listDividends"
+          with:
+            ticker: "tools.ticker"
+            ex_dividend_date: "tools.ex_dividend_date"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."

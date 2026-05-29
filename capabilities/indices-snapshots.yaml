@@ -1,0 +1,91 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Polygon Indices REST API — Snapshots"
+  description: >-
+    Indices — Snapshots. 1 operation. Lead operation: Get Snapshot For Indices.
+    Self-contained Naftiko capability covering one Polygon business surface.
+  tags:
+    - Polygon
+    - Indices
+    - Snapshots
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+binds:
+  - namespace: env
+    keys:
+      POLYGON_API_KEY: POLYGON_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "indices-snapshots"
+      baseUri: "https://api.polygon.io"
+      description: "Polygon Indices REST API — Snapshots business capability."
+      authentication:
+        type: bearer
+        token: "{{env.POLYGON_API_KEY}}"
+      resources:
+        - name: "snapshot-indices"
+          path: "/v3/snapshot/indices"
+          operations:
+            - name: "getIndicesSnapshot"
+              method: GET
+              description: "Get Snapshot For Indices"
+              inputParameters:
+                - name: "ticker.any_of"
+                  in: query
+                  type: string
+                  required: false
+                - name: "limit"
+                  in: query
+                  type: integer
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "indices-snapshots-rest"
+      port: 8080
+      description: "REST adapter for Polygon Indices REST API — Snapshots."
+      resources:
+        - path: "/v1/v3/snapshot/indices"
+          name: "snapshot-indices"
+          description: "REST surface for snapshot-indices."
+          operations:
+            - method: GET
+              name: "getIndicesSnapshot"
+              description: "Get Snapshot For Indices"
+              call: "indices-snapshots.getIndicesSnapshot"
+              with:
+                ticker.any_of: "rest.ticker.any_of"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      namespace: "indices-snapshots-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Polygon Indices REST API — Snapshots."
+      tools:
+        - name: "get-snapshot-indices"
+          description: "Get Snapshot For Indices"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "indices-snapshots.getIndicesSnapshot"
+          with:
+            ticker.any_of: "tools.ticker.any_of"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."

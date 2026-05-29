@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/polygon/main/json-schema/polygon-trade-schema.json",
+  "title": "Polygon Trade Tick",
+  "type": "object",
+  "description": "A single trade tick as emitted on the Polygon WebSocket stocks/options cluster.",
+  "properties": {
+    "ev": { "type": "string", "const": "T" },
+    "sym": { "type": "string", "description": "Ticker symbol." },
+    "x": { "type": "integer", "description": "Exchange ID." },
+    "i": { "type": "string", "description": "Trade ID." },
+    "p": { "type": "number", "description": "Trade price." },
+    "s": { "type": "integer", "description": "Trade size." },
+    "c": { "type": "array", "items": { "type": "integer" }, "description": "Trade condition codes." },
+    "t": { "type": "integer", "description": "SIP timestamp (Unix milliseconds)." }
+  },
+  "required": ["ev","sym","p","s","t"]
+}

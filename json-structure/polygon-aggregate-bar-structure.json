@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.github.io/draft-00/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/polygon/main/json-structure/polygon-aggregate-bar-structure.json",
+  "title": "Polygon Aggregate Bar (Structure)",
+  "description": "Structural definition of an OHLC aggregate bar used across Polygon REST and WebSocket aggregate endpoints.",
+  "type": "object",
+  "properties": {
+    "T": { "type": "string", "description": "Ticker symbol (only on grouped daily)." },
+    "v": { "type": "number", "description": "Volume." },
+    "vw": { "type": "number", "description": "Volume-weighted average price." },
+    "o": { "type": "number", "description": "Open price." },
+    "c": { "type": "number", "description": "Close price." },
+    "h": { "type": "number", "description": "High price." },
+    "l": { "type": "number", "description": "Low price." },
+    "t": { "type": "integer", "description": "Window start (Unix ms)." },
+    "n": { "type": "integer", "description": "Trade count." }
+  }
+}

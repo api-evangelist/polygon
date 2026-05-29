@@ -1,0 +1,103 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Polygon Reference REST API — News"
+  description: >-
+    Reference — News. 1 operation. Lead operation: List Ticker News.
+    Self-contained Naftiko capability covering one Polygon business surface.
+  tags:
+    - Polygon
+    - Reference
+    - News
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+binds:
+  - namespace: env
+    keys:
+      POLYGON_API_KEY: POLYGON_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "reference-news"
+      baseUri: "https://api.polygon.io"
+      description: "Polygon Reference REST API — News business capability."
+      authentication:
+        type: bearer
+        token: "{{env.POLYGON_API_KEY}}"
+      resources:
+        - name: "reference-news"
+          path: "/v2/reference/news"
+          operations:
+            - name: "listTickerNews"
+              method: GET
+              description: "List Ticker News"
+              inputParameters:
+                - name: "ticker"
+                  in: query
+                  type: string
+                  required: false
+                - name: "published_utc"
+                  in: query
+                  type: string
+                  required: false
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                - name: "limit"
+                  in: query
+                  type: integer
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "reference-news-rest"
+      port: 8080
+      description: "REST adapter for Polygon Reference REST API — News."
+      resources:
+        - path: "/v1/v2/reference/news"
+          name: "reference-news"
+          description: "REST surface for reference-news."
+          operations:
+            - method: GET
+              name: "listTickerNews"
+              description: "List Ticker News"
+              call: "reference-news.listTickerNews"
+              with:
+                ticker: "rest.ticker"
+                published_utc: "rest.published_utc"
+                order: "rest.order"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      namespace: "reference-news-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Polygon Reference REST API — News."
+      tools:
+        - name: "list-ticker-news"
+          description: "List Ticker News"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "reference-news.listTickerNews"
+          with:
+            ticker: "tools.ticker"
+            published_utc: "tools.published_utc"
+            order: "tools.order"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."

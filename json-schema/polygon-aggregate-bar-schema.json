@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/polygon/main/json-schema/polygon-aggregate-bar-schema.json",
+  "title": "Polygon Aggregate Bar",
+  "type": "object",
+  "description": "An OHLC aggregate bar returned by Polygon REST aggregate endpoints. Returned in compact single-letter keys.",
+  "properties": {
+    "T": { "type": "string", "description": "Ticker symbol (only present on certain endpoints, e.g. grouped daily)." },
+    "v": { "type": "number", "description": "Trading volume during the aggregate window." },
+    "vw": { "type": "number", "description": "Volume-weighted average price." },
+    "o": { "type": "number", "description": "Open price." },
+    "c": { "type": "number", "description": "Close price." },
+    "h": { "type": "number", "description": "High price." },
+    "l": { "type": "number", "description": "Low price." },
+    "t": { "type": "integer", "description": "Unix millisecond timestamp for the start of the aggregate window." },
+    "n": { "type": "integer", "description": "Number of transactions in the window." }
+  },
+  "required": ["o","c","h","l","t","v"]
+}

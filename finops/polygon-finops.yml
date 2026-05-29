@@ -1,0 +1,103 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Polygon
+providerId: polygon
+created: '2026-05-29'
+modified: '2026-05-29'
+reconciled: true
+tags:
+  - Fintech
+  - Market Data
+  - FinOps
+  - FOCUS
+description: >-
+  FinOps view of Polygon (Massive). Subscription-based per asset class with multiple tiers; Business
+  contracts add redistribution rights and pass through exchange data fees (OPRA, CME, NYSE TAQ).
+  Customers should budget per-asset-class subscriptions, expect a step-function when promoting from
+  Developer to Advanced (real-time SIP), and reserve a separate line item for exchange-licensed data
+  on Business plans.
+sources:
+  - https://polygon.io/pricing
+  - https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Polygon / Massive
+serviceCategory: Fintech
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Subscription
+    - Usage
+    - Adjustment
+focusColumns:
+  ServiceName: Polygon Market Data API
+  ServiceCategory: Fintech
+  ProviderName: Polygon
+  PublisherName: Polygon / Massive
+  InvoiceIssuerName: Polygon
+  BillingCurrency: USD
+  ChargeCategory: Subscription
+meters:
+  - name: stocks_subscription
+    description: Stocks plan monthly subscription (Starter / Developer / Advanced).
+    unit: month
+    aggregation: sum
+    dimensions:
+      - api_key
+      - plan_tier
+  - name: options_subscription
+    description: Options plan monthly subscription (includes OPRA exchange fee on Business).
+    unit: month
+    aggregation: sum
+    dimensions:
+      - api_key
+      - plan_tier
+  - name: indices_subscription
+    description: Indices plan monthly subscription.
+    unit: month
+    aggregation: sum
+    dimensions:
+      - api_key
+      - plan_tier
+  - name: forex_subscription
+    description: Forex plan monthly subscription.
+    unit: month
+    aggregation: sum
+    dimensions:
+      - api_key
+      - plan_tier
+  - name: crypto_subscription
+    description: Crypto plan monthly subscription.
+    unit: month
+    aggregation: sum
+    dimensions:
+      - api_key
+      - plan_tier
+  - name: exchange_passthrough
+    description: Exchange data fees (OPRA, CME, NYSE) passed through on Business plans.
+    unit: month
+    aggregation: sum
+    dimensions:
+      - api_key
+      - exchange_code
+principles:
+  - name: Visibility
+    description: Tag each Polygon API key to a single owning workload to enable accurate allocation.
+  - name: Allocation
+    description: Allocate subscription cost across consuming products; redistribution requires a Business plan.
+  - name: Optimization
+    description: Right-size between Starter / Developer / Advanced based on actual rpm and real-time SIP requirements; consolidate API keys per workload.
+  - name: Accountability
+    description: Assign a billing owner per asset-class subscription; review at renewal and audit unused asset-class subscriptions quarterly.
+  - name: Forecasting
+    description: Model step-function cost at Developer → Advanced (SIP) and at Business (exchange fees + redistribution).
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

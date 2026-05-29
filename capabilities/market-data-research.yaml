@@ -1,0 +1,218 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Polygon — Market Data Research"
+  description: >-
+    Cross-asset market data research surface. Pulls ticker reference,
+    aggregate bars across stocks/options/indices/forex/crypto, and
+    snapshots into a single composed workflow. Lead operation: List
+    Ticker Symbols across asset classes. Self-contained Naftiko
+    capability covering a Polygon cross-asset research surface.
+  tags:
+    - Polygon
+    - Research
+    - MultiAsset
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+binds:
+  - namespace: env
+    keys:
+      POLYGON_API_KEY: POLYGON_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "market-data-research"
+      baseUri: "https://api.polygon.io"
+      description: "Cross-asset Polygon research surface composing reference + aggregates + snapshots."
+      authentication:
+        type: bearer
+        token: "{{env.POLYGON_API_KEY}}"
+      resources:
+        - name: "reference-tickers"
+          path: "/v3/reference/tickers"
+          operations:
+            - name: "listTickers"
+              method: GET
+              description: "List ticker symbols across asset classes."
+              inputParameters:
+                - name: "ticker"
+                  in: query
+                  type: string
+                  required: false
+                - name: "market"
+                  in: query
+                  type: string
+                  required: false
+                - name: "active"
+                  in: query
+                  type: boolean
+                  required: false
+                - name: "limit"
+                  in: query
+                  type: integer
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "stocks-aggregate-bars"
+          path: "/v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}"
+          operations:
+            - name: "getStocksAggregateBars"
+              method: GET
+              description: "Get stocks aggregate bars over a date range."
+              inputParameters:
+                - name: "stocksTicker"
+                  in: path
+                  type: string
+                  required: true
+                - name: "multiplier"
+                  in: path
+                  type: integer
+                  required: true
+                - name: "timespan"
+                  in: path
+                  type: string
+                  required: true
+                - name: "from"
+                  in: path
+                  type: string
+                  required: true
+                - name: "to"
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "indices-snapshot"
+          path: "/v3/snapshot/indices"
+          operations:
+            - name: "getIndicesSnapshot"
+              method: GET
+              description: "Get current values for one or more indices."
+              inputParameters:
+                - name: "ticker.any_of"
+                  in: query
+                  type: string
+                  required: false
+                - name: "limit"
+                  in: query
+                  type: integer
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "market-data-research-rest"
+      port: 8080
+      description: "REST adapter for cross-asset Polygon market data research."
+      resources:
+        - path: "/v1/research/tickers"
+          name: "research-tickers"
+          description: "List tickers across asset classes."
+          operations:
+            - method: GET
+              name: "listTickers"
+              description: "List ticker symbols across asset classes."
+              call: "market-data-research.listTickers"
+              with:
+                ticker: "rest.ticker"
+                market: "rest.market"
+                active: "rest.active"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/research/stocks/{stocks-ticker}/aggregates/{multiplier}/{timespan}/{from}/{to}"
+          name: "research-stocks-aggregates"
+          description: "Stocks aggregate bars for research."
+          operations:
+            - method: GET
+              name: "getStocksAggregateBars"
+              description: "Get stocks aggregate bars over a date range."
+              call: "market-data-research.getStocksAggregateBars"
+              with:
+                stocksTicker: "rest.stocksTicker"
+                multiplier: "rest.multiplier"
+                timespan: "rest.timespan"
+                from: "rest.from"
+                to: "rest.to"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/research/indices/snapshot"
+          name: "research-indices-snapshot"
+          description: "Index values snapshot."
+          operations:
+            - method: GET
+              name: "getIndicesSnapshot"
+              description: "Get current values for one or more indices."
+              call: "market-data-research.getIndicesSnapshot"
+              with:
+                "ticker.any_of": "rest.tickerAnyOf"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      namespace: "market-data-research-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for cross-asset Polygon market data research."
+      tools:
+        - name: "list-tickers"
+          description: "List ticker symbols across asset classes."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "market-data-research.listTickers"
+          with:
+            ticker: "tools.ticker"
+            market: "tools.market"
+            active: "tools.active"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-stocks-aggregate-bars"
+          description: "Get stocks aggregate bars over a date range."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "market-data-research.getStocksAggregateBars"
+          with:
+            stocksTicker: "tools.stocksTicker"
+            multiplier: "tools.multiplier"
+            timespan: "tools.timespan"
+            from: "tools.from"
+            to: "tools.to"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-indices-snapshot"
+          description: "Get current values for one or more indices."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "market-data-research.getIndicesSnapshot"
+          with:
+            "ticker.any_of": "tools.tickerAnyOf"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."

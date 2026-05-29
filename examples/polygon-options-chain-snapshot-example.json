@@ -1,0 +1,60 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.polygon.io/v3/snapshot/options/AAPL?contract_type=call&expiration_date=2026-06-19&limit=3",
+    "headers": {
+      "Authorization": "Bearer YOUR_POLYGON_API_KEY"
+    }
+  },
+  "response": {
+    "status": "OK",
+    "request_id": "9c3e2f01-polygon-options-chain-example",
+    "results": [
+      {
+        "break_even_price": 198.45,
+        "details": {
+          "contract_type": "call",
+          "exercise_style": "american",
+          "expiration_date": "2026-06-19",
+          "shares_per_contract": 100,
+          "strike_price": 195,
+          "ticker": "O:AAPL260619C00195000",
+          "underlying_ticker": "AAPL"
+        },
+        "greeks": { "delta": 0.62, "gamma": 0.041, "theta": -0.083, "vega": 0.224 },
+        "implied_volatility": 0.246,
+        "open_interest": 38214
+      },
+      {
+        "break_even_price": 203.10,
+        "details": {
+          "contract_type": "call",
+          "exercise_style": "american",
+          "expiration_date": "2026-06-19",
+          "shares_per_contract": 100,
+          "strike_price": 200,
+          "ticker": "O:AAPL260619C00200000",
+          "underlying_ticker": "AAPL"
+        },
+        "greeks": { "delta": 0.48, "gamma": 0.045, "theta": -0.091, "vega": 0.231 },
+        "implied_volatility": 0.252,
+        "open_interest": 52891
+      },
+      {
+        "break_even_price": 207.85,
+        "details": {
+          "contract_type": "call",
+          "exercise_style": "american",
+          "expiration_date": "2026-06-19",
+          "shares_per_contract": 100,
+          "strike_price": 205,
+          "ticker": "O:AAPL260619C00205000",
+          "underlying_ticker": "AAPL"
+        },
+        "greeks": { "delta": 0.34, "gamma": 0.040, "theta": -0.082, "vega": 0.215 },
+        "implied_volatility": 0.261,
+        "open_interest": 41003
+      }
+    ]
+  }
+}

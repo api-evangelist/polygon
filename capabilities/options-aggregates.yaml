@@ -1,0 +1,109 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Polygon Options REST API — Aggregates"
+  description: >-
+    Options — Aggregates. 1 operation. Lead operation: Get Aggregate Bars For An Options Contract.
+    Self-contained Naftiko capability covering one Polygon business surface.
+  tags:
+    - Polygon
+    - Options
+    - Aggregates
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+binds:
+  - namespace: env
+    keys:
+      POLYGON_API_KEY: POLYGON_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "options-aggregates"
+      baseUri: "https://api.polygon.io"
+      description: "Polygon Options REST API — Aggregates business capability."
+      authentication:
+        type: bearer
+        token: "{{env.POLYGON_API_KEY}}"
+      resources:
+        - name: "aggs-ticker-optionsticker-range-multiplier-timespan-from-to"
+          path: "/v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}"
+          operations:
+            - name: "getOptionsAggregateBars"
+              method: GET
+              description: "Get Aggregate Bars For An Options Contract"
+              inputParameters:
+                - name: "optionsTicker"
+                  in: path
+                  type: string
+                  required: true
+                - name: "multiplier"
+                  in: path
+                  type: integer
+                  required: true
+                - name: "timespan"
+                  in: path
+                  type: string
+                  required: true
+                - name: "from"
+                  in: path
+                  type: string
+                  required: true
+                - name: "to"
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "options-aggregates-rest"
+      port: 8080
+      description: "REST adapter for Polygon Options REST API — Aggregates."
+      resources:
+        - path: "/v1/v2/aggs/ticker/{options-ticker}/range/{multiplier}/{timespan}/{from}/{to}"
+          name: "aggs-ticker-optionsticker-range-multiplier-timespan-from-to"
+          description: "REST surface for aggs-ticker-optionsticker-range-multiplier-timespan-from-to."
+          operations:
+            - method: GET
+              name: "getOptionsAggregateBars"
+              description: "Get Aggregate Bars For An Options Contract"
+              call: "options-aggregates.getOptionsAggregateBars"
+              with:
+                optionsTicker: "rest.optionsTicker"
+                multiplier: "rest.multiplier"
+                timespan: "rest.timespan"
+                from: "rest.from"
+                to: "rest.to"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      namespace: "options-aggregates-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Polygon Options REST API — Aggregates."
+      tools:
+        - name: "get-aggregate-bars-options-contract"
+          description: "Get Aggregate Bars For An Options Contract"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "options-aggregates.getOptionsAggregateBars"
+          with:
+            optionsTicker: "tools.optionsTicker"
+            multiplier: "tools.multiplier"
+            timespan: "tools.timespan"
+            from: "tools.from"
+            to: "tools.to"
+          outputParameters:
+            - type: object
+              mapping: "$."

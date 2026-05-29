@@ -1,0 +1,201 @@
+openapi: 3.1.0
+info:
+  title: Polygon Indices REST API
+  version: '1.0'
+  description: |
+    Polygon Indices API exposes real-time and historical index values
+    (e.g., I:SPX, I:NDX) via `https://api.polygon.io`. This spec covers
+    the snapshot, aggregates, and previous-close endpoints. Auth uses an
+    API key via `apiKey` query parameter or `Authorization: Bearer`.
+  contact:
+    name: Polygon Documentation
+    url: https://polygon.io/docs/indices
+servers:
+  - url: https://api.polygon.io
+    description: Polygon REST API
+security:
+  - apiKeyQuery: []
+  - bearerAuth: []
+tags:
+  - name: Snapshots
+    description: Index snapshot endpoints.
+  - name: Aggregates
+    description: Index aggregate bar endpoints.
+paths:
+  /v3/snapshot/indices:
+    get:
+      tags: [Snapshots]
+      operationId: getIndicesSnapshot
+      summary: Get Snapshot For Indices
+      description: Returns the most recent index values for one or more indices.
+      parameters:
+        - in: query
+          name: ticker.any_of
+          schema:
+            type: string
+          description: Comma-separated list of index tickers (e.g., I:SPX,I:DJI).
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+            maximum: 250
+      responses:
+        '200':
+          description: Indices snapshot response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicesSnapshotResponse'
+  /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}:
+    get:
+      tags: [Aggregates]
+      operationId: getIndicesAggregateBars
+      summary: Get Aggregate Bars For An Index
+      description: Aggregate bars (OHLC) for an index ticker over a date range.
+      parameters:
+        - in: path
+          name: indicesTicker
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: multiplier
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: timespan
+          required: true
+          schema:
+            type: string
+            enum: [minute, hour, day, week, month, quarter, year]
+        - in: path
+          name: from
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: to
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Indices aggregate bars response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregatesResponse'
+  /v2/aggs/ticker/{indicesTicker}/prev:
+    get:
+      tags: [Aggregates]
+      operationId: getIndicesPreviousClose
+      summary: Get Previous Close For An Index
+      description: Returns the previous day's open/close/high/low for an index.
+      parameters:
+        - in: path
+          name: indicesTicker
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Indices previous close response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregatesResponse'
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+  schemas:
+    IndexSnapshot:
+      type: object
+      properties:
+        ticker:
+          type: string
+        name:
+          type: string
+        value:
+          type: number
+        last_updated:
+          type: integer
+          format: int64
+        market_status:
+          type: string
+        type:
+          type: string
+        session:
+          type: object
+          properties:
+            change:
+              type: number
+            change_percent:
+              type: number
+            close:
+              type: number
+            high:
+              type: number
+            low:
+              type: number
+            open:
+              type: number
+            previous_close:
+              type: number
+    IndicesSnapshotResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndexSnapshot'
+    AggregateBar:
+      type: object
+      properties:
+        v:
+          type: number
+        vw:
+          type: number
+        o:
+          type: number
+        c:
+          type: number
+        h:
+          type: number
+        l:
+          type: number
+        t:
+          type: integer
+          format: int64
+        n:
+          type: integer
+    AggregatesResponse:
+      type: object
+      properties:
+        ticker:
+          type: string
+        status:
+          type: string
+        request_id:
+          type: string
+        resultsCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregateBar'

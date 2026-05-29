@@ -1,0 +1,229 @@
+asyncapi: 3.0.0
+info:
+  title: Polygon WebSocket Streaming API
+  version: '1.0'
+  description: |
+    Polygon real-time market data WebSocket clusters. Each asset class
+    (stocks, options, indices, forex, crypto) has its own dedicated
+    cluster at `wss://socket.polygon.io/{cluster}`. Clients authenticate
+    by sending an `auth` action with their API key, then subscribe to
+    one or more channels prefixed by event type and ticker (e.g.
+    `T.AAPL`, `Q.AAPL`, `A.AAPL`, `AM.AAPL`).
+  contact:
+    name: Polygon Documentation
+    url: https://polygon.io/docs/stocks/ws_getting-started
+defaultContentType: application/json
+servers:
+  stocks:
+    host: socket.polygon.io
+    pathname: /stocks
+    protocol: wss
+    description: Stocks real-time cluster
+  options:
+    host: socket.polygon.io
+    pathname: /options
+    protocol: wss
+    description: Options real-time cluster
+  indices:
+    host: socket.polygon.io
+    pathname: /indices
+    protocol: wss
+    description: Indices real-time cluster
+  forex:
+    host: socket.polygon.io
+    pathname: /forex
+    protocol: wss
+    description: Forex real-time cluster
+  crypto:
+    host: socket.polygon.io
+    pathname: /crypto
+    protocol: wss
+    description: Crypto real-time cluster
+channels:
+  control:
+    address: control
+    description: Client-to-server control messages (auth, subscribe, unsubscribe).
+    messages:
+      auth:
+        $ref: '#/components/messages/AuthMessage'
+      subscribe:
+        $ref: '#/components/messages/SubscribeMessage'
+      unsubscribe:
+        $ref: '#/components/messages/UnsubscribeMessage'
+  events:
+    address: events
+    description: Server-to-client market data events.
+    messages:
+      status:
+        $ref: '#/components/messages/StatusMessage'
+      trade:
+        $ref: '#/components/messages/TradeMessage'
+      quote:
+        $ref: '#/components/messages/QuoteMessage'
+      aggregateMinute:
+        $ref: '#/components/messages/AggregateMessage'
+operations:
+  sendControl:
+    action: send
+    channel:
+      $ref: '#/channels/control'
+    messages:
+      - $ref: '#/channels/control/messages/auth'
+      - $ref: '#/channels/control/messages/subscribe'
+      - $ref: '#/channels/control/messages/unsubscribe'
+  receiveEvents:
+    action: receive
+    channel:
+      $ref: '#/channels/events'
+    messages:
+      - $ref: '#/channels/events/messages/status'
+      - $ref: '#/channels/events/messages/trade'
+      - $ref: '#/channels/events/messages/quote'
+      - $ref: '#/channels/events/messages/aggregateMinute'
+components:
+  messages:
+    AuthMessage:
+      name: Auth
+      title: Authenticate
+      summary: Send API key to authenticate the WebSocket session.
+      payload:
+        type: object
+        required: [action, params]
+        properties:
+          action:
+            type: string
+            const: auth
+          params:
+            type: string
+            description: The API key.
+    SubscribeMessage:
+      name: Subscribe
+      title: Subscribe To Channels
+      payload:
+        type: object
+        required: [action, params]
+        properties:
+          action:
+            type: string
+            const: subscribe
+          params:
+            type: string
+            description: Comma-separated channel list, e.g. T.AAPL,Q.AAPL,A.AAPL.
+    UnsubscribeMessage:
+      name: Unsubscribe
+      title: Unsubscribe From Channels
+      payload:
+        type: object
+        required: [action, params]
+        properties:
+          action:
+            type: string
+            const: unsubscribe
+          params:
+            type: string
+    StatusMessage:
+      name: Status
+      title: Status Message
+      payload:
+        type: object
+        properties:
+          ev:
+            type: string
+            const: status
+          status:
+            type: string
+          message:
+            type: string
+    TradeMessage:
+      name: Trade
+      title: Trade Tick
+      payload:
+        type: object
+        properties:
+          ev:
+            type: string
+            const: T
+          sym:
+            type: string
+          x:
+            type: integer
+            description: Exchange ID.
+          i:
+            type: string
+            description: Trade ID.
+          p:
+            type: number
+            description: Price.
+          s:
+            type: integer
+            description: Size.
+          c:
+            type: array
+            items:
+              type: integer
+            description: Trade conditions.
+          t:
+            type: integer
+            format: int64
+            description: SIP timestamp (ms).
+    QuoteMessage:
+      name: Quote
+      title: NBBO Quote Tick
+      payload:
+        type: object
+        properties:
+          ev:
+            type: string
+            const: Q
+          sym:
+            type: string
+          bx:
+            type: integer
+          bp:
+            type: number
+          bs:
+            type: integer
+          ax:
+            type: integer
+          ap:
+            type: number
+          as:
+            type: integer
+          t:
+            type: integer
+            format: int64
+    AggregateMessage:
+      name: AggregateMinute
+      title: Aggregate (Per-Minute) Bar
+      payload:
+        type: object
+        properties:
+          ev:
+            type: string
+            enum: [A, AM]
+          sym:
+            type: string
+          v:
+            type: number
+          av:
+            type: number
+          op:
+            type: number
+          vw:
+            type: number
+          o:
+            type: number
+          c:
+            type: number
+          h:
+            type: number
+          l:
+            type: number
+          a:
+            type: number
+          s:
+            type: integer
+            format: int64
+          e:
+            type: integer
+            format: int64

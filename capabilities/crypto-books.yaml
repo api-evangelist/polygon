@@ -1,0 +1,85 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Polygon Crypto REST API — Books"
+  description: >-
+    Crypto — Books. 1 operation. Lead operation: Get Level Two Book For A Crypto Pair.
+    Self-contained Naftiko capability covering one Polygon business surface.
+  tags:
+    - Polygon
+    - Crypto
+    - Books
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+binds:
+  - namespace: env
+    keys:
+      POLYGON_API_KEY: POLYGON_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "crypto-books"
+      baseUri: "https://api.polygon.io"
+      description: "Polygon Crypto REST API — Books business capability."
+      authentication:
+        type: bearer
+        token: "{{env.POLYGON_API_KEY}}"
+      resources:
+        - name: "snapshot-locale-global-markets-crypto-tickers-ticker-book"
+          path: "/v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book"
+          operations:
+            - name: "getCryptoL2Book"
+              method: GET
+              description: "Get Level Two Book For A Crypto Pair"
+              inputParameters:
+                - name: "ticker"
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "crypto-books-rest"
+      port: 8080
+      description: "REST adapter for Polygon Crypto REST API — Books."
+      resources:
+        - path: "/v1/v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book"
+          name: "snapshot-locale-global-markets-crypto-tickers-ticker-book"
+          description: "REST surface for snapshot-locale-global-markets-crypto-tickers-ticker-book."
+          operations:
+            - method: GET
+              name: "getCryptoL2Book"
+              description: "Get Level Two Book For A Crypto Pair"
+              call: "crypto-books.getCryptoL2Book"
+              with:
+                ticker: "rest.ticker"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      namespace: "crypto-books-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Polygon Crypto REST API — Books."
+      tools:
+        - name: "get-level-two-book-crypto"
+          description: "Get Level Two Book For A Crypto Pair"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "crypto-books.getCryptoL2Book"
+          with:
+            ticker: "tools.ticker"
+          outputParameters:
+            - type: object
+              mapping: "$."

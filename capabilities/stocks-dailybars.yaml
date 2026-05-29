@@ -1,0 +1,197 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Polygon Stocks REST API — DailyBars"
+  description: >-
+    Stocks — DailyBars. 3 operations. Lead operation: Get Daily Open Close For A Stock Ticker.
+    Self-contained Naftiko capability covering one Polygon business surface.
+  tags:
+    - Polygon
+    - Stocks
+    - DailyBars
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+binds:
+  - namespace: env
+    keys:
+      POLYGON_API_KEY: POLYGON_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "stocks-dailybars"
+      baseUri: "https://api.polygon.io"
+      description: "Polygon Stocks REST API — DailyBars business capability."
+      authentication:
+        type: bearer
+        token: "{{env.POLYGON_API_KEY}}"
+      resources:
+        - name: "open-close-stocksticker-date"
+          path: "/v1/open-close/{stocksTicker}/{date}"
+          operations:
+            - name: "getStocksDailyOpenClose"
+              method: GET
+              description: "Get Daily Open Close For A Stock Ticker"
+              inputParameters:
+                - name: "stocksTicker"
+                  in: path
+                  type: string
+                  required: true
+                - name: "date"
+                  in: path
+                  type: string
+                  required: true
+                - name: "adjusted"
+                  in: query
+                  type: boolean
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "aggs-grouped-locale-us-market-stocks-date"
+          path: "/v2/aggs/grouped/locale/us/market/stocks/{date}"
+          operations:
+            - name: "getStocksGroupedDailyBars"
+              method: GET
+              description: "Get Grouped Daily Bars For US Stocks"
+              inputParameters:
+                - name: "date"
+                  in: path
+                  type: string
+                  required: true
+                - name: "adjusted"
+                  in: query
+                  type: boolean
+                  required: false
+                - name: "include_otc"
+                  in: query
+                  type: boolean
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "aggs-ticker-stocksticker-prev"
+          path: "/v2/aggs/ticker/{stocksTicker}/prev"
+          operations:
+            - name: "getStocksPreviousClose"
+              method: GET
+              description: "Get Previous Close For A Stock Ticker"
+              inputParameters:
+                - name: "stocksTicker"
+                  in: path
+                  type: string
+                  required: true
+                - name: "adjusted"
+                  in: query
+                  type: boolean
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "stocks-dailybars-rest"
+      port: 8080
+      description: "REST adapter for Polygon Stocks REST API — DailyBars."
+      resources:
+        - path: "/v1/v1/open-close/{stocks-ticker}/{date}"
+          name: "open-close-stocksticker-date"
+          description: "REST surface for open-close-stocksticker-date."
+          operations:
+            - method: GET
+              name: "getStocksDailyOpenClose"
+              description: "Get Daily Open Close For A Stock Ticker"
+              call: "stocks-dailybars.getStocksDailyOpenClose"
+              with:
+                stocksTicker: "rest.stocksTicker"
+                date: "rest.date"
+                adjusted: "rest.adjusted"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/v2/aggs/grouped/locale/us/market/stocks/{date}"
+          name: "aggs-grouped-locale-us-market-stocks-date"
+          description: "REST surface for aggs-grouped-locale-us-market-stocks-date."
+          operations:
+            - method: GET
+              name: "getStocksGroupedDailyBars"
+              description: "Get Grouped Daily Bars For US Stocks"
+              call: "stocks-dailybars.getStocksGroupedDailyBars"
+              with:
+                date: "rest.date"
+                adjusted: "rest.adjusted"
+                include_otc: "rest.include_otc"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/v2/aggs/ticker/{stocks-ticker}/prev"
+          name: "aggs-ticker-stocksticker-prev"
+          description: "REST surface for aggs-ticker-stocksticker-prev."
+          operations:
+            - method: GET
+              name: "getStocksPreviousClose"
+              description: "Get Previous Close For A Stock Ticker"
+              call: "stocks-dailybars.getStocksPreviousClose"
+              with:
+                stocksTicker: "rest.stocksTicker"
+                adjusted: "rest.adjusted"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      namespace: "stocks-dailybars-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Polygon Stocks REST API — DailyBars."
+      tools:
+        - name: "get-daily-open-close-stock"
+          description: "Get Daily Open Close For A Stock Ticker"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "stocks-dailybars.getStocksDailyOpenClose"
+          with:
+            stocksTicker: "tools.stocksTicker"
+            date: "tools.date"
+            adjusted: "tools.adjusted"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-grouped-daily-bars-us"
+          description: "Get Grouped Daily Bars For US Stocks"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "stocks-dailybars.getStocksGroupedDailyBars"
+          with:
+            date: "tools.date"
+            adjusted: "tools.adjusted"
+            include_otc: "tools.include_otc"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-previous-close-stock-ticker"
+          description: "Get Previous Close For A Stock Ticker"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "stocks-dailybars.getStocksPreviousClose"
+          with:
+            stocksTicker: "tools.stocksTicker"
+            adjusted: "tools.adjusted"
+          outputParameters:
+            - type: object
+              mapping: "$."

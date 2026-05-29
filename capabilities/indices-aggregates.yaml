@@ -1,0 +1,150 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Polygon Indices REST API — Aggregates"
+  description: >-
+    Indices — Aggregates. 2 operations. Lead operation: Get Aggregate Bars For An Index.
+    Self-contained Naftiko capability covering one Polygon business surface.
+  tags:
+    - Polygon
+    - Indices
+    - Aggregates
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+binds:
+  - namespace: env
+    keys:
+      POLYGON_API_KEY: POLYGON_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "indices-aggregates"
+      baseUri: "https://api.polygon.io"
+      description: "Polygon Indices REST API — Aggregates business capability."
+      authentication:
+        type: bearer
+        token: "{{env.POLYGON_API_KEY}}"
+      resources:
+        - name: "aggs-ticker-indicesticker-range-multiplier-timespan-from-to"
+          path: "/v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}"
+          operations:
+            - name: "getIndicesAggregateBars"
+              method: GET
+              description: "Get Aggregate Bars For An Index"
+              inputParameters:
+                - name: "indicesTicker"
+                  in: path
+                  type: string
+                  required: true
+                - name: "multiplier"
+                  in: path
+                  type: integer
+                  required: true
+                - name: "timespan"
+                  in: path
+                  type: string
+                  required: true
+                - name: "from"
+                  in: path
+                  type: string
+                  required: true
+                - name: "to"
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "aggs-ticker-indicesticker-prev"
+          path: "/v2/aggs/ticker/{indicesTicker}/prev"
+          operations:
+            - name: "getIndicesPreviousClose"
+              method: GET
+              description: "Get Previous Close For An Index"
+              inputParameters:
+                - name: "indicesTicker"
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "indices-aggregates-rest"
+      port: 8080
+      description: "REST adapter for Polygon Indices REST API — Aggregates."
+      resources:
+        - path: "/v1/v2/aggs/ticker/{indices-ticker}/range/{multiplier}/{timespan}/{from}/{to}"
+          name: "aggs-ticker-indicesticker-range-multiplier-timespan-from-to"
+          description: "REST surface for aggs-ticker-indicesticker-range-multiplier-timespan-from-to."
+          operations:
+            - method: GET
+              name: "getIndicesAggregateBars"
+              description: "Get Aggregate Bars For An Index"
+              call: "indices-aggregates.getIndicesAggregateBars"
+              with:
+                indicesTicker: "rest.indicesTicker"
+                multiplier: "rest.multiplier"
+                timespan: "rest.timespan"
+                from: "rest.from"
+                to: "rest.to"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/v2/aggs/ticker/{indices-ticker}/prev"
+          name: "aggs-ticker-indicesticker-prev"
+          description: "REST surface for aggs-ticker-indicesticker-prev."
+          operations:
+            - method: GET
+              name: "getIndicesPreviousClose"
+              description: "Get Previous Close For An Index"
+              call: "indices-aggregates.getIndicesPreviousClose"
+              with:
+                indicesTicker: "rest.indicesTicker"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      namespace: "indices-aggregates-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Polygon Indices REST API — Aggregates."
+      tools:
+        - name: "get-aggregate-bars-index"
+          description: "Get Aggregate Bars For An Index"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "indices-aggregates.getIndicesAggregateBars"
+          with:
+            indicesTicker: "tools.indicesTicker"
+            multiplier: "tools.multiplier"
+            timespan: "tools.timespan"
+            from: "tools.from"
+            to: "tools.to"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-previous-close-index"
+          description: "Get Previous Close For An Index"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "indices-aggregates.getIndicesPreviousClose"
+          with:
+            indicesTicker: "tools.indicesTicker"
+          outputParameters:
+            - type: object
+              mapping: "$."

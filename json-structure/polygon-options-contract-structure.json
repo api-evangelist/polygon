@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.github.io/draft-00/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/polygon/main/json-structure/polygon-options-contract-structure.json",
+  "title": "Polygon Options Contract (Structure)",
+  "description": "Structural definition of an OPRA-licensed option contract reference returned by Polygon.",
+  "type": "object",
+  "properties": {
+    "cfi": { "type": "string" },
+    "contract_type": { "type": "string" },
+    "exercise_style": { "type": "string" },
+    "expiration_date": { "type": "string" },
+    "primary_exchange": { "type": "string" },
+    "shares_per_contract": { "type": "integer" },
+    "strike_price": { "type": "number" },
+    "ticker": { "type": "string" },
+    "underlying_ticker": { "type": "string" }
+  }
+}

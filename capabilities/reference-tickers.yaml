@@ -1,0 +1,227 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Polygon Reference REST API — Tickers"
+  description: >-
+    Reference — Tickers. 3 operations. Lead operation: List Ticker Symbols.
+    Self-contained Naftiko capability covering one Polygon business surface.
+  tags:
+    - Polygon
+    - Reference
+    - Tickers
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+binds:
+  - namespace: env
+    keys:
+      POLYGON_API_KEY: POLYGON_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "reference-tickers"
+      baseUri: "https://api.polygon.io"
+      description: "Polygon Reference REST API — Tickers business capability."
+      authentication:
+        type: bearer
+        token: "{{env.POLYGON_API_KEY}}"
+      resources:
+        - name: "reference-tickers"
+          path: "/v3/reference/tickers"
+          operations:
+            - name: "listTickers"
+              method: GET
+              description: "List Ticker Symbols"
+              inputParameters:
+                - name: "ticker"
+                  in: query
+                  type: string
+                  required: false
+                - name: "type"
+                  in: query
+                  type: string
+                  required: false
+                - name: "market"
+                  in: query
+                  type: string
+                  required: false
+                - name: "exchange"
+                  in: query
+                  type: string
+                  required: false
+                - name: "active"
+                  in: query
+                  type: boolean
+                  required: false
+                - name: "search"
+                  in: query
+                  type: string
+                  required: false
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                - name: "limit"
+                  in: query
+                  type: integer
+                  required: false
+                - name: "sort"
+                  in: query
+                  type: string
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "reference-tickers-ticker"
+          path: "/v3/reference/tickers/{ticker}"
+          operations:
+            - name: "getTickerDetails"
+              method: GET
+              description: "Get Ticker Details"
+              inputParameters:
+                - name: "ticker"
+                  in: path
+                  type: string
+                  required: true
+                - name: "date"
+                  in: query
+                  type: string
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "reference-tickers-types"
+          path: "/v3/reference/tickers/types"
+          operations:
+            - name: "listTickerTypes"
+              method: GET
+              description: "List Ticker Types"
+              inputParameters:
+                - name: "asset_class"
+                  in: query
+                  type: string
+                  required: false
+                - name: "locale"
+                  in: query
+                  type: string
+                  required: false
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "reference-tickers-rest"
+      port: 8080
+      description: "REST adapter for Polygon Reference REST API — Tickers."
+      resources:
+        - path: "/v1/v3/reference/tickers"
+          name: "reference-tickers"
+          description: "REST surface for reference-tickers."
+          operations:
+            - method: GET
+              name: "listTickers"
+              description: "List Ticker Symbols"
+              call: "reference-tickers.listTickers"
+              with:
+                ticker: "rest.ticker"
+                type: "rest.type"
+                market: "rest.market"
+                exchange: "rest.exchange"
+                active: "rest.active"
+                search: "rest.search"
+                order: "rest.order"
+                limit: "rest.limit"
+                sort: "rest.sort"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/v3/reference/tickers/{ticker}"
+          name: "reference-tickers-ticker"
+          description: "REST surface for reference-tickers-ticker."
+          operations:
+            - method: GET
+              name: "getTickerDetails"
+              description: "Get Ticker Details"
+              call: "reference-tickers.getTickerDetails"
+              with:
+                ticker: "rest.ticker"
+                date: "rest.date"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/v3/reference/tickers/types"
+          name: "reference-tickers-types"
+          description: "REST surface for reference-tickers-types."
+          operations:
+            - method: GET
+              name: "listTickerTypes"
+              description: "List Ticker Types"
+              call: "reference-tickers.listTickerTypes"
+              with:
+                asset_class: "rest.asset_class"
+                locale: "rest.locale"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      namespace: "reference-tickers-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Polygon Reference REST API — Tickers."
+      tools:
+        - name: "list-ticker-symbols"
+          description: "List Ticker Symbols"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "reference-tickers.listTickers"
+          with:
+            ticker: "tools.ticker"
+            type: "tools.type"
+            market: "tools.market"
+            exchange: "tools.exchange"
+            active: "tools.active"
+            search: "tools.search"
+            order: "tools.order"
+            limit: "tools.limit"
+            sort: "tools.sort"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-ticker-details"
+          description: "Get Ticker Details"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "reference-tickers.getTickerDetails"
+          with:
+            ticker: "tools.ticker"
+            date: "tools.date"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-ticker-types"
+          description: "List Ticker Types"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "reference-tickers.listTickerTypes"
+          with:
+            asset_class: "tools.asset_class"
+            locale: "tools.locale"
+          outputParameters:
+            - type: object
+              mapping: "$."

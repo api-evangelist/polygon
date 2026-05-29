@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.polygon.io/v3/reference/tickers?market=stocks&active=true&search=apple&limit=5",
+    "headers": {
+      "Authorization": "Bearer YOUR_POLYGON_API_KEY"
+    }
+  },
+  "response": {
+    "status": "OK",
+    "request_id": "b7a1c4d5-polygon-tickers-example",
+    "count": 2,
+    "results": [
+      {
+        "ticker": "AAPL",
+        "name": "Apple Inc.",
+        "market": "stocks",
+        "locale": "us",
+        "primary_exchange": "XNAS",
+        "type": "CS",
+        "active": true,
+        "currency_name": "usd",
+        "cik": "0000320193",
+        "composite_figi": "BBG000B9XRY4",
+        "share_class_figi": "BBG001S5N8V8",
+        "last_updated_utc": "2026-05-28T00:00:00Z"
+      },
+      {
+        "ticker": "APLE",
+        "name": "Apple Hospitality REIT, Inc.",
+        "market": "stocks",
+        "locale": "us",
+        "primary_exchange": "XNYS",
+        "type": "CS",
+        "active": true,
+        "currency_name": "usd",
+        "cik": "0001418121",
+        "last_updated_utc": "2026-05-28T00:00:00Z"
+      }
+    ]
+  }
+}

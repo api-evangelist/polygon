@@ -1,0 +1,71 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Polygon
+providerId: polygon
+created: '2026-05-29'
+modified: '2026-05-29'
+reconciled: true
+tags:
+  - Fintech
+  - Market Data
+  - Stocks
+  - Options
+  - Crypto
+  - Forex
+  - Indices
+  - Rate Limiting
+description: >-
+  The Polygon Basic (Free) plan is hard-capped at 5 API requests per minute. Paid Stocks, Options,
+  Indices, Forex, Crypto, and Futures plans (Starter, Developer, Advanced) advertise unlimited API
+  requests subject to soft fair-use. WebSocket cluster connections are tier-gated; the Free plan
+  permits a single concurrent connection per asset cluster. Throttled responses return HTTP 429
+  with a Retry-After header.
+sources:
+  - https://polygon.io/docs/getting-started
+  - https://polygon.io/pricing
+responseCodes:
+  throttled: 429
+limits:
+  - name: Basic (Free) REST plan
+    scope: api_key
+    metric: requests_per_minute
+    limit: 5
+    notes: Hard cap on Free tier across REST.
+  - name: Paid plans (Starter/Developer/Advanced)
+    scope: api_key
+    metric: requests_per_minute
+    limit: -1
+    notes: Advertised as unlimited; soft fair-use applies.
+  - name: WebSocket connections (Free / Starter)
+    scope: api_key
+    metric: concurrent_connections
+    limit: 1
+    notes: Free and Starter tiers limited to a single WebSocket cluster connection per asset class.
+  - name: WebSocket connections (Developer)
+    scope: api_key
+    metric: concurrent_connections
+    limit: 1
+    notes: Developer tier still typically capped at 1 concurrent cluster connection.
+  - name: WebSocket connections (Advanced / Business)
+    scope: api_key
+    metric: concurrent_connections
+    limit: -1
+    notes: Higher tiers permit multiple cluster connections.
+  - name: WebSocket subscription channels per connection
+    scope: connection
+    metric: subscribed_channels
+    limit: -1
+    notes: No hard documented cap; subscribers should avoid wildcard explosion (e.g. T.*) on Free tier.
+policies:
+  - name: Backoff Strategy
+    description: On 429, honor Retry-After and apply exponential backoff with jitter.
+  - name: Connection Reuse
+    description: Reuse WebSocket connections; do not open per-message connections.
+  - name: Pagination
+    description: Use next_url cursor for large result sets rather than tightening limit and re-polling.
+  - name: Flat Files For Bulk
+    description: For historical bulk loads, prefer the S3-style flat files product over high-rate REST polling.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

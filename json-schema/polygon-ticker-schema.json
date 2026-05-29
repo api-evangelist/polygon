@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/polygon/main/json-schema/polygon-ticker-schema.json",
+  "title": "Polygon Ticker",
+  "type": "object",
+  "description": "A ticker reference entry as returned by the Polygon Reference API.",
+  "properties": {
+    "ticker": { "type": "string" },
+    "name": { "type": "string" },
+    "market": { "type": "string", "enum": ["stocks","crypto","fx","otc","indices"] },
+    "locale": { "type": "string" },
+    "primary_exchange": { "type": "string", "description": "MIC code of the primary listing exchange." },
+    "type": { "type": "string", "description": "Polygon ticker type code (e.g. CS, PFD, ETF)." },
+    "active": { "type": "boolean" },
+    "currency_name": { "type": "string" },
+    "cik": { "type": "string", "description": "SEC Central Index Key." },
+    "composite_figi": { "type": "string" },
+    "share_class_figi": { "type": "string" },
+    "last_updated_utc": { "type": "string", "format": "date-time" }
+  },
+  "required": ["ticker","market","active"]
+}

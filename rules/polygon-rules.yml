@@ -1,0 +1,227 @@
+extends: [[spectral:oas, recommended]]
+documentationUrl: https://polygon.io/docs
+
+# Polygon Spectral Ruleset
+# Derived from analysis of the Polygon OpenAPI specs across stocks,
+# options, indices, forex, crypto, and reference APIs. Encodes the
+# conventions used by Polygon's REST surface.
+
+rules:
+
+  # =====================================================================
+  # Info / metadata
+  # =====================================================================
+  polygon-info-title-includes-polygon:
+    description: Info title must include "Polygon" to identify provider.
+    severity: warn
+    given: $.info.title
+    then:
+      function: pattern
+      functionOptions:
+        match: "(?i)polygon"
+
+  polygon-info-version-semver-or-numeric:
+    description: Info version must be a simple semver or numeric string (e.g. "1.0").
+    severity: warn
+    given: $.info.version
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[0-9]+(\\.[0-9]+){0,2}$"
+
+  polygon-info-contact-required:
+    description: Info object must include a contact.
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  # =====================================================================
+  # Servers
+  # =====================================================================
+  polygon-servers-rest-host:
+    description: REST OpenAPI specs must use api.polygon.io.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://api\\.polygon\\.io"
+
+  # =====================================================================
+  # Security
+  # =====================================================================
+  polygon-security-defined:
+    description: A global security requirement must be declared.
+    severity: error
+    given: $
+    then:
+      field: security
+      function: truthy
+
+  polygon-security-schemes-required:
+    description: Both apiKeyQuery and bearerAuth schemes must be defined.
+    severity: warn
+    given: $.components.securitySchemes
+    then:
+      - field: apiKeyQuery
+        function: truthy
+      - field: bearerAuth
+        function: truthy
+
+  polygon-apikey-query-param-name:
+    description: The API key query parameter must be named apiKey.
+    severity: warn
+    given: $.components.securitySchemes.apiKeyQuery
+    then:
+      field: name
+      function: pattern
+      functionOptions:
+        match: "^apiKey$"
+
+  # =====================================================================
+  # Paths
+  # =====================================================================
+  polygon-path-versioned:
+    description: All paths must be versioned (start with /v1, /v2, or /v3).
+    severity: error
+    given: $.paths
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: "^/v[1-3]/"
+
+  polygon-path-no-trailing-slash:
+    description: Paths must not have a trailing slash.
+    severity: warn
+    given: $.paths
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        notMatch: "/$"
+
+  polygon-path-lowercase:
+    description: Path segments should be lowercase (with optional dashes and braces).
+    severity: warn
+    given: $.paths
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: "^/[a-z0-9_\\-/{}.]+$"
+
+  # =====================================================================
+  # Operations
+  # =====================================================================
+  polygon-operation-id-required:
+    description: Every operation must have an operationId.
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: operationId
+      function: truthy
+
+  polygon-operation-id-camel-case:
+    description: operationId must be lowerCamelCase.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  polygon-operation-summary-title-case:
+    description: Operation summaries should be in Title Case.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][A-Za-z0-9]+(\\s+([A-Z][A-Za-z0-9]*|[Aa]|[Aa]n|[Tt]he|[Oo]f|[Ff]or|[Ii]n|[Oo]n|[Tt]o))*$"
+
+  polygon-operation-tags-required:
+    description: Each operation must declare at least one tag.
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  polygon-operation-description-recommended:
+    description: Operations should include a description.
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: description
+      function: truthy
+
+  # =====================================================================
+  # Parameters
+  # =====================================================================
+  polygon-parameter-name-snake-or-camel:
+    description: Parameter names should be snake_case or lowerCamelCase.
+    severity: warn
+    given: $..parameters[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9_.]*$"
+
+  polygon-limit-parameter-bounds:
+    description: A "limit" query parameter must define minimum and maximum.
+    severity: warn
+    given: $..parameters[?(@.name == 'limit' && @.in == 'query')]
+    then:
+      field: schema
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required: [minimum, maximum]
+
+  # =====================================================================
+  # Schemas / response wrapper
+  # =====================================================================
+  polygon-response-status-field:
+    description: Response wrapper schemas should expose a status property.
+    severity: info
+    given: $.components.schemas[?(@property.endsWith('Response'))].properties
+    then:
+      field: status
+      function: truthy
+
+  polygon-response-request-id:
+    description: Response wrapper schemas should expose a request_id property.
+    severity: info
+    given: $.components.schemas[?(@property.endsWith('Response'))].properties
+    then:
+      field: request_id
+      function: truthy
+
+  polygon-pagination-next-url:
+    description: Paginated responses should expose a next_url property as a URI string.
+    severity: info
+    given: $.components.schemas[?(@property.endsWith('Response'))].properties.next_url
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            type: { const: string }
+            format: { const: uri }
+
+  # =====================================================================
+  # Tags
+  # =====================================================================
+  polygon-tag-title-case:
+    description: Tag names should be Title Case (no spaces, e.g. CorporateActions).
+    severity: warn
+    given: $.tags[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][A-Za-z0-9]+$"

@@ -1,0 +1,322 @@
+openapi: 3.1.0
+info:
+  title: Polygon Options REST API
+  version: '1.0'
+  description: |
+    Polygon Options API provides OPRA-licensed options market data via
+    `https://api.polygon.io`. This specification covers a representative
+    subset: contract reference, aggregate bars, snapshots, and option
+    chains. Authentication uses an API key via the `apiKey` query
+    parameter or `Authorization: Bearer <apiKey>`.
+  contact:
+    name: Polygon Documentation
+    url: https://polygon.io/docs/options
+servers:
+  - url: https://api.polygon.io
+    description: Polygon REST API
+security:
+  - apiKeyQuery: []
+  - bearerAuth: []
+tags:
+  - name: Contracts
+    description: Option contract reference data.
+  - name: Snapshots
+    description: Snapshot data for options contracts and chains.
+  - name: Aggregates
+    description: Option aggregate bar data.
+paths:
+  /v3/reference/options/contracts:
+    get:
+      tags: [Contracts]
+      operationId: listOptionsContracts
+      summary: List Options Contracts
+      description: List option contracts matching the given filters.
+      parameters:
+        - in: query
+          name: underlying_ticker
+          schema:
+            type: string
+        - in: query
+          name: contract_type
+          schema:
+            type: string
+            enum: [call, put]
+        - in: query
+          name: expiration_date
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: as_of
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: strike_price
+          schema:
+            type: number
+        - in: query
+          name: expired
+          schema:
+            type: boolean
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 10
+      responses:
+        '200':
+          description: Options contracts response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionsContractsResponse'
+  /v3/snapshot/options/{underlyingAsset}/{optionContract}:
+    get:
+      tags: [Snapshots]
+      operationId: getOptionContractSnapshot
+      summary: Get Option Contract Snapshot
+      description: Get a snapshot for a specific option contract.
+      parameters:
+        - in: path
+          name: underlyingAsset
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: optionContract
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Option contract snapshot response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionSnapshotResponse'
+  /v3/snapshot/options/{underlyingAsset}:
+    get:
+      tags: [Snapshots]
+      operationId: getOptionsChainSnapshot
+      summary: Get Options Chain Snapshot
+      description: Get a snapshot of an options chain for an underlying asset.
+      parameters:
+        - in: path
+          name: underlyingAsset
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: strike_price
+          schema:
+            type: number
+        - in: query
+          name: expiration_date
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: contract_type
+          schema:
+            type: string
+            enum: [call, put]
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Options chain snapshot response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionsChainResponse'
+  /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}:
+    get:
+      tags: [Aggregates]
+      operationId: getOptionsAggregateBars
+      summary: Get Aggregate Bars For An Options Contract
+      description: Aggregate bars (OHLC) for an options contract.
+      parameters:
+        - in: path
+          name: optionsTicker
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: multiplier
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: timespan
+          required: true
+          schema:
+            type: string
+            enum: [minute, hour, day, week, month, quarter, year]
+        - in: path
+          name: from
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: to
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Options aggregate bars response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregatesResponse'
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+  schemas:
+    OptionContract:
+      type: object
+      properties:
+        cfi:
+          type: string
+        contract_type:
+          type: string
+        exercise_style:
+          type: string
+        expiration_date:
+          type: string
+          format: date
+        primary_exchange:
+          type: string
+        shares_per_contract:
+          type: integer
+        strike_price:
+          type: number
+        ticker:
+          type: string
+        underlying_ticker:
+          type: string
+    OptionsContractsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionContract'
+    Greeks:
+      type: object
+      properties:
+        delta:
+          type: number
+        gamma:
+          type: number
+        theta:
+          type: number
+        vega:
+          type: number
+    OptionSnapshot:
+      type: object
+      properties:
+        break_even_price:
+          type: number
+        day:
+          type: object
+          additionalProperties: true
+        details:
+          $ref: '#/components/schemas/OptionContract'
+        greeks:
+          $ref: '#/components/schemas/Greeks'
+        implied_volatility:
+          type: number
+        last_quote:
+          type: object
+          additionalProperties: true
+        last_trade:
+          type: object
+          additionalProperties: true
+        open_interest:
+          type: integer
+        underlying_asset:
+          type: object
+          additionalProperties: true
+    OptionSnapshotResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        results:
+          $ref: '#/components/schemas/OptionSnapshot'
+    OptionsChainResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionSnapshot'
+    AggregateBar:
+      type: object
+      properties:
+        v:
+          type: number
+        vw:
+          type: number
+        o:
+          type: number
+        c:
+          type: number
+        h:
+          type: number
+        l:
+          type: number
+        t:
+          type: integer
+          format: int64
+        n:
+          type: integer
+    AggregatesResponse:
+      type: object
+      properties:
+        ticker:
+          type: string
+        adjusted:
+          type: boolean
+        queryCount:
+          type: integer
+        resultsCount:
+          type: integer
+        status:
+          type: string
+        request_id:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregateBar'

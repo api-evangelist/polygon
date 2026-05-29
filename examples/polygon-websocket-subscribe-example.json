@@ -1,0 +1,15 @@
+{
+  "scenario": "Connect, authenticate, and subscribe on the Polygon Stocks WebSocket cluster.",
+  "url": "wss://socket.polygon.io/stocks",
+  "messages": [
+    { "direction": "send", "payload": { "action": "auth", "params": "YOUR_POLYGON_API_KEY" } },
+    { "direction": "receive", "payload": [{ "ev": "status", "status": "auth_success", "message": "authenticated" }] },
+    { "direction": "send", "payload": { "action": "subscribe", "params": "T.AAPL,Q.AAPL,A.AAPL" } },
+    { "direction": "receive", "payload": [{ "ev": "status", "status": "success", "message": "subscribed to: T.AAPL,Q.AAPL,A.AAPL" }] },
+    { "direction": "receive", "payload": [
+      { "ev": "T", "sym": "AAPL", "x": 4, "i": "12345", "p": 192.31, "s": 100, "c": [12], "t": 1748476801234 },
+      { "ev": "Q", "sym": "AAPL", "bx": 11, "bp": 192.30, "bs": 200, "ax": 12, "ap": 192.32, "as": 150, "t": 1748476801240 },
+      { "ev": "A", "sym": "AAPL", "v": 5400, "vw": 192.305, "o": 192.30, "c": 192.31, "h": 192.34, "l": 192.28, "s": 1748476740000, "e": 1748476800000 }
+    ]}
+  ]
+}

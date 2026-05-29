@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.github.io/draft-00/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/polygon/main/json-structure/polygon-ticker-structure.json",
+  "title": "Polygon Ticker (Structure)",
+  "description": "Structural definition of a Polygon ticker reference entry.",
+  "type": "object",
+  "properties": {
+    "ticker": { "type": "string" },
+    "name": { "type": "string" },
+    "market": { "type": "string" },
+    "locale": { "type": "string" },
+    "primary_exchange": { "type": "string" },
+    "type": { "type": "string" },
+    "active": { "type": "boolean" },
+    "currency_name": { "type": "string" },
+    "cik": { "type": "string" },
+    "composite_figi": { "type": "string" },
+    "share_class_figi": { "type": "string" },
+    "last_updated_utc": { "type": "string" }
+  }
+}

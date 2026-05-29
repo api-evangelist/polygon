@@ -1,0 +1,591 @@
+openapi: 3.1.0
+info:
+  title: Polygon Reference REST API
+  version: '1.0'
+  description: |
+    Polygon Reference API exposes reference and corporate-actions data
+    shared across asset classes via `https://api.polygon.io`. This spec
+    covers tickers, ticker details, ticker types, markets, exchanges,
+    market holidays, market status, conditions, splits, dividends, and
+    ticker news. Auth uses an API key via `apiKey` query parameter or
+    `Authorization: Bearer`.
+  contact:
+    name: Polygon Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+servers:
+  - url: https://api.polygon.io
+    description: Polygon REST API
+security:
+  - apiKeyQuery: []
+  - bearerAuth: []
+tags:
+  - name: Tickers
+    description: Ticker reference and metadata.
+  - name: Markets
+    description: Markets, exchanges, holidays, and status.
+  - name: CorporateActions
+    description: Stock splits and dividends.
+  - name: News
+    description: Ticker news.
+paths:
+  /v3/reference/tickers:
+    get:
+      tags: [Tickers]
+      operationId: listTickers
+      summary: List Ticker Symbols
+      description: Retrieve a comprehensive list of ticker symbols supported across asset classes.
+      parameters:
+        - in: query
+          name: ticker
+          schema:
+            type: string
+        - in: query
+          name: type
+          schema:
+            type: string
+        - in: query
+          name: market
+          schema:
+            type: string
+            enum: [stocks, crypto, fx, otc, indices]
+        - in: query
+          name: exchange
+          schema:
+            type: string
+        - in: query
+          name: active
+          schema:
+            type: boolean
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: order
+          schema:
+            type: string
+            enum: [asc, desc]
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 100
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tickers response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TickersResponse'
+  /v3/reference/tickers/{ticker}:
+    get:
+      tags: [Tickers]
+      operationId: getTickerDetails
+      summary: Get Ticker Details
+      description: Retrieve detailed reference information for a single ticker symbol.
+      parameters:
+        - in: path
+          name: ticker
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: date
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Ticker details response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TickerDetailsResponse'
+  /v3/reference/tickers/types:
+    get:
+      tags: [Tickers]
+      operationId: listTickerTypes
+      summary: List Ticker Types
+      parameters:
+        - in: query
+          name: asset_class
+          schema:
+            type: string
+        - in: query
+          name: locale
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ticker types response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TickerTypesResponse'
+  /v3/reference/markets:
+    get:
+      tags: [Markets]
+      operationId: listMarkets
+      summary: List Markets
+      responses:
+        '200':
+          description: Markets response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketsResponse'
+  /v3/reference/exchanges:
+    get:
+      tags: [Markets]
+      operationId: listExchanges
+      summary: List Exchanges
+      parameters:
+        - in: query
+          name: asset_class
+          schema:
+            type: string
+        - in: query
+          name: locale
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Exchanges response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangesResponse'
+  /v1/marketstatus/upcoming:
+    get:
+      tags: [Markets]
+      operationId: listUpcomingMarketHolidays
+      summary: List Upcoming Market Holidays
+      description: List upcoming US market holidays and the corresponding session schedule.
+      responses:
+        '200':
+          description: Upcoming market holidays response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MarketHoliday'
+  /v1/marketstatus/now:
+    get:
+      tags: [Markets]
+      operationId: getCurrentMarketStatus
+      summary: Get Current Market Status
+      description: Get the current trading status for US markets.
+      responses:
+        '200':
+          description: Market status response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketStatusResponse'
+  /v3/reference/splits:
+    get:
+      tags: [CorporateActions]
+      operationId: listStockSplits
+      summary: List Stock Splits
+      parameters:
+        - in: query
+          name: ticker
+          schema:
+            type: string
+        - in: query
+          name: execution_date
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+            maximum: 1000
+      responses:
+        '200':
+          description: Stock splits response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockSplitsResponse'
+  /v3/reference/dividends:
+    get:
+      tags: [CorporateActions]
+      operationId: listDividends
+      summary: List Stock Dividends
+      parameters:
+        - in: query
+          name: ticker
+          schema:
+            type: string
+        - in: query
+          name: ex_dividend_date
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+            maximum: 1000
+      responses:
+        '200':
+          description: Dividends response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DividendsResponse'
+  /v2/reference/news:
+    get:
+      tags: [News]
+      operationId: listTickerNews
+      summary: List Ticker News
+      parameters:
+        - in: query
+          name: ticker
+          schema:
+            type: string
+        - in: query
+          name: published_utc
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: order
+          schema:
+            type: string
+            enum: [asc, desc]
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+            maximum: 1000
+      responses:
+        '200':
+          description: News response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsResponse'
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+  schemas:
+    Ticker:
+      type: object
+      properties:
+        ticker:
+          type: string
+        name:
+          type: string
+        market:
+          type: string
+        locale:
+          type: string
+        primary_exchange:
+          type: string
+        type:
+          type: string
+        active:
+          type: boolean
+        currency_name:
+          type: string
+        cik:
+          type: string
+        composite_figi:
+          type: string
+        share_class_figi:
+          type: string
+        last_updated_utc:
+          type: string
+          format: date-time
+    TickersResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        count:
+          type: integer
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ticker'
+    TickerDetailsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        results:
+          allOf:
+            - $ref: '#/components/schemas/Ticker'
+            - type: object
+              properties:
+                description:
+                  type: string
+                homepage_url:
+                  type: string
+                  format: uri
+                list_date:
+                  type: string
+                  format: date
+                market_cap:
+                  type: number
+                sic_code:
+                  type: string
+                sic_description:
+                  type: string
+                total_employees:
+                  type: integer
+                weighted_shares_outstanding:
+                  type: number
+    TickerType:
+      type: object
+      properties:
+        asset_class:
+          type: string
+        code:
+          type: string
+        description:
+          type: string
+        locale:
+          type: string
+    TickerTypesResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TickerType'
+    Market:
+      type: object
+      properties:
+        market:
+          type: string
+        desc:
+          type: string
+    MarketsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Market'
+    Exchange:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+        asset_class:
+          type: string
+        locale:
+          type: string
+        name:
+          type: string
+        acronym:
+          type: string
+        mic:
+          type: string
+        operating_mic:
+          type: string
+        participant_id:
+          type: string
+        url:
+          type: string
+          format: uri
+    ExchangesResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Exchange'
+    MarketHoliday:
+      type: object
+      properties:
+        exchange:
+          type: string
+        name:
+          type: string
+        date:
+          type: string
+          format: date
+        status:
+          type: string
+        open:
+          type: string
+        close:
+          type: string
+    MarketStatusResponse:
+      type: object
+      properties:
+        market:
+          type: string
+        serverTime:
+          type: string
+          format: date-time
+        exchanges:
+          type: object
+          additionalProperties:
+            type: string
+        currencies:
+          type: object
+          additionalProperties:
+            type: string
+        earlyHours:
+          type: boolean
+        afterHours:
+          type: boolean
+    StockSplit:
+      type: object
+      properties:
+        execution_date:
+          type: string
+          format: date
+        split_from:
+          type: number
+        split_to:
+          type: number
+        ticker:
+          type: string
+    StockSplitsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StockSplit'
+    Dividend:
+      type: object
+      properties:
+        cash_amount:
+          type: number
+        declaration_date:
+          type: string
+          format: date
+        dividend_type:
+          type: string
+        ex_dividend_date:
+          type: string
+          format: date
+        frequency:
+          type: integer
+        pay_date:
+          type: string
+          format: date
+        record_date:
+          type: string
+          format: date
+        ticker:
+          type: string
+    DividendsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dividend'
+    NewsArticle:
+      type: object
+      properties:
+        id:
+          type: string
+        publisher:
+          type: object
+          additionalProperties: true
+        title:
+          type: string
+        author:
+          type: string
+        published_utc:
+          type: string
+          format: date-time
+        article_url:
+          type: string
+          format: uri
+        tickers:
+          type: array
+          items:
+            type: string
+        amp_url:
+          type: string
+          format: uri
+        image_url:
+          type: string
+          format: uri
+        description:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+    NewsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        count:
+          type: integer
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsArticle'

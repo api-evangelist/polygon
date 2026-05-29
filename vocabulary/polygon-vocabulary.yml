@@ -1,0 +1,119 @@
+name: Polygon Vocabulary
+description: >-
+  Controlled vocabulary covering operational dimensions of the Polygon
+  (Massive) market data platform — asset classes, channels, data types,
+  market sessions, exchange identifiers, plan tiers, and capability
+  categories used across REST and WebSocket APIs.
+provider: Polygon
+providerId: polygon
+created: '2026-05-29'
+modified: '2026-05-29'
+sources:
+  - https://polygon.io/docs
+  - https://polygon.io/pricing
+terms:
+  assetClasses:
+    - id: stocks
+      label: Stocks
+      description: US equities (CTA/UTP consolidated tape).
+    - id: options
+      label: Options
+      description: OPRA-licensed US options contracts.
+    - id: indices
+      label: Indices
+      description: Major US and global market indices (e.g., I:SPX, I:DJI).
+    - id: forex
+      label: Forex
+      description: 1,000+ FX currency pairs.
+    - id: crypto
+      label: Crypto
+      description: Aggregated cross-exchange cryptocurrency pairs.
+    - id: futures
+      label: Futures
+      description: CME-licensed futures contracts.
+  dataTypes:
+    - id: aggregate
+      label: Aggregate Bar
+      description: OHLC bar over a custom time window (minute, hour, day, etc.).
+    - id: trade
+      label: Trade Tick
+      description: Individual executed trade.
+    - id: quote
+      label: NBBO Quote
+      description: National Best Bid and Offer or per-venue quote.
+    - id: snapshot
+      label: Snapshot
+      description: Most recent state of a ticker, chain, or index.
+    - id: book
+      label: Level-2 Book
+      description: Aggregated order book depth (crypto only on REST).
+    - id: news
+      label: News Article
+      description: Ticker-tagged news article.
+    - id: corporate-action
+      label: Corporate Action
+      description: Splits and dividends.
+  channels:
+    - id: T
+      label: Trade Channel
+      description: Per-trade ticks on stocks/options WebSocket.
+    - id: Q
+      label: Quote Channel
+      description: NBBO quote ticks.
+    - id: A
+      label: Aggregate (Second) Channel
+      description: Per-second aggregate bars.
+    - id: AM
+      label: Aggregate (Minute) Channel
+      description: Per-minute aggregate bars.
+    - id: XT
+      label: Crypto Trade Channel
+    - id: XQ
+      label: Crypto Quote Channel
+    - id: C
+      label: Forex Quote Channel
+    - id: CA
+      label: Forex Aggregate Channel
+  marketSessions:
+    - id: pre-market
+      label: Pre-Market
+    - id: regular
+      label: Regular Session
+    - id: after-hours
+      label: After Hours
+    - id: closed
+      label: Closed
+  exchangeIdentifiers:
+    - id: mic
+      label: MIC
+      description: ISO 10383 Market Identifier Code.
+    - id: operating-mic
+      label: Operating MIC
+    - id: participant-id
+      label: Participant ID
+      description: SIP participant identifier.
+  planTiers:
+    - id: basic
+      label: Basic (Free)
+    - id: starter
+      label: Starter
+    - id: developer
+      label: Developer
+    - id: advanced
+      label: Advanced
+    - id: business
+      label: Business / Enterprise
+  capabilityCategories:
+    - id: research
+      label: Market Research
+    - id: trading
+      label: Trading Integration
+    - id: surveillance
+      label: Risk and Surveillance
+    - id: analytics
+      label: Analytics and Dashboards
+    - id: backtest
+      label: Backtesting
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

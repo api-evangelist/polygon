@@ -1,0 +1,275 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Polygon
+providerId: polygon
+created: '2026-05-29'
+modified: '2026-05-29'
+reconciled: false
+tags:
+  - Fintech
+  - Market Data
+  - Stocks
+  - Options
+  - Forex
+  - Crypto
+  - Indices
+  - Futures
+  - Plans
+description: >-
+  Polygon (rebranded as Massive in early 2026) publishes per-asset-class plan tiers (Basic free,
+  Starter, Developer, Advanced, Business / Enterprise). Each asset class (Stocks, Options, Indices,
+  Forex, Crypto, Futures) has its own pricing ladder with rate-limit and feature differences.
+  Pricing values reflect the long-published 2024-2025 schedule and should be re-verified against
+  polygon.io/pricing (now redirecting to massive.com/pricing during the rebrand).
+notes: >-
+  Per-asset-class subscriptions stack — a trader needing Stocks + Options + Crypto subscribes to
+  each individually. Business contracts add redistribution rights and pass through exchange fees
+  (OPRA, CME, NYSE TAQ). Numbers should be re-verified at next refresh.
+sources:
+  - https://polygon.io/pricing
+  - https://massive.com/pricing
+plans:
+  - id: polygon-basic
+    name: Basic (Free)
+    type: freemium
+    description: Free tier for evaluation, 5 API calls per minute, end-of-day data only, 2 years history.
+    entries:
+      - label: Monthly subscription
+        name: basic_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Rate limit
+        name: basic_rate
+        type: quota
+        metric: requests_per_minute
+        limit: 5
+        timeFrame: minute
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: End-of-day data only
+      - name: 2 years history
+      - name: 1 WebSocket connection limited
+  - id: polygon-stocks-starter
+    name: Stocks Starter
+    type: subscription
+    description: Stocks plan with 15-minute delayed data and unlimited API calls; ~$29/month.
+    entries:
+      - label: Monthly subscription
+        name: stocks_starter_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '29.00'
+        userMultiplied: false
+      - label: Rate limit
+        name: stocks_starter_rate
+        type: quota
+        metric: requests_per_minute
+        limit: -1
+        timeFrame: minute
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: 15-minute delayed
+      - name: 5 years history
+      - name: Unlimited REST
+  - id: polygon-stocks-developer
+    name: Stocks Developer
+    type: subscription
+    description: Real-time IEX feed, unlimited API calls; ~$79/month.
+    entries:
+      - label: Monthly subscription
+        name: stocks_developer_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '79.00'
+        userMultiplied: false
+    elements:
+      - name: IEX real-time
+      - name: 10 years history
+      - name: WebSocket included
+  - id: polygon-stocks-advanced
+    name: Stocks Advanced
+    type: subscription
+    description: Full SIP real-time, WebSocket streaming, 20+ years history; ~$199/month.
+    entries:
+      - label: Monthly subscription
+        name: stocks_advanced_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '199.00'
+        userMultiplied: false
+    elements:
+      - name: Full-market SIP real-time
+      - name: WebSocket streams
+      - name: 20+ years history
+      - name: Flat files
+  - id: polygon-options-developer
+    name: Options Developer
+    type: subscription
+    description: Options end-of-day plus OPRA delayed, unlimited REST; ~$99/month.
+    entries:
+      - label: Monthly subscription
+        name: options_developer_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '99.00'
+        userMultiplied: false
+    elements:
+      - name: OPRA delayed
+      - name: Greeks and IV
+  - id: polygon-options-advanced
+    name: Options Advanced
+    type: subscription
+    description: Full OPRA real-time + WebSocket; ~$249/month.
+    entries:
+      - label: Monthly subscription
+        name: options_advanced_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '249.00'
+        userMultiplied: false
+    elements:
+      - name: OPRA real-time
+      - name: WebSocket options
+  - id: polygon-crypto-starter
+    name: Crypto Starter
+    type: subscription
+    description: Crypto aggregates and snapshots, ~$29/month.
+    entries:
+      - label: Monthly subscription
+        name: crypto_starter_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '29.00'
+        userMultiplied: false
+    elements:
+      - name: Cross-exchange aggregates
+  - id: polygon-crypto-advanced
+    name: Crypto Advanced
+    type: subscription
+    description: Crypto L2 books + WebSocket; ~$199/month.
+    entries:
+      - label: Monthly subscription
+        name: crypto_advanced_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '199.00'
+        userMultiplied: false
+    elements:
+      - name: Level-2 books
+      - name: WebSocket crypto
+  - id: polygon-forex-starter
+    name: Forex Starter
+    type: subscription
+    description: FX delayed aggregates; ~$29/month.
+    entries:
+      - label: Monthly subscription
+        name: forex_starter_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '29.00'
+        userMultiplied: false
+    elements:
+      - name: 1,000+ pairs
+  - id: polygon-forex-advanced
+    name: Forex Advanced
+    type: subscription
+    description: FX real-time + WebSocket; ~$199/month.
+    entries:
+      - label: Monthly subscription
+        name: forex_advanced_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '199.00'
+        userMultiplied: false
+    elements:
+      - name: Real-time FX
+      - name: WebSocket FX
+  - id: polygon-indices-developer
+    name: Indices Developer
+    type: subscription
+    description: Real-time index values, REST and WebSocket; ~$49/month.
+    entries:
+      - label: Monthly subscription
+        name: indices_developer_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '49.00'
+        userMultiplied: false
+    elements:
+      - name: Real-time indices
+  - id: polygon-business
+    name: Business / Enterprise
+    type: enterprise
+    description: Custom pricing for redistribution, OPRA / CME / SIP exchange fees, multi-asset bundles.
+    entries:
+      - label: Custom pricing
+        name: business_custom
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: contract
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+    elements:
+      - name: Redistribution rights
+      - name: Multi-asset bundles
+      - name: Exchange fees passed through
+      - name: SLA and dedicated support
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
