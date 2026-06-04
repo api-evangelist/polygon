@@ -1,0 +1,121 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Options Contract Deep Dive
+  summary: List an underlying's option contracts, snapshot the top contract, and pull its bars.
+  description: >-
+    An options analysis flow that drills from an underlying down to a single
+    contract. The workflow lists option contracts for an underlying ticker
+    filtered by type and expiration, takes the first matching contract,
+    reads its full snapshot (greeks, implied volatility, open interest), and
+    then pulls aggregate bars for that contract. The contract ticker
+    resolved in the first step feeds the path parameters of the following
+    two steps. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: optionsApi
+  url: ../openapi/polygon-options-openapi.yml
+  type: openapi
+workflows:
+- workflowId: options-contract-deep-dive
+  summary: Drill from an underlying to a single option contract's snapshot and bars.
+  description: >-
+    Lists option contracts for an underlying, then chains the contract
+    snapshot and aggregate bars for the first matching contract.
+  inputs:
+    type: object
+    required:
+    - underlyingTicker
+    - contractType
+    - expirationDate
+    - from
+    - to
+    properties:
+      underlyingTicker:
+        type: string
+        description: The underlying ticker symbol (e.g. AAPL).
+      contractType:
+        type: string
+        description: The contract type to filter on (call or put).
+      expirationDate:
+        type: string
+        description: The contract expiration date to filter on (YYYY-MM-DD).
+      from:
+        type: string
+        description: Start of the aggregate window (YYYY-MM-DD).
+      to:
+        type: string
+        description: End of the aggregate window (YYYY-MM-DD).
+  steps:
+  - stepId: listContracts
+    description: >-
+      List option contracts for the underlying filtered by contract type
+      and expiration date, returning the first match.
+    operationId: listOptionsContracts
+    parameters:
+    - name: underlying_ticker
+      in: query
+      value: $inputs.underlyingTicker
+    - name: contract_type
+      in: query
+      value: $inputs.contractType
+    - name: expiration_date
+      in: query
+      value: $inputs.expirationDate
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contractTicker: $response.body#/results/0/ticker
+      strikePrice: $response.body#/results/0/strike_price
+  - stepId: getContractSnapshot
+    description: >-
+      Read the full snapshot for the matched option contract, including
+      greeks, implied volatility, and open interest.
+    operationId: getOptionContractSnapshot
+    parameters:
+    - name: underlyingAsset
+      in: path
+      value: $inputs.underlyingTicker
+    - name: optionContract
+      in: path
+      value: $steps.listContracts.outputs.contractTicker
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      impliedVolatility: $response.body#/results/implied_volatility
+      openInterest: $response.body#/results/open_interest
+      greeks: $response.body#/results/greeks
+  - stepId: getContractBars
+    description: >-
+      Retrieve aggregate bars for the matched option contract over the
+      requested date range.
+    operationId: getOptionsAggregateBars
+    parameters:
+    - name: optionsTicker
+      in: path
+      value: $steps.listContracts.outputs.contractTicker
+    - name: multiplier
+      in: path
+      value: 1
+    - name: timespan
+      in: path
+      value: day
+    - name: from
+      in: path
+      value: $inputs.from
+    - name: to
+      in: path
+      value: $inputs.to
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      bars: $response.body#/results
+      resultsCount: $response.body#/resultsCount
+  outputs:
+    contractTicker: $steps.listContracts.outputs.contractTicker
+    impliedVolatility: $steps.getContractSnapshot.outputs.impliedVolatility
+    openInterest: $steps.getContractSnapshot.outputs.openInterest
+    bars: $steps.getContractBars.outputs.bars

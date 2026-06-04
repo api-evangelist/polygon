@@ -1,0 +1,106 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Crypto Pair Analysis
+  summary: Snapshot a crypto pair, pull its aggregate bars, and read its Level-2 order book.
+  description: >-
+    A cross-exchange analysis flow for a single crypto pair (e.g. X:BTCUSD).
+    The workflow reads the current snapshot to capture the last trade and
+    day session, pulls aggregate bars over a date range for trend context,
+    and then reads the current Level-2 order book to gauge depth and spread.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: cryptoApi
+  url: ../openapi/polygon-crypto-openapi.yml
+  type: openapi
+workflows:
+- workflowId: crypto-pair-analysis
+  summary: Analyze a crypto pair via snapshot, aggregate bars, and the Level-2 book.
+  description: >-
+    Reads a crypto ticker snapshot, then chains its aggregate bars and the
+    Level-2 order book for the same pair.
+  inputs:
+    type: object
+    required:
+    - ticker
+    - multiplier
+    - timespan
+    - from
+    - to
+    properties:
+      ticker:
+        type: string
+        description: Crypto ticker symbol (e.g. X:BTCUSD).
+      multiplier:
+        type: integer
+        description: Size of the timespan multiplier for the aggregate window.
+      timespan:
+        type: string
+        description: Aggregate window size (minute, hour, day, week, month, quarter, year).
+      from:
+        type: string
+        description: Start of the aggregate window (YYYY-MM-DD).
+      to:
+        type: string
+        description: End of the aggregate window (YYYY-MM-DD).
+  steps:
+  - stepId: getSnapshot
+    description: >-
+      Read the current snapshot for the crypto ticker to capture its last
+      trade and day session.
+    operationId: getCryptoSnapshotForTicker
+    parameters:
+    - name: ticker
+      in: path
+      value: $inputs.ticker
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      lastTrade: $response.body#/ticker/lastTrade
+      day: $response.body#/ticker/day
+  - stepId: getAggregates
+    description: >-
+      Retrieve aggregate bars for the crypto pair over the requested date
+      range for trend context.
+    operationId: getCryptoAggregateBars
+    parameters:
+    - name: cryptoTicker
+      in: path
+      value: $inputs.ticker
+    - name: multiplier
+      in: path
+      value: $inputs.multiplier
+    - name: timespan
+      in: path
+      value: $inputs.timespan
+    - name: from
+      in: path
+      value: $inputs.from
+    - name: to
+      in: path
+      value: $inputs.to
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      bars: $response.body#/results
+      resultsCount: $response.body#/resultsCount
+  - stepId: getOrderBook
+    description: >-
+      Read the current Level-2 order book for the crypto pair to gauge
+      market depth and spread.
+    operationId: getCryptoL2Book
+    parameters:
+    - name: ticker
+      in: path
+      value: $inputs.ticker
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      spread: $response.body#/data/spread
+      bidCount: $response.body#/data/bidCount
+      askCount: $response.body#/data/askCount
+  outputs:
+    lastTrade: $steps.getSnapshot.outputs.lastTrade
+    bars: $steps.getAggregates.outputs.bars
+    spread: $steps.getOrderBook.outputs.spread

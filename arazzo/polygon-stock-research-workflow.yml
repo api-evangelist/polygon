@@ -1,0 +1,121 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Stock Research
+  summary: Resolve a stock ticker's reference details, pull its aggregate bars, and read its previous close.
+  description: >-
+    A foundational equity research flow for a single US stock. The workflow
+    first confirms the ticker exists and resolves its reference metadata
+    (name, primary exchange, market cap), then retrieves custom-window
+    aggregate bars over a date range, and finally reads the most recent
+    completed trading session via the previous-close endpoint. Every step
+    spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: referenceApi
+  url: ../openapi/polygon-reference-openapi.yml
+  type: openapi
+- name: stocksApi
+  url: ../openapi/polygon-stocks-openapi.yml
+  type: openapi
+workflows:
+- workflowId: stock-research
+  summary: Look up a stock ticker's details, aggregate bars, and previous close.
+  description: >-
+    Confirms the ticker via the reference API, then chains the stock
+    aggregate-bars and previous-close endpoints to build a compact research
+    snapshot for the symbol.
+  inputs:
+    type: object
+    required:
+    - ticker
+    - multiplier
+    - timespan
+    - from
+    - to
+    properties:
+      ticker:
+        type: string
+        description: Case-sensitive stock ticker symbol (e.g. AAPL).
+      multiplier:
+        type: integer
+        description: Size of the timespan multiplier for the aggregate window.
+      timespan:
+        type: string
+        description: Aggregate window size (second, minute, hour, day, week, month, quarter, year).
+      from:
+        type: string
+        description: Start of the aggregate window (YYYY-MM-DD or millisecond timestamp).
+      to:
+        type: string
+        description: End of the aggregate window (YYYY-MM-DD or millisecond timestamp).
+  steps:
+  - stepId: resolveTicker
+    description: >-
+      Resolve detailed reference information for the ticker to confirm it
+      exists and capture its name and primary exchange.
+    operationId: getTickerDetails
+    parameters:
+    - name: ticker
+      in: path
+      value: $inputs.ticker
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/results/name
+      primaryExchange: $response.body#/results/primary_exchange
+      market: $response.body#/results/market
+  - stepId: getAggregates
+    description: >-
+      Retrieve aggregate bars for the ticker over the requested date range
+      in the requested custom time window.
+    operationId: getStocksAggregateBars
+    parameters:
+    - name: stocksTicker
+      in: path
+      value: $inputs.ticker
+    - name: multiplier
+      in: path
+      value: $inputs.multiplier
+    - name: timespan
+      in: path
+      value: $inputs.timespan
+    - name: from
+      in: path
+      value: $inputs.from
+    - name: to
+      in: path
+      value: $inputs.to
+    - name: adjusted
+      in: query
+      value: true
+    - name: sort
+      in: query
+      value: asc
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      resultsCount: $response.body#/resultsCount
+      bars: $response.body#/results
+  - stepId: getPreviousClose
+    description: >-
+      Read the previous trading day's open, close, high, and low for the
+      ticker to anchor the aggregate data against the latest session.
+    operationId: getStocksPreviousClose
+    parameters:
+    - name: stocksTicker
+      in: path
+      value: $inputs.ticker
+    - name: adjusted
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      previousClose: $response.body#/results/0/c
+      previousVolume: $response.body#/results/0/v
+  outputs:
+    name: $steps.resolveTicker.outputs.name
+    primaryExchange: $steps.resolveTicker.outputs.primaryExchange
+    bars: $steps.getAggregates.outputs.bars
+    previousClose: $steps.getPreviousClose.outputs.previousClose

@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Ticker News Context
+  summary: Resolve a ticker's details, pull recent news, and read its previous close.
+  description: >-
+    A news-and-context flow that pairs qualitative coverage with a price
+    anchor for a single equity. The workflow resolves the ticker's reference
+    details, lists the most recent news articles mentioning the symbol, and
+    reads its previous-close so headlines can be read alongside the latest
+    completed session. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: referenceApi
+  url: ../openapi/polygon-reference-openapi.yml
+  type: openapi
+- name: stocksApi
+  url: ../openapi/polygon-stocks-openapi.yml
+  type: openapi
+workflows:
+- workflowId: ticker-news-context
+  summary: Combine a ticker's details, recent news, and previous close.
+  description: >-
+    Resolves ticker details, lists recent news for the symbol, and reads
+    the previous trading session's close.
+  inputs:
+    type: object
+    required:
+    - ticker
+    properties:
+      ticker:
+        type: string
+        description: The ticker symbol to pull news and context for (e.g. AAPL).
+      newsLimit:
+        type: integer
+        description: Maximum number of news articles to return.
+        default: 10
+  steps:
+  - stepId: resolveTicker
+    description: >-
+      Resolve detailed reference information for the ticker to confirm it
+      exists and capture its name.
+    operationId: getTickerDetails
+    parameters:
+    - name: ticker
+      in: path
+      value: $inputs.ticker
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/results/name
+      homepageUrl: $response.body#/results/homepage_url
+  - stepId: listNews
+    description: >-
+      List the most recent news articles mentioning the ticker, newest
+      first.
+    operationId: listTickerNews
+    parameters:
+    - name: ticker
+      in: query
+      value: $inputs.ticker
+    - name: order
+      in: query
+      value: desc
+    - name: limit
+      in: query
+      value: $inputs.newsLimit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      articles: $response.body#/results
+      articleCount: $response.body#/count
+  - stepId: getPreviousClose
+    description: >-
+      Read the previous trading day's close so the news coverage can be
+      anchored against the latest completed session.
+    operationId: getStocksPreviousClose
+    parameters:
+    - name: stocksTicker
+      in: path
+      value: $inputs.ticker
+    - name: adjusted
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      previousClose: $response.body#/results/0/c
+  outputs:
+    name: $steps.resolveTicker.outputs.name
+    articles: $steps.listNews.outputs.articles
+    previousClose: $steps.getPreviousClose.outputs.previousClose

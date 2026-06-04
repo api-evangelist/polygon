@@ -1,0 +1,96 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Crypto Daily Comparison
+  summary: Check market status, snapshot a crypto pair, and read its daily open/close.
+  description: >-
+    A crypto daily-comparison flow that frames a pair's session against
+    overall market context. The workflow checks the current market status,
+    reads the crypto pair's live snapshot to capture its day session, and
+    reads the pair's open/close for a specific date so the live snapshot can
+    be compared against a fixed historical session. Every step spells out
+    its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: referenceApi
+  url: ../openapi/polygon-reference-openapi.yml
+  type: openapi
+- name: cryptoApi
+  url: ../openapi/polygon-crypto-openapi.yml
+  type: openapi
+workflows:
+- workflowId: crypto-daily-comparison
+  summary: Compare a crypto pair's live snapshot against a fixed daily open/close.
+  description: >-
+    Checks market status, reads the crypto pair snapshot, and reads the
+    pair's daily open/close for a specific date.
+  inputs:
+    type: object
+    required:
+    - ticker
+    - from
+    - to
+    - date
+    properties:
+      ticker:
+        type: string
+        description: Crypto ticker symbol for the snapshot (e.g. X:BTCUSD).
+      from:
+        type: string
+        description: Source currency of the pair for the daily open/close (e.g. BTC).
+      to:
+        type: string
+        description: Target currency of the pair for the daily open/close (e.g. USD).
+      date:
+        type: string
+        description: The date for the daily open/close read (YYYY-MM-DD).
+  steps:
+  - stepId: checkMarketStatus
+    description: >-
+      Get the current trading status, including the crypto currencies
+      market, to establish overall market context.
+    operationId: getCurrentMarketStatus
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currencies: $response.body#/currencies
+      serverTime: $response.body#/serverTime
+  - stepId: getSnapshot
+    description: >-
+      Read the live snapshot for the crypto ticker to capture its current
+      day session and last trade.
+    operationId: getCryptoSnapshotForTicker
+    parameters:
+    - name: ticker
+      in: path
+      value: $inputs.ticker
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      day: $response.body#/ticker/day
+      lastTrade: $response.body#/ticker/lastTrade
+  - stepId: getDailyOpenClose
+    description: >-
+      Read the open and close for the crypto pair on the requested date so
+      the live snapshot can be compared against a fixed session.
+    operationId: getCryptoDailyOpenClose
+    parameters:
+    - name: from
+      in: path
+      value: $inputs.from
+    - name: to
+      in: path
+      value: $inputs.to
+    - name: date
+      in: path
+      value: $inputs.date
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      open: $response.body#/open
+      close: $response.body#/close
+  outputs:
+    currencies: $steps.checkMarketStatus.outputs.currencies
+    day: $steps.getSnapshot.outputs.day
+    dailyOpen: $steps.getDailyOpenClose.outputs.open
+    dailyClose: $steps.getDailyOpenClose.outputs.close

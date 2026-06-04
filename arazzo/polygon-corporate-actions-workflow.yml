@@ -1,0 +1,85 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Corporate Actions Review
+  summary: Resolve a ticker, then list its stock splits and dividends history.
+  description: >-
+    A corporate-actions due-diligence flow for a single equity. The workflow
+    confirms the ticker via the reference API, then lists its historical
+    stock splits and its dividend history, giving an analyst a consolidated
+    view of capital-structure events for the symbol. Every step spells out
+    its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: referenceApi
+  url: ../openapi/polygon-reference-openapi.yml
+  type: openapi
+workflows:
+- workflowId: corporate-actions-review
+  summary: Review the splits and dividends history for a single ticker.
+  description: >-
+    Confirms the ticker, then chains the splits and dividends reference
+    endpoints filtered to that symbol.
+  inputs:
+    type: object
+    required:
+    - ticker
+    properties:
+      ticker:
+        type: string
+        description: The ticker symbol to review (e.g. AAPL).
+      limit:
+        type: integer
+        description: Maximum number of split and dividend records to return.
+        default: 50
+  steps:
+  - stepId: resolveTicker
+    description: >-
+      Resolve detailed reference information for the ticker to confirm it
+      exists before reading its corporate-actions history.
+    operationId: getTickerDetails
+    parameters:
+    - name: ticker
+      in: path
+      value: $inputs.ticker
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/results/name
+      listDate: $response.body#/results/list_date
+  - stepId: listSplits
+    description: >-
+      List historical stock splits for the ticker, most recent execution
+      dates first.
+    operationId: listStockSplits
+    parameters:
+    - name: ticker
+      in: query
+      value: $inputs.ticker
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      splits: $response.body#/results
+  - stepId: listDividends
+    description: >-
+      List the dividend history for the ticker, including cash amounts and
+      ex-dividend dates.
+    operationId: listDividends
+    parameters:
+    - name: ticker
+      in: query
+      value: $inputs.ticker
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      dividends: $response.body#/results
+  outputs:
+    name: $steps.resolveTicker.outputs.name
+    splits: $steps.listSplits.outputs.splits
+    dividends: $steps.listDividends.outputs.dividends

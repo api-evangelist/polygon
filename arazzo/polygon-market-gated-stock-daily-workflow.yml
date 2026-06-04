@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Market-Gated Stock Daily Snapshot
+  summary: Check current US market status, then pull a stock's daily open/close and previous close.
+  description: >-
+    A trading-desk readiness flow that establishes market context before
+    reading a single stock's daily numbers. The workflow first checks the
+    current US market status (open, closed, early or after hours), then
+    reads the requested stock's daily open/close for a given date, and
+    finally pulls its previous-close so the day's values can be compared
+    against the prior session. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: referenceApi
+  url: ../openapi/polygon-reference-openapi.yml
+  type: openapi
+- name: stocksApi
+  url: ../openapi/polygon-stocks-openapi.yml
+  type: openapi
+workflows:
+- workflowId: market-gated-stock-daily
+  summary: Gate a stock daily-snapshot read on the current market status.
+  description: >-
+    Reads current market status, then chains the daily open/close and
+    previous-close endpoints for a single stock ticker on a given date.
+  inputs:
+    type: object
+    required:
+    - ticker
+    - date
+    properties:
+      ticker:
+        type: string
+        description: Case-sensitive stock ticker symbol (e.g. AAPL).
+      date:
+        type: string
+        description: The date for the daily open/close read (YYYY-MM-DD).
+  steps:
+  - stepId: checkMarketStatus
+    description: >-
+      Get the current trading status for US markets to establish whether
+      the read reflects a live or closed session.
+    operationId: getCurrentMarketStatus
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      marketStatus: $response.body#/market
+      serverTime: $response.body#/serverTime
+      afterHours: $response.body#/afterHours
+  - stepId: getDailyOpenClose
+    description: >-
+      Read the open, close, high, and low for the stock ticker on the
+      requested date.
+    operationId: getStocksDailyOpenClose
+    parameters:
+    - name: stocksTicker
+      in: path
+      value: $inputs.ticker
+    - name: date
+      in: path
+      value: $inputs.date
+    - name: adjusted
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      open: $response.body#/open
+      close: $response.body#/close
+      high: $response.body#/high
+      low: $response.body#/low
+      volume: $response.body#/volume
+  - stepId: getPreviousClose
+    description: >-
+      Read the previous trading day's close so the requested day's values
+      can be compared against the prior session.
+    operationId: getStocksPreviousClose
+    parameters:
+    - name: stocksTicker
+      in: path
+      value: $inputs.ticker
+    - name: adjusted
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      previousClose: $response.body#/results/0/c
+  outputs:
+    marketStatus: $steps.checkMarketStatus.outputs.marketStatus
+    close: $steps.getDailyOpenClose.outputs.close
+    previousClose: $steps.getPreviousClose.outputs.previousClose

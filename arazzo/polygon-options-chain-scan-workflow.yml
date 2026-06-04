@@ -1,0 +1,106 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Options Chain Scan
+  summary: Resolve an underlying's details, scan its options chain, and read its previous close.
+  description: >-
+    A chain-level options flow that frames a full options chain against its
+    underlying equity. The workflow resolves the underlying ticker's
+    reference details, scans the options chain snapshot filtered by contract
+    type and expiration, and reads the underlying stock's previous-close so
+    the chain can be evaluated relative to the latest underlying session.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: referenceApi
+  url: ../openapi/polygon-reference-openapi.yml
+  type: openapi
+- name: optionsApi
+  url: ../openapi/polygon-options-openapi.yml
+  type: openapi
+- name: stocksApi
+  url: ../openapi/polygon-stocks-openapi.yml
+  type: openapi
+workflows:
+- workflowId: options-chain-scan
+  summary: Scan an options chain against its underlying's details and previous close.
+  description: >-
+    Resolves the underlying details, scans the options chain snapshot, and
+    reads the underlying stock's previous-close.
+  inputs:
+    type: object
+    required:
+    - underlyingTicker
+    - contractType
+    - expirationDate
+    properties:
+      underlyingTicker:
+        type: string
+        description: The underlying ticker symbol (e.g. AAPL).
+      contractType:
+        type: string
+        description: The contract type to filter the chain on (call or put).
+      expirationDate:
+        type: string
+        description: The expiration date to filter the chain on (YYYY-MM-DD).
+      limit:
+        type: integer
+        description: Maximum number of chain contracts to return.
+        default: 50
+  steps:
+  - stepId: resolveUnderlying
+    description: >-
+      Resolve detailed reference information for the underlying ticker to
+      confirm it exists and capture its name.
+    operationId: getTickerDetails
+    parameters:
+    - name: ticker
+      in: path
+      value: $inputs.underlyingTicker
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/results/name
+      market: $response.body#/results/market
+  - stepId: scanChain
+    description: >-
+      Scan the options chain snapshot for the underlying filtered by
+      contract type and expiration date.
+    operationId: getOptionsChainSnapshot
+    parameters:
+    - name: underlyingAsset
+      in: path
+      value: $inputs.underlyingTicker
+    - name: contract_type
+      in: query
+      value: $inputs.contractType
+    - name: expiration_date
+      in: query
+      value: $inputs.expirationDate
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      chain: $response.body#/results
+  - stepId: getUnderlyingPreviousClose
+    description: >-
+      Read the underlying stock's previous-close so the chain can be
+      evaluated relative to the latest underlying session.
+    operationId: getStocksPreviousClose
+    parameters:
+    - name: stocksTicker
+      in: path
+      value: $inputs.underlyingTicker
+    - name: adjusted
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      previousClose: $response.body#/results/0/c
+  outputs:
+    name: $steps.resolveUnderlying.outputs.name
+    chain: $steps.scanChain.outputs.chain
+    underlyingPreviousClose: $steps.getUnderlyingPreviousClose.outputs.previousClose

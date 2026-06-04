@@ -1,0 +1,131 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Forex Pair Analysis
+  summary: Read a currency pair's last quote, convert an amount, and pull its aggregate bars.
+  description: >-
+    A foreign-exchange analysis flow for a single currency pair. The
+    workflow reads the last quote for the from/to currency pair to capture
+    the live bid and ask, converts a notional amount at the current rate,
+    and then pulls aggregate bars for the pair over a date range to provide
+    historical context. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: forexApi
+  url: ../openapi/polygon-forex-openapi.yml
+  type: openapi
+workflows:
+- workflowId: forex-pair-analysis
+  summary: Analyze a currency pair via last quote, conversion, and aggregate bars.
+  description: >-
+    Reads the last quote for a currency pair, converts an amount at the
+    current rate, and pulls aggregate bars for the corresponding FX ticker.
+  inputs:
+    type: object
+    required:
+    - from
+    - to
+    - forexTicker
+    - multiplier
+    - timespan
+    - fromDate
+    - toDate
+    properties:
+      from:
+        type: string
+        description: Source three-letter currency code (e.g. EUR).
+      to:
+        type: string
+        description: Target three-letter currency code (e.g. USD).
+      amount:
+        type: number
+        description: Notional amount to convert at the current rate.
+        default: 100
+      forexTicker:
+        type: string
+        description: FX aggregate ticker for the pair (e.g. C:EURUSD).
+      multiplier:
+        type: integer
+        description: Size of the timespan multiplier for the aggregate window.
+      timespan:
+        type: string
+        description: Aggregate window size (minute, hour, day, week, month, quarter, year).
+      fromDate:
+        type: string
+        description: Start of the aggregate window (YYYY-MM-DD).
+      toDate:
+        type: string
+        description: End of the aggregate window (YYYY-MM-DD).
+  steps:
+  - stepId: getLastQuote
+    description: >-
+      Read the last quote for the currency pair to capture the live bid and
+      ask.
+    operationId: getForexLastQuote
+    parameters:
+    - name: from
+      in: path
+      value: $inputs.from
+    - name: to
+      in: path
+      value: $inputs.to
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      bid: $response.body#/last/bid
+      ask: $response.body#/last/ask
+  - stepId: convertAmount
+    description: >-
+      Convert the requested notional amount from the source to the target
+      currency at the current rate.
+    operationId: getForexConversion
+    parameters:
+    - name: from
+      in: path
+      value: $inputs.from
+    - name: to
+      in: path
+      value: $inputs.to
+    - name: amount
+      in: query
+      value: $inputs.amount
+    - name: precision
+      in: query
+      value: 4
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      converted: $response.body#/converted
+      initialAmount: $response.body#/initialAmount
+  - stepId: getAggregates
+    description: >-
+      Retrieve aggregate bars for the FX pair over the requested date range
+      for historical context.
+    operationId: getForexAggregateBars
+    parameters:
+    - name: forexTicker
+      in: path
+      value: $inputs.forexTicker
+    - name: multiplier
+      in: path
+      value: $inputs.multiplier
+    - name: timespan
+      in: path
+      value: $inputs.timespan
+    - name: from
+      in: path
+      value: $inputs.fromDate
+    - name: to
+      in: path
+      value: $inputs.toDate
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      bars: $response.body#/results
+      resultsCount: $response.body#/resultsCount
+  outputs:
+    bid: $steps.getLastQuote.outputs.bid
+    ask: $steps.getLastQuote.outputs.ask
+    converted: $steps.convertAmount.outputs.converted
+    bars: $steps.getAggregates.outputs.bars

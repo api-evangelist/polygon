@@ -230,6 +230,45 @@ apis:
       - type: Example
         url: examples/polygon-websocket-subscribe-example.json
 common:
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+    - url: arazzo/polygon-corporate-actions-workflow.yml
+      name: Polygon Corporate Actions Review
+      summary: Resolve a ticker, then list its stock splits and dividends history.
+    - url: arazzo/polygon-crypto-daily-comparison-workflow.yml
+      name: Polygon Crypto Daily Comparison
+      summary: Check market status, snapshot a crypto pair, and read its daily open/close.
+    - url: arazzo/polygon-crypto-pair-analysis-workflow.yml
+      name: Polygon Crypto Pair Analysis
+      summary: Snapshot a crypto pair, pull its aggregate bars, and read its Level-2 order book.
+    - url: arazzo/polygon-forex-pair-analysis-workflow.yml
+      name: Polygon Forex Pair Analysis
+      summary: Read a currency pair's last quote, convert an amount, and pull its aggregate bars.
+    - url: arazzo/polygon-grouped-market-scan-workflow.yml
+      name: Polygon Grouped Market Scan
+      summary: Check market status, pull grouped daily bars for all US stocks, and profile one symbol.
+    - url: arazzo/polygon-index-analysis-workflow.yml
+      name: Polygon Index Analysis
+      summary: Snapshot an index, pull its aggregate bars, and read its previous close.
+    - url: arazzo/polygon-market-gated-stock-daily-workflow.yml
+      name: Polygon Market-Gated Stock Daily Snapshot
+      summary: Check current US market status, then pull a stock's daily open/close and previous close.
+    - url: arazzo/polygon-options-chain-scan-workflow.yml
+      name: Polygon Options Chain Scan
+      summary: Resolve an underlying's details, scan its options chain, and read its previous close.
+    - url: arazzo/polygon-options-contract-deep-dive-workflow.yml
+      name: Polygon Options Contract Deep Dive
+      summary: List an underlying's option contracts, snapshot the top contract, and pull its bars.
+    - url: arazzo/polygon-stock-research-workflow.yml
+      name: Polygon Stock Research
+      summary: Resolve a stock ticker's reference details, pull its aggregate bars, and read its previous close.
+    - url: arazzo/polygon-ticker-discovery-workflow.yml
+      name: Polygon Ticker Discovery and Profile
+      summary: Search active stock tickers, resolve the top match's details, and pull its recent bars.
+    - url: arazzo/polygon-ticker-news-context-workflow.yml
+      name: Polygon Ticker News Context
+      summary: Resolve a ticker's details, pull recent news, and read its previous close.
   - type: Portal
     url: https://polygon.io/
   - type: Documentation

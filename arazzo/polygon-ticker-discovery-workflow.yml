@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Ticker Discovery and Profile
+  summary: Search active stock tickers, resolve the top match's details, and pull its recent bars.
+  description: >-
+    A discovery flow that turns a free-text search into a concrete equity
+    profile. The workflow searches the reference tickers endpoint for active
+    stock symbols matching a query, takes the first match, resolves its full
+    reference details, and then pulls recent aggregate bars for that symbol.
+    The matched ticker resolved in the first step feeds the path parameters
+    of the following two steps. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: referenceApi
+  url: ../openapi/polygon-reference-openapi.yml
+  type: openapi
+- name: stocksApi
+  url: ../openapi/polygon-stocks-openapi.yml
+  type: openapi
+workflows:
+- workflowId: ticker-discovery
+  summary: Discover a ticker by search term and build a profile from its details and bars.
+  description: >-
+    Searches active stock tickers, resolves the first match's details, and
+    retrieves recent aggregate bars for that symbol.
+  inputs:
+    type: object
+    required:
+    - search
+    - from
+    - to
+    properties:
+      search:
+        type: string
+        description: Free-text search term matched against ticker name or symbol.
+      from:
+        type: string
+        description: Start of the aggregate window (YYYY-MM-DD).
+      to:
+        type: string
+        description: End of the aggregate window (YYYY-MM-DD).
+  steps:
+  - stepId: searchTickers
+    description: >-
+      Search active US stock tickers matching the supplied term, returning
+      the closest match first.
+    operationId: listTickers
+    parameters:
+    - name: search
+      in: query
+      value: $inputs.search
+    - name: market
+      in: query
+      value: stocks
+    - name: active
+      in: query
+      value: true
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedTicker: $response.body#/results/0/ticker
+      matchedName: $response.body#/results/0/name
+  - stepId: resolveDetails
+    description: >-
+      Resolve detailed reference information for the matched ticker,
+      including market cap and primary exchange.
+    operationId: getTickerDetails
+    parameters:
+    - name: ticker
+      in: path
+      value: $steps.searchTickers.outputs.matchedTicker
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      marketCap: $response.body#/results/market_cap
+      primaryExchange: $response.body#/results/primary_exchange
+      description: $response.body#/results/description
+  - stepId: getRecentBars
+    description: >-
+      Retrieve recent daily aggregate bars for the matched ticker over the
+      requested date range.
+    operationId: getStocksAggregateBars
+    parameters:
+    - name: stocksTicker
+      in: path
+      value: $steps.searchTickers.outputs.matchedTicker
+    - name: multiplier
+      in: path
+      value: 1
+    - name: timespan
+      in: path
+      value: day
+    - name: from
+      in: path
+      value: $inputs.from
+    - name: to
+      in: path
+      value: $inputs.to
+    - name: adjusted
+      in: query
+      value: true
+    - name: sort
+      in: query
+      value: asc
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      bars: $response.body#/results
+      resultsCount: $response.body#/resultsCount
+  outputs:
+    matchedTicker: $steps.searchTickers.outputs.matchedTicker
+    matchedName: $steps.searchTickers.outputs.matchedName
+    marketCap: $steps.resolveDetails.outputs.marketCap
+    bars: $steps.getRecentBars.outputs.bars

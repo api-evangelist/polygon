@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Index Analysis
+  summary: Snapshot an index, pull its aggregate bars, and read its previous close.
+  description: >-
+    An index-tracking flow for a single index (e.g. I:SPX). The workflow
+    reads the current index snapshot to capture the latest value and session
+    change, pulls aggregate bars over a date range for trend context, and
+    reads the previous-close to anchor the data against the prior session.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: indicesApi
+  url: ../openapi/polygon-indices-openapi.yml
+  type: openapi
+workflows:
+- workflowId: index-analysis
+  summary: Analyze an index via snapshot, aggregate bars, and previous close.
+  description: >-
+    Reads an index snapshot, then chains its aggregate bars and
+    previous-close endpoints for the same index ticker.
+  inputs:
+    type: object
+    required:
+    - ticker
+    - multiplier
+    - timespan
+    - from
+    - to
+    properties:
+      ticker:
+        type: string
+        description: Index ticker symbol (e.g. I:SPX).
+      multiplier:
+        type: integer
+        description: Size of the timespan multiplier for the aggregate window.
+      timespan:
+        type: string
+        description: Aggregate window size (minute, hour, day, week, month, quarter, year).
+      from:
+        type: string
+        description: Start of the aggregate window (YYYY-MM-DD).
+      to:
+        type: string
+        description: End of the aggregate window (YYYY-MM-DD).
+  steps:
+  - stepId: getSnapshot
+    description: >-
+      Read the current snapshot for the index to capture its latest value
+      and session change.
+    operationId: getIndicesSnapshot
+    parameters:
+    - name: ticker.any_of
+      in: query
+      value: $inputs.ticker
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      value: $response.body#/results/0/value
+      sessionChange: $response.body#/results/0/session/change
+      marketStatus: $response.body#/results/0/market_status
+  - stepId: getAggregates
+    description: >-
+      Retrieve aggregate bars for the index over the requested date range
+      for trend context.
+    operationId: getIndicesAggregateBars
+    parameters:
+    - name: indicesTicker
+      in: path
+      value: $inputs.ticker
+    - name: multiplier
+      in: path
+      value: $inputs.multiplier
+    - name: timespan
+      in: path
+      value: $inputs.timespan
+    - name: from
+      in: path
+      value: $inputs.from
+    - name: to
+      in: path
+      value: $inputs.to
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      bars: $response.body#/results
+      resultsCount: $response.body#/resultsCount
+  - stepId: getPreviousClose
+    description: >-
+      Read the previous day's open, close, high, and low for the index to
+      anchor the data against the prior session.
+    operationId: getIndicesPreviousClose
+    parameters:
+    - name: indicesTicker
+      in: path
+      value: $inputs.ticker
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      previousClose: $response.body#/results/0/c
+  outputs:
+    value: $steps.getSnapshot.outputs.value
+    bars: $steps.getAggregates.outputs.bars
+    previousClose: $steps.getPreviousClose.outputs.previousClose

@@ -1,0 +1,89 @@
+arazzo: 1.0.1
+info:
+  title: Polygon Grouped Market Scan
+  summary: Check market status, pull grouped daily bars for all US stocks, and profile one symbol.
+  description: >-
+    A whole-market scan flow that pulls a single day's bars for every US
+    stock and then drills into one symbol of interest. The workflow checks
+    the current market status, retrieves grouped daily bars for all US
+    stocks on a given date, and resolves the reference details for a chosen
+    ticker so a single name can be profiled against the broad market read.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: referenceApi
+  url: ../openapi/polygon-reference-openapi.yml
+  type: openapi
+- name: stocksApi
+  url: ../openapi/polygon-stocks-openapi.yml
+  type: openapi
+workflows:
+- workflowId: grouped-market-scan
+  summary: Scan grouped daily bars for all US stocks and profile a single ticker.
+  description: >-
+    Checks market status, pulls grouped daily bars for all US stocks on a
+    date, and resolves reference details for one chosen ticker.
+  inputs:
+    type: object
+    required:
+    - date
+    - focusTicker
+    properties:
+      date:
+        type: string
+        description: The date to pull grouped daily bars for (YYYY-MM-DD).
+      focusTicker:
+        type: string
+        description: A single ticker to profile against the broad market read (e.g. AAPL).
+  steps:
+  - stepId: checkMarketStatus
+    description: >-
+      Get the current trading status for US markets to establish context
+      for the grouped scan.
+    operationId: getCurrentMarketStatus
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      marketStatus: $response.body#/market
+      serverTime: $response.body#/serverTime
+  - stepId: getGroupedBars
+    description: >-
+      Retrieve daily aggregate bars for all US stock tickers on the
+      requested date.
+    operationId: getStocksGroupedDailyBars
+    parameters:
+    - name: date
+      in: path
+      value: $inputs.date
+    - name: adjusted
+      in: query
+      value: true
+    - name: include_otc
+      in: query
+      value: false
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      bars: $response.body#/results
+      resultsCount: $response.body#/resultsCount
+  - stepId: profileFocusTicker
+    description: >-
+      Resolve detailed reference information for the chosen focus ticker so
+      a single name can be profiled against the broad market read.
+    operationId: getTickerDetails
+    parameters:
+    - name: ticker
+      in: path
+      value: $inputs.focusTicker
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/results/name
+      primaryExchange: $response.body#/results/primary_exchange
+      marketCap: $response.body#/results/market_cap
+  outputs:
+    marketStatus: $steps.checkMarketStatus.outputs.marketStatus
+    bars: $steps.getGroupedBars.outputs.bars
+    focusName: $steps.profileFocusTicker.outputs.name
+    focusMarketCap: $steps.profileFocusTicker.outputs.marketCap
