@@ -1,0 +1,605 @@
+{
+  "item": [
+    {
+      "id": "0259343c-55a2-4f07-9fef-fd1f28d4a137",
+      "name": "Aggregates",
+      "description": {
+        "content": "Aggregate (OHLC) bar data for equities.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f03d45bf-1eff-4289-b2fb-5b4a52e716de",
+          "name": "Get Aggregate Bars For A Stock Ticker",
+          "request": {
+            "name": "Get Aggregate Bars For A Stock Ticker",
+            "description": {
+              "content": "Returns aggregate bars for a stock over a given date range in\ncustom time window sizes (e.g., 5-minute bars between two dates).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "aggs",
+                "ticker",
+                ":stocksTicker",
+                "range",
+                ":multiplier",
+                ":timespan",
+                ":from",
+                ":to"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "adjusted",
+                  "value": "true"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "5000"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stocksTicker",
+                  "description": "(Required) Case-sensitive stock ticker symbol (e.g., AAPL)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "multiplier",
+                  "description": "(Required) Size of the timespan multiplier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timespan",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "from",
+                  "description": "(Required) Start of the aggregate window (YYYY-MM-DD or millisecond timestamp)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "to",
+                  "description": "(Required) End of the aggregate window (YYYY-MM-DD or millisecond timestamp)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "450cb20d-56be-4a0a-b473-2fca9f64c5e8",
+              "name": "Aggregate bars response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "aggs",
+                    "ticker",
+                    ":stocksTicker",
+                    "range",
+                    ":multiplier",
+                    ":timespan",
+                    ":from",
+                    ":to"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "adjusted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stocksTicker",
+                      "description": "(Required) Case-sensitive stock ticker symbol (e.g., AAPL)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "multiplier",
+                      "description": "(Required) Size of the timespan multiplier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timespan",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "from",
+                      "description": "(Required) Start of the aggregate window (YYYY-MM-DD or millisecond timestamp)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "to",
+                      "description": "(Required) End of the aggregate window (YYYY-MM-DD or millisecond timestamp)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"adjusted\": false,\n  \"queryCount\": 1714,\n  \"resultsCount\": 4750,\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"count\": 8677,\n  \"next_url\": \"http://yMiU.uwDajBxL7LdL\",\n  \"results\": [\n    {\n      \"T\": \"string\",\n      \"v\": 5765.237026242843,\n      \"vw\": 7096.690363374511,\n      \"o\": 4195.401680932938,\n      \"c\": 7313.390341283041,\n      \"h\": 6829.966055082463,\n      \"l\": 529.8952458790073,\n      \"t\": 5699,\n      \"n\": 3321\n    },\n    {\n      \"T\": \"string\",\n      \"v\": 2895.553735496221,\n      \"vw\": 1653.6309193901611,\n      \"o\": 2132.48015359192,\n      \"c\": 3000.328350231555,\n      \"h\": 9235.045538424132,\n      \"l\": 978.5926039482151,\n      \"t\": 2386,\n      \"n\": 2577\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "64f31ff9-652b-4da9-9fd7-2e70f6c5fdb7",
+      "name": "DailyBars",
+      "description": {
+        "content": "Daily open/close and grouped daily bars.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "96c8a0f8-169a-4b2d-a7a8-0fda0cd4f8f1",
+          "name": "Get Daily Open Close For A Stock Ticker",
+          "request": {
+            "name": "Get Daily Open Close For A Stock Ticker",
+            "description": {
+              "content": "Returns the open, close, high, and low for a stock ticker on a specific date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "open-close",
+                ":stocksTicker",
+                ":date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "adjusted",
+                  "value": "true"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stocksTicker",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "date",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16b91dae-d4ac-47a0-861d-6b9c3bce1dd0",
+              "name": "Daily open/close response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "open-close",
+                    ":stocksTicker",
+                    ":date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "adjusted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stocksTicker",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"from\": \"1956-02-02\",\n  \"symbol\": \"string\",\n  \"open\": 3898.1053940471866,\n  \"high\": 90.28321505623049,\n  \"low\": 6445.932188622379,\n  \"close\": 2388.436844786449,\n  \"volume\": 6054.372438135048,\n  \"afterHours\": 840.512719640828,\n  \"preMarket\": 2298.4677167137447\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "edcb8b48-1764-491d-af86-af47d87a9031",
+          "name": "Get Grouped Daily Bars For US Stocks",
+          "request": {
+            "name": "Get Grouped Daily Bars For US Stocks",
+            "description": {
+              "content": "Returns daily aggregate bars for all US stock tickers on a specific date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "aggs",
+                "grouped",
+                "locale",
+                "us",
+                "market",
+                "stocks",
+                ":date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "adjusted",
+                  "value": "true"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_otc",
+                  "value": "false"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "date",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "75db0de2-1bd5-4b36-a6ff-a976940d2098",
+              "name": "Grouped daily bars response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "aggs",
+                    "grouped",
+                    "locale",
+                    "us",
+                    "market",
+                    "stocks",
+                    ":date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "adjusted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_otc",
+                      "value": "false"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"adjusted\": false,\n  \"queryCount\": 1714,\n  \"resultsCount\": 4750,\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"count\": 8677,\n  \"next_url\": \"http://yMiU.uwDajBxL7LdL\",\n  \"results\": [\n    {\n      \"T\": \"string\",\n      \"v\": 5765.237026242843,\n      \"vw\": 7096.690363374511,\n      \"o\": 4195.401680932938,\n      \"c\": 7313.390341283041,\n      \"h\": 6829.966055082463,\n      \"l\": 529.8952458790073,\n      \"t\": 5699,\n      \"n\": 3321\n    },\n    {\n      \"T\": \"string\",\n      \"v\": 2895.553735496221,\n      \"vw\": 1653.6309193901611,\n      \"o\": 2132.48015359192,\n      \"c\": 3000.328350231555,\n      \"h\": 9235.045538424132,\n      \"l\": 978.5926039482151,\n      \"t\": 2386,\n      \"n\": 2577\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b86a433-3a40-4294-9f8b-a9f428bbb6e9",
+          "name": "Get Previous Close For A Stock Ticker",
+          "request": {
+            "name": "Get Previous Close For A Stock Ticker",
+            "description": {
+              "content": "Returns the previous trading day's open, close, high, and low for a stock ticker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "aggs",
+                "ticker",
+                ":stocksTicker",
+                "prev"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "adjusted",
+                  "value": "true"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stocksTicker",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fbec11a5-e534-4984-a764-5696c48e93f6",
+              "name": "Previous close response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "aggs",
+                    "ticker",
+                    ":stocksTicker",
+                    "prev"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "adjusted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stocksTicker",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"adjusted\": false,\n  \"queryCount\": 1714,\n  \"resultsCount\": 4750,\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"count\": 8677,\n  \"next_url\": \"http://yMiU.uwDajBxL7LdL\",\n  \"results\": [\n    {\n      \"T\": \"string\",\n      \"v\": 5765.237026242843,\n      \"vw\": 7096.690363374511,\n      \"o\": 4195.401680932938,\n      \"c\": 7313.390341283041,\n      \"h\": 6829.966055082463,\n      \"l\": 529.8952458790073,\n      \"t\": 5699,\n      \"n\": 3321\n    },\n    {\n      \"T\": \"string\",\n      \"v\": 2895.553735496221,\n      \"vw\": 1653.6309193901611,\n      \"o\": 2132.48015359192,\n      \"c\": 3000.328350231555,\n      \"h\": 9235.045538424132,\n      \"l\": 978.5926039482151,\n      \"t\": 2386,\n      \"n\": 2577\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e8daf7f9-40ad-4e01-a134-5f0abdf2649e",
+    "name": "Polygon Stocks REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon (rebranded as Massive in early 2026) exposes real-time and\nhistorical US equity market data via a REST API at\n`https://api.polygon.io`. This specification covers a representative\nsubset of the Stocks API: aggregate bars, daily open/close,\ngrouped daily bars, and previous-close. Authentication uses an API\nkey, sent either as the `apiKey` query parameter or as\n`Authorization: Bearer <apiKey>`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}

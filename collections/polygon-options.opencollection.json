@@ -1,0 +1,189 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polygon Options REST API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Options Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/reference/options/contracts",
+            "params": [
+              {
+                "name": "underlying_ticker",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "contract_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expiration_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "strike_price",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expired",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List option contracts matching the given filters."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Option Contract Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/snapshot/options/:underlyingAsset/:optionContract",
+            "params": [
+              {
+                "name": "underlyingAsset",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "optionContract",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a snapshot for a specific option contract."
+        },
+        {
+          "info": {
+            "name": "Get Options Chain Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/snapshot/options/:underlyingAsset",
+            "params": [
+              {
+                "name": "underlyingAsset",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "strike_price",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expiration_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "contract_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a snapshot of an options chain for an underlying asset."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Aggregates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Aggregate Bars For An Options Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/aggs/ticker/:optionsTicker/range/:multiplier/:timespan/:from/:to",
+            "params": [
+              {
+                "name": "optionsTicker",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "multiplier",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "timespan",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Aggregate bars (OHLC) for an options contract."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

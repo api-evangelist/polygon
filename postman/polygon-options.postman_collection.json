@@ -1,0 +1,705 @@
+{
+  "info": {
+    "_postman_id": "06c37d5b-5315-46f4-828e-29e40a3c2007",
+    "name": "Polygon Options REST API",
+    "description": "Polygon Options API provides OPRA-licensed options market data via\n`https://api.polygon.io`. This specification covers a representative\nsubset: contract reference, aggregate bars, snapshots, and option\nchains. Authentication uses an API key via the `apiKey` query\nparameter or `Authorization: Bearer <apiKey>`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T12:17:40.000Z",
+    "updatedAt": "2026-06-05T12:17:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-06c37d5b-5315-46f4-828e-29e40a3c2007"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "reference",
+          "item": [
+            {
+              "name": "options",
+              "item": [
+                {
+                  "name": "contracts",
+                  "item": [
+                    {
+                      "name": "List Options Contracts",
+                      "id": "9e3bc812-a105-4a3d-8103-9bff4b28efc8",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/reference/options/contracts?underlying_ticker=<string>&contract_type=put&expiration_date=<date>&as_of=<date>&strike_price=<number>&expired=<boolean>&limit=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "reference",
+                            "options",
+                            "contracts"
+                          ],
+                          "query": [
+                            {
+                              "key": "underlying_ticker",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "contract_type",
+                              "value": "put"
+                            },
+                            {
+                              "key": "expiration_date",
+                              "value": "<date>"
+                            },
+                            {
+                              "key": "as_of",
+                              "value": "<date>"
+                            },
+                            {
+                              "key": "strike_price",
+                              "value": "<number>"
+                            },
+                            {
+                              "key": "expired",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "10"
+                            }
+                          ]
+                        },
+                        "description": "List option contracts matching the given filters."
+                      },
+                      "response": [
+                        {
+                          "id": "cfc2bcdd-2831-4c55-937e-825dfbfa5a01",
+                          "name": "Options contracts response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/reference/options/contracts?underlying_ticker=<string>&contract_type=put&expiration_date=<date>&as_of=<date>&strike_price=<number>&expired=<boolean>&limit=10&apiKey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "reference",
+                                "options",
+                                "contracts"
+                              ],
+                              "query": [
+                                {
+                                  "key": "underlying_ticker",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "contract_type",
+                                  "value": "put"
+                                },
+                                {
+                                  "key": "expiration_date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "key": "as_of",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "key": "strike_price",
+                                  "value": "<number>"
+                                },
+                                {
+                                  "key": "expired",
+                                  "value": "<boolean>"
+                                },
+                                {
+                                  "key": "limit",
+                                  "value": "10"
+                                },
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "apiKey",
+                                  "value": "<API Key>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"next_url\": \"<uri>\",\n  \"results\": [\n    {\n      \"cfi\": \"<string>\",\n      \"contract_type\": \"<string>\",\n      \"exercise_style\": \"<string>\",\n      \"expiration_date\": \"<date>\",\n      \"primary_exchange\": \"<string>\",\n      \"shares_per_contract\": \"<integer>\",\n      \"strike_price\": \"<number>\",\n      \"ticker\": \"<string>\",\n      \"underlying_ticker\": \"<string>\"\n    },\n    {\n      \"cfi\": \"<string>\",\n      \"contract_type\": \"<string>\",\n      \"exercise_style\": \"<string>\",\n      \"expiration_date\": \"<date>\",\n      \"primary_exchange\": \"<string>\",\n      \"shares_per_contract\": \"<integer>\",\n      \"strike_price\": \"<number>\",\n      \"ticker\": \"<string>\",\n      \"underlying_ticker\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T12:17:41.000Z",
+                          "updatedAt": "2026-06-05T12:17:41.000Z",
+                          "uid": "35240-cfc2bcdd-2831-4c55-937e-825dfbfa5a01"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T12:17:41.000Z",
+                      "updatedAt": "2026-06-05T12:17:41.000Z",
+                      "uid": "35240-9e3bc812-a105-4a3d-8103-9bff4b28efc8"
+                    }
+                  ],
+                  "id": "6513e527-270d-4c8f-bdd1-636bf3e23a5f",
+                  "createdAt": "2026-06-05T12:17:41.000Z",
+                  "updatedAt": "2026-06-05T12:17:41.000Z",
+                  "uid": "35240-6513e527-270d-4c8f-bdd1-636bf3e23a5f"
+                }
+              ],
+              "id": "74d10955-1f0d-4c4b-947c-f5dcbcc2aae8",
+              "createdAt": "2026-06-05T12:17:41.000Z",
+              "updatedAt": "2026-06-05T12:17:41.000Z",
+              "uid": "35240-74d10955-1f0d-4c4b-947c-f5dcbcc2aae8"
+            }
+          ],
+          "id": "01714486-5981-47c8-b82a-37ccdfac1efe",
+          "createdAt": "2026-06-05T12:17:41.000Z",
+          "updatedAt": "2026-06-05T12:17:41.000Z",
+          "uid": "35240-01714486-5981-47c8-b82a-37ccdfac1efe"
+        },
+        {
+          "name": "snapshot",
+          "item": [
+            {
+              "name": "options",
+              "item": [
+                {
+                  "name": "{underlyingAsset}",
+                  "item": [
+                    {
+                      "name": "{optionContract}",
+                      "item": [
+                        {
+                          "name": "Get Option Contract Snapshot",
+                          "id": "9fdddb55-0503-45e8-ba6e-b54b0d00641c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/snapshot/options/:underlyingAsset/:optionContract",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "snapshot",
+                                "options",
+                                ":underlyingAsset",
+                                ":optionContract"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "0bb7b09a-4f52-4a98-a335-506add34cb79",
+                                  "key": "underlyingAsset",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "501a54e4-5e3f-4e8c-ad24-5f8e94c3d6d4",
+                                  "key": "optionContract",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get a snapshot for a specific option contract."
+                          },
+                          "response": [
+                            {
+                              "id": "606ec60e-2f3f-4207-b1be-9d2a7e98cc9c",
+                              "name": "Option contract snapshot response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/snapshot/options/:underlyingAsset/:optionContract?apiKey=<API Key>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "snapshot",
+                                    "options",
+                                    ":underlyingAsset",
+                                    ":optionContract"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Added as a part of security scheme: apikey",
+                                      "key": "apiKey",
+                                      "value": "<API Key>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "underlyingAsset"
+                                    },
+                                    {
+                                      "key": "optionContract"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"results\": {\n    \"break_even_price\": \"<number>\",\n    \"day\": {\n      \"ut9d\": false,\n      \"nisi1a7\": -24062397,\n      \"enim7a_\": 46750610.131575674,\n      \"veniamb3\": 95759147\n    },\n    \"details\": {\n      \"cfi\": \"<string>\",\n      \"contract_type\": \"<string>\",\n      \"exercise_style\": \"<string>\",\n      \"expiration_date\": \"<date>\",\n      \"primary_exchange\": \"<string>\",\n      \"shares_per_contract\": \"<integer>\",\n      \"strike_price\": \"<number>\",\n      \"ticker\": \"<string>\",\n      \"underlying_ticker\": \"<string>\"\n    },\n    \"greeks\": {\n      \"delta\": \"<number>\",\n      \"gamma\": \"<number>\",\n      \"theta\": \"<number>\",\n      \"vega\": \"<number>\"\n    },\n    \"implied_volatility\": \"<number>\",\n    \"last_quote\": {\n      \"nostrudb5\": false,\n      \"aliqua_00\": true,\n      \"cillumfc1\": -15442754.92746006\n    },\n    \"last_trade\": {\n      \"Duis3\": false,\n      \"eiusmod1_\": -961590\n    },\n    \"open_interest\": \"<integer>\",\n    \"underlying_asset\": {\n      \"ad7c\": -16012747\n    }\n  }\n}",
+                              "createdAt": "2026-06-05T12:17:41.000Z",
+                              "updatedAt": "2026-06-05T12:17:41.000Z",
+                              "uid": "35240-606ec60e-2f3f-4207-b1be-9d2a7e98cc9c"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T12:17:41.000Z",
+                          "updatedAt": "2026-06-05T12:17:41.000Z",
+                          "uid": "35240-9fdddb55-0503-45e8-ba6e-b54b0d00641c"
+                        }
+                      ],
+                      "id": "0a4f926b-2c00-4f2c-8fb2-87c4d67e163a",
+                      "createdAt": "2026-06-05T12:17:41.000Z",
+                      "updatedAt": "2026-06-05T12:17:41.000Z",
+                      "uid": "35240-0a4f926b-2c00-4f2c-8fb2-87c4d67e163a"
+                    },
+                    {
+                      "name": "Get Options Chain Snapshot",
+                      "id": "9b886aa4-9a5d-41fb-948c-bd5db081db07",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/snapshot/options/:underlyingAsset?strike_price=<number>&expiration_date=<date>&contract_type=put&limit=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "snapshot",
+                            "options",
+                            ":underlyingAsset"
+                          ],
+                          "query": [
+                            {
+                              "key": "strike_price",
+                              "value": "<number>"
+                            },
+                            {
+                              "key": "expiration_date",
+                              "value": "<date>"
+                            },
+                            {
+                              "key": "contract_type",
+                              "value": "put"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "10"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "2f8de395-7495-4774-89ab-362cc53ce29b",
+                              "key": "underlyingAsset",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get a snapshot of an options chain for an underlying asset."
+                      },
+                      "response": [
+                        {
+                          "id": "3a698ca6-a88a-4d0a-8c2d-968de0bd33e3",
+                          "name": "Options chain snapshot response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/snapshot/options/:underlyingAsset?strike_price=<number>&expiration_date=<date>&contract_type=put&limit=10&apiKey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "snapshot",
+                                "options",
+                                ":underlyingAsset"
+                              ],
+                              "query": [
+                                {
+                                  "key": "strike_price",
+                                  "value": "<number>"
+                                },
+                                {
+                                  "key": "expiration_date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "key": "contract_type",
+                                  "value": "put"
+                                },
+                                {
+                                  "key": "limit",
+                                  "value": "10"
+                                },
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "apiKey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "underlyingAsset"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"next_url\": \"<uri>\",\n  \"results\": [\n    {\n      \"break_even_price\": \"<number>\",\n      \"day\": {\n        \"deserunt_d\": -56939307.43640001,\n        \"consequat_a_\": false,\n        \"in3\": false\n      },\n      \"details\": {\n        \"cfi\": \"<string>\",\n        \"contract_type\": \"<string>\",\n        \"exercise_style\": \"<string>\",\n        \"expiration_date\": \"<date>\",\n        \"primary_exchange\": \"<string>\",\n        \"shares_per_contract\": \"<integer>\",\n        \"strike_price\": \"<number>\",\n        \"ticker\": \"<string>\",\n        \"underlying_ticker\": \"<string>\"\n      },\n      \"greeks\": {\n        \"delta\": \"<number>\",\n        \"gamma\": \"<number>\",\n        \"theta\": \"<number>\",\n        \"vega\": \"<number>\"\n      },\n      \"implied_volatility\": \"<number>\",\n      \"last_quote\": {\n        \"occaecat_c\": false,\n        \"laborumee\": -1541092\n      },\n      \"last_trade\": {\n        \"quis__f\": \"minim enim velit laboris\"\n      },\n      \"open_interest\": \"<integer>\",\n      \"underlying_asset\": {\n        \"nullaa6_\": 3758206.850926444,\n        \"laborisfc\": \"exercitation ullamco\",\n        \"pariatur533\": false\n      }\n    },\n    {\n      \"break_even_price\": \"<number>\",\n      \"day\": {\n        \"magna7\": \"anim\",\n        \"veniam_888\": \"esse in anim\"\n      },\n      \"details\": {\n        \"cfi\": \"<string>\",\n        \"contract_type\": \"<string>\",\n        \"exercise_style\": \"<string>\",\n        \"expiration_date\": \"<date>\",\n        \"primary_exchange\": \"<string>\",\n        \"shares_per_contract\": \"<integer>\",\n        \"strike_price\": \"<number>\",\n        \"ticker\": \"<string>\",\n        \"underlying_ticker\": \"<string>\"\n      },\n      \"greeks\": {\n        \"delta\": \"<number>\",\n        \"gamma\": \"<number>\",\n        \"theta\": \"<number>\",\n        \"vega\": \"<number>\"\n      },\n      \"implied_volatility\": \"<number>\",\n      \"last_quote\": {\n        \"ut_5b\": 40503010,\n        \"elit_ae_\": -68522425.16506144\n      },\n      \"last_trade\": {\n        \"in4\": false,\n        \"culpae\": \"dolore Ut consequat\"\n      },\n      \"open_interest\": \"<integer>\",\n      \"underlying_asset\": {\n        \"ide48\": true,\n        \"pariatur33\": 70587700.52333975,\n        \"deserunt_61b\": \"labori\"\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T12:17:41.000Z",
+                          "updatedAt": "2026-06-05T12:17:41.000Z",
+                          "uid": "35240-3a698ca6-a88a-4d0a-8c2d-968de0bd33e3"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T12:17:41.000Z",
+                      "updatedAt": "2026-06-05T12:17:41.000Z",
+                      "uid": "35240-9b886aa4-9a5d-41fb-948c-bd5db081db07"
+                    }
+                  ],
+                  "id": "ed3af159-71da-4442-beaf-cff053b031e2",
+                  "createdAt": "2026-06-05T12:17:41.000Z",
+                  "updatedAt": "2026-06-05T12:17:41.000Z",
+                  "uid": "35240-ed3af159-71da-4442-beaf-cff053b031e2"
+                }
+              ],
+              "id": "fc19cbac-eee5-413e-b62f-83ab793588a0",
+              "createdAt": "2026-06-05T12:17:41.000Z",
+              "updatedAt": "2026-06-05T12:17:41.000Z",
+              "uid": "35240-fc19cbac-eee5-413e-b62f-83ab793588a0"
+            }
+          ],
+          "id": "2b787520-8938-4988-9064-5f631ed4b692",
+          "createdAt": "2026-06-05T12:17:41.000Z",
+          "updatedAt": "2026-06-05T12:17:41.000Z",
+          "uid": "35240-2b787520-8938-4988-9064-5f631ed4b692"
+        }
+      ],
+      "id": "d8bb4f4f-fb5f-4cb0-91e7-136995aa863f",
+      "createdAt": "2026-06-05T12:17:41.000Z",
+      "updatedAt": "2026-06-05T12:17:41.000Z",
+      "uid": "35240-d8bb4f4f-fb5f-4cb0-91e7-136995aa863f"
+    },
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "aggs",
+          "item": [
+            {
+              "name": "ticker",
+              "item": [
+                {
+                  "name": "{optionsTicker}",
+                  "item": [
+                    {
+                      "name": "range",
+                      "item": [
+                        {
+                          "name": "{multiplier}",
+                          "item": [
+                            {
+                              "name": "{timespan}",
+                              "item": [
+                                {
+                                  "name": "{from}",
+                                  "item": [
+                                    {
+                                      "name": "{to}",
+                                      "item": [
+                                        {
+                                          "name": "Get Aggregate Bars For An Options Contract",
+                                          "id": "3cfbce59-f37b-4604-a16b-6073f113e137",
+                                          "protocolProfileBehavior": {
+                                            "disableBodyPruning": true
+                                          },
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/v2/aggs/ticker/:optionsTicker/range/:multiplier/:timespan/:from/:to",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "v2",
+                                                "aggs",
+                                                "ticker",
+                                                ":optionsTicker",
+                                                "range",
+                                                ":multiplier",
+                                                ":timespan",
+                                                ":from",
+                                                ":to"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "id": "0c125dec-d27f-43fb-a59b-6e8c6629aa5a",
+                                                  "key": "optionsTicker",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "64dca980-b17f-456a-a1ca-b76cf75f106e",
+                                                  "key": "multiplier",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "b74bc26b-89a5-4f25-a98f-755b5be405cb",
+                                                  "key": "timespan",
+                                                  "value": "year",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "55e3d437-980b-463c-9291-e71b84dcc976",
+                                                  "key": "from",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "2773e9f1-d971-42d9-8e15-f9a55af9a909",
+                                                  "key": "to",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                }
+                                              ]
+                                            },
+                                            "description": "Aggregate bars (OHLC) for an options contract."
+                                          },
+                                          "response": [
+                                            {
+                                              "id": "f1c1fa2e-8d0a-4f50-9383-46a2d17b7e26",
+                                              "name": "Options aggregate bars response",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/v2/aggs/ticker/:optionsTicker/range/:multiplier/:timespan/:from/:to?apiKey=<API Key>",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "v2",
+                                                    "aggs",
+                                                    "ticker",
+                                                    ":optionsTicker",
+                                                    "range",
+                                                    ":multiplier",
+                                                    ":timespan",
+                                                    ":from",
+                                                    ":to"
+                                                  ],
+                                                  "query": [
+                                                    {
+                                                      "description": "Added as a part of security scheme: apikey",
+                                                      "key": "apiKey",
+                                                      "value": "<API Key>"
+                                                    }
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "optionsTicker"
+                                                    },
+                                                    {
+                                                      "key": "multiplier"
+                                                    },
+                                                    {
+                                                      "key": "timespan"
+                                                    },
+                                                    {
+                                                      "key": "from"
+                                                    },
+                                                    {
+                                                      "key": "to"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"ticker\": \"<string>\",\n  \"adjusted\": \"<boolean>\",\n  \"queryCount\": \"<integer>\",\n  \"resultsCount\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"results\": [\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    },\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    }\n  ]\n}",
+                                              "createdAt": "2026-06-05T12:17:41.000Z",
+                                              "updatedAt": "2026-06-05T12:17:41.000Z",
+                                              "uid": "35240-f1c1fa2e-8d0a-4f50-9383-46a2d17b7e26"
+                                            }
+                                          ],
+                                          "createdAt": "2026-06-05T12:17:41.000Z",
+                                          "updatedAt": "2026-06-05T12:17:41.000Z",
+                                          "uid": "35240-3cfbce59-f37b-4604-a16b-6073f113e137"
+                                        }
+                                      ],
+                                      "id": "0e0f2abc-9710-4daf-b2ae-f0afde11c7d9",
+                                      "createdAt": "2026-06-05T12:17:41.000Z",
+                                      "updatedAt": "2026-06-05T12:17:41.000Z",
+                                      "uid": "35240-0e0f2abc-9710-4daf-b2ae-f0afde11c7d9"
+                                    }
+                                  ],
+                                  "id": "215c5bf2-9249-4688-9a82-858edbe342cc",
+                                  "createdAt": "2026-06-05T12:17:41.000Z",
+                                  "updatedAt": "2026-06-05T12:17:41.000Z",
+                                  "uid": "35240-215c5bf2-9249-4688-9a82-858edbe342cc"
+                                }
+                              ],
+                              "id": "f9643973-429a-46cc-bbf3-01a0778988ff",
+                              "createdAt": "2026-06-05T12:17:41.000Z",
+                              "updatedAt": "2026-06-05T12:17:41.000Z",
+                              "uid": "35240-f9643973-429a-46cc-bbf3-01a0778988ff"
+                            }
+                          ],
+                          "id": "70a4d7c2-6620-47df-af85-e3931c5f3800",
+                          "createdAt": "2026-06-05T12:17:41.000Z",
+                          "updatedAt": "2026-06-05T12:17:41.000Z",
+                          "uid": "35240-70a4d7c2-6620-47df-af85-e3931c5f3800"
+                        }
+                      ],
+                      "id": "14582376-6272-4a6c-adc4-c2ff261802fc",
+                      "createdAt": "2026-06-05T12:17:41.000Z",
+                      "updatedAt": "2026-06-05T12:17:41.000Z",
+                      "uid": "35240-14582376-6272-4a6c-adc4-c2ff261802fc"
+                    }
+                  ],
+                  "id": "0974d051-a0f0-432e-b32c-d29cb99c4c43",
+                  "createdAt": "2026-06-05T12:17:41.000Z",
+                  "updatedAt": "2026-06-05T12:17:41.000Z",
+                  "uid": "35240-0974d051-a0f0-432e-b32c-d29cb99c4c43"
+                }
+              ],
+              "id": "2d24ffaf-7120-4477-9e82-53bfc4136b80",
+              "createdAt": "2026-06-05T12:17:41.000Z",
+              "updatedAt": "2026-06-05T12:17:41.000Z",
+              "uid": "35240-2d24ffaf-7120-4477-9e82-53bfc4136b80"
+            }
+          ],
+          "id": "cf684a66-c422-4670-87d4-38dc77368e7c",
+          "createdAt": "2026-06-05T12:17:41.000Z",
+          "updatedAt": "2026-06-05T12:17:41.000Z",
+          "uid": "35240-cf684a66-c422-4670-87d4-38dc77368e7c"
+        }
+      ],
+      "id": "60280b0b-5648-4a73-9648-d4884a4405ea",
+      "createdAt": "2026-06-05T12:17:41.000Z",
+      "updatedAt": "2026-06-05T12:17:41.000Z",
+      "uid": "35240-60280b0b-5648-4a73-9648-d4884a4405ea"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}

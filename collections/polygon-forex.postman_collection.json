@@ -1,0 +1,570 @@
+{
+  "item": [
+    {
+      "id": "ba31b2e2-0f2c-4c0f-ae6b-c58a727c821d",
+      "name": "Aggregates",
+      "description": {
+        "content": "FX aggregate bars.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "183f862c-4518-4879-91d2-0caa56b52a30",
+          "name": "Get Aggregate Bars For A Forex Pair",
+          "request": {
+            "name": "Get Aggregate Bars For A Forex Pair",
+            "description": {
+              "content": "Aggregate bars (OHLC) for an FX pair (e.g., C:EURUSD).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "aggs",
+                "ticker",
+                ":forexTicker",
+                "range",
+                ":multiplier",
+                ":timespan",
+                ":from",
+                ":to"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "forexTicker",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "multiplier",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timespan",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "from",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "to",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a37c945-843e-45ea-bc79-5927b0fa252f",
+              "name": "Forex aggregate bars response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "aggs",
+                    "ticker",
+                    ":forexTicker",
+                    "range",
+                    ":multiplier",
+                    ":timespan",
+                    ":from",
+                    ":to"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "forexTicker",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "multiplier",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timespan",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "from",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "to",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"resultsCount\": 6870,\n  \"results\": [\n    {\n      \"v\": 5724.991143414813,\n      \"vw\": 9804.945501153617,\n      \"o\": 1422.9530126275524,\n      \"c\": 9975.45572096413,\n      \"h\": 6313.741742066367,\n      \"l\": 7848.687753745846,\n      \"t\": 5384,\n      \"n\": 3880\n    },\n    {\n      \"v\": 7169.924747702508,\n      \"vw\": 7805.145717895423,\n      \"o\": 6809.765539528437,\n      \"c\": 9726.98628131628,\n      \"h\": 4279.761152882602,\n      \"l\": 6881.098723167101,\n      \"t\": 9514,\n      \"n\": 1585\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "182e5323-a5a6-47dc-b47e-5f9114fdc6a2",
+          "name": "Get Previous Close For A Forex Pair",
+          "request": {
+            "name": "Get Previous Close For A Forex Pair",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "aggs",
+                "ticker",
+                ":forexTicker",
+                "prev"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "forexTicker",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f40f0ada-003f-41df-bbf0-a07847e31c1a",
+              "name": "Forex previous close response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "aggs",
+                    "ticker",
+                    ":forexTicker",
+                    "prev"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "forexTicker",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"resultsCount\": 6870,\n  \"results\": [\n    {\n      \"v\": 5724.991143414813,\n      \"vw\": 9804.945501153617,\n      \"o\": 1422.9530126275524,\n      \"c\": 9975.45572096413,\n      \"h\": 6313.741742066367,\n      \"l\": 7848.687753745846,\n      \"t\": 5384,\n      \"n\": 3880\n    },\n    {\n      \"v\": 7169.924747702508,\n      \"vw\": 7805.145717895423,\n      \"o\": 6809.765539528437,\n      \"c\": 9726.98628131628,\n      \"h\": 4279.761152882602,\n      \"l\": 6881.098723167101,\n      \"t\": 9514,\n      \"n\": 1585\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "dccde06e-d311-4046-8fb7-fcdd147ce04f",
+      "name": "Conversion",
+      "description": {
+        "content": "Real-time currency conversion.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8d7d50b2-9df8-48ce-8b6b-ddc3e7455a63",
+          "name": "Convert From One Currency To Another",
+          "request": {
+            "name": "Convert From One Currency To Another",
+            "description": {
+              "content": "Get currency conversion rate and converted amount.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversion",
+                ":from",
+                ":to"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "precision",
+                  "value": "2"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "from",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "to",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2ac3cac1-0914-4d87-a65f-2aeaec2fcda2",
+              "name": "Conversion response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversion",
+                    ":from",
+                    ":to"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "100"
+                    },
+                    {
+                      "key": "precision",
+                      "value": "2"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "from",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "to",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"from\": \"string\",\n  \"to\": \"string\",\n  \"initialAmount\": 3986.0344712973683,\n  \"converted\": 3592.7119334826484,\n  \"last\": {\n    \"ask\": 3854.6533641847846,\n    \"bid\": 4629.431436531828,\n    \"exchange\": 923,\n    \"timestamp\": 8012\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d40a5f27-e8af-4494-8d74-f3c5e1138cfe",
+      "name": "Quotes",
+      "description": {
+        "content": "FX quote endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7bf60c40-0ec4-4a19-a078-0b9113fdebb8",
+          "name": "Get Last Quote For A Currency Pair",
+          "request": {
+            "name": "Get Last Quote For A Currency Pair",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "last_quote",
+                "currencies",
+                ":from",
+                ":to"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "from",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "to",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bcf3fcd7-ce26-4715-a739-6787348fddcf",
+              "name": "Last quote response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "last_quote",
+                    "currencies",
+                    ":from",
+                    ":to"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "from",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "to",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"symbol\": \"string\",\n  \"last\": {\n    \"ask\": 3383.828085511714,\n    \"bid\": 5930.269283019165,\n    \"exchange\": 8528,\n    \"timestamp\": 8219\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "afedcc11-0779-4076-9952-1a9d3a4b105c",
+    "name": "Polygon Forex REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon Forex API exposes real-time and historical foreign exchange\nrates for 1,000+ currency pairs via `https://api.polygon.io`. This\nspec covers aggregates, real-time currency conversion, previous-close,\nand last-quote endpoints. Auth uses an API key via `apiKey` query\nparameter or `Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}

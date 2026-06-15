@@ -1,0 +1,154 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polygon Forex REST API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Aggregates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Aggregate Bars For A Forex Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/aggs/ticker/:forexTicker/range/:multiplier/:timespan/:from/:to",
+            "params": [
+              {
+                "name": "forexTicker",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "multiplier",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "timespan",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Aggregate bars (OHLC) for an FX pair (e.g., C:EURUSD)."
+        },
+        {
+          "info": {
+            "name": "Get Previous Close For A Forex Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/aggs/ticker/:forexTicker/prev",
+            "params": [
+              {
+                "name": "forexTicker",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Previous Close For A Forex Pair"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Conversion",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert From One Currency To Another",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v1/conversion/:from/:to",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "precision",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get currency conversion rate and converted amount."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Quotes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Last Quote For A Currency Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v1/last_quote/currencies/:from/:to",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Last Quote For A Currency Pair"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

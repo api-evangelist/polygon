@@ -1,0 +1,421 @@
+{
+  "item": [
+    {
+      "id": "8819819c-2742-4a56-bfbc-0c23e6652b72",
+      "name": "Snapshots",
+      "description": {
+        "content": "Index snapshot endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "697e2387-799a-400d-92d0-c37aa82dd4cf",
+          "name": "Get Snapshot For Indices",
+          "request": {
+            "name": "Get Snapshot For Indices",
+            "description": {
+              "content": "Returns the most recent index values for one or more indices.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "snapshot",
+                "indices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ticker.any_of",
+                  "value": "<string>",
+                  "description": "Comma-separated list of index tickers (e.g., I:SPX,I:DJI)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9ee53b58-de7a-4516-82b7-3b7ccfb3a732",
+              "name": "Indices snapshot response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "snapshot",
+                    "indices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ticker.any_of",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"next_url\": \"http://OcukIaZkSgbcCeIScvsYjqlKEupAFk.cuCf63\",\n  \"results\": [\n    {\n      \"ticker\": \"string\",\n      \"name\": \"string\",\n      \"value\": 1828.381769526757,\n      \"last_updated\": 9515,\n      \"market_status\": \"string\",\n      \"type\": \"string\",\n      \"session\": {\n        \"change\": 2317.555865102319,\n        \"change_percent\": 9633.681914948815,\n        \"close\": 5225.589750130165,\n        \"high\": 7164.647640030262,\n        \"low\": 3713.591002429194,\n        \"open\": 3693.7867600279083,\n        \"previous_close\": 9351.61288092796\n      }\n    },\n    {\n      \"ticker\": \"string\",\n      \"name\": \"string\",\n      \"value\": 7791.071904190227,\n      \"last_updated\": 9976,\n      \"market_status\": \"string\",\n      \"type\": \"string\",\n      \"session\": {\n        \"change\": 9619.413926802417,\n        \"change_percent\": 3723.3561618036406,\n        \"close\": 4439.298044199838,\n        \"high\": 5826.321622723703,\n        \"low\": 7657.6284011219495,\n        \"open\": 3764.8526765702018,\n        \"previous_close\": 3849.1188494107287\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e2b84fcd-2e4e-4894-be5c-246249db4462",
+      "name": "Aggregates",
+      "description": {
+        "content": "Index aggregate bar endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bbe4b024-6046-44c9-9ab4-aa30d256f23a",
+          "name": "Get Aggregate Bars For An Index",
+          "request": {
+            "name": "Get Aggregate Bars For An Index",
+            "description": {
+              "content": "Aggregate bars (OHLC) for an index ticker over a date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "aggs",
+                "ticker",
+                ":indicesTicker",
+                "range",
+                ":multiplier",
+                ":timespan",
+                ":from",
+                ":to"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "indicesTicker",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "multiplier",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timespan",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "from",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "to",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6222ab88-57c8-490e-9d75-adcf2e56bf0f",
+              "name": "Indices aggregate bars response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "aggs",
+                    "ticker",
+                    ":indicesTicker",
+                    "range",
+                    ":multiplier",
+                    ":timespan",
+                    ":from",
+                    ":to"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "indicesTicker",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "multiplier",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timespan",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "from",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "to",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"resultsCount\": 6365,\n  \"results\": [\n    {\n      \"v\": 6015.930462715847,\n      \"vw\": 4111.1600223366795,\n      \"o\": 1730.1728283244233,\n      \"c\": 7506.2093453896105,\n      \"h\": 9087.362607426881,\n      \"l\": 6006.212775237682,\n      \"t\": 4179,\n      \"n\": 4116\n    },\n    {\n      \"v\": 32.22030866897319,\n      \"vw\": 1801.4346034478413,\n      \"o\": 4728.061283108836,\n      \"c\": 2075.950877341224,\n      \"h\": 7117.407322809927,\n      \"l\": 6270.364830416858,\n      \"t\": 5488,\n      \"n\": 7816\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49b3c437-72e3-4257-a864-d5a53720f640",
+          "name": "Get Previous Close For An Index",
+          "request": {
+            "name": "Get Previous Close For An Index",
+            "description": {
+              "content": "Returns the previous day's open/close/high/low for an index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "aggs",
+                "ticker",
+                ":indicesTicker",
+                "prev"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "indicesTicker",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "75106448-f1f6-423e-9054-d440d56696e7",
+              "name": "Indices previous close response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "aggs",
+                    "ticker",
+                    ":indicesTicker",
+                    "prev"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "indicesTicker",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"resultsCount\": 6365,\n  \"results\": [\n    {\n      \"v\": 6015.930462715847,\n      \"vw\": 4111.1600223366795,\n      \"o\": 1730.1728283244233,\n      \"c\": 7506.2093453896105,\n      \"h\": 9087.362607426881,\n      \"l\": 6006.212775237682,\n      \"t\": 4179,\n      \"n\": 4116\n    },\n    {\n      \"v\": 32.22030866897319,\n      \"vw\": 1801.4346034478413,\n      \"o\": 4728.061283108836,\n      \"c\": 2075.950877341224,\n      \"h\": 7117.407322809927,\n      \"l\": 6270.364830416858,\n      \"t\": 5488,\n      \"n\": 7816\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "742c7851-72ce-4c31-957a-2474e996265b",
+    "name": "Polygon Indices REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon Indices API exposes real-time and historical index values\n(e.g., I:SPX, I:NDX) via `https://api.polygon.io`. This spec covers\nthe snapshot, aggregates, and previous-close endpoints. Auth uses an\nAPI key via `apiKey` query parameter or `Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}

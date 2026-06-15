@@ -3,12 +3,10 @@ name: Polygon
 url: https://raw.githubusercontent.com/api-evangelist/polygon/refs/heads/main/apis.yml
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 description: >-
-  Polygon (Polygon.io, rebranded as Massive in early 2026) provides real-time
-  and historical market data APIs across US stocks, options, indices, forex,
-  cryptocurrencies, and futures. Coverage is delivered through REST endpoints
-  and WebSocket streams under a single api.polygon.io surface plus an S3 flat
-  files product, with tiered subscription plans for retail developers and
-  Business contracts for redistribution and exchange-licensed data.
+  Polygon (Polygon.io, rebranded as Massive in early 2026) provides real-time and historical market data APIs across US
+  stocks, options, indices, forex, cryptocurrencies, and futures. Coverage is delivered through REST endpoints and
+  WebSocket streams under a single api.polygon.io surface plus an S3 flat files product, with tiered subscription plans
+  for retail developers and Business contracts for redistribution and exchange-licensed data.
 specificationVersion: '0.20'
 created: '2026-05-28'
 modified: '2026-05-29'
@@ -35,10 +33,9 @@ apis:
   - aid: polygon:stocks-api
     name: Polygon Stocks API
     description: >-
-      Real-time and historical US equity market data including aggregate
-      (OHLC) bars at minute/hour/day granularity, trades, NBBO quotes,
-      snapshots, ticker reference, splits, dividends, and financials.
-      Available via REST and the stocks WebSocket cluster.
+      Real-time and historical US equity market data including aggregate (OHLC) bars at minute/hour/day granularity,
+      trades, NBBO quotes, snapshots, ticker reference, splits, dividends, and financials. Available via REST and the
+      stocks WebSocket cluster.
     humanURL: https://polygon.io/docs/stocks
     baseURL: https://api.polygon.io
     tags:
@@ -61,16 +58,11 @@ apis:
         url: json-structure/polygon-aggregate-bar-structure.json
       - type: Example
         url: examples/polygon-stocks-aggregate-bars-example.json
-      - type: NaftikoCapability
-        url: capabilities/stocks-aggregates.yaml
-      - type: NaftikoCapability
-        url: capabilities/stocks-dailybars.yaml
   - aid: polygon:options-api
     name: Polygon Options API
     description: >-
-      OPRA-licensed options market data via REST and WebSocket: aggregates,
-      trades, quotes, snapshots, contract reference, and option chains.
-      Greeks and implied volatility are available on paid tiers.
+      OPRA-licensed options market data via REST and WebSocket: aggregates, trades, quotes, snapshots, contract
+      reference, and option chains. Greeks and implied volatility are available on paid tiers.
     humanURL: https://polygon.io/docs/options
     baseURL: https://api.polygon.io
     tags:
@@ -90,18 +82,11 @@ apis:
         url: json-structure/polygon-options-contract-structure.json
       - type: Example
         url: examples/polygon-options-chain-snapshot-example.json
-      - type: NaftikoCapability
-        url: capabilities/options-aggregates.yaml
-      - type: NaftikoCapability
-        url: capabilities/options-contracts.yaml
-      - type: NaftikoCapability
-        url: capabilities/options-snapshots.yaml
   - aid: polygon:indices-api
     name: Polygon Indices API
     description: >-
-      Real-time and historical index values for major US and global indices
-      via REST and WebSocket. Includes aggregates, snapshots, and index
-      reference data.
+      Real-time and historical index values for major US and global indices via REST and WebSocket. Includes aggregates,
+      snapshots, and index reference data.
     humanURL: https://polygon.io/docs/indices
     baseURL: https://api.polygon.io
     tags:
@@ -114,16 +99,11 @@ apis:
         url: https://polygon.io/docs/indices
       - type: OpenAPI
         url: openapi/polygon-indices-openapi.yml
-      - type: NaftikoCapability
-        url: capabilities/indices-aggregates.yaml
-      - type: NaftikoCapability
-        url: capabilities/indices-snapshots.yaml
   - aid: polygon:forex-api
     name: Polygon Forex API
     description: >-
-      Real-time and historical FX prices for 1,000+ currency pairs via REST
-      and WebSocket. Covers aggregates, quotes, snapshots, conversions, and
-      previous-close.
+      Real-time and historical FX prices for 1,000+ currency pairs via REST and WebSocket. Covers aggregates, quotes,
+      snapshots, conversions, and previous-close.
     humanURL: https://polygon.io/docs/forex
     baseURL: https://api.polygon.io
     tags:
@@ -140,18 +120,11 @@ apis:
         url: openapi/polygon-forex-openapi.yml
       - type: Example
         url: examples/polygon-forex-conversion-example.json
-      - type: NaftikoCapability
-        url: capabilities/forex-aggregates.yaml
-      - type: NaftikoCapability
-        url: capabilities/forex-conversion.yaml
-      - type: NaftikoCapability
-        url: capabilities/forex-quotes.yaml
   - aid: polygon:crypto-api
     name: Polygon Crypto API
     description: >-
-      Aggregates, trades, snapshots, and level-2 order books for crypto
-      pairs sourced across major exchanges, plus WebSocket streaming on the
-      crypto cluster.
+      Aggregates, trades, snapshots, and level-2 order books for crypto pairs sourced across major exchanges, plus
+      WebSocket streaming on the crypto cluster.
     humanURL: https://polygon.io/docs/crypto
     baseURL: https://api.polygon.io
     tags:
@@ -165,20 +138,11 @@ apis:
         url: https://polygon.io/docs/crypto
       - type: OpenAPI
         url: openapi/polygon-crypto-openapi.yml
-      - type: NaftikoCapability
-        url: capabilities/crypto-aggregates.yaml
-      - type: NaftikoCapability
-        url: capabilities/crypto-dailybars.yaml
-      - type: NaftikoCapability
-        url: capabilities/crypto-snapshots.yaml
-      - type: NaftikoCapability
-        url: capabilities/crypto-books.yaml
   - aid: polygon:reference-api
     name: Polygon Reference API
     description: >-
-      Reference data covering tickers, ticker types, markets, exchanges,
-      market holidays, market status, conditions, stock splits, dividends,
-      and ticker news. Shared across all asset classes.
+      Reference data covering tickers, ticker types, markets, exchanges, market holidays, market status, conditions,
+      stock splits, dividends, and ticker news. Shared across all asset classes.
     humanURL: https://polygon.io/docs/stocks/get_v3_reference_tickers
     baseURL: https://api.polygon.io
     tags:
@@ -197,21 +161,11 @@ apis:
         url: json-structure/polygon-ticker-structure.json
       - type: Example
         url: examples/polygon-reference-tickers-example.json
-      - type: NaftikoCapability
-        url: capabilities/reference-tickers.yaml
-      - type: NaftikoCapability
-        url: capabilities/reference-markets.yaml
-      - type: NaftikoCapability
-        url: capabilities/reference-corporateactions.yaml
-      - type: NaftikoCapability
-        url: capabilities/reference-news.yaml
   - aid: polygon:websocket-api
     name: Polygon WebSocket API
     description: >-
-      Real-time streaming WebSocket clusters per asset class
-      (stocks/options/indices/forex/crypto). Subscribers authenticate with
-      an API key and subscribe to channels for trades, quotes, aggregates,
-      and book updates.
+      Real-time streaming WebSocket clusters per asset class (stocks/options/indices/forex/crypto). Subscribers
+      authenticate with an API key and subscribe to channels for trades, quotes, aggregates, and book updates.
     humanURL: https://polygon.io/docs/stocks/ws_getting-started
     baseURL: wss://socket.polygon.io
     tags:
@@ -230,45 +184,47 @@ apis:
       - type: Example
         url: examples/polygon-websocket-subscribe-example.json
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/polygon/overview
   - type: ArazzoWorkflows
     url: arazzo/
     workflows:
-    - url: arazzo/polygon-corporate-actions-workflow.yml
-      name: Polygon Corporate Actions Review
-      summary: Resolve a ticker, then list its stock splits and dividends history.
-    - url: arazzo/polygon-crypto-daily-comparison-workflow.yml
-      name: Polygon Crypto Daily Comparison
-      summary: Check market status, snapshot a crypto pair, and read its daily open/close.
-    - url: arazzo/polygon-crypto-pair-analysis-workflow.yml
-      name: Polygon Crypto Pair Analysis
-      summary: Snapshot a crypto pair, pull its aggregate bars, and read its Level-2 order book.
-    - url: arazzo/polygon-forex-pair-analysis-workflow.yml
-      name: Polygon Forex Pair Analysis
-      summary: Read a currency pair's last quote, convert an amount, and pull its aggregate bars.
-    - url: arazzo/polygon-grouped-market-scan-workflow.yml
-      name: Polygon Grouped Market Scan
-      summary: Check market status, pull grouped daily bars for all US stocks, and profile one symbol.
-    - url: arazzo/polygon-index-analysis-workflow.yml
-      name: Polygon Index Analysis
-      summary: Snapshot an index, pull its aggregate bars, and read its previous close.
-    - url: arazzo/polygon-market-gated-stock-daily-workflow.yml
-      name: Polygon Market-Gated Stock Daily Snapshot
-      summary: Check current US market status, then pull a stock's daily open/close and previous close.
-    - url: arazzo/polygon-options-chain-scan-workflow.yml
-      name: Polygon Options Chain Scan
-      summary: Resolve an underlying's details, scan its options chain, and read its previous close.
-    - url: arazzo/polygon-options-contract-deep-dive-workflow.yml
-      name: Polygon Options Contract Deep Dive
-      summary: List an underlying's option contracts, snapshot the top contract, and pull its bars.
-    - url: arazzo/polygon-stock-research-workflow.yml
-      name: Polygon Stock Research
-      summary: Resolve a stock ticker's reference details, pull its aggregate bars, and read its previous close.
-    - url: arazzo/polygon-ticker-discovery-workflow.yml
-      name: Polygon Ticker Discovery and Profile
-      summary: Search active stock tickers, resolve the top match's details, and pull its recent bars.
-    - url: arazzo/polygon-ticker-news-context-workflow.yml
-      name: Polygon Ticker News Context
-      summary: Resolve a ticker's details, pull recent news, and read its previous close.
+      - url: arazzo/polygon-corporate-actions-workflow.yml
+        name: Polygon Corporate Actions Review
+        summary: Resolve a ticker, then list its stock splits and dividends history.
+      - url: arazzo/polygon-crypto-daily-comparison-workflow.yml
+        name: Polygon Crypto Daily Comparison
+        summary: Check market status, snapshot a crypto pair, and read its daily open/close.
+      - url: arazzo/polygon-crypto-pair-analysis-workflow.yml
+        name: Polygon Crypto Pair Analysis
+        summary: Snapshot a crypto pair, pull its aggregate bars, and read its Level-2 order book.
+      - url: arazzo/polygon-forex-pair-analysis-workflow.yml
+        name: Polygon Forex Pair Analysis
+        summary: Read a currency pair's last quote, convert an amount, and pull its aggregate bars.
+      - url: arazzo/polygon-grouped-market-scan-workflow.yml
+        name: Polygon Grouped Market Scan
+        summary: Check market status, pull grouped daily bars for all US stocks, and profile one symbol.
+      - url: arazzo/polygon-index-analysis-workflow.yml
+        name: Polygon Index Analysis
+        summary: Snapshot an index, pull its aggregate bars, and read its previous close.
+      - url: arazzo/polygon-market-gated-stock-daily-workflow.yml
+        name: Polygon Market-Gated Stock Daily Snapshot
+        summary: Check current US market status, then pull a stock's daily open/close and previous close.
+      - url: arazzo/polygon-options-chain-scan-workflow.yml
+        name: Polygon Options Chain Scan
+        summary: Resolve an underlying's details, scan its options chain, and read its previous close.
+      - url: arazzo/polygon-options-contract-deep-dive-workflow.yml
+        name: Polygon Options Contract Deep Dive
+        summary: List an underlying's option contracts, snapshot the top contract, and pull its bars.
+      - url: arazzo/polygon-stock-research-workflow.yml
+        name: Polygon Stock Research
+        summary: Resolve a stock ticker's reference details, pull its aggregate bars, and read its previous close.
+      - url: arazzo/polygon-ticker-discovery-workflow.yml
+        name: Polygon Ticker Discovery and Profile
+        summary: Search active stock tickers, resolve the top match's details, and pull its recent bars.
+      - url: arazzo/polygon-ticker-news-context-workflow.yml
+        name: Polygon Ticker News Context
+        summary: Resolve a ticker's details, pull recent news, and read its previous close.
   - type: Portal
     url: https://polygon.io/
   - type: Documentation
@@ -327,8 +283,6 @@ common:
     url: vocabulary/polygon-vocabulary.yml
   - type: JSONLD
     url: json-ld/polygon-context.jsonld
-  - type: NaftikoCapability
-    url: capabilities/market-data-research.yaml
   - type: Features
     data:
       - name: Multi-asset market data

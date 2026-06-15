@@ -1,0 +1,708 @@
+{
+  "info": {
+    "_postman_id": "9a00c37c-b05a-4eca-bbe3-3e2938a31cee",
+    "name": "Polygon Crypto REST API",
+    "description": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T12:17:31.000Z",
+    "updatedAt": "2026-06-05T12:17:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9a00c37c-b05a-4eca-bbe3-3e2938a31cee"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "aggs",
+          "item": [
+            {
+              "name": "ticker",
+              "item": [
+                {
+                  "name": "{cryptoTicker}",
+                  "item": [
+                    {
+                      "name": "range",
+                      "item": [
+                        {
+                          "name": "{multiplier}",
+                          "item": [
+                            {
+                              "name": "{timespan}",
+                              "item": [
+                                {
+                                  "name": "{from}",
+                                  "item": [
+                                    {
+                                      "name": "{to}",
+                                      "item": [
+                                        {
+                                          "name": "Get Aggregate Bars For A Crypto Pair",
+                                          "id": "9f4180ff-e593-433a-8d01-b457b04a5956",
+                                          "protocolProfileBehavior": {
+                                            "disableBodyPruning": true
+                                          },
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/v2/aggs/ticker/:cryptoTicker/range/:multiplier/:timespan/:from/:to",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "v2",
+                                                "aggs",
+                                                "ticker",
+                                                ":cryptoTicker",
+                                                "range",
+                                                ":multiplier",
+                                                ":timespan",
+                                                ":from",
+                                                ":to"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "id": "995873eb-91e5-4e93-8e7f-cfef7e7a9314",
+                                                  "key": "cryptoTicker",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "d4154773-ec50-47e4-ac84-038bf7a976cd",
+                                                  "key": "multiplier",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "9b29758a-4e00-465b-a6f7-8cfffc153245",
+                                                  "key": "timespan",
+                                                  "value": "month",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "e4c35c09-6309-4910-bee6-33998513a25f",
+                                                  "key": "from",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "1587550c-598c-4e03-ac5e-b63ab63c6d83",
+                                                  "key": "to",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                }
+                                              ]
+                                            },
+                                            "description": "Aggregate bars for a crypto pair (e.g., X:BTCUSD)."
+                                          },
+                                          "response": [
+                                            {
+                                              "id": "f4974df1-ca8a-42f5-9d7d-8500e40d4479",
+                                              "name": "Crypto aggregate bars response",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/v2/aggs/ticker/:cryptoTicker/range/:multiplier/:timespan/:from/:to?apiKey=<API Key>",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "v2",
+                                                    "aggs",
+                                                    "ticker",
+                                                    ":cryptoTicker",
+                                                    "range",
+                                                    ":multiplier",
+                                                    ":timespan",
+                                                    ":from",
+                                                    ":to"
+                                                  ],
+                                                  "query": [
+                                                    {
+                                                      "description": "Added as a part of security scheme: apikey",
+                                                      "key": "apiKey",
+                                                      "value": "<API Key>"
+                                                    }
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "cryptoTicker"
+                                                    },
+                                                    {
+                                                      "key": "multiplier"
+                                                    },
+                                                    {
+                                                      "key": "timespan"
+                                                    },
+                                                    {
+                                                      "key": "from"
+                                                    },
+                                                    {
+                                                      "key": "to"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"ticker\": \"<string>\",\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"resultsCount\": \"<integer>\",\n  \"results\": [\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    },\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    }\n  ]\n}",
+                                              "createdAt": "2026-06-05T12:17:32.000Z",
+                                              "updatedAt": "2026-06-05T12:17:32.000Z",
+                                              "uid": "35240-f4974df1-ca8a-42f5-9d7d-8500e40d4479"
+                                            }
+                                          ],
+                                          "createdAt": "2026-06-05T12:17:32.000Z",
+                                          "updatedAt": "2026-06-05T12:17:32.000Z",
+                                          "uid": "35240-9f4180ff-e593-433a-8d01-b457b04a5956"
+                                        }
+                                      ],
+                                      "id": "204a65ca-a42e-4aad-a22b-64e255c3f060",
+                                      "createdAt": "2026-06-05T12:17:31.000Z",
+                                      "updatedAt": "2026-06-05T12:17:31.000Z",
+                                      "uid": "35240-204a65ca-a42e-4aad-a22b-64e255c3f060"
+                                    }
+                                  ],
+                                  "id": "1587f8ca-8cbb-4322-82a2-4e819e1592ec",
+                                  "createdAt": "2026-06-05T12:17:31.000Z",
+                                  "updatedAt": "2026-06-05T12:17:31.000Z",
+                                  "uid": "35240-1587f8ca-8cbb-4322-82a2-4e819e1592ec"
+                                }
+                              ],
+                              "id": "5bd670aa-bee6-44fe-bea5-e96bf69565de",
+                              "createdAt": "2026-06-05T12:17:31.000Z",
+                              "updatedAt": "2026-06-05T12:17:31.000Z",
+                              "uid": "35240-5bd670aa-bee6-44fe-bea5-e96bf69565de"
+                            }
+                          ],
+                          "id": "6fdb7560-ca98-45fd-87d8-2f04ccb6ebfa",
+                          "createdAt": "2026-06-05T12:17:31.000Z",
+                          "updatedAt": "2026-06-05T12:17:31.000Z",
+                          "uid": "35240-6fdb7560-ca98-45fd-87d8-2f04ccb6ebfa"
+                        }
+                      ],
+                      "id": "d8609237-d561-4a30-9995-72bb838bf890",
+                      "createdAt": "2026-06-05T12:17:31.000Z",
+                      "updatedAt": "2026-06-05T12:17:31.000Z",
+                      "uid": "35240-d8609237-d561-4a30-9995-72bb838bf890"
+                    }
+                  ],
+                  "id": "5e66bc25-f6b2-4627-8ec3-ea9d3e968d23",
+                  "createdAt": "2026-06-05T12:17:31.000Z",
+                  "updatedAt": "2026-06-05T12:17:31.000Z",
+                  "uid": "35240-5e66bc25-f6b2-4627-8ec3-ea9d3e968d23"
+                }
+              ],
+              "id": "32b993a5-b639-40ea-874c-ea4d577ab63c",
+              "createdAt": "2026-06-05T12:17:31.000Z",
+              "updatedAt": "2026-06-05T12:17:31.000Z",
+              "uid": "35240-32b993a5-b639-40ea-874c-ea4d577ab63c"
+            }
+          ],
+          "id": "8242ac2f-09a5-434b-82de-e540d59af6bd",
+          "createdAt": "2026-06-05T12:17:31.000Z",
+          "updatedAt": "2026-06-05T12:17:31.000Z",
+          "uid": "35240-8242ac2f-09a5-434b-82de-e540d59af6bd"
+        },
+        {
+          "name": "snapshot",
+          "item": [
+            {
+              "name": "locale",
+              "item": [
+                {
+                  "name": "global",
+                  "item": [
+                    {
+                      "name": "markets",
+                      "item": [
+                        {
+                          "name": "crypto",
+                          "item": [
+                            {
+                              "name": "tickers",
+                              "item": [
+                                {
+                                  "name": "{ticker}",
+                                  "item": [
+                                    {
+                                      "name": "book",
+                                      "item": [
+                                        {
+                                          "name": "Get Level Two Book For A Crypto Pair",
+                                          "id": "f7afa247-462b-46ce-8f18-c91eef07a0e8",
+                                          "protocolProfileBehavior": {
+                                            "disableBodyPruning": true
+                                          },
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/v2/snapshot/locale/global/markets/crypto/tickers/:ticker/book",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "v2",
+                                                "snapshot",
+                                                "locale",
+                                                "global",
+                                                "markets",
+                                                "crypto",
+                                                "tickers",
+                                                ":ticker",
+                                                "book"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "id": "ef5b0966-3412-4b5f-af84-daa0018c6056",
+                                                  "key": "ticker",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                }
+                                              ]
+                                            },
+                                            "description": "Returns the current Level-2 book for a crypto ticker."
+                                          },
+                                          "response": [
+                                            {
+                                              "id": "d6ce7bcd-5a98-4707-b7f6-9d19c8b6b581",
+                                              "name": "Level-2 book response",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/v2/snapshot/locale/global/markets/crypto/tickers/:ticker/book?apiKey=<API Key>",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "v2",
+                                                    "snapshot",
+                                                    "locale",
+                                                    "global",
+                                                    "markets",
+                                                    "crypto",
+                                                    "tickers",
+                                                    ":ticker",
+                                                    "book"
+                                                  ],
+                                                  "query": [
+                                                    {
+                                                      "description": "Added as a part of security scheme: apikey",
+                                                      "key": "apiKey",
+                                                      "value": "<API Key>"
+                                                    }
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "ticker"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"data\": {\n    \"ticker\": \"<string>\",\n    \"bids\": [\n      {\n        \"p\": \"<number>\",\n        \"x\": {\n          \"tempor_6\": \"<number>\",\n          \"occaecata\": \"<number>\"\n        }\n      },\n      {\n        \"p\": \"<number>\",\n        \"x\": {\n          \"sint0\": \"<number>\",\n          \"eu_07\": \"<number>\",\n          \"magna_5_a\": \"<number>\",\n          \"enim_8\": \"<number>\"\n        }\n      }\n    ],\n    \"asks\": [\n      {\n        \"p\": \"<number>\",\n        \"x\": {\n          \"velit_9\": \"<number>\",\n          \"aliqua_47\": \"<number>\",\n          \"magna_a\": \"<number>\"\n        }\n      },\n      {\n        \"p\": \"<number>\",\n        \"x\": {\n          \"consectetur10b\": \"<number>\"\n        }\n      }\n    ],\n    \"bidCount\": \"<number>\",\n    \"askCount\": \"<number>\",\n    \"spread\": \"<number>\",\n    \"updated\": \"<long>\"\n  }\n}",
+                                              "createdAt": "2026-06-05T12:17:32.000Z",
+                                              "updatedAt": "2026-06-05T12:17:32.000Z",
+                                              "uid": "35240-d6ce7bcd-5a98-4707-b7f6-9d19c8b6b581"
+                                            }
+                                          ],
+                                          "createdAt": "2026-06-05T12:17:32.000Z",
+                                          "updatedAt": "2026-06-05T12:17:32.000Z",
+                                          "uid": "35240-f7afa247-462b-46ce-8f18-c91eef07a0e8"
+                                        }
+                                      ],
+                                      "id": "5c753b11-0bfc-4cfc-8fe8-b6a3eeab981b",
+                                      "createdAt": "2026-06-05T12:17:31.000Z",
+                                      "updatedAt": "2026-06-05T12:17:31.000Z",
+                                      "uid": "35240-5c753b11-0bfc-4cfc-8fe8-b6a3eeab981b"
+                                    },
+                                    {
+                                      "name": "Get Snapshot For A Crypto Ticker",
+                                      "id": "35f99fcd-40b0-45f5-a65f-0e82d1c451bb",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/v2/snapshot/locale/global/markets/crypto/tickers/:ticker",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "v2",
+                                            "snapshot",
+                                            "locale",
+                                            "global",
+                                            "markets",
+                                            "crypto",
+                                            "tickers",
+                                            ":ticker"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "5107e202-b16c-41b6-84ce-02070fc80f63",
+                                              "key": "ticker",
+                                              "value": "<string>",
+                                              "description": "(Required) "
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "21379010-9fc9-4f1b-8920-b16a351d535b",
+                                          "name": "Crypto snapshot response",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/v2/snapshot/locale/global/markets/crypto/tickers/:ticker?apiKey=<API Key>",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "v2",
+                                                "snapshot",
+                                                "locale",
+                                                "global",
+                                                "markets",
+                                                "crypto",
+                                                "tickers",
+                                                ":ticker"
+                                              ],
+                                              "query": [
+                                                {
+                                                  "description": "Added as a part of security scheme: apikey",
+                                                  "key": "apiKey",
+                                                  "value": "<API Key>"
+                                                }
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "ticker"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"ticker\": {\n    \"ticker\": \"<string>\",\n    \"day\": {\n      \"cupidatat2\": -53544633,\n      \"dolorb5f\": \"nisi adipisicing\"\n    },\n    \"lastTrade\": {\n      \"pariatur95\": true,\n      \"nisi_1b\": \"nisi sint\"\n    },\n    \"min\": {\n      \"consectetur826\": -42945844.547380574,\n      \"mollit_cc5\": -38110391.193870544\n    },\n    \"prevDay\": {\n      \"reprehenderit_a03\": \"laboris qui velit aliqua\"\n    },\n    \"updated\": \"<long>\"\n  }\n}",
+                                          "createdAt": "2026-06-05T12:17:32.000Z",
+                                          "updatedAt": "2026-06-05T12:17:32.000Z",
+                                          "uid": "35240-21379010-9fc9-4f1b-8920-b16a351d535b"
+                                        }
+                                      ],
+                                      "createdAt": "2026-06-05T12:17:32.000Z",
+                                      "updatedAt": "2026-06-05T12:17:32.000Z",
+                                      "uid": "35240-35f99fcd-40b0-45f5-a65f-0e82d1c451bb"
+                                    }
+                                  ],
+                                  "id": "d63a830f-ea7a-4c3c-9745-335ab61d3cb6",
+                                  "createdAt": "2026-06-05T12:17:31.000Z",
+                                  "updatedAt": "2026-06-05T12:17:31.000Z",
+                                  "uid": "35240-d63a830f-ea7a-4c3c-9745-335ab61d3cb6"
+                                }
+                              ],
+                              "id": "5dc96256-4cde-40d3-89a0-b86fd048c3e9",
+                              "createdAt": "2026-06-05T12:17:31.000Z",
+                              "updatedAt": "2026-06-05T12:17:31.000Z",
+                              "uid": "35240-5dc96256-4cde-40d3-89a0-b86fd048c3e9"
+                            }
+                          ],
+                          "id": "060ffb0f-9395-4459-9f2f-675545ffea06",
+                          "createdAt": "2026-06-05T12:17:31.000Z",
+                          "updatedAt": "2026-06-05T12:17:31.000Z",
+                          "uid": "35240-060ffb0f-9395-4459-9f2f-675545ffea06"
+                        }
+                      ],
+                      "id": "9e91347a-5feb-4fb7-a193-4cd1bd0eeb0a",
+                      "createdAt": "2026-06-05T12:17:31.000Z",
+                      "updatedAt": "2026-06-05T12:17:31.000Z",
+                      "uid": "35240-9e91347a-5feb-4fb7-a193-4cd1bd0eeb0a"
+                    }
+                  ],
+                  "id": "d10d2f64-0f7e-45c9-bf40-ca719651b84b",
+                  "createdAt": "2026-06-05T12:17:31.000Z",
+                  "updatedAt": "2026-06-05T12:17:31.000Z",
+                  "uid": "35240-d10d2f64-0f7e-45c9-bf40-ca719651b84b"
+                }
+              ],
+              "id": "e338799e-fabe-43e6-bde1-283c2cdb9cfe",
+              "createdAt": "2026-06-05T12:17:31.000Z",
+              "updatedAt": "2026-06-05T12:17:31.000Z",
+              "uid": "35240-e338799e-fabe-43e6-bde1-283c2cdb9cfe"
+            }
+          ],
+          "id": "96874011-8856-4eba-994f-8bd192c7c511",
+          "createdAt": "2026-06-05T12:17:31.000Z",
+          "updatedAt": "2026-06-05T12:17:31.000Z",
+          "uid": "35240-96874011-8856-4eba-994f-8bd192c7c511"
+        }
+      ],
+      "id": "595e9dbf-cab3-40fb-98ae-72f7ce3de6f4",
+      "createdAt": "2026-06-05T12:17:31.000Z",
+      "updatedAt": "2026-06-05T12:17:31.000Z",
+      "uid": "35240-595e9dbf-cab3-40fb-98ae-72f7ce3de6f4"
+    },
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "open-close",
+          "item": [
+            {
+              "name": "crypto",
+              "item": [
+                {
+                  "name": "{from}",
+                  "item": [
+                    {
+                      "name": "{to}",
+                      "item": [
+                        {
+                          "name": "{date}",
+                          "item": [
+                            {
+                              "name": "Get Daily Open Close For A Crypto Pair",
+                              "id": "d5d538f7-55a0-4978-8756-216e4d35ac08",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/open-close/crypto/:from/:to/:date",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "open-close",
+                                    "crypto",
+                                    ":from",
+                                    ":to",
+                                    ":date"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "4a8ab64e-988d-4528-8c56-74969538d230",
+                                      "key": "from",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "64211268-829b-42c2-98ee-190e32a739a0",
+                                      "key": "to",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "99e3ce7c-f705-41be-a835-fb41e26795dc",
+                                      "key": "date",
+                                      "value": "<date>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the open/close prices on a specific date for a crypto pair."
+                              },
+                              "response": [
+                                {
+                                  "id": "f91f969c-7004-44f9-b410-5e9e8b072513",
+                                  "name": "Crypto daily open/close response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v1/open-close/crypto/:from/:to/:date?apiKey=<API Key>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v1",
+                                        "open-close",
+                                        "crypto",
+                                        ":from",
+                                        ":to",
+                                        ":date"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Added as a part of security scheme: apikey",
+                                          "key": "apiKey",
+                                          "value": "<API Key>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "from"
+                                        },
+                                        {
+                                          "key": "to"
+                                        },
+                                        {
+                                          "key": "date"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"status\": \"<string>\",\n  \"symbol\": \"<string>\",\n  \"isUTC\": \"<boolean>\",\n  \"day\": \"<date>\",\n  \"open\": \"<number>\",\n  \"close\": \"<number>\",\n  \"openTrades\": [\n    {\n      \"commodo0cf\": true,\n      \"aliquipf\": -87527905.66454807\n    },\n    {\n      \"non61f\": 54485883.17372346\n    }\n  ],\n  \"closingTrades\": [\n    {\n      \"sit3\": \"sunt\"\n    },\n    {\n      \"in_1c6\": false,\n      \"pariatur_5bd\": 56159873,\n      \"laborum_d0\": -2940435,\n      \"ullamco_c1\": \"fugiat eiusmod\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-06-05T12:17:32.000Z",
+                                  "updatedAt": "2026-06-05T12:17:32.000Z",
+                                  "uid": "35240-f91f969c-7004-44f9-b410-5e9e8b072513"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T12:17:32.000Z",
+                              "updatedAt": "2026-06-05T12:17:32.000Z",
+                              "uid": "35240-d5d538f7-55a0-4978-8756-216e4d35ac08"
+                            }
+                          ],
+                          "id": "2ba3b86b-8e91-4ac3-b25d-e37f9db9e982",
+                          "createdAt": "2026-06-05T12:17:31.000Z",
+                          "updatedAt": "2026-06-05T12:17:31.000Z",
+                          "uid": "35240-2ba3b86b-8e91-4ac3-b25d-e37f9db9e982"
+                        }
+                      ],
+                      "id": "fbc70216-ea07-4259-b76c-7275d5de26a5",
+                      "createdAt": "2026-06-05T12:17:31.000Z",
+                      "updatedAt": "2026-06-05T12:17:31.000Z",
+                      "uid": "35240-fbc70216-ea07-4259-b76c-7275d5de26a5"
+                    }
+                  ],
+                  "id": "d6a427ca-3348-468a-9bee-4617d9612a1f",
+                  "createdAt": "2026-06-05T12:17:31.000Z",
+                  "updatedAt": "2026-06-05T12:17:31.000Z",
+                  "uid": "35240-d6a427ca-3348-468a-9bee-4617d9612a1f"
+                }
+              ],
+              "id": "cbc9c5ad-8367-429e-aee3-84cf468ad10e",
+              "createdAt": "2026-06-05T12:17:31.000Z",
+              "updatedAt": "2026-06-05T12:17:31.000Z",
+              "uid": "35240-cbc9c5ad-8367-429e-aee3-84cf468ad10e"
+            }
+          ],
+          "id": "57def20b-8124-42e3-89d7-54f946f2baca",
+          "createdAt": "2026-06-05T12:17:31.000Z",
+          "updatedAt": "2026-06-05T12:17:31.000Z",
+          "uid": "35240-57def20b-8124-42e3-89d7-54f946f2baca"
+        }
+      ],
+      "id": "042c5e63-24da-42aa-a13e-0f7c8dfdebc4",
+      "createdAt": "2026-06-05T12:17:31.000Z",
+      "updatedAt": "2026-06-05T12:17:31.000Z",
+      "uid": "35240-042c5e63-24da-42aa-a13e-0f7c8dfdebc4"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}

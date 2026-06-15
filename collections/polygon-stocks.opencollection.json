@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polygon Stocks REST API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Aggregates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Aggregate Bars For A Stock Ticker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/aggs/ticker/:stocksTicker/range/:multiplier/:timespan/:from/:to",
+            "params": [
+              {
+                "name": "stocksTicker",
+                "value": "",
+                "type": "path",
+                "description": "Case-sensitive stock ticker symbol (e.g., AAPL)."
+              },
+              {
+                "name": "multiplier",
+                "value": "",
+                "type": "path",
+                "description": "Size of the timespan multiplier."
+              },
+              {
+                "name": "timespan",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "path",
+                "description": "Start of the aggregate window (YYYY-MM-DD or millisecond timestamp)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "path",
+                "description": "End of the aggregate window (YYYY-MM-DD or millisecond timestamp)."
+              },
+              {
+                "name": "adjusted",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns aggregate bars for a stock over a given date range in\ncustom time window sizes (e.g., 5-minute bars between two dates).\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DailyBars",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Daily Open Close For A Stock Ticker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v1/open-close/:stocksTicker/:date",
+            "params": [
+              {
+                "name": "stocksTicker",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "adjusted",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the open, close, high, and low for a stock ticker on a specific date."
+        },
+        {
+          "info": {
+            "name": "Get Grouped Daily Bars For US Stocks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/:date",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "adjusted",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_otc",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns daily aggregate bars for all US stock tickers on a specific date."
+        },
+        {
+          "info": {
+            "name": "Get Previous Close For A Stock Ticker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/aggs/ticker/:stocksTicker/prev",
+            "params": [
+              {
+                "name": "stocksTicker",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "adjusted",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the previous trading day's open, close, high, and low for a stock ticker."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

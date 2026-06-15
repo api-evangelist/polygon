@@ -1,0 +1,152 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polygon Crypto REST API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Aggregates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Aggregate Bars For A Crypto Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/aggs/ticker/:cryptoTicker/range/:multiplier/:timespan/:from/:to",
+            "params": [
+              {
+                "name": "cryptoTicker",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "multiplier",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "timespan",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Aggregate bars for a crypto pair (e.g., X:BTCUSD)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DailyBars",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Daily Open Close For A Crypto Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v1/open-close/crypto/:from/:to/:date",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the open/close prices on a specific date for a crypto pair."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Snapshot For A Crypto Ticker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/snapshot/locale/global/markets/crypto/tickers/:ticker",
+            "params": [
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Snapshot For A Crypto Ticker"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Books",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Level Two Book For A Crypto Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/snapshot/locale/global/markets/crypto/tickers/:ticker/book",
+            "params": [
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the current Level-2 book for a crypto ticker."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

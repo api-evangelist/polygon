@@ -1,0 +1,583 @@
+{
+  "item": [
+    {
+      "id": "10a2afde-d0f3-4899-adaf-8c00465d2894",
+      "name": "Aggregates",
+      "description": {
+        "content": "Crypto aggregate bars.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16eaf456-e9b1-4a29-a1eb-32afa8e35143",
+          "name": "Get Aggregate Bars For A Crypto Pair",
+          "request": {
+            "name": "Get Aggregate Bars For A Crypto Pair",
+            "description": {
+              "content": "Aggregate bars for a crypto pair (e.g., X:BTCUSD).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "aggs",
+                "ticker",
+                ":cryptoTicker",
+                "range",
+                ":multiplier",
+                ":timespan",
+                ":from",
+                ":to"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cryptoTicker",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "multiplier",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timespan",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "from",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "to",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9488de5c-2a72-4b21-9e55-caffeca19a5a",
+              "name": "Crypto aggregate bars response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "aggs",
+                    "ticker",
+                    ":cryptoTicker",
+                    "range",
+                    ":multiplier",
+                    ":timespan",
+                    ":from",
+                    ":to"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cryptoTicker",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "multiplier",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timespan",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "from",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "to",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"resultsCount\": 7483,\n  \"results\": [\n    {\n      \"v\": 4115.215960543922,\n      \"vw\": 2661.594918587645,\n      \"o\": 1353.8577660731244,\n      \"c\": 516.1186755097302,\n      \"h\": 334.3191524072342,\n      \"l\": 2405.81628174658,\n      \"t\": 580,\n      \"n\": 4937\n    },\n    {\n      \"v\": 9542.126154883501,\n      \"vw\": 5902.68314103928,\n      \"o\": 2339.767272091726,\n      \"c\": 487.3465055093962,\n      \"h\": 3564.2941770905436,\n      \"l\": 9608.458614888235,\n      \"t\": 5202,\n      \"n\": 1718\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6f081768-53a0-4ee6-a0ef-f70b0311bd0e",
+      "name": "DailyBars",
+      "description": {
+        "content": "Daily open/close.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0350c845-1bb7-41b5-9ec8-7fe2ff53674f",
+          "name": "Get Daily Open Close For A Crypto Pair",
+          "request": {
+            "name": "Get Daily Open Close For A Crypto Pair",
+            "description": {
+              "content": "Get the open/close prices on a specific date for a crypto pair.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "open-close",
+                "crypto",
+                ":from",
+                ":to",
+                ":date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "from",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "to",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "date",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a8176493-4f87-4bcb-911e-edf2cfe66c53",
+              "name": "Crypto daily open/close response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "open-close",
+                    "crypto",
+                    ":from",
+                    ":to",
+                    ":date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "from",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "to",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"symbol\": \"string\",\n  \"isUTC\": true,\n  \"day\": \"1964-04-13\",\n  \"open\": 886.4571342209126,\n  \"close\": 6707.3606014961915,\n  \"openTrades\": [\n    {\n      \"key_0\": 6063.9466158146415,\n      \"key_1\": 1471\n    },\n    {\n      \"key_0\": true,\n      \"key_1\": 6910\n    }\n  ],\n  \"closingTrades\": [\n    {\n      \"key_0\": false,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1dc220ec-cbd3-47ea-9dde-99c40b15346d",
+      "name": "Snapshots",
+      "description": {
+        "content": "Snapshot endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1c4826ae-b693-4e3f-882f-817607ef32d7",
+          "name": "Get Snapshot For A Crypto Ticker",
+          "request": {
+            "name": "Get Snapshot For A Crypto Ticker",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "snapshot",
+                "locale",
+                "global",
+                "markets",
+                "crypto",
+                "tickers",
+                ":ticker"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ticker",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a46aea43-0d9c-414c-b26a-51b120ebd7ee",
+              "name": "Crypto snapshot response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "snapshot",
+                    "locale",
+                    "global",
+                    "markets",
+                    "crypto",
+                    "tickers",
+                    ":ticker"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"ticker\": {\n    \"ticker\": \"string\",\n    \"day\": {\n      \"key_0\": 9439\n    },\n    \"lastTrade\": {\n      \"key_0\": 9383.219699483945\n    },\n    \"min\": {\n      \"key_0\": 4419\n    },\n    \"prevDay\": {\n      \"key_0\": \"string\",\n      \"key_1\": 4205,\n      \"key_2\": 8099.9135452735345\n    },\n    \"updated\": 8810\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "4ef22405-ab4c-447c-8cc2-1c0b06307ee8",
+      "name": "Books",
+      "description": {
+        "content": "Level-2 order book.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8447e51c-8520-4aae-8618-e6663b843ef8",
+          "name": "Get Level Two Book For A Crypto Pair",
+          "request": {
+            "name": "Get Level Two Book For A Crypto Pair",
+            "description": {
+              "content": "Returns the current Level-2 book for a crypto ticker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "snapshot",
+                "locale",
+                "global",
+                "markets",
+                "crypto",
+                "tickers",
+                ":ticker",
+                "book"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ticker",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c466ed8b-962f-4e04-a871-529079cfbcf0",
+              "name": "Level-2 book response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "snapshot",
+                    "locale",
+                    "global",
+                    "markets",
+                    "crypto",
+                    "tickers",
+                    ":ticker",
+                    "book"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"data\": {\n    \"ticker\": \"string\",\n    \"bids\": [\n      {\n        \"p\": 533.5583854874826,\n        \"x\": {\n          \"key_0\": 3662.6034198563707,\n          \"key_1\": 1635.6259564423003\n        }\n      },\n      {\n        \"p\": 7149.154341705051,\n        \"x\": {\n          \"key_0\": 2058.5113482267793\n        }\n      }\n    ],\n    \"asks\": [\n      {\n        \"p\": 3239.220329431254,\n        \"x\": {\n          \"key_0\": 6961.5655926906875,\n          \"key_1\": 329.47105473572157,\n          \"key_2\": 6525.553618784738\n        }\n      },\n      {\n        \"p\": 6320.151985451957,\n        \"x\": {\n          \"key_0\": 6443.625207576374\n        }\n      }\n    ],\n    \"bidCount\": 8191.900224160539,\n    \"askCount\": 7687.449303568492,\n    \"spread\": 6930.895238807465,\n    \"updated\": 5290\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b3e8a27e-b049-4669-8b88-cdffafa0a923",
+    "name": "Polygon Crypto REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polygon Indices REST API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Snapshot For Indices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/snapshot/indices",
+            "params": [
+              {
+                "name": "ticker.any_of",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of index tickers (e.g., I:SPX,I:DJI)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the most recent index values for one or more indices."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Aggregates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Aggregate Bars For An Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/aggs/ticker/:indicesTicker/range/:multiplier/:timespan/:from/:to",
+            "params": [
+              {
+                "name": "indicesTicker",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "multiplier",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "timespan",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Aggregate bars (OHLC) for an index ticker over a date range."
+        },
+        {
+          "info": {
+            "name": "Get Previous Close For An Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/aggs/ticker/:indicesTicker/prev",
+            "params": [
+              {
+                "name": "indicesTicker",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the previous day's open/close/high/low for an index."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
