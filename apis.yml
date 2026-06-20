@@ -1,7 +1,7 @@
 aid: polygon
 name: Polygon
 url: https://raw.githubusercontent.com/api-evangelist/polygon/refs/heads/main/apis.yml
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 description: >-
   Polygon (Polygon.io, rebranded as Massive in early 2026) provides real-time and historical market data APIs across US
   stocks, options, indices, forex, cryptocurrencies, and futures. Coverage is delivered through REST endpoints and
