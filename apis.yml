@@ -56,7 +56,7 @@ apis:
         url: json-schema/polygon-aggregate-bar-schema.json
       - type: JSONStructure
         url: json-structure/polygon-aggregate-bar-structure.json
-      - type: Example
+      - type: Examples
         url: examples/polygon-stocks-aggregate-bars-example.json
   - aid: polygon:options-api
     name: Polygon Options API
@@ -80,7 +80,7 @@ apis:
         url: json-schema/polygon-options-contract-schema.json
       - type: JSONStructure
         url: json-structure/polygon-options-contract-structure.json
-      - type: Example
+      - type: Examples
         url: examples/polygon-options-chain-snapshot-example.json
   - aid: polygon:indices-api
     name: Polygon Indices API
@@ -118,7 +118,7 @@ apis:
         url: https://polygon.io/docs/forex
       - type: OpenAPI
         url: openapi/polygon-forex-openapi.yml
-      - type: Example
+      - type: Examples
         url: examples/polygon-forex-conversion-example.json
   - aid: polygon:crypto-api
     name: Polygon Crypto API
@@ -159,7 +159,7 @@ apis:
         url: json-schema/polygon-ticker-schema.json
       - type: JSONStructure
         url: json-structure/polygon-ticker-structure.json
-      - type: Example
+      - type: Examples
         url: examples/polygon-reference-tickers-example.json
   - aid: polygon:websocket-api
     name: Polygon WebSocket API
@@ -181,50 +181,47 @@ apis:
         url: json-schema/polygon-trade-schema.json
       - type: JSONSchema
         url: json-schema/polygon-quote-schema.json
-      - type: Example
+      - type: Examples
         url: examples/polygon-websocket-subscribe-example.json
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/polygon/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/polygon-corporate-actions-workflow.yml
-        name: Polygon Corporate Actions Review
-        summary: Resolve a ticker, then list its stock splits and dividends history.
-      - url: arazzo/polygon-crypto-daily-comparison-workflow.yml
-        name: Polygon Crypto Daily Comparison
-        summary: Check market status, snapshot a crypto pair, and read its daily open/close.
-      - url: arazzo/polygon-crypto-pair-analysis-workflow.yml
-        name: Polygon Crypto Pair Analysis
-        summary: Snapshot a crypto pair, pull its aggregate bars, and read its Level-2 order book.
-      - url: arazzo/polygon-forex-pair-analysis-workflow.yml
-        name: Polygon Forex Pair Analysis
-        summary: Read a currency pair's last quote, convert an amount, and pull its aggregate bars.
-      - url: arazzo/polygon-grouped-market-scan-workflow.yml
-        name: Polygon Grouped Market Scan
-        summary: Check market status, pull grouped daily bars for all US stocks, and profile one symbol.
-      - url: arazzo/polygon-index-analysis-workflow.yml
-        name: Polygon Index Analysis
-        summary: Snapshot an index, pull its aggregate bars, and read its previous close.
-      - url: arazzo/polygon-market-gated-stock-daily-workflow.yml
-        name: Polygon Market-Gated Stock Daily Snapshot
-        summary: Check current US market status, then pull a stock's daily open/close and previous close.
-      - url: arazzo/polygon-options-chain-scan-workflow.yml
-        name: Polygon Options Chain Scan
-        summary: Resolve an underlying's details, scan its options chain, and read its previous close.
-      - url: arazzo/polygon-options-contract-deep-dive-workflow.yml
-        name: Polygon Options Contract Deep Dive
-        summary: List an underlying's option contracts, snapshot the top contract, and pull its bars.
-      - url: arazzo/polygon-stock-research-workflow.yml
-        name: Polygon Stock Research
-        summary: Resolve a stock ticker's reference details, pull its aggregate bars, and read its previous close.
-      - url: arazzo/polygon-ticker-discovery-workflow.yml
-        name: Polygon Ticker Discovery and Profile
-        summary: Search active stock tickers, resolve the top match's details, and pull its recent bars.
-      - url: arazzo/polygon-ticker-news-context-workflow.yml
-        name: Polygon Ticker News Context
-        summary: Resolve a ticker's details, pull recent news, and read its previous close.
+  - type: Arazzo
+    url: arazzo/polygon-corporate-actions-workflow.yml
+    name: Polygon Corporate Actions Review
+  - type: Arazzo
+    url: arazzo/polygon-crypto-daily-comparison-workflow.yml
+    name: Polygon Crypto Daily Comparison
+  - type: Arazzo
+    url: arazzo/polygon-crypto-pair-analysis-workflow.yml
+    name: Polygon Crypto Pair Analysis
+  - type: Arazzo
+    url: arazzo/polygon-forex-pair-analysis-workflow.yml
+    name: Polygon Forex Pair Analysis
+  - type: Arazzo
+    url: arazzo/polygon-grouped-market-scan-workflow.yml
+    name: Polygon Grouped Market Scan
+  - type: Arazzo
+    url: arazzo/polygon-index-analysis-workflow.yml
+    name: Polygon Index Analysis
+  - type: Arazzo
+    url: arazzo/polygon-market-gated-stock-daily-workflow.yml
+    name: Polygon Market-Gated Stock Daily Snapshot
+  - type: Arazzo
+    url: arazzo/polygon-options-chain-scan-workflow.yml
+    name: Polygon Options Chain Scan
+  - type: Arazzo
+    url: arazzo/polygon-options-contract-deep-dive-workflow.yml
+    name: Polygon Options Contract Deep Dive
+  - type: Arazzo
+    url: arazzo/polygon-stock-research-workflow.yml
+    name: Polygon Stock Research
+  - type: Arazzo
+    url: arazzo/polygon-ticker-discovery-workflow.yml
+    name: Polygon Ticker Discovery and Profile
+  - type: Arazzo
+    url: arazzo/polygon-ticker-news-context-workflow.yml
+    name: Polygon Ticker News Context
   - type: Portal
     url: https://polygon.io/
   - type: Documentation
@@ -233,7 +230,7 @@ common:
     url: https://polygon.io/docs
   - type: GettingStarted
     url: https://polygon.io/docs/getting-started
-  - type: SignUp
+  - type: Signup
     url: https://polygon.io/dashboard/signup
   - type: Login
     url: https://polygon.io/dashboard/login
@@ -254,19 +251,19 @@ common:
   - type: Tools
     url: https://github.com/polygon-io/mcp_polygon
     title: Official Polygon (Massive) MCP Server
-  - type: SDK
+  - type: SDKs
     url: https://github.com/polygon-io/client-php
     title: Official PHP SDK
-  - type: SDK
+  - type: SDKs
     url: https://pypi.org/project/polygon-api-client/
     title: Python SDK
-  - type: SDK
+  - type: SDKs
     url: https://www.npmjs.com/package/@polygon.io/client-js
     title: JavaScript / TypeScript SDK
-  - type: SDK
+  - type: SDKs
     url: https://central.sonatype.com/artifact/io.polygon.kotlin.sdk/polygon-kotlin-sdk-jvm
     title: Kotlin / JVM SDK
-  - type: SDK
+  - type: SDKs
     url: https://pkg.go.dev/github.com/polygon-io/client-go
     title: Go SDK
   - type: LinkedIn
