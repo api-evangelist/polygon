@@ -1,0 +1,33 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/polygon-crypto-openapi.yml, openapi/polygon-forex-openapi.yml, openapi/polygon-indices-openapi.yml,
+  openapi/polygon-options-openapi.yml, openapi/polygon-reference-openapi.yml, openapi/polygon-stocks-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - query
+schemes:
+- name: apiKeyQuery
+  type: apiKey
+  in: query
+  parameter: apiKey
+  sources:
+  - openapi/polygon-crypto-openapi.yml
+  - openapi/polygon-forex-openapi.yml
+  - openapi/polygon-indices-openapi.yml
+  - openapi/polygon-options-openapi.yml
+  - openapi/polygon-reference-openapi.yml
+  - openapi/polygon-stocks-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: API Key
+  sources:
+  - openapi/polygon-crypto-openapi.yml
+  - openapi/polygon-forex-openapi.yml
+  - openapi/polygon-indices-openapi.yml
+  - openapi/polygon-options-openapi.yml
+  - openapi/polygon-reference-openapi.yml
+  - openapi/polygon-stocks-openapi.yml

@@ -184,6 +184,10 @@ apis:
       - type: Examples
         url: examples/polygon-websocket-subscribe-example.json
 common:
+  - type: DomainSecurity
+    url: security/polygon-domain-security.yml
+  - type: Authentication
+    url: authentication/polygon-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/polygon/overview
   - type: Arazzo

@@ -1,0 +1,27 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: polygon.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 25 13:20:04 2026 GMT
+  hsts: true
+  hsts_max_age: 15724800
+- host: api.polygon.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 21 17:54:19 2026 GMT
+  hsts: null
+- host: socket.polygon.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 25 10:51:56 2026 GMT
+  hsts: null
+domains:
+- domain: polygon.io
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
