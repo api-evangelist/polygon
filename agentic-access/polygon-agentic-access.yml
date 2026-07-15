@@ -1,0 +1,305 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/polygon-crypto-openapi.yml, openapi/polygon-forex-openapi.yml, openapi/polygon-indices-openapi.yml,
+  openapi/polygon-options-openapi.yml, openapi/polygon-reference-openapi.yml, openapi/polygon-stocks-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 29
+  by_action_class:
+    connected: 29
+  by_consequence:
+    read: 29
+  human_in_the_loop_required: 0
+operations:
+- path: /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+  method: get
+  operationId: getCryptoAggregateBars
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/open-close/crypto/{from}/{to}/{date}
+  method: get
+  operationId: getCryptoDailyOpenClose
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+  method: get
+  operationId: getCryptoSnapshotForTicker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+  method: get
+  operationId: getCryptoL2Book
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+  method: get
+  operationId: getForexAggregateBars
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/conversion/{from}/{to}
+  method: get
+  operationId: getForexConversion
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{forexTicker}/prev
+  method: get
+  operationId: getForexPreviousClose
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/last_quote/currencies/{from}/{to}
+  method: get
+  operationId: getForexLastQuote
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/snapshot/indices
+  method: get
+  operationId: getIndicesSnapshot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+  method: get
+  operationId: getIndicesAggregateBars
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{indicesTicker}/prev
+  method: get
+  operationId: getIndicesPreviousClose
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/options/contracts
+  method: get
+  operationId: listOptionsContracts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/snapshot/options/{underlyingAsset}/{optionContract}
+  method: get
+  operationId: getOptionContractSnapshot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/snapshot/options/{underlyingAsset}
+  method: get
+  operationId: getOptionsChainSnapshot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+  method: get
+  operationId: getOptionsAggregateBars
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/tickers
+  method: get
+  operationId: listTickers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/tickers/{ticker}
+  method: get
+  operationId: getTickerDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/tickers/types
+  method: get
+  operationId: listTickerTypes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/markets
+  method: get
+  operationId: listMarkets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/exchanges
+  method: get
+  operationId: listExchanges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/marketstatus/upcoming
+  method: get
+  operationId: listUpcomingMarketHolidays
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/marketstatus/now
+  method: get
+  operationId: getCurrentMarketStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/splits
+  method: get
+  operationId: listStockSplits
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/dividends
+  method: get
+  operationId: listDividends
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/reference/news
+  method: get
+  operationId: listTickerNews
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+  method: get
+  operationId: getStocksAggregateBars
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/open-close/{stocksTicker}/{date}
+  method: get
+  operationId: getStocksDailyOpenClose
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/grouped/locale/us/market/stocks/{date}
+  method: get
+  operationId: getStocksGroupedDailyBars
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{stocksTicker}/prev
+  method: get
+  operationId: getStocksPreviousClose
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
