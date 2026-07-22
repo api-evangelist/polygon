@@ -1,0 +1,126 @@
+openapi: 3.1.0
+info:
+  title: Polygon Crypto REST Aggregates Contracts API
+  version: '1.0'
+  description: 'Polygon Crypto API exposes aggregated cross-exchange data for crypto
+
+    pairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec
+
+    covers aggregates, daily open/close, snapshots, and level-2 books.
+
+    Auth uses an API key via `apiKey` query parameter or
+
+    `Authorization: Bearer`.
+
+    '
+  contact:
+    name: Polygon Documentation
+    url: https://polygon.io/docs/crypto
+servers:
+- url: https://api.polygon.io
+  description: Polygon REST API
+security:
+- apiKeyQuery: []
+- bearerAuth: []
+tags:
+- name: Contracts
+  description: Option contract reference data.
+paths:
+  /v3/reference/options/contracts:
+    get:
+      tags:
+      - Contracts
+      operationId: listOptionsContracts
+      summary: List Options Contracts
+      description: List option contracts matching the given filters.
+      parameters:
+      - in: query
+        name: underlying_ticker
+        schema:
+          type: string
+      - in: query
+        name: contract_type
+        schema:
+          type: string
+          enum:
+          - call
+          - put
+      - in: query
+        name: expiration_date
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: as_of
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: strike_price
+        schema:
+          type: number
+      - in: query
+        name: expired
+        schema:
+          type: boolean
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 10
+      responses:
+        '200':
+          description: Options contracts response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionsContractsResponse'
+components:
+  schemas:
+    OptionContract:
+      type: object
+      properties:
+        cfi:
+          type: string
+        contract_type:
+          type: string
+        exercise_style:
+          type: string
+        expiration_date:
+          type: string
+          format: date
+        primary_exchange:
+          type: string
+        shares_per_contract:
+          type: integer
+        strike_price:
+          type: number
+        ticker:
+          type: string
+        underlying_ticker:
+          type: string
+    OptionsContractsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionContract'
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key

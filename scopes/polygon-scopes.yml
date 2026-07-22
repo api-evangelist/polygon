@@ -1,0 +1,39 @@
+generated: '2026-07-22'
+method: searched
+source: https://mcp.massive.com/.well-known/oauth-protected-resource + https://auth.massive.com/.well-known/openid-configuration
+docs: null
+notes: >-
+  The market-data REST API itself is API-key authenticated and declares no OAuth scopes. This
+  scope surface belongs to Massive's hosted remote MCP server (mcp.massive.com), whose RFC 9728
+  protected-resource metadata names auth.massive.com as the authorization server. Scope
+  descriptions below are the standard OIDC meanings; Massive publishes no per-scope reference page.
+schemes:
+  - name: OAuth2 (remote MCP server)
+    resource: https://mcp.massive.com
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://auth.massive.com/oauth2/auth
+        tokenUrl: https://auth.massive.com/oauth2/token
+      - flow: clientCredentials
+        tokenUrl: https://auth.massive.com/oauth2/token
+    registration: https://auth.massive.com/oauth2/register
+    bearer_methods: [header]
+scopes:
+  - scope: openid
+    description: OpenID Connect authentication (standard OIDC scope).
+    sources: [well-known/polygon-oauth-protected-resource.json, well-known/polygon-openid-configuration.json]
+  - scope: offline_access
+    description: Refresh-token issuance for long-lived MCP sessions (standard OIDC scope).
+    sources: [well-known/polygon-oauth-protected-resource.json, well-known/polygon-openid-configuration.json]
+  - scope: account
+    description: Massive account access used by the MCP resource server.
+    sources: [well-known/polygon-oauth-protected-resource.json, well-known/polygon-openid-configuration.json]
+  - scope: profile
+    description: Profile claims (standard OIDC scope; advertised by the authorization server only).
+    sources: [well-known/polygon-openid-configuration.json]
+  - scope: email
+    description: Email claim (standard OIDC scope; advertised by the authorization server only).
+    sources: [well-known/polygon-openid-configuration.json]
+  - scope: offline
+    description: Legacy alias for offline_access (advertised by the authorization server only).
+    sources: [well-known/polygon-openid-configuration.json]

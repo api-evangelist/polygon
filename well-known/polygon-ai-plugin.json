@@ -1,0 +1,22 @@
+{
+	"schema_version": "v1",
+	"name_for_human": "Massive",
+	"name_for_model": "massive",
+	"description_for_human": "Market data, news, and fundamentals for stocks, options, forex, and crypto from Massive.",
+	"description_for_model": "Market data, news, and financial filings for stocks, options, forex, and crypto.",
+	"auth": {
+		"type": "service_http",
+		"authorization_type": "bearer",
+		"verification_tokens": {
+			"openai": "4c21ee4d47ba43dbaeca2de0ca81befb"
+		}
+	},
+	"api": {
+		"type": "openapi",
+		"url": "https://massive.com/chatgpt/openapi.json",
+		"is_user_authenticated": false
+	},
+	"logo_url": "https://massive.com/brands/favicon-massive.png",
+	"contact_email": "legal@massive.com",
+	"legal_info_url": "https://massive.com/terms"
+}

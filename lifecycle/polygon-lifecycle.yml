@@ -1,0 +1,25 @@
+generated: '2026-07-22'
+method: searched
+source: https://massive.com/changelog, https://status.polygon.io/, openapi/polygon-openapi-original.json
+versioning:
+  scheme: uri-path
+  current: mixed (v1/v2/v3 per resource family; vX for experimental endpoints)
+  notes: >-
+    Endpoints are versioned in the URI path (/v1/marketstatus/now, /v2/aggs/..., /v3/reference/tickers).
+    Experimental endpoints ship under vX and can be sunset (the vX financials endpoint was sunset
+    2026-06-22). New products enter as Open Beta before general availability (futures v1 GA 2026-05-05).
+deprecation:
+  policy_url: null
+  practice: >-
+    No standalone published deprecation-policy page was found; deprecations and sunsets are
+    announced as dated changelog entries (Benzinga News v1 sunset 2025-12-01, Crypto L2 WebSocket
+    sunset 2025-08-01, Financials VX sunset 2026-06-22). The official OpenAPI flags no operations
+    deprecated: true, but retains legacy operations named "Deprecated*" (e.g.
+    DeprecatedGetCryptoSnapshotTickerBook).
+  sunset_header: null
+status_page: https://status.polygon.io/
+sla:
+  url: null
+  notes: Uptime commitments are part of Business-tier contracts; no public SLA page found.
+deprecated_operations:
+  - openapi/polygon-openapi-original.json#DeprecatedGetCryptoSnapshotTickerBook

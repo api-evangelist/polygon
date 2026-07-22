@@ -1,0 +1,34 @@
+{
+  "provider": "polygon",
+  "sources": [
+    "polygon-aggregates-api-openapi.yml",
+    "polygon-books-api-openapi.yml",
+    "polygon-contracts-api-openapi.yml",
+    "polygon-conversion-api-openapi.yml",
+    "polygon-corporateactions-api-openapi.yml",
+    "polygon-dailybars-api-openapi.yml",
+    "polygon-markets-api-openapi.yml",
+    "polygon-news-api-openapi.yml",
+    "polygon-quotes-api-openapi.yml",
+    "polygon-snapshots-api-openapi.yml",
+    "polygon-tickers-api-openapi.yml"
+  ],
+  "outputs": [
+    "polygon-aggregates-api-openapi.yml",
+    "polygon-books-api-openapi.yml",
+    "polygon-contracts-api-openapi.yml",
+    "polygon-conversion-api-openapi.yml",
+    "polygon-corporateactions-api-openapi.yml",
+    "polygon-dailybars-api-openapi.yml",
+    "polygon-markets-api-openapi.yml",
+    "polygon-news-api-openapi.yml",
+    "polygon-quotes-api-openapi.yml",
+    "polygon-snapshots-api-openapi.yml",
+    "polygon-tickers-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

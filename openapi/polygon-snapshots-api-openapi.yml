@@ -1,0 +1,307 @@
+openapi: 3.1.0
+info:
+  title: Polygon Crypto REST Aggregates Snapshots API
+  version: '1.0'
+  description: 'Polygon Crypto API exposes aggregated cross-exchange data for crypto
+
+    pairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec
+
+    covers aggregates, daily open/close, snapshots, and level-2 books.
+
+    Auth uses an API key via `apiKey` query parameter or
+
+    `Authorization: Bearer`.
+
+    '
+  contact:
+    name: Polygon Documentation
+    url: https://polygon.io/docs/crypto
+servers:
+- url: https://api.polygon.io
+  description: Polygon REST API
+security:
+- apiKeyQuery: []
+- bearerAuth: []
+tags:
+- name: Snapshots
+  description: Snapshot endpoints.
+paths:
+  /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}:
+    get:
+      tags:
+      - Snapshots
+      operationId: getCryptoSnapshotForTicker
+      summary: Get Snapshot For A Crypto Ticker
+      parameters:
+      - in: path
+        name: ticker
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Crypto snapshot response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CryptoSnapshotResponse'
+  /v3/snapshot/indices:
+    get:
+      tags:
+      - Snapshots
+      operationId: getIndicesSnapshot
+      summary: Get Snapshot For Indices
+      description: Returns the most recent index values for one or more indices.
+      parameters:
+      - in: query
+        name: ticker.any_of
+        schema:
+          type: string
+        description: Comma-separated list of index tickers (e.g., I:SPX,I:DJI).
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 10
+          maximum: 250
+      responses:
+        '200':
+          description: Indices snapshot response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicesSnapshotResponse'
+  /v3/snapshot/options/{underlyingAsset}/{optionContract}:
+    get:
+      tags:
+      - Snapshots
+      operationId: getOptionContractSnapshot
+      summary: Get Option Contract Snapshot
+      description: Get a snapshot for a specific option contract.
+      parameters:
+      - in: path
+        name: underlyingAsset
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: optionContract
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Option contract snapshot response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionSnapshotResponse'
+  /v3/snapshot/options/{underlyingAsset}:
+    get:
+      tags:
+      - Snapshots
+      operationId: getOptionsChainSnapshot
+      summary: Get Options Chain Snapshot
+      description: Get a snapshot of an options chain for an underlying asset.
+      parameters:
+      - in: path
+        name: underlyingAsset
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: strike_price
+        schema:
+          type: number
+      - in: query
+        name: expiration_date
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: contract_type
+        schema:
+          type: string
+          enum:
+          - call
+          - put
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 10
+      responses:
+        '200':
+          description: Options chain snapshot response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionsChainResponse'
+components:
+  schemas:
+    OptionSnapshotResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        results:
+          $ref: '#/components/schemas/OptionSnapshot'
+    OptionContract:
+      type: object
+      properties:
+        cfi:
+          type: string
+        contract_type:
+          type: string
+        exercise_style:
+          type: string
+        expiration_date:
+          type: string
+          format: date
+        primary_exchange:
+          type: string
+        shares_per_contract:
+          type: integer
+        strike_price:
+          type: number
+        ticker:
+          type: string
+        underlying_ticker:
+          type: string
+    Greeks:
+      type: object
+      properties:
+        delta:
+          type: number
+        gamma:
+          type: number
+        theta:
+          type: number
+        vega:
+          type: number
+    OptionsChainResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionSnapshot'
+    IndexSnapshot:
+      type: object
+      properties:
+        ticker:
+          type: string
+        name:
+          type: string
+        value:
+          type: number
+        last_updated:
+          type: integer
+          format: int64
+        market_status:
+          type: string
+        type:
+          type: string
+        session:
+          type: object
+          properties:
+            change:
+              type: number
+            change_percent:
+              type: number
+            close:
+              type: number
+            high:
+              type: number
+            low:
+              type: number
+            open:
+              type: number
+            previous_close:
+              type: number
+    IndicesSnapshotResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndexSnapshot'
+    CryptoSnapshot:
+      type: object
+      properties:
+        ticker:
+          type: string
+        day:
+          type: object
+          additionalProperties: true
+        lastTrade:
+          type: object
+          additionalProperties: true
+        min:
+          type: object
+          additionalProperties: true
+        prevDay:
+          type: object
+          additionalProperties: true
+        updated:
+          type: integer
+          format: int64
+    CryptoSnapshotResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        ticker:
+          $ref: '#/components/schemas/CryptoSnapshot'
+    OptionSnapshot:
+      type: object
+      properties:
+        break_even_price:
+          type: number
+        day:
+          type: object
+          additionalProperties: true
+        details:
+          $ref: '#/components/schemas/OptionContract'
+        greeks:
+          $ref: '#/components/schemas/Greeks'
+        implied_volatility:
+          type: number
+        last_quote:
+          type: object
+          additionalProperties: true
+        last_trade:
+          type: object
+          additionalProperties: true
+        open_interest:
+          type: integer
+        underlying_asset:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key

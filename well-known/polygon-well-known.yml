@@ -1,0 +1,61 @@
+generated: '2026-07-22'
+method: searched
+source: live probes of polygon.io, api.polygon.io, massive.com, api.massive.com, mcp.massive.com, auth.massive.com
+notes: >-
+  Polygon.io rebranded to Massive in early 2026; polygon.io hosts redirect to massive.com.
+  The ai-plugin.json manifest is served on both polygon.io and massive.com and points at
+  https://massive.com/chatgpt/openapi.json. The OAuth protected-resource and OIDC discovery
+  documents belong to the remote MCP server surface (mcp.massive.com / auth.massive.com).
+hosts:
+  - host: https://polygon.io
+    documents:
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: polygon-ai-plugin.json
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+  - host: https://api.polygon.io
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /openapi
+        status: 200
+        file: ../openapi/polygon-openapi-original.json
+        note: Official OpenAPI 3.0.3, 146 operations, served on the API host root
+  - host: https://massive.com
+    documents:
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: polygon-ai-plugin.json
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /llms.txt
+        status: 200
+        file: ../llms/polygon-llms.txt
+  - host: https://api.massive.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /openapi
+        status: 200
+        note: Same official OpenAPI as api.polygon.io/openapi
+  - host: https://mcp.massive.com
+    documents:
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        file: polygon-oauth-protected-resource.json
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+  - host: https://auth.massive.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: polygon-openid-configuration.json
+      - path: /.well-known/oauth-authorization-server
+        status: 404

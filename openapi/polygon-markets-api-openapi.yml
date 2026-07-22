@@ -1,0 +1,193 @@
+openapi: 3.1.0
+info:
+  title: Polygon Crypto REST Aggregates Markets API
+  version: '1.0'
+  description: 'Polygon Crypto API exposes aggregated cross-exchange data for crypto
+
+    pairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec
+
+    covers aggregates, daily open/close, snapshots, and level-2 books.
+
+    Auth uses an API key via `apiKey` query parameter or
+
+    `Authorization: Bearer`.
+
+    '
+  contact:
+    name: Polygon Documentation
+    url: https://polygon.io/docs/crypto
+servers:
+- url: https://api.polygon.io
+  description: Polygon REST API
+security:
+- apiKeyQuery: []
+- bearerAuth: []
+tags:
+- name: Markets
+  description: Markets, exchanges, holidays, and status.
+paths:
+  /v3/reference/markets:
+    get:
+      tags:
+      - Markets
+      operationId: listMarkets
+      summary: List Markets
+      responses:
+        '200':
+          description: Markets response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketsResponse'
+  /v3/reference/exchanges:
+    get:
+      tags:
+      - Markets
+      operationId: listExchanges
+      summary: List Exchanges
+      parameters:
+      - in: query
+        name: asset_class
+        schema:
+          type: string
+      - in: query
+        name: locale
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Exchanges response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangesResponse'
+  /v1/marketstatus/upcoming:
+    get:
+      tags:
+      - Markets
+      operationId: listUpcomingMarketHolidays
+      summary: List Upcoming Market Holidays
+      description: List upcoming US market holidays and the corresponding session schedule.
+      responses:
+        '200':
+          description: Upcoming market holidays response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MarketHoliday'
+  /v1/marketstatus/now:
+    get:
+      tags:
+      - Markets
+      operationId: getCurrentMarketStatus
+      summary: Get Current Market Status
+      description: Get the current trading status for US markets.
+      responses:
+        '200':
+          description: Market status response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketStatusResponse'
+components:
+  schemas:
+    Exchange:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+        asset_class:
+          type: string
+        locale:
+          type: string
+        name:
+          type: string
+        acronym:
+          type: string
+        mic:
+          type: string
+        operating_mic:
+          type: string
+        participant_id:
+          type: string
+        url:
+          type: string
+          format: uri
+    ExchangesResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Exchange'
+    Market:
+      type: object
+      properties:
+        market:
+          type: string
+        desc:
+          type: string
+    MarketHoliday:
+      type: object
+      properties:
+        exchange:
+          type: string
+        name:
+          type: string
+        date:
+          type: string
+          format: date
+        status:
+          type: string
+        open:
+          type: string
+        close:
+          type: string
+    MarketsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Market'
+    MarketStatusResponse:
+      type: object
+      properties:
+        market:
+          type: string
+        serverTime:
+          type: string
+          format: date-time
+        exchanges:
+          type: object
+          additionalProperties:
+            type: string
+        currencies:
+          type: object
+          additionalProperties:
+            type: string
+        earlyHours:
+          type: boolean
+        afterHours:
+          type: boolean
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key

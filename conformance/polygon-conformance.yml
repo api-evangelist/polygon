@@ -1,0 +1,46 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/polygon-openapi-original.json, well-known/polygon-openid-configuration.json, docs probes
+standards:
+  - id: openapi-3.0
+    conforms: true
+    evidence: Official spec at https://api.polygon.io/openapi is OpenAPI 3.0.3 with 146 operations.
+  - id: oauth2
+    conforms: partial
+    evidence: >-
+      The data API uses apiKey auth only (no oauth2 securityScheme). OAuth 2.0 is implemented for
+      the hosted remote MCP server — RFC 9728 protected-resource metadata at
+      mcp.massive.com/.well-known/oauth-protected-resource, authorization server auth.massive.com.
+  - id: oidc
+    conforms: partial
+    evidence: >-
+      auth.massive.com publishes OIDC discovery (/.well-known/openid-configuration) with
+      authorization_code/client_credentials/refresh_token grants, RS256 id tokens, and dynamic
+      client registration — scoped to the MCP/account surface, not the data API.
+  - id: rfc9728-oauth-protected-resource
+    conforms: true
+    evidence: well-known/polygon-oauth-protected-resource.json served by mcp.massive.com.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt returns 404 on polygon.io, api.polygon.io, massive.com, api.massive.com.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a proprietary {status, request_id, error} JSON envelope, not application/problem+json.
+  - id: cursor-pagination
+    conforms: true
+    evidence: next_url cursor pagination on 99 of 146 operations with limit/sort/order params.
+  - id: idempotency
+    conforms: true
+    evidence: Read-only surface — all 146 operations are HTTP GET, safe and idempotent by method semantics.
+  - id: mcp
+    conforms: true
+    evidence: Official MCP server (massive-com/mcp_massive) plus hosted remote server at mcp.massive.com.
+  - id: llms-txt
+    conforms: true
+    evidence: https://massive.com/llms.txt and https://massive.com/docs/rest/llms.txt (endpoint index).
+  - id: json-api
+    conforms: false
+    evidence: Plain JSON envelopes; no JSON:API media type.
+  - id: asyncapi
+    conforms: false
+    evidence: WebSocket clusters are documented in prose; no provider-published AsyncAPI (repo carries a derived one).

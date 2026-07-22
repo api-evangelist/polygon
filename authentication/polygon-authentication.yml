@@ -1,7 +1,10 @@
-generated: '2026-07-11'
+generated: '2026-07-22'
 method: derived
-source: openapi/polygon-crypto-openapi.yml, openapi/polygon-forex-openapi.yml, openapi/polygon-indices-openapi.yml,
-  openapi/polygon-options-openapi.yml, openapi/polygon-reference-openapi.yml, openapi/polygon-stocks-openapi.yml
+source: openapi/polygon-aggregates-api-openapi.yml, openapi/polygon-books-api-openapi.yml, openapi/polygon-contracts-api-openapi.yml,
+  openapi/polygon-conversion-api-openapi.yml, openapi/polygon-corporateactions-api-openapi.yml,
+  openapi/polygon-dailybars-api-openapi.yml, openapi/polygon-markets-api-openapi.yml, openapi/polygon-news-api-openapi.yml,
+  openapi/polygon-openapi-original.json, openapi/polygon-quotes-api-openapi.yml, openapi/polygon-snapshots-api-openapi.yml,
+  openapi/polygon-tickers-api-openapi.yml
 summary:
   types:
   - apiKey
@@ -14,20 +17,31 @@ schemes:
   in: query
   parameter: apiKey
   sources:
-  - openapi/polygon-crypto-openapi.yml
-  - openapi/polygon-forex-openapi.yml
-  - openapi/polygon-indices-openapi.yml
-  - openapi/polygon-options-openapi.yml
-  - openapi/polygon-reference-openapi.yml
-  - openapi/polygon-stocks-openapi.yml
+  - openapi/polygon-aggregates-api-openapi.yml
+  - openapi/polygon-books-api-openapi.yml
+  - openapi/polygon-contracts-api-openapi.yml
+  - openapi/polygon-conversion-api-openapi.yml
+  - openapi/polygon-corporateactions-api-openapi.yml
+  - openapi/polygon-dailybars-api-openapi.yml
+  - openapi/polygon-markets-api-openapi.yml
+  - openapi/polygon-news-api-openapi.yml
+  - openapi/polygon-openapi-original.json
+  - openapi/polygon-quotes-api-openapi.yml
+  - openapi/polygon-snapshots-api-openapi.yml
+  - openapi/polygon-tickers-api-openapi.yml
 - name: bearerAuth
   type: http
   scheme: bearer
   bearerFormat: API Key
   sources:
-  - openapi/polygon-crypto-openapi.yml
-  - openapi/polygon-forex-openapi.yml
-  - openapi/polygon-indices-openapi.yml
-  - openapi/polygon-options-openapi.yml
-  - openapi/polygon-reference-openapi.yml
-  - openapi/polygon-stocks-openapi.yml
+  - openapi/polygon-aggregates-api-openapi.yml
+  - openapi/polygon-books-api-openapi.yml
+  - openapi/polygon-contracts-api-openapi.yml
+  - openapi/polygon-conversion-api-openapi.yml
+  - openapi/polygon-corporateactions-api-openapi.yml
+  - openapi/polygon-dailybars-api-openapi.yml
+  - openapi/polygon-markets-api-openapi.yml
+  - openapi/polygon-news-api-openapi.yml
+  - openapi/polygon-quotes-api-openapi.yml
+  - openapi/polygon-snapshots-api-openapi.yml
+  - openapi/polygon-tickers-api-openapi.yml

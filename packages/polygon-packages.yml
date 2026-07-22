@@ -1,0 +1,63 @@
+generated: '2026-07-22'
+method: searched
+source: npm, PyPI, Maven Central, Packagist, pkg.go.dev, github.com/massive-com registries and org
+notes: >-
+  Polygon.io rebranded to Massive in early 2026; SDK repos moved to the massive-com GitHub org
+  (polygon-io URLs redirect). The JavaScript client is published under both the legacy
+  @polygon.io/client-js name and the new @massive.com/client-js name. PyPI package
+  "massive-api-client" is third-party (not first-party) and is excluded.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@massive.com/client-js"
+    url: https://www.npmjs.com/package/@massive.com/client-js
+    install: npm install @massive.com/client-js
+    version: 10.7.0
+    repository: https://github.com/massive-com/client-js
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@polygon.io/client-js"
+    url: https://www.npmjs.com/package/@polygon.io/client-js
+    install: npm install @polygon.io/client-js
+    version: 8.2.0
+    repository: https://github.com/massive-com/client-js
+    official: true
+    note: Legacy package name from before the Massive rebrand
+  - language: python
+    registry: pypi
+    name: polygon-api-client
+    url: https://pypi.org/project/polygon-api-client/
+    install: pip install polygon-api-client
+    version: 1.16.3
+    repository: https://github.com/massive-com/client-python
+    official: true
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/polygon-io/client-go
+    url: https://pkg.go.dev/github.com/polygon-io/client-go
+    install: go get github.com/polygon-io/client-go
+    repository: https://github.com/massive-com/client-go
+    official: true
+  - language: kotlin
+    registry: maven-central
+    name: io.polygon.kotlin.sdk:polygon-kotlin-sdk-jvm
+    url: https://central.sonatype.com/artifact/io.polygon.kotlin.sdk/polygon-kotlin-sdk-jvm
+    repository: https://github.com/massive-com/client-jvm
+    official: true
+  - language: php
+    registry: packagist
+    name: polygon-io/api
+    url: https://packagist.org/packages/polygon-io/api
+    install: composer require polygon-io/api
+    repository: https://github.com/polygon-io/client-php
+    official: true
+    note: Official PHP client for the REST APIs (legacy branding, low activity)
+  - language: python
+    registry: github
+    name: mcp_massive
+    url: https://github.com/massive-com/mcp_massive
+    install: uv tool install "mcp_massive @ git+https://github.com/massive-com/mcp_massive@v0.10.0"
+    version: v0.10.0
+    official: true
+    note: Official MCP server; installed from GitHub, not published to PyPI

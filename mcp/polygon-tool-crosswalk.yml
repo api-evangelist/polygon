@@ -1,0 +1,50 @@
+generated: '2026-07-22'
+method: derived
+source: mcp/polygon-mcp.yml + openapi/polygon-openapi-original.json
+notes: >-
+  Massive's MCP server is a meta-tool design: instead of one MCP tool per REST endpoint, three
+  composable tools cover the entire REST surface. call_api is a universal binding — it can invoke
+  any of the 146 operations in the official OpenAPI, inheriting that operation's parameters as its
+  real input contract; search_endpoints performs discovery over the same endpoint index
+  (https://massive.com/docs/rest/llms.txt) that mirrors the OpenAPI paths; query_data operates on
+  locally stored results and has no REST backing. The remote server (https://mcp.massive.com) is
+  OAuth-gated, so the live tools/list inputSchemas were not introspected anonymously; bindings are
+  mapped from the published README and the open-source implementation (massive-com/mcp_massive).
+surfaces:
+  openapi: openapi/polygon-openapi-original.json   # official, 146 GET operations
+  mcp:
+    remote: https://mcp.massive.com                 # OAuth-gated (tools/list returns 401 anonymously)
+    local: https://github.com/massive-com/mcp_massive
+  graphql: null
+crosswalk:
+  - tool: call_api
+    category: universal-invoker
+    rest: '*'                # binds to every operation in openapi/polygon-openapi-original.json
+    binding: rest
+    confidence: high
+    note: >-
+      Meta-tool: takes an endpoint path + query params and proxies to the REST API. The real
+      inputSchema for any given call is the target operation's parameters in the OpenAPI (e.g.
+      GetStocksAggregates, ListTickers, GetMarketStatus). Fans out to all 146 operations.
+  - tool: search_endpoints
+    category: discovery
+    rest: []
+    binding: index
+    confidence: high
+    note: >-
+      Searches the endpoint index built from https://massive.com/docs/rest/llms.txt, which is the
+      docs projection of the same 146 REST operations; returns path patterns and parameter docs
+      rather than calling any operation.
+mcp_only:
+  - tool: query_data
+    reason: Runs SQL over the server's in-memory SQLite store of prior call_api results; no REST backing.
+  - tool: 'built-in functions (bs_price, bs_delta, bs_gamma, bs_theta, bs_vega, bs_rho, simple_return, log_return, cumulative_return, sharpe_ratio, sortino_ratio, sma, ema)'
+    reason: Server-side analytics applied via the apply parameter; computed locally, not REST endpoints.
+rest_only: []                # no REST operation is unreachable — call_api covers the full surface
+coverage:
+  mcp_tools: 3
+  tools_bound_to_rest: 1     # call_api (universal)
+  tools_index_bound: 1       # search_endpoints
+  mcp_only: 1                # query_data (plus 13 built-in functions)
+  rest_operations_total: 146
+  rest_operations_reachable_via_mcp: 146

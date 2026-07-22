@@ -1,0 +1,56 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/polygon-openapi-original.json + https://massive.com/docs (auth, pagination, rate-limit docs)
+cross_links:
+  errors: errors/polygon-problem-types.yml
+  lifecycle: lifecycle/polygon-lifecycle.yml
+  authentication: authentication/polygon-authentication.yml
+  rate_limits: rate-limits/polygon-rate-limits.yml
+authentication:
+  style: api-key
+  methods:
+    - Query parameter apiKey=YOUR_KEY (declared in the OpenAPI securityScheme)
+    - HTTP header "Authorization: Bearer YOUR_KEY" (documented alternative)
+  notes: No OAuth on the data API itself; OAuth (auth.massive.com) gates only the hosted remote MCP server.
+idempotency:
+  supported: true
+  mechanism: read-only surface
+  header: null
+  notes: >-
+    The entire public REST surface is HTTP GET (146/146 operations in the official OpenAPI) —
+    every operation is safe and idempotent by HTTP method semantics. There is no write surface,
+    so no Idempotency-Key mechanism exists or is needed; retries are always safe.
+pagination:
+  style: cursor
+  request_params:
+    - name: limit
+      description: Max results per page; per-endpoint caps of 10,000 or 50,000 (LimitMax10000/LimitMax50000 parameter families).
+    - name: sort
+      description: Sort field (commonly timestamp or ticker).
+    - name: order
+      description: asc | desc.
+    - name: cursor
+      description: Opaque cursor embedded in the next_url returned by the previous page.
+  response_fields:
+    - name: next_url
+      description: Absolute URL of the next page (present on 99 of 146 operations); follow it verbatim, appending your API key.
+    - name: count
+      description: Number of results in this page.
+  filtering: >-
+    Range filtering via field-suffixed params — e.g. timestamp.gt/.gte/.lt/.lte and
+    ticker.gt/.gte/.lt/.lte/.any_of — across list endpoints.
+request_tracing:
+  response_field: request_id
+  notes: Every JSON envelope (success and error) carries a server-assigned request_id (127 of 146 operations declare it in-spec).
+response_envelope:
+  fields: [status, request_id, results, count, next_url]
+  error_shape: '{status: "ERROR", request_id, error}'
+versioning:
+  scheme: uri-path (v1/v2/v3 per resource family; vX experimental)
+metadata: null               # no metadata/expansion conventions; data API returns fixed shapes
+field_expansion:
+  supported: limited
+  notes: Options snapshot endpoints support expand_underlying to embed underlying asset data (20 operations).
+rate_limits:
+  signaling: HTTP 429 on exceeding plan limits; free tiers 5 requests/minute, paid tiers unlimited.
+  headers: none documented

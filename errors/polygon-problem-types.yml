@@ -1,0 +1,43 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/polygon-openapi-original.json
+format: json-envelope        # not RFC 9457; a status/request_id/error JSON envelope
+envelope:
+  content_type: application/json
+  fields:
+    - name: status
+      description: The status of this request's response; "ERROR" on failures, "OK" on success.
+      values: [OK, ERROR]
+    - name: request_id
+      description: A request id assigned by the server (also present on successful responses; use it in support requests).
+    - name: error
+      description: A message describing the source of the error.
+  required: [status, request_id, error]
+problems:
+  - status: 400
+    title: Bad request
+    description: An error message — invalid or malformed query/path parameters.
+    occurrences: 60
+    remediation: Check parameter names, formats (dates as YYYY-MM-DD, tickers upper-case), and ranges against the endpoint reference.
+  - status: 401
+    title: Unauthorized
+    description: Unauthorized - Check our API Key and account status.
+    occurrences: 8
+    remediation: >-
+      Pass the API key as ?apiKey=... or an Authorization: Bearer header; confirm the key is
+      active and the subscription tier entitles you to the requested dataset.
+  - status: 404
+    title: Resource not found
+    description: The specified resource was not found.
+    occurrences: 4
+    remediation: Verify the ticker/contract identifier exists and data is available for the requested date.
+  - status: default
+    title: Unexpected error
+    description: Unexpected error (catch-all declared on 37 operations).
+    occurrences: 37
+  - status: 429
+    title: Too many requests
+    description: >-
+      Rate limit exceeded. Documented plan behavior (free tiers are limited to 5 requests/minute);
+      not declared per-operation in the OpenAPI. See rate-limits/polygon-rate-limits.yml.
+    remediation: Back off and retry after the minute window, or upgrade to an unlimited paid tier.

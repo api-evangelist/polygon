@@ -1,0 +1,19 @@
+generated: '2026-07-22'
+method: generated
+notes: >-
+  Generated Agent Skills grounded in verified operationIds from the official OpenAPI
+  (openapi/polygon-openapi-original.json, harvested from https://api.polygon.io/openapi) and the
+  conventions in conventions/polygon-conventions.yml. They mirror the arazzo/ workflow set.
+skills:
+  - file: polygon-stock-research.md
+    name: Research a stock with Massive (Polygon.io)
+    api: openapi/polygon-openapi-original.json
+    operations: [ListTickers, GetTicker, ListNews, GetStocksAggregates, GetPreviousStocksAggregates, GetStocksSnapshotTicker]
+  - file: polygon-options-chain-analysis.md
+    name: Analyze an options chain with Massive (Polygon.io)
+    api: openapi/polygon-openapi-original.json
+    operations: [ListOptionsContracts, GetOptionsContract, GetOptionsAggregates, GetOptionsOpenClose]
+  - file: polygon-market-status-scan.md
+    name: Market-aware daily scan with Massive (Polygon.io)
+    api: openapi/polygon-openapi-original.json
+    operations: [GetMarketStatus, GetMarketHolidays, GetGroupedStocksAggregates, GetStocksSnapshotDirection]

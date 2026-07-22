@@ -1,51 +1,24 @@
-generated: '2026-07-15'
+generated: '2026-07-22'
 method: generated
-source: openapi/polygon-crypto-openapi.yml, openapi/polygon-forex-openapi.yml, openapi/polygon-indices-openapi.yml,
-  openapi/polygon-options-openapi.yml, openapi/polygon-reference-openapi.yml, openapi/polygon-stocks-openapi.yml
+source: openapi/polygon-aggregates-api-openapi.yml, openapi/polygon-books-api-openapi.yml, openapi/polygon-contracts-api-openapi.yml,
+  openapi/polygon-conversion-api-openapi.yml, openapi/polygon-corporateactions-api-openapi.yml,
+  openapi/polygon-dailybars-api-openapi.yml, openapi/polygon-markets-api-openapi.yml, openapi/polygon-news-api-openapi.yml,
+  openapi/polygon-openapi-original.json, openapi/polygon-quotes-api-openapi.yml, openapi/polygon-snapshots-api-openapi.yml,
+  openapi/polygon-tickers-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 29
+  operations: 175
   by_action_class:
-    connected: 29
+    connected: 175
   by_consequence:
-    read: 29
+    read: 175
   human_in_the_loop_required: 0
 operations:
 - path: /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
   method: get
   operationId: getCryptoAggregateBars
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/open-close/crypto/{from}/{to}/{date}
-  method: get
-  operationId: getCryptoDailyOpenClose
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
-  method: get
-  operationId: getCryptoSnapshotForTicker
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
-  method: get
-  operationId: getCryptoL2Book
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -63,39 +36,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v1/conversion/{from}/{to}
-  method: get
-  operationId: getForexConversion
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /v2/aggs/ticker/{forexTicker}/prev
   method: get
   operationId: getForexPreviousClose
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/last_quote/currencies/{from}/{to}
-  method: get
-  operationId: getForexLastQuote
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/snapshot/indices
-  method: get
-  operationId: getIndicesSnapshot
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -123,36 +66,6 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v3/reference/options/contracts
-  method: get
-  operationId: listOptionsContracts
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/snapshot/options/{underlyingAsset}/{optionContract}
-  method: get
-  operationId: getOptionContractSnapshot
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/snapshot/options/{underlyingAsset}
-  method: get
-  operationId: getOptionsChainSnapshot
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
   method: get
   operationId: getOptionsAggregateBars
@@ -163,9 +76,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v3/reference/tickers
+- path: /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
   method: get
-  operationId: listTickers
+  operationId: getStocksAggregateBars
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -173,9 +86,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v3/reference/tickers/{ticker}
+- path: /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
   method: get
-  operationId: getTickerDetails
+  operationId: getCryptoL2Book
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -183,9 +96,79 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v3/reference/tickers/types
+- path: /v3/reference/options/contracts
   method: get
-  operationId: listTickerTypes
+  operationId: listOptionsContracts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/conversion/{from}/{to}
+  method: get
+  operationId: getForexConversion
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/splits
+  method: get
+  operationId: listStockSplits
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/dividends
+  method: get
+  operationId: listDividends
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/open-close/crypto/{from}/{to}/{date}
+  method: get
+  operationId: getCryptoDailyOpenClose
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/open-close/{stocksTicker}/{date}
+  method: get
+  operationId: getStocksDailyOpenClose
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/grouped/locale/us/market/stocks/{date}
+  method: get
+  operationId: getStocksGroupedDailyBars
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{stocksTicker}/prev
+  method: get
+  operationId: getStocksPreviousClose
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -233,26 +216,6 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v3/reference/splits
-  method: get
-  operationId: listStockSplits
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/reference/dividends
-  method: get
-  operationId: listDividends
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /v2/reference/news
   method: get
   operationId: listTickerNews
@@ -263,9 +226,869 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+- path: /benzinga/v1/analyst-insights
   method: get
-  operationId: getStocksAggregateBars
+  operationId: get_benzinga_v1_analyst-insights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /benzinga/v1/analysts
+  method: get
+  operationId: get_benzinga_v1_analysts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /benzinga/v1/bulls-bears-say
+  method: get
+  operationId: get_benzinga_v1_bulls-bears-say
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /benzinga/v1/consensus-ratings/{ticker}
+  method: get
+  operationId: get_benzinga_v1_consensus-ratings_ticker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /benzinga/v1/earnings
+  method: get
+  operationId: get_benzinga_v1_earnings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /benzinga/v1/firms
+  method: get
+  operationId: get_benzinga_v1_firms
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /benzinga/v1/guidance
+  method: get
+  operationId: get_benzinga_v1_guidance
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /benzinga/v1/ratings
+  method: get
+  operationId: get_benzinga_v1_ratings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /benzinga/v2/news
+  method: get
+  operationId: get_benzinga_v2_news
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer-spending/eu/v1/merchant-aggregates
+  method: get
+  operationId: get_consumer-spending_eu_v1_merchant-aggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer-spending/eu/v1/merchant-hierarchy
+  method: get
+  operationId: get_consumer-spending_eu_v1_merchant-hierarchy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /crypto/v1/exchanges
+  method: get
+  operationId: get_crypto_v1_exchanges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /etf-global/v1/analytics
+  method: get
+  operationId: get_etf-global_v1_analytics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /etf-global/v1/constituents
+  method: get
+  operationId: get_etf-global_v1_constituents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /etf-global/v1/fund-flows
+  method: get
+  operationId: get_etf-global_v1_fund-flows
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /etf-global/v1/profiles
+  method: get
+  operationId: get_etf-global_v1_profiles
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /etf-global/v1/taxonomies
+  method: get
+  operationId: get_etf-global_v1_taxonomies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fed/v1/inflation
+  method: get
+  operationId: get_fed_v1_inflation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fed/v1/inflation-expectations
+  method: get
+  operationId: get_fed_v1_inflation-expectations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fed/v1/labor-market
+  method: get
+  operationId: get_fed_v1_labor-market
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fed/v1/treasury-yields
+  method: get
+  operationId: get_fed_v1_treasury-yields
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /forex/v1/exchanges
+  method: get
+  operationId: get_forex_v1_exchanges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/v1/aggs/{ticker}
+  method: get
+  operationId: AggregatesV1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/v1/contracts
+  method: get
+  operationId: get_futures_v1_contracts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/v1/exchanges
+  method: get
+  operationId: get_futures_v1_exchanges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/v1/market-status
+  method: get
+  operationId: get_futures_v1_market-status
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/v1/products
+  method: get
+  operationId: get_futures_v1_products
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/v1/quotes/{ticker}
+  method: get
+  operationId: get_futures_v1_quotes_ticker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/v1/schedules
+  method: get
+  operationId: get_futures_v1_schedules
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/v1/snapshot
+  method: get
+  operationId: get_futures_v1_snapshot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/v1/trades/{ticker}
+  method: get
+  operationId: get_futures_v1_trades_ticker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /options/v1/exchanges
+  method: get
+  operationId: get_options_v1_exchanges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /options/v3/quotes/{ticker}
+  method: get
+  operationId: get_options_v3_quotes_ticker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /options/v3/trades/{ticker}
+  method: get
+  operationId: get_options_v3_trades_ticker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/dev/trades/{ticker}
+  method: get
+  operationId: get_stocks_dev_trades_ticker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/filings/10-K/vX/sections
+  method: get
+  operationId: get_stocks_filings_10-K_vX_sections
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/filings/10-K/vX_0/sections
+  method: get
+  operationId: get_stocks_filings_10-K_vX_0_sections
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/filings/8-K/vX/disclosures
+  method: get
+  operationId: get_stocks_filings_8-K_vX_disclosures
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/filings/8-K/vX/text
+  method: get
+  operationId: get_stocks_filings_8-K_vX_text
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/filings/vX/13-F
+  method: get
+  operationId: get_stocks_filings_vX_13-F
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/filings/vX/form-3
+  method: get
+  operationId: get_stocks_filings_vX_form-3
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/filings/vX/form-4
+  method: get
+  operationId: get_stocks_filings_vX_form-4
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/filings/vX/index
+  method: get
+  operationId: get_stocks_filings_vX_index
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/filings/vX/risk-factors
+  method: get
+  operationId: get_stocks_filings_vX_risk-factors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/financials/v1/balance-sheets
+  method: get
+  operationId: get_stocks_financials_v1_balance-sheets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/financials/v1/cash-flow-statements
+  method: get
+  operationId: get_stocks_financials_v1_cash-flow-statements
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/financials/v1/income-statements
+  method: get
+  operationId: get_stocks_financials_v1_income-statements
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/financials/v1/ratios
+  method: get
+  operationId: get_stocks_financials_v1_ratios
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/taxonomies/vX/disclosures
+  method: get
+  operationId: get_stocks_taxonomies_vX_disclosures
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/taxonomies/vX/risk-factors
+  method: get
+  operationId: get_stocks_taxonomies_vX_risk-factors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/v1/dividends
+  method: get
+  operationId: get_stocks_v1_dividends
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/v1/exchanges
+  method: get
+  operationId: get_stocks_v1_exchanges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/v1/short-interest
+  method: get
+  operationId: get_stocks_v1_short-interest
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/v1/short-volume
+  method: get
+  operationId: get_stocks_v1_short-volume
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/v1/splits
+  method: get
+  operationId: get_stocks_v1_splits
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stocks/vX/float
+  method: get
+  operationId: get_stocks_vX_float
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tmx/v1/corporate-events
+  method: get
+  operationId: get_tmx_v1_corporate-events
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/conversion/{from}/{to}
+  method: get
+  operationId: RealTimeCurrencyConversion
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/historic/crypto/{from}/{to}/{date}
+  method: get
+  operationId: DeprecatedGetHistoricCryptoTrades
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/historic/forex/{from}/{to}/{date}
+  method: get
+  operationId: DeprecatedGetHistoricForexQuotes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/ema/{cryptoTicker}
+  method: get
+  operationId: CryptoEMA
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/ema/{fxTicker}
+  method: get
+  operationId: ForexEMA
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/ema/{indicesTicker}
+  method: get
+  operationId: IndicesEMA
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/ema/{optionsTicker}
+  method: get
+  operationId: OptionsEMA
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/ema/{stockTicker}
+  method: get
+  operationId: EMA
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/macd/{cryptoTicker}
+  method: get
+  operationId: CryptoMACD
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/macd/{fxTicker}
+  method: get
+  operationId: ForexMACD
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/macd/{indicesTicker}
+  method: get
+  operationId: IndicesMACD
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/macd/{optionsTicker}
+  method: get
+  operationId: OptionsMACD
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/macd/{stockTicker}
+  method: get
+  operationId: MACD
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/rsi/{cryptoTicker}
+  method: get
+  operationId: CryptoRSI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/rsi/{fxTicker}
+  method: get
+  operationId: ForexRSI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/rsi/{indicesTicker}
+  method: get
+  operationId: IndicesRSI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/rsi/{optionsTicker}
+  method: get
+  operationId: OptionsRSI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/rsi/{stockTicker}
+  method: get
+  operationId: RSI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/sma/{cryptoTicker}
+  method: get
+  operationId: CryptoSMA
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/sma/{fxTicker}
+  method: get
+  operationId: ForexSMA
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/sma/{indicesTicker}
+  method: get
+  operationId: IndicesSMA
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/sma/{optionsTicker}
+  method: get
+  operationId: OptionsSMA
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/indicators/sma/{stockTicker}
+  method: get
+  operationId: SMA
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/last/crypto/{from}/{to}
+  method: get
+  operationId: LastTradeCrypto
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/last_quote/currencies/{from}/{to}
+  method: get
+  operationId: LastQuoteCurrencies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/marketstatus/now
+  method: get
+  operationId: GetMarketStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/marketstatus/upcoming
+  method: get
+  operationId: GetMarketHolidays
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/open-close/crypto/{from}/{to}/{date}
+  method: get
+  operationId: GetCryptoOpenClose
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/open-close/{indicesTicker}/{date}
+  method: get
+  operationId: GetIndicesOpenClose
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/open-close/{optionsTicker}/{date}
+  method: get
+  operationId: GetOptionsOpenClose
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -275,7 +1098,97 @@ operations:
     audit: none
 - path: /v1/open-close/{stocksTicker}/{date}
   method: get
-  operationId: getStocksDailyOpenClose
+  operationId: GetStocksOpenClose
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/reference/ipos
+  method: get
+  operationId: get_v1_reference_ipos
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/reference/sec/filings
+  method: get
+  operationId: ListFilings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/reference/sec/filings/{filing_id}
+  method: get
+  operationId: GetFiling
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/reference/sec/filings/{filing_id}/files
+  method: get
+  operationId: ListFilingFiles
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/reference/sec/filings/{filing_id}/files/{file_id}
+  method: get
+  operationId: GetFilingFile
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/related-companies/{ticker}
+  method: get
+  operationId: GetRelatedCompanies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/summaries
+  method: get
+  operationId: SnapshotSummary
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/grouped/locale/global/market/crypto/{date}
+  method: get
+  operationId: GetGroupedCryptoAggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/grouped/locale/global/market/fx/{date}
+  method: get
+  operationId: GetGroupedForexAggregates
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -285,7 +1198,87 @@ operations:
     audit: none
 - path: /v2/aggs/grouped/locale/us/market/stocks/{date}
   method: get
-  operationId: getStocksGroupedDailyBars
+  operationId: GetGroupedStocksAggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{cryptoTicker}/prev
+  method: get
+  operationId: GetPreviousCryptoAggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+  method: get
+  operationId: GetCryptoAggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{forexTicker}/prev
+  method: get
+  operationId: GetPreviousForexAggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+  method: get
+  operationId: GetForexAggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{indicesTicker}/prev
+  method: get
+  operationId: GetPreviousIndicesAggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+  method: get
+  operationId: GetIndicesAggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{optionsTicker}/prev
+  method: get
+  operationId: GetPreviousOptionsAggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+  method: get
+  operationId: GetOptionsAggregates
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -295,7 +1288,477 @@ operations:
     audit: none
 - path: /v2/aggs/ticker/{stocksTicker}/prev
   method: get
-  operationId: getStocksPreviousClose
+  operationId: GetPreviousStocksAggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+  method: get
+  operationId: GetStocksAggregates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/last/nbbo/{stocksTicker}
+  method: get
+  operationId: LastQuote
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/last/trade/{optionsTicker}
+  method: get
+  operationId: LastTradeOptions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/last/trade/{stocksTicker}
+  method: get
+  operationId: LastTrade
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/reference/news
+  method: get
+  operationId: ListNews
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/global/markets/crypto/tickers
+  method: get
+  operationId: GetCryptoSnapshotTickers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+  method: get
+  operationId: GetCryptoSnapshotTicker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+  method: get
+  operationId: DeprecatedGetCryptoSnapshotTickerBook
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/global/markets/crypto/{direction}
+  method: get
+  operationId: GetCryptoSnapshotDirection
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/global/markets/forex/tickers
+  method: get
+  operationId: GetForexSnapshotTickers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+  method: get
+  operationId: GetForexSnapshotTicker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/global/markets/forex/{direction}
+  method: get
+  operationId: GetForexSnapshotDirection
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/us/markets/stocks/tickers
+  method: get
+  operationId: GetStocksSnapshotTickers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+  method: get
+  operationId: GetStocksSnapshotTicker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/us/markets/stocks/{direction}
+  method: get
+  operationId: GetStocksSnapshotDirection
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/ticks/stocks/nbbo/{ticker}/{date}
+  method: get
+  operationId: DeprecatedGetHistoricStocksQuotes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/ticks/stocks/trades/{ticker}/{date}
+  method: get
+  operationId: DeprecatedGetHistoricStocksTrades
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/quotes/{fxTicker}
+  method: get
+  operationId: QuotesFx
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/quotes/{optionsTicker}
+  method: get
+  operationId: QuotesOptions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/quotes/{stockTicker}
+  method: get
+  operationId: Quotes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/conditions
+  method: get
+  operationId: ListConditions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/dividends
+  method: get
+  operationId: ListDividends
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/exchanges
+  method: get
+  operationId: ListExchanges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/options/contracts
+  method: get
+  operationId: ListOptionsContracts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/options/contracts/{options_ticker}
+  method: get
+  operationId: GetOptionsContract
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/splits
+  method: get
+  operationId: ListStockSplits
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/tickers
+  method: get
+  operationId: ListTickers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/tickers/types
+  method: get
+  operationId: ListTickerTypes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/tickers/{ticker}
+  method: get
+  operationId: GetTicker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/snapshot
+  method: get
+  operationId: Snapshots
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/snapshot/indices
+  method: get
+  operationId: IndicesSnapshot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/snapshot/options/{underlyingAsset}
+  method: get
+  operationId: OptionsChain
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/snapshot/options/{underlyingAsset}/{optionContract}
+  method: get
+  operationId: OptionContract
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/trades/{cryptoTicker}
+  method: get
+  operationId: TradesCrypto
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/trades/{optionsTicker}
+  method: get
+  operationId: TradesOptions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/trades/{stockTicker}
+  method: get
+  operationId: Trades
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /vX/reference/financials
+  method: get
+  operationId: ListFinancials
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /vX/reference/ipos
+  method: get
+  operationId: ListIPOs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /vX/reference/tickers/{id}/events
+  method: get
+  operationId: GetEvents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/last_quote/currencies/{from}/{to}
+  method: get
+  operationId: getForexLastQuote
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+  method: get
+  operationId: getCryptoSnapshotForTicker
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/snapshot/indices
+  method: get
+  operationId: getIndicesSnapshot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/snapshot/options/{underlyingAsset}/{optionContract}
+  method: get
+  operationId: getOptionContractSnapshot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/snapshot/options/{underlyingAsset}
+  method: get
+  operationId: getOptionsChainSnapshot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/tickers
+  method: get
+  operationId: listTickers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/tickers/{ticker}
+  method: get
+  operationId: getTickerDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/reference/tickers/types
+  method: get
+  operationId: listTickerTypes
   x-agentic-access:
     action-class: connected
     consequence: read

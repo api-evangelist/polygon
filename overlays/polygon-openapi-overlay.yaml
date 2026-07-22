@@ -1,0 +1,32 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the official Massive (Polygon.io) OpenAPI
+  version: 1.0.0
+x-generated: '2026-07-22'
+x-method: generated
+extends: openapi/polygon-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist:
+        provider: polygon
+        harvested: '2026-07-22'
+        source: https://api.polygon.io/openapi
+        notes: >-
+          Official spec served on the API host root (also at https://api.massive.com/openapi
+          after the Massive rebrand). 146 GET operations across stocks, options, indices, forex,
+          crypto, futures, economy (Fed), Benzinga, and SEC filings surfaces.
+  - target: $.info
+    update:
+      x-agentic:
+        read_only: true
+        idempotent: true
+        pagination: cursor (next_url)
+        request_tracing: request_id
+        rate_limit: free tiers 5 req/min, HTTP 429 on excess
+        mcp: https://mcp.massive.com (OAuth) and massive-com/mcp_massive (stdio)
+  - target: $.components.securitySchemes.apiKey
+    update:
+      description: >-
+        Pass your API key as the apiKey query parameter, or alternatively as an
+        "Authorization: Bearer YOUR_KEY" header (documented but not declared in this spec).

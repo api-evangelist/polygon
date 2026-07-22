@@ -1,0 +1,66 @@
+generated: '2026-07-22'
+method: searched
+status: published
+source: https://github.com/polygon-io/mcp_polygon (redirects to https://github.com/massive-com/mcp_massive)
+notes: >-
+  Massive (formerly Polygon.io) ships an official open-source MCP server (massive-com/mcp_massive,
+  v0.10.0, Python/FastMCP) plus a hosted remote MCP server launched 2026-07-02 (see changelog).
+  Rather than one tool per endpoint, the server exposes three composable tools that cover the
+  entire REST surface: the tool index is built dynamically at startup from
+  https://massive.com/docs/rest/llms.txt, so it stays in sync with the API. The remote server at
+  https://mcp.massive.com is OAuth-gated (Bearer; authorization server https://auth.massive.com),
+  so live tools/list introspection requires an authenticated session; the tool list below comes
+  from the published README.
+servers:
+  - name: massive (remote)
+    transport: streamable-http
+    url: https://mcp.massive.com
+    auth: oauth2 (Bearer; resource metadata at /.well-known/oauth-protected-resource, authorization server https://auth.massive.com)
+    gated: true
+  - name: massive (local)
+    transport: stdio        # also sse and streamable-http via MCP_TRANSPORT
+    repository: https://github.com/massive-com/mcp_massive
+    version: v0.10.0
+    install: uv tool install "mcp_massive @ git+https://github.com/massive-com/mcp_massive@v0.10.0"
+    register: claude mcp add massive -e MASSIVE_API_KEY=your_api_key_here -- mcp_massive
+    environment:
+      - name: MASSIVE_API_KEY
+        required: true
+        description: Massive.com API key (POLYGON_API_KEY is a deprecated alias)
+      - name: MCP_TRANSPORT
+        required: false
+        default: stdio
+        description: stdio | sse | streamable-http
+      - name: MASSIVE_API_BASE_URL
+        required: false
+        default: https://api.massive.com
+      - name: MASSIVE_LLMS_TXT_URL
+        required: false
+        default: https://massive.com/docs/rest/llms.txt
+        description: URL for the endpoint index the server builds its tool surface from
+      - name: MASSIVE_MAX_TABLES
+        required: false
+        default: '50'
+      - name: MASSIVE_MAX_ROWS
+        required: false
+        default: '50000'
+tools:
+  - name: search_endpoints
+    description: >-
+      Search for API endpoints and built-in functions by natural language query. Returns titles,
+      path patterns, and descriptions. detail can be "more" (query parameter docs) or "verbose"
+      (full documentation); max_results limits results; scope="functions" discovers built-in
+      analytics functions.
+  - name: call_api
+    description: >-
+      Call any Massive.com REST API endpoint. Supports storing results as an in-memory SQLite
+      table (store_as) and applying post-processing functions (apply). Paginated responses
+      include a next-page hint.
+  - name: query_data
+    description: >-
+      Run SQL against the in-memory SQLite database of stored results. Supports SHOW TABLES,
+      DESCRIBE, DROP TABLE, CTEs, window functions; results can be post-processed with apply.
+functions:
+  greeks: [bs_price, bs_delta, bs_gamma, bs_theta, bs_vega, bs_rho]
+  returns: [simple_return, log_return, cumulative_return, sharpe_ratio, sortino_ratio]
+  technical: [sma, ema]

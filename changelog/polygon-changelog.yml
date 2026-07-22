@@ -1,0 +1,40 @@
+generated: '2026-07-22'
+method: searched
+source: https://massive.com/changelog
+notes: >-
+  Massive (formerly Polygon.io) maintains a dated changelog organized chronologically by month,
+  with entries tagged by product area (REST, WebSockets, Developer Tools, Products, Website) and
+  change type. polygon.io/changelog redirects to massive.com/changelog. Recent window only; the
+  live changelog is the source of truth.
+scheme: dated entries grouped by month, tagged by product area and change type
+entries:
+  - date: '2026-07-02'
+    title: New Remote MCP Server
+    area: Developer Tools
+    kind: addition
+    note: Hosted remote MCP server at https://mcp.massive.com (OAuth), complementing the open-source local server.
+  - date: '2026-07-01'
+    title: New 8-K Disclosures and Disclosure Categories Endpoints (Open Beta)
+    area: REST
+    kind: addition
+  - date: '2026-06-22'
+    title: Experimental Financials VX Endpoint Sunset
+    area: REST
+    kind: breaking
+    note: Deprecation/sunset of the experimental vX financials endpoint; users migrate to replacement financials APIs.
+  - date: '2026-05-05'
+    title: Futures APIs Now Generally Available (v1)
+    area: Futures
+    kind: addition
+  - date: '2026-04-28'
+    title: New Form 3 and Form 4 Endpoints (Open Beta)
+    area: REST
+    kind: addition
+  - date: '2025-12-01'
+    title: Benzinga News v1 API Sunset
+    area: REST
+    kind: breaking
+  - date: '2025-08-01'
+    title: Crypto L2 WebSocket Sunset
+    area: WebSockets
+    kind: breaking

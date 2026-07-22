@@ -1,0 +1,82 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/polygon-openapi-original.json (113 component schemas + path structure)
+notes: >-
+  Massive/Polygon is a read-only market-data model: the Ticker is the hub entity and every
+  market-data series hangs off it via the ticker symbol (path parameter or results field), not
+  via synthetic ids. Options contracts reference their underlying ticker; news articles reference
+  many tickers. Reference entities (exchanges, conditions, market status/holidays) are standalone
+  lookup tables. Renders of the per-asset-class shapes live in json-schema/ and json-structure/.
+entities:
+  - name: Ticker
+    description: A tradable symbol across asset classes (stocks, options, indices, forex, crypto); TickerBase/TickerResults/Company schemas carry name, market, locale, exchange, figi, cik.
+    id_field: ticker
+    operations: [ListTickers, GetTicker, ListTickerTypes]
+  - name: AggregateBar
+    description: OHLCV candlestick at custom/minute/day granularity (per asset class).
+    operations: [GetStocksAggregates, GetOptionsAggregates, GetIndicesAggregates, GetForexAggregates, GetCryptoAggregates]
+  - name: Trade
+    description: Tick-level trade with nanosecond timestamps.
+  - name: Quote
+    description: NBBO / top-of-book quote (bid/ask price, size, exchange ids).
+  - name: Snapshot
+    description: Current-state rollup per ticker (day bar, last trade/quote, prev day) or market-wide gainers/losers.
+    operations: [GetStocksSnapshotTicker, GetCryptoSnapshotTicker, GetForexSnapshotTicker]
+  - name: OptionsContract
+    description: Listed option contract with strike, expiry, and underlying.
+    operations: [ListOptionsContracts, GetOptionsContract]
+  - name: Dividend
+    description: Cash dividend corporate action for a ticker.
+  - name: Split
+    description: Stock split corporate action for a ticker.
+  - name: News
+    description: News article referencing one or more tickers (News schema carries tickers[]).
+    operations: [ListNews]
+  - name: Exchange
+    description: Reference exchange (CryptoExchange and equities exchanges).
+  - name: Condition
+    description: Trade/quote condition codes from upstream feeds (CTA, UTP, OPRA, FINRA).
+  - name: MarketStatus
+    description: Current and upcoming market open/close state and holidays.
+    operations: [GetMarketStatus, GetMarketHolidays]
+relationships:
+  - from: AggregateBar
+    to: Ticker
+    kind: belongs_to
+    via: ticker (path parameter)
+  - from: Trade
+    to: Ticker
+    kind: belongs_to
+    via: ticker (path parameter)
+  - from: Quote
+    to: Ticker
+    kind: belongs_to
+    via: ticker (path parameter)
+  - from: Snapshot
+    to: Ticker
+    kind: belongs_to
+    via: ticker
+  - from: OptionsContract
+    to: Ticker
+    kind: belongs_to
+    via: underlying ticker (options ticker encodes the underlying; snapshots support expand_underlying)
+  - from: Dividend
+    to: Ticker
+    kind: belongs_to
+    via: ticker
+  - from: Split
+    to: Ticker
+    kind: belongs_to
+    via: ticker
+  - from: News
+    to: Ticker
+    kind: has_many
+    via: tickers[] (results field)
+  - from: Ticker
+    to: Exchange
+    kind: belongs_to
+    via: exchange / primary_exchange field
+  - from: Trade
+    to: Condition
+    kind: has_many
+    via: conditions[] codes

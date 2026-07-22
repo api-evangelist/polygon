@@ -1,0 +1,1 @@
+{"resource":"https://mcp.massive.com","authorization_servers":["https://auth.massive.com"],"scopes_supported":["openid","offline_access","account"],"bearer_methods_supported":["header"]}

@@ -1,0 +1,160 @@
+openapi: 3.1.0
+info:
+  title: Polygon Crypto REST Aggregates CorporateActions API
+  version: '1.0'
+  description: 'Polygon Crypto API exposes aggregated cross-exchange data for crypto
+
+    pairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec
+
+    covers aggregates, daily open/close, snapshots, and level-2 books.
+
+    Auth uses an API key via `apiKey` query parameter or
+
+    `Authorization: Bearer`.
+
+    '
+  contact:
+    name: Polygon Documentation
+    url: https://polygon.io/docs/crypto
+servers:
+- url: https://api.polygon.io
+  description: Polygon REST API
+security:
+- apiKeyQuery: []
+- bearerAuth: []
+tags:
+- name: CorporateActions
+  description: Stock splits and dividends.
+paths:
+  /v3/reference/splits:
+    get:
+      tags:
+      - CorporateActions
+      operationId: listStockSplits
+      summary: List Stock Splits
+      parameters:
+      - in: query
+        name: ticker
+        schema:
+          type: string
+      - in: query
+        name: execution_date
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 10
+          maximum: 1000
+      responses:
+        '200':
+          description: Stock splits response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockSplitsResponse'
+  /v3/reference/dividends:
+    get:
+      tags:
+      - CorporateActions
+      operationId: listDividends
+      summary: List Stock Dividends
+      parameters:
+      - in: query
+        name: ticker
+        schema:
+          type: string
+      - in: query
+        name: ex_dividend_date
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 10
+          maximum: 1000
+      responses:
+        '200':
+          description: Dividends response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DividendsResponse'
+components:
+  schemas:
+    StockSplit:
+      type: object
+      properties:
+        execution_date:
+          type: string
+          format: date
+        split_from:
+          type: number
+        split_to:
+          type: number
+        ticker:
+          type: string
+    DividendsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dividend'
+    StockSplitsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StockSplit'
+    Dividend:
+      type: object
+      properties:
+        cash_amount:
+          type: number
+        declaration_date:
+          type: string
+          format: date
+        dividend_type:
+          type: string
+        ex_dividend_date:
+          type: string
+          format: date
+        frequency:
+          type: integer
+        pay_date:
+          type: string
+          format: date
+        record_date:
+          type: string
+          format: date
+        ticker:
+          type: string
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key

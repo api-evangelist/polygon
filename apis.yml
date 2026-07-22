@@ -1,7 +1,20 @@
 aid: polygon
 name: Polygon
 url: https://raw.githubusercontent.com/api-evangelist/polygon/refs/heads/main/apis.yml
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/polygon.png
 description: >-
   Polygon (Polygon.io, rebranded as Massive in early 2026) provides real-time and historical market data APIs across US
   stocks, options, indices, forex, cryptocurrencies, and futures. Coverage is delivered through REST endpoints and
@@ -9,7 +22,7 @@ description: >-
   for retail developers and Business contracts for redistribution and exchange-licensed data.
 specificationVersion: '0.20'
 created: '2026-05-28'
-modified: '2026-05-29'
+modified: '2026-07-22'
 x-source: public-apis/public-apis
 x-category: Finance
 x-type: company
@@ -49,7 +62,7 @@ apis:
       - type: APIReference
         url: https://polygon.io/docs/stocks
       - type: OpenAPI
-        url: openapi/polygon-stocks-openapi.yml
+        url: openapi/_original/polygon-stocks-openapi.yml
       - type: Authentication
         url: https://polygon.io/docs/getting-started
       - type: JSONSchema
@@ -75,7 +88,7 @@ apis:
       - type: APIReference
         url: https://polygon.io/docs/options
       - type: OpenAPI
-        url: openapi/polygon-options-openapi.yml
+        url: openapi/_original/polygon-options-openapi.yml
       - type: JSONSchema
         url: json-schema/polygon-options-contract-schema.json
       - type: JSONStructure
@@ -98,7 +111,7 @@ apis:
       - type: APIReference
         url: https://polygon.io/docs/indices
       - type: OpenAPI
-        url: openapi/polygon-indices-openapi.yml
+        url: openapi/_original/polygon-indices-openapi.yml
   - aid: polygon:forex-api
     name: Polygon Forex API
     description: >-
@@ -117,7 +130,7 @@ apis:
       - type: APIReference
         url: https://polygon.io/docs/forex
       - type: OpenAPI
-        url: openapi/polygon-forex-openapi.yml
+        url: openapi/_original/polygon-forex-openapi.yml
       - type: Examples
         url: examples/polygon-forex-conversion-example.json
   - aid: polygon:crypto-api
@@ -137,7 +150,7 @@ apis:
       - type: APIReference
         url: https://polygon.io/docs/crypto
       - type: OpenAPI
-        url: openapi/polygon-crypto-openapi.yml
+        url: openapi/_original/polygon-crypto-openapi.yml
   - aid: polygon:reference-api
     name: Polygon Reference API
     description: >-
@@ -154,7 +167,7 @@ apis:
       - type: Documentation
         url: https://polygon.io/docs/stocks/get_v3_reference_tickers
       - type: OpenAPI
-        url: openapi/polygon-reference-openapi.yml
+        url: openapi/_original/polygon-reference-openapi.yml
       - type: JSONSchema
         url: json-schema/polygon-ticker-schema.json
       - type: JSONStructure
@@ -184,6 +197,40 @@ apis:
       - type: Examples
         url: examples/polygon-websocket-subscribe-example.json
 common:
+  - type: OpenAPI
+    url: openapi/polygon-openapi-original.json
+    name: Official Massive (Polygon.io) OpenAPI 3.0.3 — 146 operations, harvested from https://api.polygon.io/openapi
+  - type: Overlay
+    url: overlays/polygon-openapi-overlay.yaml
+  - type: MCPServer
+    url: mcp/polygon-mcp.yml
+    name: Massive MCP server — remote https://mcp.massive.com (OAuth) + open-source mcp_massive (stdio)
+  - type: ToolCrosswalk
+    url: mcp/polygon-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: llms/polygon-llms.txt
+  - type: WellKnown
+    url: well-known/polygon-well-known.yml
+  - type: Packages
+    url: packages/polygon-packages.yml
+  - type: Conformance
+    url: conformance/polygon-conformance.yml
+  - type: ErrorCatalog
+    url: errors/polygon-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/polygon-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/polygon-changelog.yml
+  - type: Conventions
+    url: conventions/polygon-conventions.yml
+  - type: Idempotency
+    url: conventions/polygon-conventions.yml
+  - type: DataModel
+    url: data-model/polygon-data-model.yml
+  - type: OAuthScopes
+    url: scopes/polygon-scopes.yml
+  - type: AgentSkill
+    url: skills/_index.yml
   - type: AgenticAccess
     url: agentic-access/polygon-agentic-access.yml
   - type: DomainSecurity
