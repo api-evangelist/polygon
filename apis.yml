@@ -43,159 +43,622 @@ tags:
   - Historical
   - Public APIs
 apis:
-  - aid: polygon:stocks-api
-    name: Polygon Stocks API
-    description: >-
-      Real-time and historical US equity market data including aggregate (OHLC) bars at minute/hour/day granularity,
-      trades, NBBO quotes, snapshots, ticker reference, splits, dividends, and financials. Available via REST and the
-      stocks WebSocket cluster.
-    humanURL: https://polygon.io/docs/stocks
-    baseURL: https://api.polygon.io
-    tags:
-      - Stocks
-      - Equities
-      - Market Data
-      - Real-time
-    properties:
-      - type: Documentation
-        url: https://polygon.io/docs/stocks
-      - type: APIReference
-        url: https://polygon.io/docs/stocks
-      - type: OpenAPI
-        url: openapi/_original/polygon-stocks-openapi.yml
-      - type: Authentication
-        url: https://polygon.io/docs/getting-started
-      - type: JSONSchema
-        url: json-schema/polygon-aggregate-bar-schema.json
-      - type: JSONStructure
-        url: json-structure/polygon-aggregate-bar-structure.json
-      - type: Examples
-        url: examples/polygon-stocks-aggregate-bars-example.json
-  - aid: polygon:options-api
-    name: Polygon Options API
-    description: >-
-      OPRA-licensed options market data via REST and WebSocket: aggregates, trades, quotes, snapshots, contract
-      reference, and option chains. Greeks and implied volatility are available on paid tiers.
-    humanURL: https://polygon.io/docs/options
-    baseURL: https://api.polygon.io
-    tags:
-      - Options
-      - OPRA
-      - Market Data
-    properties:
-      - type: Documentation
-        url: https://polygon.io/docs/options
-      - type: APIReference
-        url: https://polygon.io/docs/options
-      - type: OpenAPI
-        url: openapi/_original/polygon-options-openapi.yml
-      - type: JSONSchema
-        url: json-schema/polygon-options-contract-schema.json
-      - type: JSONStructure
-        url: json-structure/polygon-options-contract-structure.json
-      - type: Examples
-        url: examples/polygon-options-chain-snapshot-example.json
-  - aid: polygon:indices-api
-    name: Polygon Indices API
-    description: >-
-      Real-time and historical index values for major US and global indices via REST and WebSocket. Includes aggregates,
-      snapshots, and index reference data.
-    humanURL: https://polygon.io/docs/indices
-    baseURL: https://api.polygon.io
-    tags:
-      - Indices
-      - Market Data
-    properties:
-      - type: Documentation
-        url: https://polygon.io/docs/indices
-      - type: APIReference
-        url: https://polygon.io/docs/indices
-      - type: OpenAPI
-        url: openapi/_original/polygon-indices-openapi.yml
-  - aid: polygon:forex-api
-    name: Polygon Forex API
-    description: >-
-      Real-time and historical FX prices for 1,000+ currency pairs via REST and WebSocket. Covers aggregates, quotes,
-      snapshots, conversions, and previous-close.
-    humanURL: https://polygon.io/docs/forex
-    baseURL: https://api.polygon.io
-    tags:
-      - Forex
-      - FX
-      - Currencies
-      - Market Data
-    properties:
-      - type: Documentation
-        url: https://polygon.io/docs/forex
-      - type: APIReference
-        url: https://polygon.io/docs/forex
-      - type: OpenAPI
-        url: openapi/_original/polygon-forex-openapi.yml
-      - type: Examples
-        url: examples/polygon-forex-conversion-example.json
-  - aid: polygon:crypto-api
-    name: Polygon Crypto API
-    description: >-
-      Aggregates, trades, snapshots, and level-2 order books for crypto pairs sourced across major exchanges, plus
-      WebSocket streaming on the crypto cluster.
-    humanURL: https://polygon.io/docs/crypto
-    baseURL: https://api.polygon.io
-    tags:
-      - Crypto
-      - Cryptocurrency
-      - Market Data
-    properties:
-      - type: Documentation
-        url: https://polygon.io/docs/crypto
-      - type: APIReference
-        url: https://polygon.io/docs/crypto
-      - type: OpenAPI
-        url: openapi/_original/polygon-crypto-openapi.yml
-  - aid: polygon:reference-api
-    name: Polygon Reference API
-    description: >-
-      Reference data covering tickers, ticker types, markets, exchanges, market holidays, market status, conditions,
-      stock splits, dividends, and ticker news. Shared across all asset classes.
-    humanURL: https://polygon.io/docs/stocks/get_v3_reference_tickers
-    baseURL: https://api.polygon.io
-    tags:
-      - Reference
-      - Tickers
-      - Exchanges
-      - Calendars
-    properties:
-      - type: Documentation
-        url: https://polygon.io/docs/stocks/get_v3_reference_tickers
-      - type: OpenAPI
-        url: openapi/_original/polygon-reference-openapi.yml
-      - type: JSONSchema
-        url: json-schema/polygon-ticker-schema.json
-      - type: JSONStructure
-        url: json-structure/polygon-ticker-structure.json
-      - type: Examples
-        url: examples/polygon-reference-tickers-example.json
-  - aid: polygon:websocket-api
-    name: Polygon WebSocket API
-    description: >-
-      Real-time streaming WebSocket clusters per asset class (stocks/options/indices/forex/crypto). Subscribers
-      authenticate with an API key and subscribe to channels for trades, quotes, aggregates, and book updates.
-    humanURL: https://polygon.io/docs/stocks/ws_getting-started
-    baseURL: wss://socket.polygon.io
-    tags:
-      - WebSocket
-      - Streaming
-      - Real-time
-    properties:
-      - type: Documentation
-        url: https://polygon.io/docs/stocks/ws_getting-started
-      - type: AsyncAPI
-        url: asyncapi/polygon-websocket-asyncapi.yml
-      - type: JSONSchema
-        url: json-schema/polygon-trade-schema.json
-      - type: JSONSchema
-        url: json-schema/polygon-quote-schema.json
-      - type: Examples
-        url: examples/polygon-websocket-subscribe-example.json
+- aid: polygon:websocket-api
+  name: Polygon WebSocket API
+  description: >-
+    Real-time streaming WebSocket clusters per asset class (stocks/options/indices/forex/crypto). Subscribers
+    authenticate with an API key and subscribe to channels for trades, quotes, aggregates, and book updates.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - WebSocket
+  - Streaming
+  - Real-time
+  properties:
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/ws_getting-started
+  - type: AsyncAPI
+    url: asyncapi/polygon-websocket-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/polygon-trade-schema.json
+  - type: JSONSchema
+    url: json-schema/polygon-quote-schema.json
+  - type: Examples
+    url: examples/polygon-websocket-subscribe-example.json
+- aid: polygon:polygon-aggregates-api
+  name: Polygon Aggregates API
+  description: Crypto aggregate bars.
+  humanURL: https://polygon.io/docs/stocks
+  baseURL: https://api.polygon.io
+  tags:
+  - Aggregates
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-aggregates-api-openapi.yml
+  - type: Documentation
+    url: https://polygon.io/docs/stocks
+  - type: APIReference
+    url: https://polygon.io/docs/stocks
+  - type: Authentication
+    url: https://polygon.io/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/polygon-aggregate-bar-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-aggregate-bar-structure.json
+  - type: Examples
+    url: examples/polygon-stocks-aggregate-bars-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: APIReference
+    url: https://polygon.io/docs/options
+  - type: JSONSchema
+    url: json-schema/polygon-options-contract-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-options-contract-structure.json
+  - type: Examples
+    url: examples/polygon-options-chain-snapshot-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: APIReference
+    url: https://polygon.io/docs/indices
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: APIReference
+    url: https://polygon.io/docs/forex
+  - type: Examples
+    url: examples/polygon-forex-conversion-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: APIReference
+    url: https://polygon.io/docs/crypto
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+  - type: JSONSchema
+    url: json-schema/polygon-ticker-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-ticker-structure.json
+  - type: Examples
+    url: examples/polygon-reference-tickers-example.json
+- aid: polygon:polygon-books-api
+  name: Polygon Books API
+  description: Level-2 order book.
+  humanURL: https://polygon.io/docs/stocks
+  baseURL: https://api.polygon.io
+  tags:
+  - Books
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-books-api-openapi.yml
+  - type: Documentation
+    url: https://polygon.io/docs/stocks
+  - type: APIReference
+    url: https://polygon.io/docs/stocks
+  - type: Authentication
+    url: https://polygon.io/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/polygon-aggregate-bar-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-aggregate-bar-structure.json
+  - type: Examples
+    url: examples/polygon-stocks-aggregate-bars-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: APIReference
+    url: https://polygon.io/docs/options
+  - type: JSONSchema
+    url: json-schema/polygon-options-contract-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-options-contract-structure.json
+  - type: Examples
+    url: examples/polygon-options-chain-snapshot-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: APIReference
+    url: https://polygon.io/docs/indices
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: APIReference
+    url: https://polygon.io/docs/forex
+  - type: Examples
+    url: examples/polygon-forex-conversion-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: APIReference
+    url: https://polygon.io/docs/crypto
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+  - type: JSONSchema
+    url: json-schema/polygon-ticker-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-ticker-structure.json
+  - type: Examples
+    url: examples/polygon-reference-tickers-example.json
+- aid: polygon:polygon-contracts-api
+  name: Polygon Contracts API
+  description: Option contract reference data.
+  humanURL: https://polygon.io/docs/stocks
+  baseURL: https://api.polygon.io
+  tags:
+  - Contracts
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-contracts-api-openapi.yml
+  - type: Documentation
+    url: https://polygon.io/docs/stocks
+  - type: APIReference
+    url: https://polygon.io/docs/stocks
+  - type: Authentication
+    url: https://polygon.io/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/polygon-aggregate-bar-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-aggregate-bar-structure.json
+  - type: Examples
+    url: examples/polygon-stocks-aggregate-bars-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: APIReference
+    url: https://polygon.io/docs/options
+  - type: JSONSchema
+    url: json-schema/polygon-options-contract-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-options-contract-structure.json
+  - type: Examples
+    url: examples/polygon-options-chain-snapshot-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: APIReference
+    url: https://polygon.io/docs/indices
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: APIReference
+    url: https://polygon.io/docs/forex
+  - type: Examples
+    url: examples/polygon-forex-conversion-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: APIReference
+    url: https://polygon.io/docs/crypto
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+  - type: JSONSchema
+    url: json-schema/polygon-ticker-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-ticker-structure.json
+  - type: Examples
+    url: examples/polygon-reference-tickers-example.json
+- aid: polygon:polygon-conversion-api
+  name: Polygon Conversion API
+  description: Real-time currency conversion.
+  humanURL: https://polygon.io/docs/stocks
+  baseURL: https://api.polygon.io
+  tags:
+  - Conversion
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-conversion-api-openapi.yml
+  - type: Documentation
+    url: https://polygon.io/docs/stocks
+  - type: APIReference
+    url: https://polygon.io/docs/stocks
+  - type: Authentication
+    url: https://polygon.io/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/polygon-aggregate-bar-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-aggregate-bar-structure.json
+  - type: Examples
+    url: examples/polygon-stocks-aggregate-bars-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: APIReference
+    url: https://polygon.io/docs/options
+  - type: JSONSchema
+    url: json-schema/polygon-options-contract-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-options-contract-structure.json
+  - type: Examples
+    url: examples/polygon-options-chain-snapshot-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: APIReference
+    url: https://polygon.io/docs/indices
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: APIReference
+    url: https://polygon.io/docs/forex
+  - type: Examples
+    url: examples/polygon-forex-conversion-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: APIReference
+    url: https://polygon.io/docs/crypto
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+  - type: JSONSchema
+    url: json-schema/polygon-ticker-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-ticker-structure.json
+  - type: Examples
+    url: examples/polygon-reference-tickers-example.json
+- aid: polygon:polygon-corporateactions-api
+  name: Polygon CorporateActions API
+  description: Stock splits and dividends.
+  humanURL: https://polygon.io/docs/stocks
+  baseURL: https://api.polygon.io
+  tags:
+  - CorporateActions
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-corporateactions-api-openapi.yml
+  - type: Documentation
+    url: https://polygon.io/docs/stocks
+  - type: APIReference
+    url: https://polygon.io/docs/stocks
+  - type: Authentication
+    url: https://polygon.io/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/polygon-aggregate-bar-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-aggregate-bar-structure.json
+  - type: Examples
+    url: examples/polygon-stocks-aggregate-bars-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: APIReference
+    url: https://polygon.io/docs/options
+  - type: JSONSchema
+    url: json-schema/polygon-options-contract-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-options-contract-structure.json
+  - type: Examples
+    url: examples/polygon-options-chain-snapshot-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: APIReference
+    url: https://polygon.io/docs/indices
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: APIReference
+    url: https://polygon.io/docs/forex
+  - type: Examples
+    url: examples/polygon-forex-conversion-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: APIReference
+    url: https://polygon.io/docs/crypto
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+  - type: JSONSchema
+    url: json-schema/polygon-ticker-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-ticker-structure.json
+  - type: Examples
+    url: examples/polygon-reference-tickers-example.json
+- aid: polygon:polygon-dailybars-api
+  name: Polygon DailyBars API
+  description: Daily open/close.
+  humanURL: https://polygon.io/docs/stocks
+  baseURL: https://api.polygon.io
+  tags:
+  - DailyBars
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-dailybars-api-openapi.yml
+  - type: Documentation
+    url: https://polygon.io/docs/stocks
+  - type: APIReference
+    url: https://polygon.io/docs/stocks
+  - type: Authentication
+    url: https://polygon.io/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/polygon-aggregate-bar-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-aggregate-bar-structure.json
+  - type: Examples
+    url: examples/polygon-stocks-aggregate-bars-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: APIReference
+    url: https://polygon.io/docs/options
+  - type: JSONSchema
+    url: json-schema/polygon-options-contract-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-options-contract-structure.json
+  - type: Examples
+    url: examples/polygon-options-chain-snapshot-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: APIReference
+    url: https://polygon.io/docs/indices
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: APIReference
+    url: https://polygon.io/docs/forex
+  - type: Examples
+    url: examples/polygon-forex-conversion-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: APIReference
+    url: https://polygon.io/docs/crypto
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+  - type: JSONSchema
+    url: json-schema/polygon-ticker-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-ticker-structure.json
+  - type: Examples
+    url: examples/polygon-reference-tickers-example.json
+- aid: polygon:polygon-markets-api
+  name: Polygon Markets API
+  description: Markets, exchanges, holidays, and status.
+  humanURL: https://polygon.io/docs/stocks
+  baseURL: https://api.polygon.io
+  tags:
+  - Markets
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-markets-api-openapi.yml
+  - type: Documentation
+    url: https://polygon.io/docs/stocks
+  - type: APIReference
+    url: https://polygon.io/docs/stocks
+  - type: Authentication
+    url: https://polygon.io/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/polygon-aggregate-bar-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-aggregate-bar-structure.json
+  - type: Examples
+    url: examples/polygon-stocks-aggregate-bars-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: APIReference
+    url: https://polygon.io/docs/options
+  - type: JSONSchema
+    url: json-schema/polygon-options-contract-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-options-contract-structure.json
+  - type: Examples
+    url: examples/polygon-options-chain-snapshot-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: APIReference
+    url: https://polygon.io/docs/indices
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: APIReference
+    url: https://polygon.io/docs/forex
+  - type: Examples
+    url: examples/polygon-forex-conversion-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: APIReference
+    url: https://polygon.io/docs/crypto
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+  - type: JSONSchema
+    url: json-schema/polygon-ticker-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-ticker-structure.json
+  - type: Examples
+    url: examples/polygon-reference-tickers-example.json
+- aid: polygon:polygon-news-api
+  name: Polygon News API
+  description: Ticker news.
+  humanURL: https://polygon.io/docs/stocks
+  baseURL: https://api.polygon.io
+  tags:
+  - News
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-news-api-openapi.yml
+  - type: Documentation
+    url: https://polygon.io/docs/stocks
+  - type: APIReference
+    url: https://polygon.io/docs/stocks
+  - type: Authentication
+    url: https://polygon.io/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/polygon-aggregate-bar-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-aggregate-bar-structure.json
+  - type: Examples
+    url: examples/polygon-stocks-aggregate-bars-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: APIReference
+    url: https://polygon.io/docs/options
+  - type: JSONSchema
+    url: json-schema/polygon-options-contract-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-options-contract-structure.json
+  - type: Examples
+    url: examples/polygon-options-chain-snapshot-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: APIReference
+    url: https://polygon.io/docs/indices
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: APIReference
+    url: https://polygon.io/docs/forex
+  - type: Examples
+    url: examples/polygon-forex-conversion-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: APIReference
+    url: https://polygon.io/docs/crypto
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+  - type: JSONSchema
+    url: json-schema/polygon-ticker-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-ticker-structure.json
+  - type: Examples
+    url: examples/polygon-reference-tickers-example.json
+- aid: polygon:polygon-quotes-api
+  name: Polygon Quotes API
+  description: FX quote endpoints.
+  humanURL: https://polygon.io/docs/stocks
+  baseURL: https://api.polygon.io
+  tags:
+  - Quotes
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-quotes-api-openapi.yml
+  - type: Documentation
+    url: https://polygon.io/docs/stocks
+  - type: APIReference
+    url: https://polygon.io/docs/stocks
+  - type: Authentication
+    url: https://polygon.io/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/polygon-aggregate-bar-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-aggregate-bar-structure.json
+  - type: Examples
+    url: examples/polygon-stocks-aggregate-bars-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: APIReference
+    url: https://polygon.io/docs/options
+  - type: JSONSchema
+    url: json-schema/polygon-options-contract-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-options-contract-structure.json
+  - type: Examples
+    url: examples/polygon-options-chain-snapshot-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: APIReference
+    url: https://polygon.io/docs/indices
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: APIReference
+    url: https://polygon.io/docs/forex
+  - type: Examples
+    url: examples/polygon-forex-conversion-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: APIReference
+    url: https://polygon.io/docs/crypto
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+  - type: JSONSchema
+    url: json-schema/polygon-ticker-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-ticker-structure.json
+  - type: Examples
+    url: examples/polygon-reference-tickers-example.json
+- aid: polygon:polygon-snapshots-api
+  name: Polygon Snapshots API
+  description: Snapshot endpoints.
+  humanURL: https://polygon.io/docs/stocks
+  baseURL: https://api.polygon.io
+  tags:
+  - Snapshots
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-snapshots-api-openapi.yml
+  - type: Documentation
+    url: https://polygon.io/docs/stocks
+  - type: APIReference
+    url: https://polygon.io/docs/stocks
+  - type: Authentication
+    url: https://polygon.io/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/polygon-aggregate-bar-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-aggregate-bar-structure.json
+  - type: Examples
+    url: examples/polygon-stocks-aggregate-bars-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: APIReference
+    url: https://polygon.io/docs/options
+  - type: JSONSchema
+    url: json-schema/polygon-options-contract-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-options-contract-structure.json
+  - type: Examples
+    url: examples/polygon-options-chain-snapshot-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: APIReference
+    url: https://polygon.io/docs/indices
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: APIReference
+    url: https://polygon.io/docs/forex
+  - type: Examples
+    url: examples/polygon-forex-conversion-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: APIReference
+    url: https://polygon.io/docs/crypto
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+  - type: JSONSchema
+    url: json-schema/polygon-ticker-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-ticker-structure.json
+  - type: Examples
+    url: examples/polygon-reference-tickers-example.json
+- aid: polygon:polygon-tickers-api
+  name: Polygon Tickers API
+  description: Ticker reference and metadata.
+  humanURL: https://polygon.io/docs/stocks
+  baseURL: https://api.polygon.io
+  tags:
+  - Tickers
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-tickers-api-openapi.yml
+  - type: Documentation
+    url: https://polygon.io/docs/stocks
+  - type: APIReference
+    url: https://polygon.io/docs/stocks
+  - type: Authentication
+    url: https://polygon.io/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/polygon-aggregate-bar-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-aggregate-bar-structure.json
+  - type: Examples
+    url: examples/polygon-stocks-aggregate-bars-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: APIReference
+    url: https://polygon.io/docs/options
+  - type: JSONSchema
+    url: json-schema/polygon-options-contract-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-options-contract-structure.json
+  - type: Examples
+    url: examples/polygon-options-chain-snapshot-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: APIReference
+    url: https://polygon.io/docs/indices
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: APIReference
+    url: https://polygon.io/docs/forex
+  - type: Examples
+    url: examples/polygon-forex-conversion-example.json
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: APIReference
+    url: https://polygon.io/docs/crypto
+  - type: Documentation
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
+  - type: JSONSchema
+    url: json-schema/polygon-ticker-schema.json
+  - type: JSONStructure
+    url: json-structure/polygon-ticker-structure.json
+  - type: Examples
+    url: examples/polygon-reference-tickers-example.json
 common:
   - type: OpenAPI
     url: openapi/polygon-openapi-original.json
