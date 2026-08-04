@@ -1,0 +1,284 @@
+{
+  "info": {
+    "_postman_id": "dd2035ec-55f3-4533-ba02-50aeeb96857d",
+    "name": "Polygon Crypto REST Aggregates CorporateActions API",
+    "description": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:39:24.000Z",
+    "updatedAt": "2026-07-28T02:39:24.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-dd2035ec-55f3-4533-ba02-50aeeb96857d"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "reference",
+          "item": [
+            {
+              "name": "splits",
+              "item": [
+                {
+                  "name": "List Stock Splits",
+                  "id": "7ab341d7-3943-49b0-9b52-5a0a4bd6314a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/reference/splits?ticker=<string>&execution_date=<date>&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "reference",
+                        "splits"
+                      ],
+                      "query": [
+                        {
+                          "key": "ticker",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "execution_date",
+                          "value": "<date>"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "d1478823-a593-49b5-8b48-dffd528d25bf",
+                      "name": "Stock splits response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/reference/splits?ticker=<string>&execution_date=<date>&limit=10&apiKey=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "reference",
+                            "splits"
+                          ],
+                          "query": [
+                            {
+                              "key": "ticker",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "execution_date",
+                              "value": "<date>"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "apiKey",
+                              "value": "<API Key>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"next_url\": \"<uri>\",\n  \"results\": [\n    {\n      \"execution_date\": \"<date>\",\n      \"split_from\": \"<number>\",\n      \"split_to\": \"<number>\",\n      \"ticker\": \"<string>\"\n    },\n    {\n      \"execution_date\": \"<date>\",\n      \"split_from\": \"<number>\",\n      \"split_to\": \"<number>\",\n      \"ticker\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:39:24.000Z",
+                      "updatedAt": "2026-07-28T02:39:24.000Z",
+                      "uid": "35240-d1478823-a593-49b5-8b48-dffd528d25bf"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:39:24.000Z",
+                  "updatedAt": "2026-07-28T02:39:24.000Z",
+                  "uid": "35240-7ab341d7-3943-49b0-9b52-5a0a4bd6314a"
+                }
+              ],
+              "id": "927ed15e-04fa-44a5-93b6-d7592ce42370",
+              "createdAt": "2026-07-28T02:39:24.000Z",
+              "updatedAt": "2026-07-28T02:39:24.000Z",
+              "uid": "35240-927ed15e-04fa-44a5-93b6-d7592ce42370"
+            },
+            {
+              "name": "dividends",
+              "item": [
+                {
+                  "name": "List Stock Dividends",
+                  "id": "0629f610-4a80-4dd7-838b-23b623720873",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/reference/dividends?ticker=<string>&ex_dividend_date=<date>&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "reference",
+                        "dividends"
+                      ],
+                      "query": [
+                        {
+                          "key": "ticker",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "ex_dividend_date",
+                          "value": "<date>"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "210791f3-2b81-491e-88a2-5489bc90cdc7",
+                      "name": "Dividends response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/reference/dividends?ticker=<string>&ex_dividend_date=<date>&limit=10&apiKey=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "reference",
+                            "dividends"
+                          ],
+                          "query": [
+                            {
+                              "key": "ticker",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "ex_dividend_date",
+                              "value": "<date>"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "apiKey",
+                              "value": "<API Key>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"next_url\": \"<uri>\",\n  \"results\": [\n    {\n      \"cash_amount\": \"<number>\",\n      \"declaration_date\": \"<date>\",\n      \"dividend_type\": \"<string>\",\n      \"ex_dividend_date\": \"<date>\",\n      \"frequency\": \"<integer>\",\n      \"pay_date\": \"<date>\",\n      \"record_date\": \"<date>\",\n      \"ticker\": \"<string>\"\n    },\n    {\n      \"cash_amount\": \"<number>\",\n      \"declaration_date\": \"<date>\",\n      \"dividend_type\": \"<string>\",\n      \"ex_dividend_date\": \"<date>\",\n      \"frequency\": \"<integer>\",\n      \"pay_date\": \"<date>\",\n      \"record_date\": \"<date>\",\n      \"ticker\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:39:24.000Z",
+                      "updatedAt": "2026-07-28T02:39:24.000Z",
+                      "uid": "35240-210791f3-2b81-491e-88a2-5489bc90cdc7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:39:24.000Z",
+                  "updatedAt": "2026-07-28T02:39:24.000Z",
+                  "uid": "35240-0629f610-4a80-4dd7-838b-23b623720873"
+                }
+              ],
+              "id": "2396241f-bda9-47d6-aa22-b8cbf9b3d741",
+              "createdAt": "2026-07-28T02:39:24.000Z",
+              "updatedAt": "2026-07-28T02:39:24.000Z",
+              "uid": "35240-2396241f-bda9-47d6-aa22-b8cbf9b3d741"
+            }
+          ],
+          "id": "08abf749-e1cd-4b26-b0f0-68af94888b85",
+          "createdAt": "2026-07-28T02:39:24.000Z",
+          "updatedAt": "2026-07-28T02:39:24.000Z",
+          "uid": "35240-08abf749-e1cd-4b26-b0f0-68af94888b85"
+        }
+      ],
+      "id": "46b69206-9ee1-4445-9fec-5bba2afefbfa",
+      "createdAt": "2026-07-28T02:39:24.000Z",
+      "updatedAt": "2026-07-28T02:39:24.000Z",
+      "uid": "35240-46b69206-9ee1-4445-9fec-5bba2afefbfa"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}

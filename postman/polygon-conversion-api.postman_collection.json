@@ -1,0 +1,197 @@
+{
+  "info": {
+    "_postman_id": "abe49dca-ab8b-47b9-9e0c-a6cb9b70ed40",
+    "name": "Polygon Crypto REST Aggregates Conversion API",
+    "description": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:39:23.000Z",
+    "updatedAt": "2026-07-28T02:39:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-abe49dca-ab8b-47b9-9e0c-a6cb9b70ed40"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "conversion",
+          "item": [
+            {
+              "name": "{from}",
+              "item": [
+                {
+                  "name": "{to}",
+                  "item": [
+                    {
+                      "name": "Convert From One Currency To Another",
+                      "id": "d31843fd-84f4-4a4e-a749-1b7cb0419658",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/conversion/:from/:to?amount=100&precision=2",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "conversion",
+                            ":from",
+                            ":to"
+                          ],
+                          "query": [
+                            {
+                              "key": "amount",
+                              "value": "100"
+                            },
+                            {
+                              "key": "precision",
+                              "value": "2"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "a77e0812-a27e-4eb3-aea6-29fe8b363d28",
+                              "key": "from",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "cc489d01-ad84-47d0-8a0f-89b7421054d0",
+                              "key": "to",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get currency conversion rate and converted amount."
+                      },
+                      "response": [
+                        {
+                          "id": "dac649af-3df9-4145-a38d-ddabd1d519ef",
+                          "name": "Conversion response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/conversion/:from/:to?amount=100&precision=2&apiKey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "conversion",
+                                ":from",
+                                ":to"
+                              ],
+                              "query": [
+                                {
+                                  "key": "amount",
+                                  "value": "100"
+                                },
+                                {
+                                  "key": "precision",
+                                  "value": "2"
+                                },
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "apiKey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "from"
+                                },
+                                {
+                                  "key": "to"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": \"<string>\",\n  \"initialAmount\": \"<number>\",\n  \"converted\": \"<number>\",\n  \"last\": {\n    \"ask\": \"<number>\",\n    \"bid\": \"<number>\",\n    \"exchange\": \"<integer>\",\n    \"timestamp\": \"<long>\"\n  }\n}",
+                          "createdAt": "2026-07-28T02:39:23.000Z",
+                          "updatedAt": "2026-07-28T02:39:23.000Z",
+                          "uid": "35240-dac649af-3df9-4145-a38d-ddabd1d519ef"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:39:23.000Z",
+                      "updatedAt": "2026-07-28T02:39:23.000Z",
+                      "uid": "35240-d31843fd-84f4-4a4e-a749-1b7cb0419658"
+                    }
+                  ],
+                  "id": "13f80721-bcb2-43a3-9d53-959ca46e2893",
+                  "createdAt": "2026-07-28T02:39:23.000Z",
+                  "updatedAt": "2026-07-28T02:39:23.000Z",
+                  "uid": "35240-13f80721-bcb2-43a3-9d53-959ca46e2893"
+                }
+              ],
+              "id": "8ba4408e-4a54-423c-b585-681ac037da38",
+              "createdAt": "2026-07-28T02:39:23.000Z",
+              "updatedAt": "2026-07-28T02:39:23.000Z",
+              "uid": "35240-8ba4408e-4a54-423c-b585-681ac037da38"
+            }
+          ],
+          "id": "317f11df-13c8-48fb-9d79-7fe44a257dad",
+          "createdAt": "2026-07-28T02:39:23.000Z",
+          "updatedAt": "2026-07-28T02:39:23.000Z",
+          "uid": "35240-317f11df-13c8-48fb-9d79-7fe44a257dad"
+        }
+      ],
+      "id": "4d10124f-4e55-42a1-bc25-a232f63aba5a",
+      "createdAt": "2026-07-28T02:39:23.000Z",
+      "updatedAt": "2026-07-28T02:39:23.000Z",
+      "uid": "35240-4d10124f-4e55-42a1-bc25-a232f63aba5a"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}

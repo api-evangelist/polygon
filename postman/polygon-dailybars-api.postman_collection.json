@@ -1,0 +1,666 @@
+{
+  "info": {
+    "_postman_id": "b8f15144-76ea-466e-bc3a-6878abab6f04",
+    "name": "Polygon Crypto REST Aggregates DailyBars API",
+    "description": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:39:25.000Z",
+    "updatedAt": "2026-07-28T02:39:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b8f15144-76ea-466e-bc3a-6878abab6f04"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "open-close",
+          "item": [
+            {
+              "name": "crypto",
+              "item": [
+                {
+                  "name": "{from}",
+                  "item": [
+                    {
+                      "name": "{to}",
+                      "item": [
+                        {
+                          "name": "{date}",
+                          "item": [
+                            {
+                              "name": "Get Daily Open Close For A Crypto Pair",
+                              "id": "beaac3d5-4c30-4139-a1c6-3b5579b1ae9e",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/open-close/crypto/:from/:to/:date",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "open-close",
+                                    "crypto",
+                                    ":from",
+                                    ":to",
+                                    ":date"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "716e915f-0cf2-4f47-ba80-0978fd6c7eb4",
+                                      "key": "from",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "30070362-b8d5-4218-a1ab-c1521dad9d6c",
+                                      "key": "to",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "2431fd66-efee-4ac8-8c99-31d235ca639d",
+                                      "key": "date",
+                                      "value": "<date>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the open/close prices on a specific date for a crypto pair."
+                              },
+                              "response": [
+                                {
+                                  "id": "3fc6f5be-2165-4074-b850-83092dd07927",
+                                  "name": "Crypto daily open/close response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v1/open-close/crypto/:from/:to/:date?apiKey=<API Key>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v1",
+                                        "open-close",
+                                        "crypto",
+                                        ":from",
+                                        ":to",
+                                        ":date"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Added as a part of security scheme: apikey",
+                                          "key": "apiKey",
+                                          "value": "<API Key>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "from"
+                                        },
+                                        {
+                                          "key": "to"
+                                        },
+                                        {
+                                          "key": "date"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"status\": \"<string>\",\n  \"symbol\": \"<string>\",\n  \"isUTC\": \"<boolean>\",\n  \"day\": \"<date>\",\n  \"open\": \"<number>\",\n  \"close\": \"<number>\",\n  \"openTrades\": [\n    {\n      \"cillum_f\": false,\n      \"esse_da\": \"dolore Duis\"\n    },\n    {\n      \"enim_13_\": \"cillum quis\",\n      \"ut_267\": \"deserunt elit\"\n    }\n  ],\n  \"closingTrades\": [\n    {\n      \"enim7\": 97889638,\n      \"in7\": 21974625,\n      \"pariatur_7f\": true,\n      \"sint_a\": \"ex nisi eu reprehenderit\"\n    },\n    {\n      \"aliquip_5\": \"ex\",\n      \"dolore_389\": -15519213\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:39:25.000Z",
+                                  "updatedAt": "2026-07-28T02:39:25.000Z",
+                                  "uid": "35240-3fc6f5be-2165-4074-b850-83092dd07927"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:39:25.000Z",
+                              "updatedAt": "2026-07-28T02:39:25.000Z",
+                              "uid": "35240-beaac3d5-4c30-4139-a1c6-3b5579b1ae9e"
+                            }
+                          ],
+                          "id": "ad73e653-7a15-4450-a6ea-33963c660be3",
+                          "createdAt": "2026-07-28T02:39:25.000Z",
+                          "updatedAt": "2026-07-28T02:39:25.000Z",
+                          "uid": "35240-ad73e653-7a15-4450-a6ea-33963c660be3"
+                        }
+                      ],
+                      "id": "a2d8c80a-4f39-42c7-9af1-674544d0ae63",
+                      "createdAt": "2026-07-28T02:39:25.000Z",
+                      "updatedAt": "2026-07-28T02:39:25.000Z",
+                      "uid": "35240-a2d8c80a-4f39-42c7-9af1-674544d0ae63"
+                    }
+                  ],
+                  "id": "930d45ba-e784-4d89-89ea-1febac1cbe8a",
+                  "createdAt": "2026-07-28T02:39:25.000Z",
+                  "updatedAt": "2026-07-28T02:39:25.000Z",
+                  "uid": "35240-930d45ba-e784-4d89-89ea-1febac1cbe8a"
+                }
+              ],
+              "id": "fa92582b-927f-4eb7-8b52-22298c20e603",
+              "createdAt": "2026-07-28T02:39:25.000Z",
+              "updatedAt": "2026-07-28T02:39:25.000Z",
+              "uid": "35240-fa92582b-927f-4eb7-8b52-22298c20e603"
+            },
+            {
+              "name": "{stocksTicker}",
+              "item": [
+                {
+                  "name": "{date}",
+                  "item": [
+                    {
+                      "name": "Get Daily Open Close For A Stock Ticker",
+                      "id": "95752bdb-f836-474d-84f7-0153c479f786",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/open-close/:stocksTicker/:date?adjusted=true",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "open-close",
+                            ":stocksTicker",
+                            ":date"
+                          ],
+                          "query": [
+                            {
+                              "key": "adjusted",
+                              "value": "true"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "238b8c89-ed78-4970-8b9d-1e63a2311768",
+                              "key": "stocksTicker",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "4b5c677e-7bef-45d7-8989-410189215f28",
+                              "key": "date",
+                              "value": "<date>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Returns the open, close, high, and low for a stock ticker on a specific date."
+                      },
+                      "response": [
+                        {
+                          "id": "2d31b9ac-e39a-4d3a-8b04-e395e0f922ef",
+                          "name": "Daily open/close response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/open-close/:stocksTicker/:date?adjusted=true&apiKey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "open-close",
+                                ":stocksTicker",
+                                ":date"
+                              ],
+                              "query": [
+                                {
+                                  "key": "adjusted",
+                                  "value": "true"
+                                },
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "apiKey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "stocksTicker"
+                                },
+                                {
+                                  "key": "date"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"from\": \"<date>\",\n  \"symbol\": \"<string>\",\n  \"open\": \"<number>\",\n  \"high\": \"<number>\",\n  \"low\": \"<number>\",\n  \"close\": \"<number>\",\n  \"volume\": \"<number>\",\n  \"afterHours\": \"<number>\",\n  \"preMarket\": \"<number>\"\n}",
+                          "createdAt": "2026-07-28T02:39:25.000Z",
+                          "updatedAt": "2026-07-28T02:39:25.000Z",
+                          "uid": "35240-2d31b9ac-e39a-4d3a-8b04-e395e0f922ef"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:39:25.000Z",
+                      "updatedAt": "2026-07-28T02:39:25.000Z",
+                      "uid": "35240-95752bdb-f836-474d-84f7-0153c479f786"
+                    }
+                  ],
+                  "id": "29eb654f-c30b-4a4c-9d55-3118542206f1",
+                  "createdAt": "2026-07-28T02:39:25.000Z",
+                  "updatedAt": "2026-07-28T02:39:25.000Z",
+                  "uid": "35240-29eb654f-c30b-4a4c-9d55-3118542206f1"
+                }
+              ],
+              "id": "4adf9fda-8d03-439d-863f-06d7d444627b",
+              "createdAt": "2026-07-28T02:39:25.000Z",
+              "updatedAt": "2026-07-28T02:39:25.000Z",
+              "uid": "35240-4adf9fda-8d03-439d-863f-06d7d444627b"
+            }
+          ],
+          "id": "77c9233a-a920-4d08-a2c3-8f0134b16041",
+          "createdAt": "2026-07-28T02:39:25.000Z",
+          "updatedAt": "2026-07-28T02:39:25.000Z",
+          "uid": "35240-77c9233a-a920-4d08-a2c3-8f0134b16041"
+        }
+      ],
+      "id": "3d547065-3fc9-443d-aa47-e1d6fd881124",
+      "createdAt": "2026-07-28T02:39:25.000Z",
+      "updatedAt": "2026-07-28T02:39:25.000Z",
+      "uid": "35240-3d547065-3fc9-443d-aa47-e1d6fd881124"
+    },
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "aggs",
+          "item": [
+            {
+              "name": "grouped",
+              "item": [
+                {
+                  "name": "locale",
+                  "item": [
+                    {
+                      "name": "us",
+                      "item": [
+                        {
+                          "name": "market",
+                          "item": [
+                            {
+                              "name": "stocks",
+                              "item": [
+                                {
+                                  "name": "{date}",
+                                  "item": [
+                                    {
+                                      "name": "Get Grouped Daily Bars For US Stocks",
+                                      "id": "36f1fc93-b016-4d6c-8f50-259edee4ebfd",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/v2/aggs/grouped/locale/us/market/stocks/:date?adjusted=true&include_otc=false",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "v2",
+                                            "aggs",
+                                            "grouped",
+                                            "locale",
+                                            "us",
+                                            "market",
+                                            "stocks",
+                                            ":date"
+                                          ],
+                                          "query": [
+                                            {
+                                              "key": "adjusted",
+                                              "value": "true"
+                                            },
+                                            {
+                                              "key": "include_otc",
+                                              "value": "false"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "083a22c5-df0b-4d68-8817-9ba1e3edc8c7",
+                                              "key": "date",
+                                              "value": "<date>",
+                                              "description": "(Required) "
+                                            }
+                                          ]
+                                        },
+                                        "description": "Returns daily aggregate bars for all US stock tickers on a specific date."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "f94d5093-f5ff-4019-beb4-a501c3264f13",
+                                          "name": "Grouped daily bars response",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/v2/aggs/grouped/locale/us/market/stocks/:date?adjusted=true&include_otc=false&apiKey=<API Key>",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "v2",
+                                                "aggs",
+                                                "grouped",
+                                                "locale",
+                                                "us",
+                                                "market",
+                                                "stocks",
+                                                ":date"
+                                              ],
+                                              "query": [
+                                                {
+                                                  "key": "adjusted",
+                                                  "value": "true"
+                                                },
+                                                {
+                                                  "key": "include_otc",
+                                                  "value": "false"
+                                                },
+                                                {
+                                                  "description": "Added as a part of security scheme: apikey",
+                                                  "key": "apiKey",
+                                                  "value": "<API Key>"
+                                                }
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "date"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"ticker\": \"<string>\",\n  \"adjusted\": \"<boolean>\",\n  \"queryCount\": \"<integer>\",\n  \"resultsCount\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"count\": \"<integer>\",\n  \"next_url\": \"<uri>\",\n  \"results\": [\n    {\n      \"T\": \"<string>\",\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    },\n    {\n      \"T\": \"<string>\",\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    }\n  ]\n}",
+                                          "createdAt": "2026-07-28T02:39:25.000Z",
+                                          "updatedAt": "2026-07-28T02:39:25.000Z",
+                                          "uid": "35240-f94d5093-f5ff-4019-beb4-a501c3264f13"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:39:25.000Z",
+                                      "updatedAt": "2026-07-28T02:39:25.000Z",
+                                      "uid": "35240-36f1fc93-b016-4d6c-8f50-259edee4ebfd"
+                                    }
+                                  ],
+                                  "id": "c4be041a-a85b-4ac9-9b67-bb2181ffb1cd",
+                                  "createdAt": "2026-07-28T02:39:25.000Z",
+                                  "updatedAt": "2026-07-28T02:39:25.000Z",
+                                  "uid": "35240-c4be041a-a85b-4ac9-9b67-bb2181ffb1cd"
+                                }
+                              ],
+                              "id": "9612c41e-5c4d-42e7-b944-4a1df4d06112",
+                              "createdAt": "2026-07-28T02:39:25.000Z",
+                              "updatedAt": "2026-07-28T02:39:25.000Z",
+                              "uid": "35240-9612c41e-5c4d-42e7-b944-4a1df4d06112"
+                            }
+                          ],
+                          "id": "2de12c71-bbd4-40db-9075-12251aaf590f",
+                          "createdAt": "2026-07-28T02:39:25.000Z",
+                          "updatedAt": "2026-07-28T02:39:25.000Z",
+                          "uid": "35240-2de12c71-bbd4-40db-9075-12251aaf590f"
+                        }
+                      ],
+                      "id": "da43c47b-1096-4ed3-8017-1cc4cfd9fc75",
+                      "createdAt": "2026-07-28T02:39:25.000Z",
+                      "updatedAt": "2026-07-28T02:39:25.000Z",
+                      "uid": "35240-da43c47b-1096-4ed3-8017-1cc4cfd9fc75"
+                    }
+                  ],
+                  "id": "9a24fd79-259f-4e8f-86e9-f3f13c51195c",
+                  "createdAt": "2026-07-28T02:39:25.000Z",
+                  "updatedAt": "2026-07-28T02:39:25.000Z",
+                  "uid": "35240-9a24fd79-259f-4e8f-86e9-f3f13c51195c"
+                }
+              ],
+              "id": "0a0dae45-74cc-4a0a-80bb-d2e817738e26",
+              "createdAt": "2026-07-28T02:39:25.000Z",
+              "updatedAt": "2026-07-28T02:39:25.000Z",
+              "uid": "35240-0a0dae45-74cc-4a0a-80bb-d2e817738e26"
+            },
+            {
+              "name": "ticker",
+              "item": [
+                {
+                  "name": "{stocksTicker}",
+                  "item": [
+                    {
+                      "name": "prev",
+                      "item": [
+                        {
+                          "name": "Get Previous Close For A Stock Ticker",
+                          "id": "b3caac34-1048-42aa-86ef-4856232f10e9",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/aggs/ticker/:stocksTicker/prev?adjusted=true",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "aggs",
+                                "ticker",
+                                ":stocksTicker",
+                                "prev"
+                              ],
+                              "query": [
+                                {
+                                  "key": "adjusted",
+                                  "value": "true"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "61145d28-93fc-4106-858b-3204a7c93ffb",
+                                  "key": "stocksTicker",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Returns the previous trading day's open, close, high, and low for a stock ticker."
+                          },
+                          "response": [
+                            {
+                              "id": "6dd0281f-12ae-46ab-88d8-20030f37f878",
+                              "name": "Previous close response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/aggs/ticker/:stocksTicker/prev?adjusted=true&apiKey=<API Key>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "aggs",
+                                    "ticker",
+                                    ":stocksTicker",
+                                    "prev"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "adjusted",
+                                      "value": "true"
+                                    },
+                                    {
+                                      "description": "Added as a part of security scheme: apikey",
+                                      "key": "apiKey",
+                                      "value": "<API Key>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "stocksTicker"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"ticker\": \"<string>\",\n  \"adjusted\": \"<boolean>\",\n  \"queryCount\": \"<integer>\",\n  \"resultsCount\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"count\": \"<integer>\",\n  \"next_url\": \"<uri>\",\n  \"results\": [\n    {\n      \"T\": \"<string>\",\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    },\n    {\n      \"T\": \"<string>\",\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:39:25.000Z",
+                              "updatedAt": "2026-07-28T02:39:25.000Z",
+                              "uid": "35240-6dd0281f-12ae-46ab-88d8-20030f37f878"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:39:25.000Z",
+                          "updatedAt": "2026-07-28T02:39:25.000Z",
+                          "uid": "35240-b3caac34-1048-42aa-86ef-4856232f10e9"
+                        }
+                      ],
+                      "id": "0dc6ed86-a852-464d-8d0b-29c4f4a4f54c",
+                      "createdAt": "2026-07-28T02:39:25.000Z",
+                      "updatedAt": "2026-07-28T02:39:25.000Z",
+                      "uid": "35240-0dc6ed86-a852-464d-8d0b-29c4f4a4f54c"
+                    }
+                  ],
+                  "id": "2d974260-9908-4759-aed8-bc17916a6e47",
+                  "createdAt": "2026-07-28T02:39:25.000Z",
+                  "updatedAt": "2026-07-28T02:39:25.000Z",
+                  "uid": "35240-2d974260-9908-4759-aed8-bc17916a6e47"
+                }
+              ],
+              "id": "833a9346-959b-4608-8899-66ca36cecb56",
+              "createdAt": "2026-07-28T02:39:25.000Z",
+              "updatedAt": "2026-07-28T02:39:25.000Z",
+              "uid": "35240-833a9346-959b-4608-8899-66ca36cecb56"
+            }
+          ],
+          "id": "b8de8dd6-ef49-40ce-8cca-471ce9cfc7f2",
+          "createdAt": "2026-07-28T02:39:25.000Z",
+          "updatedAt": "2026-07-28T02:39:25.000Z",
+          "uid": "35240-b8de8dd6-ef49-40ce-8cca-471ce9cfc7f2"
+        }
+      ],
+      "id": "4bbf828e-3438-4f29-a2ca-69efdcfe1002",
+      "createdAt": "2026-07-28T02:39:25.000Z",
+      "updatedAt": "2026-07-28T02:39:25.000Z",
+      "uid": "35240-4bbf828e-3438-4f29-a2ca-69efdcfe1002"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}

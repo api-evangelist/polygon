@@ -1,0 +1,225 @@
+{
+  "info": {
+    "_postman_id": "6763265c-dac7-4a2e-ad64-d66b8c29064d",
+    "name": "Polygon Crypto REST Aggregates Books API",
+    "description": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:39:07.000Z",
+    "updatedAt": "2026-07-28T02:39:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6763265c-dac7-4a2e-ad64-d66b8c29064d"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "snapshot",
+          "item": [
+            {
+              "name": "locale",
+              "item": [
+                {
+                  "name": "global",
+                  "item": [
+                    {
+                      "name": "markets",
+                      "item": [
+                        {
+                          "name": "crypto",
+                          "item": [
+                            {
+                              "name": "tickers",
+                              "item": [
+                                {
+                                  "name": "{ticker}",
+                                  "item": [
+                                    {
+                                      "name": "book",
+                                      "item": [
+                                        {
+                                          "name": "Get Level Two Book For A Crypto Pair",
+                                          "id": "6b777bde-1165-431e-bd94-6265c3cd6ead",
+                                          "protocolProfileBehavior": {
+                                            "disableBodyPruning": true
+                                          },
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/v2/snapshot/locale/global/markets/crypto/tickers/:ticker/book",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "v2",
+                                                "snapshot",
+                                                "locale",
+                                                "global",
+                                                "markets",
+                                                "crypto",
+                                                "tickers",
+                                                ":ticker",
+                                                "book"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "id": "4a8b93fd-d397-4ceb-b809-bb57c6f646bb",
+                                                  "key": "ticker",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                }
+                                              ]
+                                            },
+                                            "description": "Returns the current Level-2 book for a crypto ticker."
+                                          },
+                                          "response": [
+                                            {
+                                              "id": "c0b95a5e-5d84-432b-bb05-85e575206afd",
+                                              "name": "Level-2 book response",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/v2/snapshot/locale/global/markets/crypto/tickers/:ticker/book?apiKey=<API Key>",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "v2",
+                                                    "snapshot",
+                                                    "locale",
+                                                    "global",
+                                                    "markets",
+                                                    "crypto",
+                                                    "tickers",
+                                                    ":ticker",
+                                                    "book"
+                                                  ],
+                                                  "query": [
+                                                    {
+                                                      "description": "Added as a part of security scheme: apikey",
+                                                      "key": "apiKey",
+                                                      "value": "<API Key>"
+                                                    }
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "ticker"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"data\": {\n    \"ticker\": \"<string>\",\n    \"bids\": [\n      {\n        \"p\": \"<number>\",\n        \"x\": {\n          \"nulla00\": \"<number>\",\n          \"aliquip_360\": \"<number>\",\n          \"dofc7\": \"<number>\",\n          \"ipsum_e5e\": \"<number>\",\n          \"cillum86\": \"<number>\"\n        }\n      },\n      {\n        \"p\": \"<number>\",\n        \"x\": {\n          \"fugiat_1\": \"<number>\",\n          \"eta\": \"<number>\"\n        }\n      }\n    ],\n    \"asks\": [\n      {\n        \"p\": \"<number>\",\n        \"x\": {\n          \"cupidatatdd\": \"<number>\"\n        }\n      },\n      {\n        \"p\": \"<number>\",\n        \"x\": {\n          \"nulla_3c6\": \"<number>\",\n          \"ullamco_eb_\": \"<number>\",\n          \"consecteturac\": \"<number>\",\n          \"quisea\": \"<number>\"\n        }\n      }\n    ],\n    \"bidCount\": \"<number>\",\n    \"askCount\": \"<number>\",\n    \"spread\": \"<number>\",\n    \"updated\": \"<long>\"\n  }\n}",
+                                              "createdAt": "2026-07-28T02:39:07.000Z",
+                                              "updatedAt": "2026-07-28T02:39:07.000Z",
+                                              "uid": "35240-c0b95a5e-5d84-432b-bb05-85e575206afd"
+                                            }
+                                          ],
+                                          "createdAt": "2026-07-28T02:39:07.000Z",
+                                          "updatedAt": "2026-07-28T02:39:07.000Z",
+                                          "uid": "35240-6b777bde-1165-431e-bd94-6265c3cd6ead"
+                                        }
+                                      ],
+                                      "id": "26c170df-b18b-4343-942c-7f1a989c49fb",
+                                      "createdAt": "2026-07-28T02:39:07.000Z",
+                                      "updatedAt": "2026-07-28T02:39:07.000Z",
+                                      "uid": "35240-26c170df-b18b-4343-942c-7f1a989c49fb"
+                                    }
+                                  ],
+                                  "id": "8b01b842-a317-46a3-bb22-ca2038c13cff",
+                                  "createdAt": "2026-07-28T02:39:07.000Z",
+                                  "updatedAt": "2026-07-28T02:39:07.000Z",
+                                  "uid": "35240-8b01b842-a317-46a3-bb22-ca2038c13cff"
+                                }
+                              ],
+                              "id": "200553e6-a122-4f47-9f2d-c79a13839c06",
+                              "createdAt": "2026-07-28T02:39:07.000Z",
+                              "updatedAt": "2026-07-28T02:39:07.000Z",
+                              "uid": "35240-200553e6-a122-4f47-9f2d-c79a13839c06"
+                            }
+                          ],
+                          "id": "43d41103-5bad-4f6f-a5b8-5621abf2d1c6",
+                          "createdAt": "2026-07-28T02:39:07.000Z",
+                          "updatedAt": "2026-07-28T02:39:07.000Z",
+                          "uid": "35240-43d41103-5bad-4f6f-a5b8-5621abf2d1c6"
+                        }
+                      ],
+                      "id": "a91e9ea1-efeb-41f8-abc0-c5c76788d39d",
+                      "createdAt": "2026-07-28T02:39:07.000Z",
+                      "updatedAt": "2026-07-28T02:39:07.000Z",
+                      "uid": "35240-a91e9ea1-efeb-41f8-abc0-c5c76788d39d"
+                    }
+                  ],
+                  "id": "716622f2-3335-43f8-8079-4b874f786d1a",
+                  "createdAt": "2026-07-28T02:39:07.000Z",
+                  "updatedAt": "2026-07-28T02:39:07.000Z",
+                  "uid": "35240-716622f2-3335-43f8-8079-4b874f786d1a"
+                }
+              ],
+              "id": "74c21810-0f3a-4129-b2a7-14f797bd81e2",
+              "createdAt": "2026-07-28T02:39:07.000Z",
+              "updatedAt": "2026-07-28T02:39:07.000Z",
+              "uid": "35240-74c21810-0f3a-4129-b2a7-14f797bd81e2"
+            }
+          ],
+          "id": "3bfb6d38-ee06-4e7e-bf57-8d79fa9baa65",
+          "createdAt": "2026-07-28T02:39:07.000Z",
+          "updatedAt": "2026-07-28T02:39:07.000Z",
+          "uid": "35240-3bfb6d38-ee06-4e7e-bf57-8d79fa9baa65"
+        }
+      ],
+      "id": "a54c461a-6411-4697-85c3-7c16775ce523",
+      "createdAt": "2026-07-28T02:39:07.000Z",
+      "updatedAt": "2026-07-28T02:39:07.000Z",
+      "uid": "35240-a54c461a-6411-4697-85c3-7c16775ce523"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}

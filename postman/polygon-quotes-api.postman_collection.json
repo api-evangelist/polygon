@@ -1,0 +1,189 @@
+{
+  "info": {
+    "_postman_id": "b13d6882-3a7f-420c-b001-8aac3c0a0e63",
+    "name": "Polygon Crypto REST Aggregates Quotes API",
+    "description": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:39:28.000Z",
+    "updatedAt": "2026-07-28T02:39:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b13d6882-3a7f-420c-b001-8aac3c0a0e63"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "last_quote",
+          "item": [
+            {
+              "name": "currencies",
+              "item": [
+                {
+                  "name": "{from}",
+                  "item": [
+                    {
+                      "name": "{to}",
+                      "item": [
+                        {
+                          "name": "Get Last Quote For A Currency Pair",
+                          "id": "ad9a2eea-50f9-4c04-907d-7cc18eef768a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/last_quote/currencies/:from/:to",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "last_quote",
+                                "currencies",
+                                ":from",
+                                ":to"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "965bebb4-841b-4ab2-8b9f-9bdc457aacf8",
+                                  "key": "from",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "82b1cc84-b0ca-4743-b235-2d8b9421c719",
+                                  "key": "to",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "7371f8e5-71b4-4707-ae58-151611363a61",
+                              "name": "Last quote response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/last_quote/currencies/:from/:to?apiKey=<API Key>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "last_quote",
+                                    "currencies",
+                                    ":from",
+                                    ":to"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Added as a part of security scheme: apikey",
+                                      "key": "apiKey",
+                                      "value": "<API Key>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "from"
+                                    },
+                                    {
+                                      "key": "to"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"symbol\": \"<string>\",\n  \"last\": {\n    \"ask\": \"<number>\",\n    \"bid\": \"<number>\",\n    \"exchange\": \"<integer>\",\n    \"timestamp\": \"<long>\"\n  }\n}",
+                              "createdAt": "2026-07-28T02:39:28.000Z",
+                              "updatedAt": "2026-07-28T02:39:28.000Z",
+                              "uid": "35240-7371f8e5-71b4-4707-ae58-151611363a61"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:39:28.000Z",
+                          "updatedAt": "2026-07-28T02:39:28.000Z",
+                          "uid": "35240-ad9a2eea-50f9-4c04-907d-7cc18eef768a"
+                        }
+                      ],
+                      "id": "0fe304a3-b5e0-4446-9984-7772d5479fbf",
+                      "createdAt": "2026-07-28T02:39:28.000Z",
+                      "updatedAt": "2026-07-28T02:39:28.000Z",
+                      "uid": "35240-0fe304a3-b5e0-4446-9984-7772d5479fbf"
+                    }
+                  ],
+                  "id": "b97f4b6f-8fcb-48e5-9a26-f264082375e7",
+                  "createdAt": "2026-07-28T02:39:28.000Z",
+                  "updatedAt": "2026-07-28T02:39:28.000Z",
+                  "uid": "35240-b97f4b6f-8fcb-48e5-9a26-f264082375e7"
+                }
+              ],
+              "id": "8700c0b7-7f40-449c-aba0-71e3d2e50cee",
+              "createdAt": "2026-07-28T02:39:28.000Z",
+              "updatedAt": "2026-07-28T02:39:28.000Z",
+              "uid": "35240-8700c0b7-7f40-449c-aba0-71e3d2e50cee"
+            }
+          ],
+          "id": "2081a3fe-8e91-4e3c-9d3a-77b05082bafa",
+          "createdAt": "2026-07-28T02:39:28.000Z",
+          "updatedAt": "2026-07-28T02:39:28.000Z",
+          "uid": "35240-2081a3fe-8e91-4e3c-9d3a-77b05082bafa"
+        }
+      ],
+      "id": "4207cf1a-b0c6-41e7-bfb9-7d352791aa2a",
+      "createdAt": "2026-07-28T02:39:28.000Z",
+      "updatedAt": "2026-07-28T02:39:28.000Z",
+      "uid": "35240-4207cf1a-b0c6-41e7-bfb9-7d352791aa2a"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}

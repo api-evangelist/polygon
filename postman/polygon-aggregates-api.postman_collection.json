@@ -1,0 +1,1272 @@
+{
+  "info": {
+    "_postman_id": "0265f79d-8188-45eb-af97-a799d6aed5c6",
+    "name": "Polygon Crypto REST Aggregates API",
+    "description": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:39:00.000Z",
+    "updatedAt": "2026-07-28T02:39:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0265f79d-8188-45eb-af97-a799d6aed5c6"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "aggs",
+          "item": [
+            {
+              "name": "ticker",
+              "item": [
+                {
+                  "name": "{cryptoTicker}",
+                  "item": [
+                    {
+                      "name": "range",
+                      "item": [
+                        {
+                          "name": "{multiplier}",
+                          "item": [
+                            {
+                              "name": "{timespan}",
+                              "item": [
+                                {
+                                  "name": "{from}",
+                                  "item": [
+                                    {
+                                      "name": "{to}",
+                                      "item": [
+                                        {
+                                          "name": "Get Aggregate Bars For A Crypto Pair",
+                                          "id": "c6149943-2e7f-42a6-8b24-d12e222a0551",
+                                          "protocolProfileBehavior": {
+                                            "disableBodyPruning": true
+                                          },
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/v2/aggs/ticker/:cryptoTicker/range/:multiplier/:timespan/:from/:to",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "v2",
+                                                "aggs",
+                                                "ticker",
+                                                ":cryptoTicker",
+                                                "range",
+                                                ":multiplier",
+                                                ":timespan",
+                                                ":from",
+                                                ":to"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "id": "486c8795-f599-4533-ae21-e7bd614c60f1",
+                                                  "key": "cryptoTicker",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "f43fc5d6-6e43-41fc-9b9e-65631be8505c",
+                                                  "key": "multiplier",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "73796e2e-1527-455f-b36e-6de8f7835908",
+                                                  "key": "timespan",
+                                                  "value": "week",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "516c2f8d-7937-48fa-a307-355ed5382381",
+                                                  "key": "from",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "6480f291-1fd8-4c5c-a203-0bc4d945c559",
+                                                  "key": "to",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                }
+                                              ]
+                                            },
+                                            "description": "Aggregate bars for a crypto pair (e.g., X:BTCUSD)."
+                                          },
+                                          "response": [
+                                            {
+                                              "id": "9dec24cf-f76e-418d-a89b-3c6bebdb441c",
+                                              "name": "Crypto aggregate bars response",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/v2/aggs/ticker/:cryptoTicker/range/:multiplier/:timespan/:from/:to?apiKey=<API Key>",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "v2",
+                                                    "aggs",
+                                                    "ticker",
+                                                    ":cryptoTicker",
+                                                    "range",
+                                                    ":multiplier",
+                                                    ":timespan",
+                                                    ":from",
+                                                    ":to"
+                                                  ],
+                                                  "query": [
+                                                    {
+                                                      "description": "Added as a part of security scheme: apikey",
+                                                      "key": "apiKey",
+                                                      "value": "<API Key>"
+                                                    }
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "cryptoTicker"
+                                                    },
+                                                    {
+                                                      "key": "multiplier"
+                                                    },
+                                                    {
+                                                      "key": "timespan"
+                                                    },
+                                                    {
+                                                      "key": "from"
+                                                    },
+                                                    {
+                                                      "key": "to"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"ticker\": \"<string>\",\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"resultsCount\": \"<integer>\",\n  \"results\": [\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    },\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    }\n  ]\n}",
+                                              "createdAt": "2026-07-28T02:39:00.000Z",
+                                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                                              "uid": "35240-9dec24cf-f76e-418d-a89b-3c6bebdb441c"
+                                            }
+                                          ],
+                                          "createdAt": "2026-07-28T02:39:00.000Z",
+                                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                                          "uid": "35240-c6149943-2e7f-42a6-8b24-d12e222a0551"
+                                        }
+                                      ],
+                                      "id": "eb053cfa-8532-4182-9dbc-51e072e4b4cf",
+                                      "createdAt": "2026-07-28T02:39:00.000Z",
+                                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                                      "uid": "35240-eb053cfa-8532-4182-9dbc-51e072e4b4cf"
+                                    }
+                                  ],
+                                  "id": "c4c98dcf-8e22-43bf-bd78-7c67a1d44910",
+                                  "createdAt": "2026-07-28T02:39:00.000Z",
+                                  "updatedAt": "2026-07-28T02:39:00.000Z",
+                                  "uid": "35240-c4c98dcf-8e22-43bf-bd78-7c67a1d44910"
+                                }
+                              ],
+                              "id": "36b923c8-a72b-4af6-8aea-c465f4a384fd",
+                              "createdAt": "2026-07-28T02:39:00.000Z",
+                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                              "uid": "35240-36b923c8-a72b-4af6-8aea-c465f4a384fd"
+                            }
+                          ],
+                          "id": "0727f4f2-e42a-457f-ae36-76b9eb3e939f",
+                          "createdAt": "2026-07-28T02:39:00.000Z",
+                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                          "uid": "35240-0727f4f2-e42a-457f-ae36-76b9eb3e939f"
+                        }
+                      ],
+                      "id": "d88f4db4-a900-4b57-9fe7-3d3a2dd555f0",
+                      "createdAt": "2026-07-28T02:39:00.000Z",
+                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                      "uid": "35240-d88f4db4-a900-4b57-9fe7-3d3a2dd555f0"
+                    }
+                  ],
+                  "id": "43a0e8d6-ea9f-45ff-929e-7bc4ff991b63",
+                  "createdAt": "2026-07-28T02:39:00.000Z",
+                  "updatedAt": "2026-07-28T02:39:00.000Z",
+                  "uid": "35240-43a0e8d6-ea9f-45ff-929e-7bc4ff991b63"
+                },
+                {
+                  "name": "{forexTicker}",
+                  "item": [
+                    {
+                      "name": "range",
+                      "item": [
+                        {
+                          "name": "{multiplier}",
+                          "item": [
+                            {
+                              "name": "{timespan}",
+                              "item": [
+                                {
+                                  "name": "{from}",
+                                  "item": [
+                                    {
+                                      "name": "{to}",
+                                      "item": [
+                                        {
+                                          "name": "Get Aggregate Bars For A Forex Pair",
+                                          "id": "52d7ac0e-7d45-4f94-9cac-eede66edab0d",
+                                          "protocolProfileBehavior": {
+                                            "disableBodyPruning": true
+                                          },
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/v2/aggs/ticker/:forexTicker/range/:multiplier/:timespan/:from/:to",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "v2",
+                                                "aggs",
+                                                "ticker",
+                                                ":forexTicker",
+                                                "range",
+                                                ":multiplier",
+                                                ":timespan",
+                                                ":from",
+                                                ":to"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "id": "c3c6b6d0-253d-41dd-b6d4-142d76f61c6e",
+                                                  "key": "forexTicker",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "f62faa73-1b76-45e0-999d-cc5063dc206a",
+                                                  "key": "multiplier",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "4a202a49-4ade-4e67-bb31-68787f4c0050",
+                                                  "key": "timespan",
+                                                  "value": "week",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "11804834-85d8-40ad-9bfc-0059f8158983",
+                                                  "key": "from",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "fef53a05-df4a-4e1f-95ad-4df59dee48e9",
+                                                  "key": "to",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                }
+                                              ]
+                                            },
+                                            "description": "Aggregate bars (OHLC) for an FX pair (e.g., C:EURUSD)."
+                                          },
+                                          "response": [
+                                            {
+                                              "id": "1852989e-74b9-4522-a1ab-e46db9254698",
+                                              "name": "Forex aggregate bars response",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/v2/aggs/ticker/:forexTicker/range/:multiplier/:timespan/:from/:to?apiKey=<API Key>",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "v2",
+                                                    "aggs",
+                                                    "ticker",
+                                                    ":forexTicker",
+                                                    "range",
+                                                    ":multiplier",
+                                                    ":timespan",
+                                                    ":from",
+                                                    ":to"
+                                                  ],
+                                                  "query": [
+                                                    {
+                                                      "description": "Added as a part of security scheme: apikey",
+                                                      "key": "apiKey",
+                                                      "value": "<API Key>"
+                                                    }
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "forexTicker"
+                                                    },
+                                                    {
+                                                      "key": "multiplier"
+                                                    },
+                                                    {
+                                                      "key": "timespan"
+                                                    },
+                                                    {
+                                                      "key": "from"
+                                                    },
+                                                    {
+                                                      "key": "to"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"ticker\": \"<string>\",\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"resultsCount\": \"<integer>\",\n  \"results\": [\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    },\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    }\n  ]\n}",
+                                              "createdAt": "2026-07-28T02:39:00.000Z",
+                                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                                              "uid": "35240-1852989e-74b9-4522-a1ab-e46db9254698"
+                                            }
+                                          ],
+                                          "createdAt": "2026-07-28T02:39:00.000Z",
+                                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                                          "uid": "35240-52d7ac0e-7d45-4f94-9cac-eede66edab0d"
+                                        }
+                                      ],
+                                      "id": "f93c90e8-8e9c-4a02-943f-e0644455fedd",
+                                      "createdAt": "2026-07-28T02:39:00.000Z",
+                                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                                      "uid": "35240-f93c90e8-8e9c-4a02-943f-e0644455fedd"
+                                    }
+                                  ],
+                                  "id": "a0164b4a-1681-4a5b-bbb6-7d83250904ae",
+                                  "createdAt": "2026-07-28T02:39:00.000Z",
+                                  "updatedAt": "2026-07-28T02:39:00.000Z",
+                                  "uid": "35240-a0164b4a-1681-4a5b-bbb6-7d83250904ae"
+                                }
+                              ],
+                              "id": "c71ddb07-e155-439d-bad3-2595663baa7b",
+                              "createdAt": "2026-07-28T02:39:00.000Z",
+                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                              "uid": "35240-c71ddb07-e155-439d-bad3-2595663baa7b"
+                            }
+                          ],
+                          "id": "2de6bb9e-8783-4d15-abdb-23c841bc1301",
+                          "createdAt": "2026-07-28T02:39:00.000Z",
+                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                          "uid": "35240-2de6bb9e-8783-4d15-abdb-23c841bc1301"
+                        }
+                      ],
+                      "id": "0b52c3b2-ad70-4000-81ae-1d64955d8096",
+                      "createdAt": "2026-07-28T02:39:00.000Z",
+                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                      "uid": "35240-0b52c3b2-ad70-4000-81ae-1d64955d8096"
+                    },
+                    {
+                      "name": "prev",
+                      "item": [
+                        {
+                          "name": "Get Previous Close For A Forex Pair",
+                          "id": "606efa94-d0fe-42c6-b6d3-7a758a8d0a29",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/aggs/ticker/:forexTicker/prev",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "aggs",
+                                "ticker",
+                                ":forexTicker",
+                                "prev"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d191d12f-3438-49ba-8cee-ea62ab4f5de9",
+                                  "key": "forexTicker",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "7374d2b3-9848-4ee5-aaf4-17388441119e",
+                              "name": "Forex previous close response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/aggs/ticker/:forexTicker/prev?apiKey=<API Key>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "aggs",
+                                    "ticker",
+                                    ":forexTicker",
+                                    "prev"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Added as a part of security scheme: apikey",
+                                      "key": "apiKey",
+                                      "value": "<API Key>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "forexTicker"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"ticker\": \"<string>\",\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"resultsCount\": \"<integer>\",\n  \"results\": [\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    },\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:39:00.000Z",
+                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                              "uid": "35240-7374d2b3-9848-4ee5-aaf4-17388441119e"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:39:00.000Z",
+                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                          "uid": "35240-606efa94-d0fe-42c6-b6d3-7a758a8d0a29"
+                        }
+                      ],
+                      "id": "70ea75ff-9ada-4049-a763-49ee106e73dc",
+                      "createdAt": "2026-07-28T02:39:00.000Z",
+                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                      "uid": "35240-70ea75ff-9ada-4049-a763-49ee106e73dc"
+                    }
+                  ],
+                  "id": "cefaa443-e46f-4007-9574-f45179f078c6",
+                  "createdAt": "2026-07-28T02:39:00.000Z",
+                  "updatedAt": "2026-07-28T02:39:00.000Z",
+                  "uid": "35240-cefaa443-e46f-4007-9574-f45179f078c6"
+                },
+                {
+                  "name": "{indicesTicker}",
+                  "item": [
+                    {
+                      "name": "range",
+                      "item": [
+                        {
+                          "name": "{multiplier}",
+                          "item": [
+                            {
+                              "name": "{timespan}",
+                              "item": [
+                                {
+                                  "name": "{from}",
+                                  "item": [
+                                    {
+                                      "name": "{to}",
+                                      "item": [
+                                        {
+                                          "name": "Get Aggregate Bars For An Index",
+                                          "id": "55e1ba42-9115-470e-90ee-e7c2280693c1",
+                                          "protocolProfileBehavior": {
+                                            "disableBodyPruning": true
+                                          },
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/v2/aggs/ticker/:indicesTicker/range/:multiplier/:timespan/:from/:to",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "v2",
+                                                "aggs",
+                                                "ticker",
+                                                ":indicesTicker",
+                                                "range",
+                                                ":multiplier",
+                                                ":timespan",
+                                                ":from",
+                                                ":to"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "id": "db2fbbea-09f8-478f-a31a-0e4472698ce7",
+                                                  "key": "indicesTicker",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "c73f1389-64f6-4cae-9473-a8c5db6316d1",
+                                                  "key": "multiplier",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "68e9ae68-2bba-4c59-b5bd-bc0769f6868c",
+                                                  "key": "timespan",
+                                                  "value": "week",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "32979572-dbb3-410b-bad1-36f42d75f965",
+                                                  "key": "from",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "896c86c9-f5c5-4c13-96e2-fba68ea9d7fb",
+                                                  "key": "to",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                }
+                                              ]
+                                            },
+                                            "description": "Aggregate bars (OHLC) for an index ticker over a date range."
+                                          },
+                                          "response": [
+                                            {
+                                              "id": "ad5c99e6-ef47-405d-964d-488e66a4a185",
+                                              "name": "Indices aggregate bars response",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/v2/aggs/ticker/:indicesTicker/range/:multiplier/:timespan/:from/:to?apiKey=<API Key>",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "v2",
+                                                    "aggs",
+                                                    "ticker",
+                                                    ":indicesTicker",
+                                                    "range",
+                                                    ":multiplier",
+                                                    ":timespan",
+                                                    ":from",
+                                                    ":to"
+                                                  ],
+                                                  "query": [
+                                                    {
+                                                      "description": "Added as a part of security scheme: apikey",
+                                                      "key": "apiKey",
+                                                      "value": "<API Key>"
+                                                    }
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "indicesTicker"
+                                                    },
+                                                    {
+                                                      "key": "multiplier"
+                                                    },
+                                                    {
+                                                      "key": "timespan"
+                                                    },
+                                                    {
+                                                      "key": "from"
+                                                    },
+                                                    {
+                                                      "key": "to"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"ticker\": \"<string>\",\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"resultsCount\": \"<integer>\",\n  \"results\": [\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    },\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    }\n  ]\n}",
+                                              "createdAt": "2026-07-28T02:39:00.000Z",
+                                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                                              "uid": "35240-ad5c99e6-ef47-405d-964d-488e66a4a185"
+                                            }
+                                          ],
+                                          "createdAt": "2026-07-28T02:39:00.000Z",
+                                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                                          "uid": "35240-55e1ba42-9115-470e-90ee-e7c2280693c1"
+                                        }
+                                      ],
+                                      "id": "88faa567-f5d6-4baf-b163-8534c643f3a6",
+                                      "createdAt": "2026-07-28T02:39:00.000Z",
+                                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                                      "uid": "35240-88faa567-f5d6-4baf-b163-8534c643f3a6"
+                                    }
+                                  ],
+                                  "id": "4c4789c3-1082-48c4-8325-7dc46158d63f",
+                                  "createdAt": "2026-07-28T02:39:00.000Z",
+                                  "updatedAt": "2026-07-28T02:39:00.000Z",
+                                  "uid": "35240-4c4789c3-1082-48c4-8325-7dc46158d63f"
+                                }
+                              ],
+                              "id": "ca2497ca-76e8-4475-aa70-bb3749a394d2",
+                              "createdAt": "2026-07-28T02:39:00.000Z",
+                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                              "uid": "35240-ca2497ca-76e8-4475-aa70-bb3749a394d2"
+                            }
+                          ],
+                          "id": "69e71711-ec4f-4eeb-a9dc-058a75da5d25",
+                          "createdAt": "2026-07-28T02:39:00.000Z",
+                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                          "uid": "35240-69e71711-ec4f-4eeb-a9dc-058a75da5d25"
+                        }
+                      ],
+                      "id": "999b299a-5370-4424-b0fa-b3f4c084ed0d",
+                      "createdAt": "2026-07-28T02:39:00.000Z",
+                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                      "uid": "35240-999b299a-5370-4424-b0fa-b3f4c084ed0d"
+                    },
+                    {
+                      "name": "prev",
+                      "item": [
+                        {
+                          "name": "Get Previous Close For An Index",
+                          "id": "2f5ada2a-4958-4146-9fb8-8f32136a956f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/aggs/ticker/:indicesTicker/prev",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "aggs",
+                                "ticker",
+                                ":indicesTicker",
+                                "prev"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "69826b73-7962-472c-a4a4-7e253b75c939",
+                                  "key": "indicesTicker",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Returns the previous day's open/close/high/low for an index."
+                          },
+                          "response": [
+                            {
+                              "id": "d87bfa12-2a7d-4338-8ef9-3f5e89d0c87b",
+                              "name": "Indices previous close response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/aggs/ticker/:indicesTicker/prev?apiKey=<API Key>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "aggs",
+                                    "ticker",
+                                    ":indicesTicker",
+                                    "prev"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Added as a part of security scheme: apikey",
+                                      "key": "apiKey",
+                                      "value": "<API Key>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "indicesTicker"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"ticker\": \"<string>\",\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"resultsCount\": \"<integer>\",\n  \"results\": [\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    },\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:39:00.000Z",
+                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                              "uid": "35240-d87bfa12-2a7d-4338-8ef9-3f5e89d0c87b"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:39:00.000Z",
+                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                          "uid": "35240-2f5ada2a-4958-4146-9fb8-8f32136a956f"
+                        }
+                      ],
+                      "id": "23f19ad0-1e16-4579-8902-fe1d86948677",
+                      "createdAt": "2026-07-28T02:39:00.000Z",
+                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                      "uid": "35240-23f19ad0-1e16-4579-8902-fe1d86948677"
+                    }
+                  ],
+                  "id": "68504caf-99c1-417e-807f-c8b646114375",
+                  "createdAt": "2026-07-28T02:39:00.000Z",
+                  "updatedAt": "2026-07-28T02:39:00.000Z",
+                  "uid": "35240-68504caf-99c1-417e-807f-c8b646114375"
+                },
+                {
+                  "name": "{optionsTicker}",
+                  "item": [
+                    {
+                      "name": "range",
+                      "item": [
+                        {
+                          "name": "{multiplier}",
+                          "item": [
+                            {
+                              "name": "{timespan}",
+                              "item": [
+                                {
+                                  "name": "{from}",
+                                  "item": [
+                                    {
+                                      "name": "{to}",
+                                      "item": [
+                                        {
+                                          "name": "Get Aggregate Bars For An Options Contract",
+                                          "id": "417e51ab-9941-44c5-9be7-b213a8cda85d",
+                                          "protocolProfileBehavior": {
+                                            "disableBodyPruning": true
+                                          },
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/v2/aggs/ticker/:optionsTicker/range/:multiplier/:timespan/:from/:to",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "v2",
+                                                "aggs",
+                                                "ticker",
+                                                ":optionsTicker",
+                                                "range",
+                                                ":multiplier",
+                                                ":timespan",
+                                                ":from",
+                                                ":to"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "id": "e4f8bb21-4bac-40b4-8fba-a86ad4c24a0c",
+                                                  "key": "optionsTicker",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "04cc0171-5415-48cd-be73-c29d37943cd6",
+                                                  "key": "multiplier",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "022df992-1b27-4cc7-a9ef-ef95decd9006",
+                                                  "key": "timespan",
+                                                  "value": "week",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "485ec50c-be8d-4f15-b1b4-f2e5f9bb860b",
+                                                  "key": "from",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "34f2c31d-8394-4aa8-bc3c-b9efc4686e83",
+                                                  "key": "to",
+                                                  "value": "<string>",
+                                                  "description": "(Required) "
+                                                }
+                                              ]
+                                            },
+                                            "description": "Aggregate bars (OHLC) for an options contract."
+                                          },
+                                          "response": [
+                                            {
+                                              "id": "7397eebd-5704-445d-8581-87890db63eb7",
+                                              "name": "Options aggregate bars response",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/v2/aggs/ticker/:optionsTicker/range/:multiplier/:timespan/:from/:to?apiKey=<API Key>",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "v2",
+                                                    "aggs",
+                                                    "ticker",
+                                                    ":optionsTicker",
+                                                    "range",
+                                                    ":multiplier",
+                                                    ":timespan",
+                                                    ":from",
+                                                    ":to"
+                                                  ],
+                                                  "query": [
+                                                    {
+                                                      "description": "Added as a part of security scheme: apikey",
+                                                      "key": "apiKey",
+                                                      "value": "<API Key>"
+                                                    }
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "optionsTicker"
+                                                    },
+                                                    {
+                                                      "key": "multiplier"
+                                                    },
+                                                    {
+                                                      "key": "timespan"
+                                                    },
+                                                    {
+                                                      "key": "from"
+                                                    },
+                                                    {
+                                                      "key": "to"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"ticker\": \"<string>\",\n  \"adjusted\": \"<boolean>\",\n  \"queryCount\": \"<integer>\",\n  \"resultsCount\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"results\": [\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    },\n    {\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    }\n  ]\n}",
+                                              "createdAt": "2026-07-28T02:39:00.000Z",
+                                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                                              "uid": "35240-7397eebd-5704-445d-8581-87890db63eb7"
+                                            }
+                                          ],
+                                          "createdAt": "2026-07-28T02:39:00.000Z",
+                                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                                          "uid": "35240-417e51ab-9941-44c5-9be7-b213a8cda85d"
+                                        }
+                                      ],
+                                      "id": "af31b3cd-30dc-4f0c-8472-8f66bc34842f",
+                                      "createdAt": "2026-07-28T02:39:00.000Z",
+                                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                                      "uid": "35240-af31b3cd-30dc-4f0c-8472-8f66bc34842f"
+                                    }
+                                  ],
+                                  "id": "a051bdb5-de8a-47e8-95e8-54c44ddb00d2",
+                                  "createdAt": "2026-07-28T02:39:00.000Z",
+                                  "updatedAt": "2026-07-28T02:39:00.000Z",
+                                  "uid": "35240-a051bdb5-de8a-47e8-95e8-54c44ddb00d2"
+                                }
+                              ],
+                              "id": "62c13fdd-24c5-4e5e-98e6-05614f713491",
+                              "createdAt": "2026-07-28T02:39:00.000Z",
+                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                              "uid": "35240-62c13fdd-24c5-4e5e-98e6-05614f713491"
+                            }
+                          ],
+                          "id": "cdd45203-9f17-40c4-90a2-faa4824bcadc",
+                          "createdAt": "2026-07-28T02:39:00.000Z",
+                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                          "uid": "35240-cdd45203-9f17-40c4-90a2-faa4824bcadc"
+                        }
+                      ],
+                      "id": "a8b3fb2a-eaf4-4427-a31e-62133dd25585",
+                      "createdAt": "2026-07-28T02:39:00.000Z",
+                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                      "uid": "35240-a8b3fb2a-eaf4-4427-a31e-62133dd25585"
+                    }
+                  ],
+                  "id": "c3128484-b005-405c-9e37-1b382dd2bd14",
+                  "createdAt": "2026-07-28T02:39:00.000Z",
+                  "updatedAt": "2026-07-28T02:39:00.000Z",
+                  "uid": "35240-c3128484-b005-405c-9e37-1b382dd2bd14"
+                },
+                {
+                  "name": "{stocksTicker}",
+                  "item": [
+                    {
+                      "name": "range",
+                      "item": [
+                        {
+                          "name": "{multiplier}",
+                          "item": [
+                            {
+                              "name": "{timespan}",
+                              "item": [
+                                {
+                                  "name": "{from}",
+                                  "item": [
+                                    {
+                                      "name": "{to}",
+                                      "item": [
+                                        {
+                                          "name": "Get Aggregate Bars For A Stock Ticker",
+                                          "id": "a2b7896c-93c3-4472-a91b-2da0ae2af18b",
+                                          "protocolProfileBehavior": {
+                                            "disableBodyPruning": true
+                                          },
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/v2/aggs/ticker/:stocksTicker/range/:multiplier/:timespan/:from/:to?adjusted=true&sort=asc&limit=5000",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "v2",
+                                                "aggs",
+                                                "ticker",
+                                                ":stocksTicker",
+                                                "range",
+                                                ":multiplier",
+                                                ":timespan",
+                                                ":from",
+                                                ":to"
+                                              ],
+                                              "query": [
+                                                {
+                                                  "key": "adjusted",
+                                                  "value": "true"
+                                                },
+                                                {
+                                                  "key": "sort",
+                                                  "value": "asc"
+                                                },
+                                                {
+                                                  "key": "limit",
+                                                  "value": "5000"
+                                                }
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "id": "65419393-a2b5-4bad-9685-7e84396166af",
+                                                  "key": "stocksTicker",
+                                                  "value": "<string>",
+                                                  "description": "(Required) Case-sensitive stock ticker symbol (e.g., AAPL)."
+                                                },
+                                                {
+                                                  "id": "db9e1674-d39a-426c-a7ad-8dd665b16fc6",
+                                                  "key": "multiplier",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) Size of the timespan multiplier."
+                                                },
+                                                {
+                                                  "id": "fef901b0-21fa-4772-a3cc-c1edd8ce6cb9",
+                                                  "key": "timespan",
+                                                  "value": "second",
+                                                  "description": "(Required) "
+                                                },
+                                                {
+                                                  "id": "bc7c41c7-6d8c-4fa9-977d-79741fbaf92a",
+                                                  "key": "from",
+                                                  "value": "<string>",
+                                                  "description": "(Required) Start of the aggregate window (YYYY-MM-DD or millisecond timestamp)."
+                                                },
+                                                {
+                                                  "id": "6a77fa24-d340-4683-88d1-0c5962e2eac8",
+                                                  "key": "to",
+                                                  "value": "<string>",
+                                                  "description": "(Required) End of the aggregate window (YYYY-MM-DD or millisecond timestamp)."
+                                                }
+                                              ]
+                                            },
+                                            "description": "Returns aggregate bars for a stock over a given date range in\ncustom time window sizes (e.g., 5-minute bars between two dates).\n"
+                                          },
+                                          "response": [
+                                            {
+                                              "id": "fe722b1d-b855-4dae-9699-727c6683956a",
+                                              "name": "Aggregate bars response",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/v2/aggs/ticker/:stocksTicker/range/:multiplier/:timespan/:from/:to?adjusted=true&sort=asc&limit=5000&apiKey=<API Key>",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "v2",
+                                                    "aggs",
+                                                    "ticker",
+                                                    ":stocksTicker",
+                                                    "range",
+                                                    ":multiplier",
+                                                    ":timespan",
+                                                    ":from",
+                                                    ":to"
+                                                  ],
+                                                  "query": [
+                                                    {
+                                                      "key": "adjusted",
+                                                      "value": "true"
+                                                    },
+                                                    {
+                                                      "key": "sort",
+                                                      "value": "asc"
+                                                    },
+                                                    {
+                                                      "key": "limit",
+                                                      "value": "5000"
+                                                    },
+                                                    {
+                                                      "description": "Added as a part of security scheme: apikey",
+                                                      "key": "apiKey",
+                                                      "value": "<API Key>"
+                                                    }
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "stocksTicker"
+                                                    },
+                                                    {
+                                                      "key": "multiplier"
+                                                    },
+                                                    {
+                                                      "key": "timespan"
+                                                    },
+                                                    {
+                                                      "key": "from"
+                                                    },
+                                                    {
+                                                      "key": "to"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"ticker\": \"<string>\",\n  \"adjusted\": \"<boolean>\",\n  \"queryCount\": \"<integer>\",\n  \"resultsCount\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"count\": \"<integer>\",\n  \"next_url\": \"<uri>\",\n  \"results\": [\n    {\n      \"T\": \"<string>\",\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    },\n    {\n      \"T\": \"<string>\",\n      \"v\": \"<number>\",\n      \"vw\": \"<number>\",\n      \"o\": \"<number>\",\n      \"c\": \"<number>\",\n      \"h\": \"<number>\",\n      \"l\": \"<number>\",\n      \"t\": \"<long>\",\n      \"n\": \"<integer>\"\n    }\n  ]\n}",
+                                              "createdAt": "2026-07-28T02:39:00.000Z",
+                                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                                              "uid": "35240-fe722b1d-b855-4dae-9699-727c6683956a"
+                                            }
+                                          ],
+                                          "createdAt": "2026-07-28T02:39:00.000Z",
+                                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                                          "uid": "35240-a2b7896c-93c3-4472-a91b-2da0ae2af18b"
+                                        }
+                                      ],
+                                      "id": "52214def-2b9f-4b61-8de9-998ca269d9ed",
+                                      "createdAt": "2026-07-28T02:39:00.000Z",
+                                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                                      "uid": "35240-52214def-2b9f-4b61-8de9-998ca269d9ed"
+                                    }
+                                  ],
+                                  "id": "6dc3ee41-6fb5-43f9-b969-84128542b775",
+                                  "createdAt": "2026-07-28T02:39:00.000Z",
+                                  "updatedAt": "2026-07-28T02:39:00.000Z",
+                                  "uid": "35240-6dc3ee41-6fb5-43f9-b969-84128542b775"
+                                }
+                              ],
+                              "id": "7544d7cc-718a-444a-8078-48e537dc92fa",
+                              "createdAt": "2026-07-28T02:39:00.000Z",
+                              "updatedAt": "2026-07-28T02:39:00.000Z",
+                              "uid": "35240-7544d7cc-718a-444a-8078-48e537dc92fa"
+                            }
+                          ],
+                          "id": "7130a8b6-d1e0-4b36-be7e-b5a6156d1e31",
+                          "createdAt": "2026-07-28T02:39:00.000Z",
+                          "updatedAt": "2026-07-28T02:39:00.000Z",
+                          "uid": "35240-7130a8b6-d1e0-4b36-be7e-b5a6156d1e31"
+                        }
+                      ],
+                      "id": "64024c09-83da-4d13-aefd-44457ced11ba",
+                      "createdAt": "2026-07-28T02:39:00.000Z",
+                      "updatedAt": "2026-07-28T02:39:00.000Z",
+                      "uid": "35240-64024c09-83da-4d13-aefd-44457ced11ba"
+                    }
+                  ],
+                  "id": "e922da32-87d3-4d83-94f0-e5abd7558ef3",
+                  "createdAt": "2026-07-28T02:39:00.000Z",
+                  "updatedAt": "2026-07-28T02:39:00.000Z",
+                  "uid": "35240-e922da32-87d3-4d83-94f0-e5abd7558ef3"
+                }
+              ],
+              "id": "a896d2c6-0796-438e-af00-6f4320469910",
+              "createdAt": "2026-07-28T02:39:00.000Z",
+              "updatedAt": "2026-07-28T02:39:00.000Z",
+              "uid": "35240-a896d2c6-0796-438e-af00-6f4320469910"
+            }
+          ],
+          "id": "a7dfbb67-a03b-4acc-b26f-1174c143f0b0",
+          "createdAt": "2026-07-28T02:39:00.000Z",
+          "updatedAt": "2026-07-28T02:39:00.000Z",
+          "uid": "35240-a7dfbb67-a03b-4acc-b26f-1174c143f0b0"
+        }
+      ],
+      "id": "95cbca80-7fe1-4655-823e-46c83b188f28",
+      "createdAt": "2026-07-28T02:39:00.000Z",
+      "updatedAt": "2026-07-28T02:39:00.000Z",
+      "uid": "35240-95cbca80-7fe1-4655-823e-46c83b188f28"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}

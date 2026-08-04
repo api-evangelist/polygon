@@ -1,0 +1,215 @@
+{
+  "info": {
+    "_postman_id": "ebf76e58-aefb-4107-851c-5fe6f930844b",
+    "name": "Polygon Crypto REST Aggregates Contracts API",
+    "description": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:39:22.000Z",
+    "updatedAt": "2026-07-28T02:39:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ebf76e58-aefb-4107-851c-5fe6f930844b"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "reference",
+          "item": [
+            {
+              "name": "options",
+              "item": [
+                {
+                  "name": "contracts",
+                  "item": [
+                    {
+                      "name": "List Options Contracts",
+                      "id": "9ba58759-2659-4215-a5f7-f1efd7fa2706",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/reference/options/contracts?underlying_ticker=<string>&contract_type=call&expiration_date=<date>&as_of=<date>&strike_price=<number>&expired=<boolean>&limit=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "reference",
+                            "options",
+                            "contracts"
+                          ],
+                          "query": [
+                            {
+                              "key": "underlying_ticker",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "contract_type",
+                              "value": "call"
+                            },
+                            {
+                              "key": "expiration_date",
+                              "value": "<date>"
+                            },
+                            {
+                              "key": "as_of",
+                              "value": "<date>"
+                            },
+                            {
+                              "key": "strike_price",
+                              "value": "<number>"
+                            },
+                            {
+                              "key": "expired",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "10"
+                            }
+                          ]
+                        },
+                        "description": "List option contracts matching the given filters."
+                      },
+                      "response": [
+                        {
+                          "id": "bf921d66-e144-4cc3-90c7-c6ec6355f259",
+                          "name": "Options contracts response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/reference/options/contracts?underlying_ticker=<string>&contract_type=call&expiration_date=<date>&as_of=<date>&strike_price=<number>&expired=<boolean>&limit=10&apiKey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "reference",
+                                "options",
+                                "contracts"
+                              ],
+                              "query": [
+                                {
+                                  "key": "underlying_ticker",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "contract_type",
+                                  "value": "call"
+                                },
+                                {
+                                  "key": "expiration_date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "key": "as_of",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "key": "strike_price",
+                                  "value": "<number>"
+                                },
+                                {
+                                  "key": "expired",
+                                  "value": "<boolean>"
+                                },
+                                {
+                                  "key": "limit",
+                                  "value": "10"
+                                },
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "apiKey",
+                                  "value": "<API Key>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"next_url\": \"<uri>\",\n  \"results\": [\n    {\n      \"cfi\": \"<string>\",\n      \"contract_type\": \"<string>\",\n      \"exercise_style\": \"<string>\",\n      \"expiration_date\": \"<date>\",\n      \"primary_exchange\": \"<string>\",\n      \"shares_per_contract\": \"<integer>\",\n      \"strike_price\": \"<number>\",\n      \"ticker\": \"<string>\",\n      \"underlying_ticker\": \"<string>\"\n    },\n    {\n      \"cfi\": \"<string>\",\n      \"contract_type\": \"<string>\",\n      \"exercise_style\": \"<string>\",\n      \"expiration_date\": \"<date>\",\n      \"primary_exchange\": \"<string>\",\n      \"shares_per_contract\": \"<integer>\",\n      \"strike_price\": \"<number>\",\n      \"ticker\": \"<string>\",\n      \"underlying_ticker\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T02:39:22.000Z",
+                          "updatedAt": "2026-07-28T02:39:22.000Z",
+                          "uid": "35240-bf921d66-e144-4cc3-90c7-c6ec6355f259"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:39:22.000Z",
+                      "updatedAt": "2026-07-28T02:39:22.000Z",
+                      "uid": "35240-9ba58759-2659-4215-a5f7-f1efd7fa2706"
+                    }
+                  ],
+                  "id": "be00ac89-c831-445b-b8a6-f850a82f6eb2",
+                  "createdAt": "2026-07-28T02:39:22.000Z",
+                  "updatedAt": "2026-07-28T02:39:22.000Z",
+                  "uid": "35240-be00ac89-c831-445b-b8a6-f850a82f6eb2"
+                }
+              ],
+              "id": "f638ade1-f1fb-4995-ac69-b46314753bf5",
+              "createdAt": "2026-07-28T02:39:22.000Z",
+              "updatedAt": "2026-07-28T02:39:22.000Z",
+              "uid": "35240-f638ade1-f1fb-4995-ac69-b46314753bf5"
+            }
+          ],
+          "id": "bedf77c4-951d-4460-9da7-ab5c3a4dd368",
+          "createdAt": "2026-07-28T02:39:22.000Z",
+          "updatedAt": "2026-07-28T02:39:22.000Z",
+          "uid": "35240-bedf77c4-951d-4460-9da7-ab5c3a4dd368"
+        }
+      ],
+      "id": "b50486b2-a9bb-488b-b9c6-f1303cf4fdb9",
+      "createdAt": "2026-07-28T02:39:22.000Z",
+      "updatedAt": "2026-07-28T02:39:22.000Z",
+      "uid": "35240-b50486b2-a9bb-488b-b9c6-f1303cf4fdb9"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}

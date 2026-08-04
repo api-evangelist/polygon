@@ -1,0 +1,444 @@
+{
+  "info": {
+    "_postman_id": "d47ada05-6a05-478e-9c1d-991cac6e0010",
+    "name": "Polygon Crypto REST Aggregates Markets API",
+    "description": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:39:26.000Z",
+    "updatedAt": "2026-07-28T02:39:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d47ada05-6a05-478e-9c1d-991cac6e0010"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "reference",
+          "item": [
+            {
+              "name": "markets",
+              "item": [
+                {
+                  "name": "List Markets",
+                  "id": "2aba1a59-4e08-4e07-8c4f-3829a7b37cdc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/reference/markets",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "reference",
+                        "markets"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "96c01498-6bb4-4d3a-82f2-1015fe53f933",
+                      "name": "Markets response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/reference/markets?apiKey=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "reference",
+                            "markets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "apiKey",
+                              "value": "<API Key>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"results\": [\n    {\n      \"market\": \"<string>\",\n      \"desc\": \"<string>\"\n    },\n    {\n      \"market\": \"<string>\",\n      \"desc\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:39:26.000Z",
+                      "updatedAt": "2026-07-28T02:39:26.000Z",
+                      "uid": "35240-96c01498-6bb4-4d3a-82f2-1015fe53f933"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:39:26.000Z",
+                  "updatedAt": "2026-07-28T02:39:26.000Z",
+                  "uid": "35240-2aba1a59-4e08-4e07-8c4f-3829a7b37cdc"
+                }
+              ],
+              "id": "903fe191-0a6a-4f6a-be87-d6e965e49eb4",
+              "createdAt": "2026-07-28T02:39:26.000Z",
+              "updatedAt": "2026-07-28T02:39:26.000Z",
+              "uid": "35240-903fe191-0a6a-4f6a-be87-d6e965e49eb4"
+            },
+            {
+              "name": "exchanges",
+              "item": [
+                {
+                  "name": "List Exchanges",
+                  "id": "82d3440f-0c1c-44c2-a389-3e763e2eef22",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/reference/exchanges?asset_class=<string>&locale=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "reference",
+                        "exchanges"
+                      ],
+                      "query": [
+                        {
+                          "key": "asset_class",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "locale",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "d8099f85-d986-4ea5-9433-022b53db6238",
+                      "name": "Exchanges response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/reference/exchanges?asset_class=<string>&locale=<string>&apiKey=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "reference",
+                            "exchanges"
+                          ],
+                          "query": [
+                            {
+                              "key": "asset_class",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "locale",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "apiKey",
+                              "value": "<API Key>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"count\": \"<integer>\",\n  \"results\": [\n    {\n      \"id\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"asset_class\": \"<string>\",\n      \"locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"acronym\": \"<string>\",\n      \"mic\": \"<string>\",\n      \"operating_mic\": \"<string>\",\n      \"participant_id\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"asset_class\": \"<string>\",\n      \"locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"acronym\": \"<string>\",\n      \"mic\": \"<string>\",\n      \"operating_mic\": \"<string>\",\n      \"participant_id\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:39:26.000Z",
+                      "updatedAt": "2026-07-28T02:39:26.000Z",
+                      "uid": "35240-d8099f85-d986-4ea5-9433-022b53db6238"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:39:26.000Z",
+                  "updatedAt": "2026-07-28T02:39:26.000Z",
+                  "uid": "35240-82d3440f-0c1c-44c2-a389-3e763e2eef22"
+                }
+              ],
+              "id": "82f705fe-577e-4692-8587-00ddfcb6f9b9",
+              "createdAt": "2026-07-28T02:39:26.000Z",
+              "updatedAt": "2026-07-28T02:39:26.000Z",
+              "uid": "35240-82f705fe-577e-4692-8587-00ddfcb6f9b9"
+            }
+          ],
+          "id": "9b003a4f-2d6f-4800-9904-b5b28cc54000",
+          "createdAt": "2026-07-28T02:39:26.000Z",
+          "updatedAt": "2026-07-28T02:39:26.000Z",
+          "uid": "35240-9b003a4f-2d6f-4800-9904-b5b28cc54000"
+        }
+      ],
+      "id": "79ed9434-057f-4351-b6ce-eb3161fd997d",
+      "createdAt": "2026-07-28T02:39:26.000Z",
+      "updatedAt": "2026-07-28T02:39:26.000Z",
+      "uid": "35240-79ed9434-057f-4351-b6ce-eb3161fd997d"
+    },
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "marketstatus",
+          "item": [
+            {
+              "name": "upcoming",
+              "item": [
+                {
+                  "name": "List Upcoming Market Holidays",
+                  "id": "d95e1000-af66-4529-b890-428ac3118754",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/marketstatus/upcoming",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "marketstatus",
+                        "upcoming"
+                      ]
+                    },
+                    "description": "List upcoming US market holidays and the corresponding session schedule."
+                  },
+                  "response": [
+                    {
+                      "id": "b4f8b3f4-d966-4e67-9b1f-2edc8ef3bd55",
+                      "name": "Upcoming market holidays response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/marketstatus/upcoming?apiKey=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "marketstatus",
+                            "upcoming"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "apiKey",
+                              "value": "<API Key>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"exchange\": \"<string>\",\n    \"name\": \"<string>\",\n    \"date\": \"<date>\",\n    \"status\": \"<string>\",\n    \"open\": \"<string>\",\n    \"close\": \"<string>\"\n  },\n  {\n    \"exchange\": \"<string>\",\n    \"name\": \"<string>\",\n    \"date\": \"<date>\",\n    \"status\": \"<string>\",\n    \"open\": \"<string>\",\n    \"close\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-07-28T02:39:26.000Z",
+                      "updatedAt": "2026-07-28T02:39:26.000Z",
+                      "uid": "35240-b4f8b3f4-d966-4e67-9b1f-2edc8ef3bd55"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:39:26.000Z",
+                  "updatedAt": "2026-07-28T02:39:26.000Z",
+                  "uid": "35240-d95e1000-af66-4529-b890-428ac3118754"
+                }
+              ],
+              "id": "e42869d3-b4c7-4c29-b27d-186aa5340f26",
+              "createdAt": "2026-07-28T02:39:26.000Z",
+              "updatedAt": "2026-07-28T02:39:26.000Z",
+              "uid": "35240-e42869d3-b4c7-4c29-b27d-186aa5340f26"
+            },
+            {
+              "name": "now",
+              "item": [
+                {
+                  "name": "Get Current Market Status",
+                  "id": "2b7913af-1bc2-4b55-b9a5-1576b46f2f89",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/marketstatus/now",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "marketstatus",
+                        "now"
+                      ]
+                    },
+                    "description": "Get the current trading status for US markets."
+                  },
+                  "response": [
+                    {
+                      "id": "8bd9f28d-f03e-47e1-ad89-241aa6d60cc9",
+                      "name": "Market status response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/marketstatus/now?apiKey=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "marketstatus",
+                            "now"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "apiKey",
+                              "value": "<API Key>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"market\": \"<string>\",\n  \"serverTime\": \"<dateTime>\",\n  \"exchanges\": {\n    \"cillum_d2\": \"<string>\"\n  },\n  \"currencies\": {\n    \"proident2\": \"<string>\"\n  },\n  \"earlyHours\": \"<boolean>\",\n  \"afterHours\": \"<boolean>\"\n}",
+                      "createdAt": "2026-07-28T02:39:26.000Z",
+                      "updatedAt": "2026-07-28T02:39:26.000Z",
+                      "uid": "35240-8bd9f28d-f03e-47e1-ad89-241aa6d60cc9"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:39:26.000Z",
+                  "updatedAt": "2026-07-28T02:39:26.000Z",
+                  "uid": "35240-2b7913af-1bc2-4b55-b9a5-1576b46f2f89"
+                }
+              ],
+              "id": "ff9ae1c8-bd74-4bb7-8b33-27e061c913c6",
+              "createdAt": "2026-07-28T02:39:26.000Z",
+              "updatedAt": "2026-07-28T02:39:26.000Z",
+              "uid": "35240-ff9ae1c8-bd74-4bb7-8b33-27e061c913c6"
+            }
+          ],
+          "id": "3d1137e6-978f-4030-89f8-0ba5397a90aa",
+          "createdAt": "2026-07-28T02:39:26.000Z",
+          "updatedAt": "2026-07-28T02:39:26.000Z",
+          "uid": "35240-3d1137e6-978f-4030-89f8-0ba5397a90aa"
+        }
+      ],
+      "id": "512e7116-d371-4f08-a65e-828c3a414a46",
+      "createdAt": "2026-07-28T02:39:26.000Z",
+      "updatedAt": "2026-07-28T02:39:26.000Z",
+      "uid": "35240-512e7116-d371-4f08-a65e-828c3a414a46"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}

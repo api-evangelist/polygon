@@ -1,0 +1,440 @@
+{
+  "info": {
+    "_postman_id": "7a37c61a-e7e9-429c-8678-da0ab433a2ab",
+    "name": "Polygon Crypto REST Aggregates Tickers API",
+    "description": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:39:33.000Z",
+    "updatedAt": "2026-07-28T02:39:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7a37c61a-e7e9-429c-8678-da0ab433a2ab"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "reference",
+          "item": [
+            {
+              "name": "tickers",
+              "item": [
+                {
+                  "name": "{ticker}",
+                  "item": [
+                    {
+                      "name": "Get Ticker Details",
+                      "id": "79df331b-1ffa-4053-8dd5-8f233d21b3c4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/reference/tickers/:ticker?date=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "reference",
+                            "tickers",
+                            ":ticker"
+                          ],
+                          "query": [
+                            {
+                              "key": "date",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "8726c66e-d23e-4c27-8668-74375f18a13d",
+                              "key": "ticker",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Retrieve detailed reference information for a single ticker symbol."
+                      },
+                      "response": [
+                        {
+                          "id": "e282647d-a3c3-4843-9a76-1bf4a1867b3e",
+                          "name": "Ticker details response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/reference/tickers/:ticker?date=<date>&apiKey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "reference",
+                                "tickers",
+                                ":ticker"
+                              ],
+                              "query": [
+                                {
+                                  "key": "date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "apiKey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ticker"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"results\": {\n    \"ticker\": \"<string>\",\n    \"name\": \"<string>\",\n    \"market\": \"<string>\",\n    \"locale\": \"<string>\",\n    \"primary_exchange\": \"<string>\",\n    \"type\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"currency_name\": \"<string>\",\n    \"cik\": \"<string>\",\n    \"composite_figi\": \"<string>\",\n    \"share_class_figi\": \"<string>\",\n    \"last_updated_utc\": \"<dateTime>\",\n    \"description\": \"<string>\",\n    \"homepage_url\": \"<uri>\",\n    \"list_date\": \"<date>\",\n    \"market_cap\": \"<number>\",\n    \"sic_code\": \"<string>\",\n    \"sic_description\": \"<string>\",\n    \"total_employees\": \"<integer>\",\n    \"weighted_shares_outstanding\": \"<number>\"\n  }\n}",
+                          "createdAt": "2026-07-28T02:39:34.000Z",
+                          "updatedAt": "2026-07-28T02:39:34.000Z",
+                          "uid": "35240-e282647d-a3c3-4843-9a76-1bf4a1867b3e"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:39:34.000Z",
+                      "updatedAt": "2026-07-28T02:39:34.000Z",
+                      "uid": "35240-79df331b-1ffa-4053-8dd5-8f233d21b3c4"
+                    }
+                  ],
+                  "id": "9951ae61-674d-47af-ba90-fd3127286d91",
+                  "createdAt": "2026-07-28T02:39:34.000Z",
+                  "updatedAt": "2026-07-28T02:39:34.000Z",
+                  "uid": "35240-9951ae61-674d-47af-ba90-fd3127286d91"
+                },
+                {
+                  "name": "types",
+                  "item": [
+                    {
+                      "name": "List Ticker Types",
+                      "id": "59170e82-fee4-47ba-bd1f-fd4d28fd22ca",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/reference/tickers/types?asset_class=<string>&locale=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "reference",
+                            "tickers",
+                            "types"
+                          ],
+                          "query": [
+                            {
+                              "key": "asset_class",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "locale",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "c2e4b4b6-3e57-4901-9335-dd904b7b9b2b",
+                          "name": "Ticker types response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/reference/tickers/types?asset_class=<string>&locale=<string>&apiKey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "reference",
+                                "tickers",
+                                "types"
+                              ],
+                              "query": [
+                                {
+                                  "key": "asset_class",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "locale",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "apiKey",
+                                  "value": "<API Key>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"count\": \"<integer>\",\n  \"results\": [\n    {\n      \"asset_class\": \"<string>\",\n      \"code\": \"<string>\",\n      \"description\": \"<string>\",\n      \"locale\": \"<string>\"\n    },\n    {\n      \"asset_class\": \"<string>\",\n      \"code\": \"<string>\",\n      \"description\": \"<string>\",\n      \"locale\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T02:39:34.000Z",
+                          "updatedAt": "2026-07-28T02:39:34.000Z",
+                          "uid": "35240-c2e4b4b6-3e57-4901-9335-dd904b7b9b2b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:39:34.000Z",
+                      "updatedAt": "2026-07-28T02:39:34.000Z",
+                      "uid": "35240-59170e82-fee4-47ba-bd1f-fd4d28fd22ca"
+                    }
+                  ],
+                  "id": "e60952bd-1c59-46c9-a308-e4e52e427f32",
+                  "createdAt": "2026-07-28T02:39:34.000Z",
+                  "updatedAt": "2026-07-28T02:39:34.000Z",
+                  "uid": "35240-e60952bd-1c59-46c9-a308-e4e52e427f32"
+                },
+                {
+                  "name": "List Ticker Symbols",
+                  "id": "07878f4f-6301-46d6-9420-345fb94e9176",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/reference/tickers?ticker=<string>&type=<string>&market=otc&exchange=<string>&active=<boolean>&search=<string>&order=desc&limit=100&sort=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "reference",
+                        "tickers"
+                      ],
+                      "query": [
+                        {
+                          "key": "ticker",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "type",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "market",
+                          "value": "otc"
+                        },
+                        {
+                          "key": "exchange",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "active",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "order",
+                          "value": "desc"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "100"
+                        },
+                        {
+                          "key": "sort",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve a comprehensive list of ticker symbols supported across asset classes."
+                  },
+                  "response": [
+                    {
+                      "id": "4f062fcc-c7a3-41a0-a459-6c60c25b65fe",
+                      "name": "Tickers response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/reference/tickers?ticker=<string>&type=<string>&market=otc&exchange=<string>&active=<boolean>&search=<string>&order=desc&limit=100&sort=<string>&apiKey=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "reference",
+                            "tickers"
+                          ],
+                          "query": [
+                            {
+                              "key": "ticker",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "type",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "market",
+                              "value": "otc"
+                            },
+                            {
+                              "key": "exchange",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "active",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "order",
+                              "value": "desc"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "100"
+                            },
+                            {
+                              "key": "sort",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "apiKey",
+                              "value": "<API Key>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"count\": \"<integer>\",\n  \"next_url\": \"<uri>\",\n  \"results\": [\n    {\n      \"ticker\": \"<string>\",\n      \"name\": \"<string>\",\n      \"market\": \"<string>\",\n      \"locale\": \"<string>\",\n      \"primary_exchange\": \"<string>\",\n      \"type\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"currency_name\": \"<string>\",\n      \"cik\": \"<string>\",\n      \"composite_figi\": \"<string>\",\n      \"share_class_figi\": \"<string>\",\n      \"last_updated_utc\": \"<dateTime>\"\n    },\n    {\n      \"ticker\": \"<string>\",\n      \"name\": \"<string>\",\n      \"market\": \"<string>\",\n      \"locale\": \"<string>\",\n      \"primary_exchange\": \"<string>\",\n      \"type\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"currency_name\": \"<string>\",\n      \"cik\": \"<string>\",\n      \"composite_figi\": \"<string>\",\n      \"share_class_figi\": \"<string>\",\n      \"last_updated_utc\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:39:34.000Z",
+                      "updatedAt": "2026-07-28T02:39:34.000Z",
+                      "uid": "35240-4f062fcc-c7a3-41a0-a459-6c60c25b65fe"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:39:34.000Z",
+                  "updatedAt": "2026-07-28T02:39:34.000Z",
+                  "uid": "35240-07878f4f-6301-46d6-9420-345fb94e9176"
+                }
+              ],
+              "id": "c204275e-907c-443e-bfe8-9a52ead01ee1",
+              "createdAt": "2026-07-28T02:39:34.000Z",
+              "updatedAt": "2026-07-28T02:39:34.000Z",
+              "uid": "35240-c204275e-907c-443e-bfe8-9a52ead01ee1"
+            }
+          ],
+          "id": "84a46542-9bf2-4c32-a225-85ceed8a7a7d",
+          "createdAt": "2026-07-28T02:39:34.000Z",
+          "updatedAt": "2026-07-28T02:39:34.000Z",
+          "uid": "35240-84a46542-9bf2-4c32-a225-85ceed8a7a7d"
+        }
+      ],
+      "id": "ba8207bb-43fb-4f44-97ce-6213ca405b01",
+      "createdAt": "2026-07-28T02:39:34.000Z",
+      "updatedAt": "2026-07-28T02:39:34.000Z",
+      "uid": "35240-ba8207bb-43fb-4f44-97ce-6213ca405b01"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}

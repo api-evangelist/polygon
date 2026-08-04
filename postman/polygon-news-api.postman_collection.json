@@ -1,0 +1,179 @@
+{
+  "info": {
+    "_postman_id": "cd206c32-c66d-4708-a716-eee1315ebe3d",
+    "name": "Polygon Crypto REST Aggregates News API",
+    "description": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:39:27.000Z",
+    "updatedAt": "2026-07-28T02:39:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cd206c32-c66d-4708-a716-eee1315ebe3d"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "reference",
+          "item": [
+            {
+              "name": "news",
+              "item": [
+                {
+                  "name": "List Ticker News",
+                  "id": "193b08af-0784-4f39-a8d8-fc2fd1cf8f1d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/reference/news?ticker=<string>&published_utc=<dateTime>&order=asc&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "reference",
+                        "news"
+                      ],
+                      "query": [
+                        {
+                          "key": "ticker",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "published_utc",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "key": "order",
+                          "value": "asc"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "c55ca82c-d1d7-454e-af10-88213094e279",
+                      "name": "News response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/reference/news?ticker=<string>&published_utc=<dateTime>&order=asc&limit=10&apiKey=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "reference",
+                            "news"
+                          ],
+                          "query": [
+                            {
+                              "key": "ticker",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "published_utc",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "order",
+                              "value": "asc"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "apiKey",
+                              "value": "<API Key>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"count\": \"<integer>\",\n  \"next_url\": \"<uri>\",\n  \"results\": [\n    {\n      \"id\": \"<string>\",\n      \"publisher\": {\n        \"pariatur_f6\": \"ea \"\n      },\n      \"title\": \"<string>\",\n      \"author\": \"<string>\",\n      \"published_utc\": \"<dateTime>\",\n      \"article_url\": \"<uri>\",\n      \"tickers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"amp_url\": \"<uri>\",\n      \"image_url\": \"<uri>\",\n      \"description\": \"<string>\",\n      \"keywords\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"publisher\": {\n        \"ut_d9\": 94530290.3540605\n      },\n      \"title\": \"<string>\",\n      \"author\": \"<string>\",\n      \"published_utc\": \"<dateTime>\",\n      \"article_url\": \"<uri>\",\n      \"tickers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"amp_url\": \"<uri>\",\n      \"image_url\": \"<uri>\",\n      \"description\": \"<string>\",\n      \"keywords\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:39:27.000Z",
+                      "updatedAt": "2026-07-28T02:39:27.000Z",
+                      "uid": "35240-c55ca82c-d1d7-454e-af10-88213094e279"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:39:27.000Z",
+                  "updatedAt": "2026-07-28T02:39:27.000Z",
+                  "uid": "35240-193b08af-0784-4f39-a8d8-fc2fd1cf8f1d"
+                }
+              ],
+              "id": "05786e59-59fb-4ebf-ba57-d3c51e08aa56",
+              "createdAt": "2026-07-28T02:39:27.000Z",
+              "updatedAt": "2026-07-28T02:39:27.000Z",
+              "uid": "35240-05786e59-59fb-4ebf-ba57-d3c51e08aa56"
+            }
+          ],
+          "id": "04d3db2f-05ea-40f5-8512-57b6d1c09d35",
+          "createdAt": "2026-07-28T02:39:27.000Z",
+          "updatedAt": "2026-07-28T02:39:27.000Z",
+          "uid": "35240-04d3db2f-05ea-40f5-8512-57b6d1c09d35"
+        }
+      ],
+      "id": "d21d790b-d9d7-4e18-9667-44aa161ce650",
+      "createdAt": "2026-07-28T02:39:27.000Z",
+      "updatedAt": "2026-07-28T02:39:27.000Z",
+      "uid": "35240-d21d790b-d9d7-4e18-9667-44aa161ce650"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.polygon.io"
+    }
+  ]
+}
