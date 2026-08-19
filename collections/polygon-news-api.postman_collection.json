@@ -1,0 +1,162 @@
+{
+  "item": [
+    {
+      "id": "fa40c44e-ffbf-43b2-a23b-9334ce504166",
+      "name": "News",
+      "description": {
+        "content": "Ticker news.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6ae7b7ce-3d28-4b3b-97fa-5a2a620ef196",
+          "name": "List Ticker News",
+          "request": {
+            "name": "List Ticker News",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "reference",
+                "news"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ticker",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "published_utc",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "30f9dc9a-8f34-4339-8c52-4b3291f5167d",
+              "name": "News response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "reference",
+                    "news"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "published_utc",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"count\": 8201,\n  \"next_url\": \"http://iVreCMQNUuaUzBAxqKnSZiSNGNRFFl.lziikKXeh4B,nlovp2gHZOCuHrzhHXGL\",\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"publisher\": {\n        \"key_0\": 1572\n      },\n      \"title\": \"string\",\n      \"author\": \"string\",\n      \"published_utc\": \"1973-04-04T07:56:19.246Z\",\n      \"article_url\": \"https://PiPdTfoIzBGV.gnT,ENbo,EpPxt\",\n      \"tickers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"amp_url\": \"https://pQvSJrYYsChUKRYMLH.jrkqQrEACEPDnPZijFfEv2xbMOulHCbyLBNCydca2j-GorbbwhnZgsmG4+Z\",\n      \"image_url\": \"https://ojrRwPWaSIOwsouhEaKugJbqKCXpsIUmI.pcrjZ1O4mn5\",\n      \"description\": \"string\",\n      \"keywords\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"publisher\": {\n        \"key_0\": 7077\n      },\n      \"title\": \"string\",\n      \"author\": \"string\",\n      \"published_utc\": \"1983-03-07T06:51:31.403Z\",\n      \"article_url\": \"http://QqSOFOKWxWwouXInXLs.copWNwEr6ijrjlUZdEqDM15cpwUZq8m+SNhVwYvlRQuHN.uT2\",\n      \"tickers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"amp_url\": \"http://iKWYtURrKueLeYjNjUSGD.dzlnMD6krt0W4c2qIjifJnMVSEuv40YwwkC\",\n      \"image_url\": \"https://MnNgFzOYqTcfITrIqfTnCpNrBXrN.jliyJNR-yoww0HaCFKHbh7Tz3.37z\",\n      \"description\": \"string\",\n      \"keywords\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c7949b99-90f8-4fe5-956d-86c0a8d636b6",
+    "name": "Polygon Crypto REST Aggregates News API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polygon Crypto REST Aggregates DailyBars API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DailyBars",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Daily Open Close For A Crypto Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v1/open-close/crypto/:from/:to/:date",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the open/close prices on a specific date for a crypto pair."
+        },
+        {
+          "info": {
+            "name": "Get Daily Open Close For A Stock Ticker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v1/open-close/:stocksTicker/:date",
+            "params": [
+              {
+                "name": "stocksTicker",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "adjusted",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the open, close, high, and low for a stock ticker on a specific date."
+        },
+        {
+          "info": {
+            "name": "Get Grouped Daily Bars For US Stocks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/:date",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "adjusted",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_otc",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns daily aggregate bars for all US stock tickers on a specific date."
+        },
+        {
+          "info": {
+            "name": "Get Previous Close For A Stock Ticker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/aggs/ticker/:stocksTicker/prev",
+            "params": [
+              {
+                "name": "stocksTicker",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "adjusted",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the previous trading day's open, close, high, and low for a stock ticker."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

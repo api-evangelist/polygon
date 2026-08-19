@@ -1,0 +1,378 @@
+{
+  "item": [
+    {
+      "id": "7eeb17df-43fc-4b72-88fd-497be3a4cd46",
+      "name": "Markets",
+      "description": {
+        "content": "Markets, exchanges, holidays, and status.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "64ff80ac-ea0c-4d65-84b1-ef8a83a3612b",
+          "name": "List Markets",
+          "request": {
+            "name": "List Markets",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "reference",
+                "markets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "688c3998-de40-4ef8-aedb-eb39e49a9277",
+              "name": "Markets response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reference",
+                    "markets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"results\": [\n    {\n      \"market\": \"string\",\n      \"desc\": \"string\"\n    },\n    {\n      \"market\": \"string\",\n      \"desc\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7d502a2-8428-4c6e-9e7b-6396e94671e7",
+          "name": "List Exchanges",
+          "request": {
+            "name": "List Exchanges",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "reference",
+                "exchanges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asset_class",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c2c957c2-a037-4d0f-81d2-b2617e575192",
+              "name": "Exchanges response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reference",
+                    "exchanges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset_class",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"count\": 9908,\n  \"results\": [\n    {\n      \"id\": 6834,\n      \"type\": \"string\",\n      \"asset_class\": \"string\",\n      \"locale\": \"string\",\n      \"name\": \"string\",\n      \"acronym\": \"string\",\n      \"mic\": \"string\",\n      \"operating_mic\": \"string\",\n      \"participant_id\": \"string\",\n      \"url\": \"http://mxQUYZ.vlFCi5\"\n    },\n    {\n      \"id\": 8039,\n      \"type\": \"string\",\n      \"asset_class\": \"string\",\n      \"locale\": \"string\",\n      \"name\": \"string\",\n      \"acronym\": \"string\",\n      \"mic\": \"string\",\n      \"operating_mic\": \"string\",\n      \"participant_id\": \"string\",\n      \"url\": \"http://ArZrsJ.ldkry5iV,hCDboESm.bT8hwMg,V+WjAQ8HW\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f90635a2-dd36-4a16-800b-47e26fdfe894",
+          "name": "List Upcoming Market Holidays",
+          "request": {
+            "name": "List Upcoming Market Holidays",
+            "description": {
+              "content": "List upcoming US market holidays and the corresponding session schedule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "marketstatus",
+                "upcoming"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d2b5f20-6dfa-4e59-8dd3-093d6d026932",
+              "name": "Upcoming market holidays response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "marketstatus",
+                    "upcoming"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"exchange\": \"string\",\n    \"name\": \"string\",\n    \"date\": \"2013-02-18\",\n    \"status\": \"string\",\n    \"open\": \"string\",\n    \"close\": \"string\"\n  },\n  {\n    \"exchange\": \"string\",\n    \"name\": \"string\",\n    \"date\": \"1947-10-21\",\n    \"status\": \"string\",\n    \"open\": \"string\",\n    \"close\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cda547a0-1650-4347-93b7-9ef4eef77ddf",
+          "name": "Get Current Market Status",
+          "request": {
+            "name": "Get Current Market Status",
+            "description": {
+              "content": "Get the current trading status for US markets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "marketstatus",
+                "now"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c93801e-8a9a-45f2-99d5-1bd7db7fd0c7",
+              "name": "Market status response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "marketstatus",
+                    "now"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"market\": \"string\",\n  \"serverTime\": \"2010-09-11T20:37:48.154Z\",\n  \"exchanges\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"currencies\": {\n    \"key_0\": \"string\"\n  },\n  \"earlyHours\": false,\n  \"afterHours\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "266c4782-617c-43b9-9ec3-c3b1a503330a",
+    "name": "Polygon Crypto REST Aggregates Markets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}

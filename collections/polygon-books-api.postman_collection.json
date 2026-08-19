@@ -1,0 +1,156 @@
+{
+  "item": [
+    {
+      "id": "19ecf2df-242b-472f-8f9e-33ccf04eb641",
+      "name": "Books",
+      "description": {
+        "content": "Level-2 order book.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b4906274-1c16-4c14-8d54-27600be32cc1",
+          "name": "Get Level Two Book For A Crypto Pair",
+          "request": {
+            "name": "Get Level Two Book For A Crypto Pair",
+            "description": {
+              "content": "Returns the current Level-2 book for a crypto ticker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "snapshot",
+                "locale",
+                "global",
+                "markets",
+                "crypto",
+                "tickers",
+                ":ticker",
+                "book"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ticker",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1e8fa843-2399-4d44-a6fe-16ef5965f5ee",
+              "name": "Level-2 book response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "snapshot",
+                    "locale",
+                    "global",
+                    "markets",
+                    "crypto",
+                    "tickers",
+                    ":ticker",
+                    "book"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"data\": {\n    \"ticker\": \"string\",\n    \"bids\": [\n      {\n        \"p\": 1696.8643958082198,\n        \"x\": {\n          \"key_0\": 5623.472242202873,\n          \"key_1\": 8219.60566744677,\n          \"key_2\": 2198.825901630638\n        }\n      },\n      {\n        \"p\": 3675.7206499155905,\n        \"x\": {\n          \"key_0\": 316.7936801626303\n        }\n      }\n    ],\n    \"asks\": [\n      {\n        \"p\": 3919.6159529966867,\n        \"x\": {\n          \"key_0\": 3043.9559714319553\n        }\n      },\n      {\n        \"p\": 2517.9414707488754,\n        \"x\": {\n          \"key_0\": 4743.1779664790365\n        }\n      }\n    ],\n    \"bidCount\": 5409.041005213183,\n    \"askCount\": 2512.156468025034,\n    \"spread\": 3584.1314396057646,\n    \"updated\": 4788\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b2663af2-aa84-487a-9986-4b2b374216ea",
+    "name": "Polygon Crypto REST Aggregates Books API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}

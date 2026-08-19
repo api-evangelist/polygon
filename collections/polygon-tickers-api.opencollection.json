@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polygon Crypto REST Aggregates Tickers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tickers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Ticker Symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/reference/tickers",
+            "params": [
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "market",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exchange",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve a comprehensive list of ticker symbols supported across asset classes."
+        },
+        {
+          "info": {
+            "name": "Get Ticker Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/reference/tickers/:ticker",
+            "params": [
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed reference information for a single ticker symbol."
+        },
+        {
+          "info": {
+            "name": "List Ticker Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/reference/tickers/types",
+            "params": [
+              {
+                "name": "asset_class",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List Ticker Types"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

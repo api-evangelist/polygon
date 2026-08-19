@@ -1,0 +1,414 @@
+{
+  "item": [
+    {
+      "id": "1a3eea9d-abf6-4313-bb9d-37393b21ca69",
+      "name": "Tickers",
+      "description": {
+        "content": "Ticker reference and metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dd649f8a-8cea-47e5-a1d2-195232de881b",
+          "name": "List Ticker Symbols",
+          "request": {
+            "name": "List Ticker Symbols",
+            "description": {
+              "content": "Retrieve a comprehensive list of ticker symbols supported across asset classes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "reference",
+                "tickers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ticker",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exchange",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "728ef8c5-906c-4841-8d81-f01e27b3e5f4",
+              "name": "Tickers response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reference",
+                    "tickers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ticker",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exchange",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"count\": 5306,\n  \"next_url\": \"http://IisJdsnJmFwAMR.nsuc99H-nZCBhPiOlCbPgUkM0Rnj7a6B3JQ2WliN6yeCbkP5FsF8C\",\n  \"results\": [\n    {\n      \"ticker\": \"string\",\n      \"name\": \"string\",\n      \"market\": \"string\",\n      \"locale\": \"string\",\n      \"primary_exchange\": \"string\",\n      \"type\": \"string\",\n      \"active\": false,\n      \"currency_name\": \"string\",\n      \"cik\": \"string\",\n      \"composite_figi\": \"string\",\n      \"share_class_figi\": \"string\",\n      \"last_updated_utc\": \"1963-08-04T07:22:07.932Z\"\n    },\n    {\n      \"ticker\": \"string\",\n      \"name\": \"string\",\n      \"market\": \"string\",\n      \"locale\": \"string\",\n      \"primary_exchange\": \"string\",\n      \"type\": \"string\",\n      \"active\": true,\n      \"currency_name\": \"string\",\n      \"cik\": \"string\",\n      \"composite_figi\": \"string\",\n      \"share_class_figi\": \"string\",\n      \"last_updated_utc\": \"1986-02-28T20:20:34.400Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f155fe96-a5f5-4586-8fc8-2e8373fda04e",
+          "name": "Get Ticker Details",
+          "request": {
+            "name": "Get Ticker Details",
+            "description": {
+              "content": "Retrieve detailed reference information for a single ticker symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "reference",
+                "tickers",
+                ":ticker"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ticker",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b1b642d0-2c75-4ba5-80b1-31ce68e45e7c",
+              "name": "Ticker details response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reference",
+                    "tickers",
+                    ":ticker"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"results\": {\n    \"ticker\": \"string\",\n    \"name\": \"string\",\n    \"market\": \"string\",\n    \"locale\": \"string\",\n    \"primary_exchange\": \"string\",\n    \"type\": \"string\",\n    \"active\": true,\n    \"currency_name\": \"string\",\n    \"cik\": \"string\",\n    \"composite_figi\": \"string\",\n    \"share_class_figi\": \"string\",\n    \"last_updated_utc\": \"2017-06-05T17:13:01.301Z\",\n    \"description\": \"string\",\n    \"homepage_url\": \"http://atwUOhOs.rjuaLyi-lhsol3GvuZGsMNYrFvyK5\",\n    \"list_date\": \"1953-10-23\",\n    \"market_cap\": 3479.0887070642384,\n    \"sic_code\": \"string\",\n    \"sic_description\": \"string\",\n    \"total_employees\": 3642,\n    \"weighted_shares_outstanding\": 3025.114550986977\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31ff419d-b229-447b-830c-4e6fe4601fe8",
+          "name": "List Ticker Types",
+          "request": {
+            "name": "List Ticker Types",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "reference",
+                "tickers",
+                "types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asset_class",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54621d97-966e-4f38-bc30-baf9d75ef204",
+              "name": "Ticker types response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reference",
+                    "tickers",
+                    "types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset_class",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"count\": 9359,\n  \"results\": [\n    {\n      \"asset_class\": \"string\",\n      \"code\": \"string\",\n      \"description\": \"string\",\n      \"locale\": \"string\"\n    },\n    {\n      \"asset_class\": \"string\",\n      \"code\": \"string\",\n      \"description\": \"string\",\n      \"locale\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "56919ce5-c044-4f23-ac3c-be6e6ecfad48",
+    "name": "Polygon Crypto REST Aggregates Tickers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,532 @@
+{
+  "item": [
+    {
+      "id": "88405b4e-1720-41c2-b86e-75c6d08f1da4",
+      "name": "DailyBars",
+      "description": {
+        "content": "Daily open/close.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ba5e4274-b772-4d1c-a293-8d9a3ae66756",
+          "name": "Get Daily Open Close For A Crypto Pair",
+          "request": {
+            "name": "Get Daily Open Close For A Crypto Pair",
+            "description": {
+              "content": "Get the open/close prices on a specific date for a crypto pair.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "open-close",
+                "crypto",
+                ":from",
+                ":to",
+                ":date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "from",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "to",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "date",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6e6b618-cd91-4e2f-8eb5-bd778ab616d9",
+              "name": "Crypto daily open/close response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "open-close",
+                    "crypto",
+                    ":from",
+                    ":to",
+                    ":date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "from",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "to",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"symbol\": \"string\",\n  \"isUTC\": true,\n  \"day\": \"1988-12-18\",\n  \"open\": 3870.7221792345604,\n  \"close\": 240.47606171916036,\n  \"openTrades\": [\n    {\n      \"key_0\": 9377.764277561506,\n      \"key_1\": 524\n    },\n    {\n      \"key_0\": true\n    }\n  ],\n  \"closingTrades\": [\n    {\n      \"key_0\": 3566\n    },\n    {\n      \"key_0\": false,\n      \"key_1\": 323\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f1a0e93-ffe8-48f2-8b4c-80466bafa718",
+          "name": "Get Daily Open Close For A Stock Ticker",
+          "request": {
+            "name": "Get Daily Open Close For A Stock Ticker",
+            "description": {
+              "content": "Returns the open, close, high, and low for a stock ticker on a specific date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "open-close",
+                ":stocksTicker",
+                ":date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "adjusted",
+                  "value": "true"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stocksTicker",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "date",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6fda56e-be07-452c-b3b3-70be6d39b2f1",
+              "name": "Daily open/close response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "open-close",
+                    ":stocksTicker",
+                    ":date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "adjusted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stocksTicker",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"from\": \"1979-11-08\",\n  \"symbol\": \"string\",\n  \"open\": 2837.50849929939,\n  \"high\": 8223.957371177823,\n  \"low\": 5081.899027660071,\n  \"close\": 116.87864161923245,\n  \"volume\": 7699.026825929472,\n  \"afterHours\": 693.3534424616794,\n  \"preMarket\": 4329.700893119896\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31ef1b48-a03e-44aa-8918-8e4f2dbd4d38",
+          "name": "Get Grouped Daily Bars For US Stocks",
+          "request": {
+            "name": "Get Grouped Daily Bars For US Stocks",
+            "description": {
+              "content": "Returns daily aggregate bars for all US stock tickers on a specific date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "aggs",
+                "grouped",
+                "locale",
+                "us",
+                "market",
+                "stocks",
+                ":date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "adjusted",
+                  "value": "true"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_otc",
+                  "value": "false"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "date",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eca70a1b-b6eb-4b12-a945-682330a06e30",
+              "name": "Grouped daily bars response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "aggs",
+                    "grouped",
+                    "locale",
+                    "us",
+                    "market",
+                    "stocks",
+                    ":date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "adjusted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_otc",
+                      "value": "false"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"adjusted\": true,\n  \"queryCount\": 5031,\n  \"resultsCount\": 9616,\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"count\": 5897,\n  \"next_url\": \"http://bcNuEHsYITvWkXKCYpZDcKUllBHU.woBSB5Rcq3izZKnpDzIicHfq1LMzNfj3aCLB\",\n  \"results\": [\n    {\n      \"T\": \"string\",\n      \"v\": 4147.370060933479,\n      \"vw\": 179.7823241702512,\n      \"o\": 3256.8885648654355,\n      \"c\": 1322.3201497949888,\n      \"h\": 9425.815685130567,\n      \"l\": 1702.3250614989793,\n      \"t\": 6872,\n      \"n\": 5455\n    },\n    {\n      \"T\": \"string\",\n      \"v\": 7344.229401890821,\n      \"vw\": 4358.12163512242,\n      \"o\": 4869.396238461774,\n      \"c\": 4022.5535161722423,\n      \"h\": 5425.68752698645,\n      \"l\": 4325.526858130896,\n      \"t\": 2086,\n      \"n\": 4854\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0421dd26-a1ff-4e51-9366-fa473ac7311d",
+          "name": "Get Previous Close For A Stock Ticker",
+          "request": {
+            "name": "Get Previous Close For A Stock Ticker",
+            "description": {
+              "content": "Returns the previous trading day's open, close, high, and low for a stock ticker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "aggs",
+                "ticker",
+                ":stocksTicker",
+                "prev"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "adjusted",
+                  "value": "true"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "stocksTicker",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "58804051-56ec-4d4f-bd19-a3054a581ba3",
+              "name": "Previous close response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "aggs",
+                    "ticker",
+                    ":stocksTicker",
+                    "prev"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "adjusted",
+                      "value": "true"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "stocksTicker",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"adjusted\": true,\n  \"queryCount\": 5031,\n  \"resultsCount\": 9616,\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"count\": 5897,\n  \"next_url\": \"http://bcNuEHsYITvWkXKCYpZDcKUllBHU.woBSB5Rcq3izZKnpDzIicHfq1LMzNfj3aCLB\",\n  \"results\": [\n    {\n      \"T\": \"string\",\n      \"v\": 4147.370060933479,\n      \"vw\": 179.7823241702512,\n      \"o\": 3256.8885648654355,\n      \"c\": 1322.3201497949888,\n      \"h\": 9425.815685130567,\n      \"l\": 1702.3250614989793,\n      \"t\": 6872,\n      \"n\": 5455\n    },\n    {\n      \"T\": \"string\",\n      \"v\": 7344.229401890821,\n      \"vw\": 4358.12163512242,\n      \"o\": 4869.396238461774,\n      \"c\": 4022.5535161722423,\n      \"h\": 5425.68752698645,\n      \"l\": 4325.526858130896,\n      \"t\": 2086,\n      \"n\": 4854\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f5e1d5d4-c3e8-4742-862a-38964f5d2b9e",
+    "name": "Polygon Crypto REST Aggregates DailyBars API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}

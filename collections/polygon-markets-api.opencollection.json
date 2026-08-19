@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polygon Crypto REST Aggregates Markets API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Markets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Markets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/reference/markets"
+          },
+          "docs": "List Markets"
+        },
+        {
+          "info": {
+            "name": "List Exchanges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/reference/exchanges",
+            "params": [
+              {
+                "name": "asset_class",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List Exchanges"
+        },
+        {
+          "info": {
+            "name": "List Upcoming Market Holidays",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v1/marketstatus/upcoming"
+          },
+          "docs": "List upcoming US market holidays and the corresponding session schedule."
+        },
+        {
+          "info": {
+            "name": "Get Current Market Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v1/marketstatus/now"
+          },
+          "docs": "Get the current trading status for US markets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

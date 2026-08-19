@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polygon Crypto REST Aggregates Snapshots API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Snapshot For A Crypto Ticker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v2/snapshot/locale/global/markets/crypto/tickers/:ticker",
+            "params": [
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Snapshot For A Crypto Ticker"
+        },
+        {
+          "info": {
+            "name": "Get Snapshot For Indices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/snapshot/indices",
+            "params": [
+              {
+                "name": "ticker.any_of",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of index tickers (e.g., I:SPX,I:DJI)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the most recent index values for one or more indices."
+        },
+        {
+          "info": {
+            "name": "Get Option Contract Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/snapshot/options/:underlyingAsset/:optionContract",
+            "params": [
+              {
+                "name": "underlyingAsset",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "optionContract",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a snapshot for a specific option contract."
+        },
+        {
+          "info": {
+            "name": "Get Options Chain Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/snapshot/options/:underlyingAsset",
+            "params": [
+              {
+                "name": "underlyingAsset",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "strike_price",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expiration_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "contract_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a snapshot of an options chain for an underlying asset."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polygon Crypto REST Aggregates Contracts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Options Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.polygon.io/v3/reference/options/contracts",
+            "params": [
+              {
+                "name": "underlying_ticker",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "contract_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expiration_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "strike_price",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expired",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List option contracts matching the given filters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

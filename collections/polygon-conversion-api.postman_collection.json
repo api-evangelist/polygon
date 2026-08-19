@@ -1,0 +1,179 @@
+{
+  "item": [
+    {
+      "id": "cae5acc9-f0c7-4825-98f7-11c53ab48913",
+      "name": "Conversion",
+      "description": {
+        "content": "Real-time currency conversion.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6f0193aa-f4dd-401a-b1c4-e6f745821a20",
+          "name": "Convert From One Currency To Another",
+          "request": {
+            "name": "Convert From One Currency To Another",
+            "description": {
+              "content": "Get currency conversion rate and converted amount.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversion",
+                ":from",
+                ":to"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "precision",
+                  "value": "2"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "from",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "to",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dcb28ddb-f867-4f5c-ae77-54d89896ddfe",
+              "name": "Conversion response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversion",
+                    ":from",
+                    ":to"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "100"
+                    },
+                    {
+                      "key": "precision",
+                      "value": "2"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "from",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "to",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"from\": \"string\",\n  \"to\": \"string\",\n  \"initialAmount\": 2560.050873014833,\n  \"converted\": 1482.354168496114,\n  \"last\": {\n    \"ask\": 8247.879491852787,\n    \"bid\": 9302.97864091422,\n    \"exchange\": 2634,\n    \"timestamp\": 1258\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "201a02d3-8524-460e-b430-fdc1e9c4f181",
+    "name": "Polygon Crypto REST Aggregates Conversion API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}

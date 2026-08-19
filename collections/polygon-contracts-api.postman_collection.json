@@ -1,0 +1,194 @@
+{
+  "item": [
+    {
+      "id": "d896e4a5-9bea-454c-9280-6e37c80bb153",
+      "name": "Contracts",
+      "description": {
+        "content": "Option contract reference data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7fc456de-32cf-4440-a008-499aecdcea8e",
+          "name": "List Options Contracts",
+          "request": {
+            "name": "List Options Contracts",
+            "description": {
+              "content": "List option contracts matching the given filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "reference",
+                "options",
+                "contracts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "underlying_ticker",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "contract_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expiration_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "as_of",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "strike_price",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expired",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4a094ac3-8176-44c4-bf91-31bd0d7a3826",
+              "name": "Options contracts response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reference",
+                    "options",
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "underlying_ticker",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expiration_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "as_of",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "strike_price",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "expired",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"next_url\": \"https://qZbUorfgnvZciPQvO.npey-O.1Ki+BTsVwqJx-HHMgtoX3gvqM1to,j6mfDmFzk,jBi\",\n  \"results\": [\n    {\n      \"cfi\": \"string\",\n      \"contract_type\": \"string\",\n      \"exercise_style\": \"string\",\n      \"expiration_date\": \"1993-11-13\",\n      \"primary_exchange\": \"string\",\n      \"shares_per_contract\": 6577,\n      \"strike_price\": 3694.771921623222,\n      \"ticker\": \"string\",\n      \"underlying_ticker\": \"string\"\n    },\n    {\n      \"cfi\": \"string\",\n      \"contract_type\": \"string\",\n      \"exercise_style\": \"string\",\n      \"expiration_date\": \"1982-02-26\",\n      \"primary_exchange\": \"string\",\n      \"shares_per_contract\": 5062,\n      \"strike_price\": 7000.255951200402,\n      \"ticker\": \"string\",\n      \"underlying_ticker\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ebbf2b92-4fba-4f79-91a7-67ab1e49f54c",
+    "name": "Polygon Crypto REST Aggregates Contracts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}

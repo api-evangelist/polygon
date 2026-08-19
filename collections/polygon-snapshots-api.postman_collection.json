@@ -1,0 +1,497 @@
+{
+  "item": [
+    {
+      "id": "bfef5438-e03e-4e6b-967c-86c6572684c5",
+      "name": "Snapshots",
+      "description": {
+        "content": "Snapshot endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "69efef9c-4f7c-436b-a9f6-a29caf9d1ad1",
+          "name": "Get Snapshot For A Crypto Ticker",
+          "request": {
+            "name": "Get Snapshot For A Crypto Ticker",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "snapshot",
+                "locale",
+                "global",
+                "markets",
+                "crypto",
+                "tickers",
+                ":ticker"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ticker",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc50b5f9-f8eb-4b8e-b0c2-9b893199512d",
+              "name": "Crypto snapshot response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "snapshot",
+                    "locale",
+                    "global",
+                    "markets",
+                    "crypto",
+                    "tickers",
+                    ":ticker"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"ticker\": {\n    \"ticker\": \"string\",\n    \"day\": {\n      \"key_0\": \"string\",\n      \"key_1\": 3590.270375045834,\n      \"key_2\": \"string\"\n    },\n    \"lastTrade\": {\n      \"key_0\": \"string\"\n    },\n    \"min\": {\n      \"key_0\": 1745.3060125549202\n    },\n    \"prevDay\": {\n      \"key_0\": \"string\"\n    },\n    \"updated\": 366\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9724c3c-cbbe-4660-9a34-d4b5e7d44842",
+          "name": "Get Snapshot For Indices",
+          "request": {
+            "name": "Get Snapshot For Indices",
+            "description": {
+              "content": "Returns the most recent index values for one or more indices.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "snapshot",
+                "indices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ticker.any_of",
+                  "value": "<string>",
+                  "description": "Comma-separated list of index tickers (e.g., I:SPX,I:DJI)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de265b2e-57d2-4a86-a409-ac8dcc6d9812",
+              "name": "Indices snapshot response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "snapshot",
+                    "indices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ticker.any_of",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"next_url\": \"https://glWANyQxNmzRW.hkAHYOsBiD3q--dBVEdXyhh6zbW,fJJaVtSvRYYul\",\n  \"results\": [\n    {\n      \"ticker\": \"string\",\n      \"name\": \"string\",\n      \"value\": 4469.005710340542,\n      \"last_updated\": 257,\n      \"market_status\": \"string\",\n      \"type\": \"string\",\n      \"session\": {\n        \"change\": 3298.798085976338,\n        \"change_percent\": 5465.329045724119,\n        \"close\": 142.39724780568562,\n        \"high\": 4106.485051193308,\n        \"low\": 3557.6997720285863,\n        \"open\": 7550.388696708018,\n        \"previous_close\": 4228.339025315802\n      }\n    },\n    {\n      \"ticker\": \"string\",\n      \"name\": \"string\",\n      \"value\": 9807.604756404393,\n      \"last_updated\": 4724,\n      \"market_status\": \"string\",\n      \"type\": \"string\",\n      \"session\": {\n        \"change\": 9527.490776698784,\n        \"change_percent\": 525.754161671973,\n        \"close\": 6923.111394837043,\n        \"high\": 910.117443645968,\n        \"low\": 9760.277673673789,\n        \"open\": 4397.964839095577,\n        \"previous_close\": 1218.4173463133818\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21bca1c5-bf36-4470-8354-6d0329ee22aa",
+          "name": "Get Option Contract Snapshot",
+          "request": {
+            "name": "Get Option Contract Snapshot",
+            "description": {
+              "content": "Get a snapshot for a specific option contract.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "snapshot",
+                "options",
+                ":underlyingAsset",
+                ":optionContract"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "underlyingAsset",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "optionContract",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be7f1036-e9f3-4a1d-ba43-5eafdbc1fdda",
+              "name": "Option contract snapshot response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "snapshot",
+                    "options",
+                    ":underlyingAsset",
+                    ":optionContract"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "underlyingAsset",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "optionContract",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"results\": {\n    \"break_even_price\": 530.0136887689278,\n    \"day\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": false,\n      \"key_3\": 2631\n    },\n    \"details\": {\n      \"cfi\": \"string\",\n      \"contract_type\": \"string\",\n      \"exercise_style\": \"string\",\n      \"expiration_date\": \"2020-10-23\",\n      \"primary_exchange\": \"string\",\n      \"shares_per_contract\": 6303,\n      \"strike_price\": 69.26785936515189,\n      \"ticker\": \"string\",\n      \"underlying_ticker\": \"string\"\n    },\n    \"greeks\": {\n      \"delta\": 3465.4303546917918,\n      \"gamma\": 8354.30246596923,\n      \"theta\": 839.6485304927926,\n      \"vega\": 9504.67063388811\n    },\n    \"implied_volatility\": 4130.933412365495,\n    \"last_quote\": {\n      \"key_0\": 339.7630640947713,\n      \"key_1\": \"string\"\n    },\n    \"last_trade\": {\n      \"key_0\": 7368\n    },\n    \"open_interest\": 4679,\n    \"underlying_asset\": {\n      \"key_0\": 8876,\n      \"key_1\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f6068b5-edf0-47d8-a65f-8f9d0dd6bb6f",
+          "name": "Get Options Chain Snapshot",
+          "request": {
+            "name": "Get Options Chain Snapshot",
+            "description": {
+              "content": "Get a snapshot of an options chain for an underlying asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "snapshot",
+                "options",
+                ":underlyingAsset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "strike_price",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expiration_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "contract_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "underlyingAsset",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "03222867-c945-4713-ae32-eee38c76fc3e",
+              "name": "Options chain snapshot response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "snapshot",
+                    "options",
+                    ":underlyingAsset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "strike_price",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "expiration_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "contract_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "underlyingAsset",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"request_id\": \"string\",\n  \"next_url\": \"http://cBQjZZnzZuZktFPRbEAwlMnvWPYbA.updhDLTCKW,9TwJ6Mz.Vs4UAWvkIQoE2NHI-MnOM8SmKp1,y\",\n  \"results\": [\n    {\n      \"break_even_price\": 3001.3455750173234,\n      \"day\": {\n        \"key_0\": \"string\"\n      },\n      \"details\": {\n        \"cfi\": \"string\",\n        \"contract_type\": \"string\",\n        \"exercise_style\": \"string\",\n        \"expiration_date\": \"1991-06-14\",\n        \"primary_exchange\": \"string\",\n        \"shares_per_contract\": 3111,\n        \"strike_price\": 6894.6379884111075,\n        \"ticker\": \"string\",\n        \"underlying_ticker\": \"string\"\n      },\n      \"greeks\": {\n        \"delta\": 4330.775225226944,\n        \"gamma\": 768.1446234741452,\n        \"theta\": 1214.8488582130078,\n        \"vega\": 373.589294857466\n      },\n      \"implied_volatility\": 3009.7412585489815,\n      \"last_quote\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      },\n      \"last_trade\": {\n        \"key_0\": 1178.834938244947,\n        \"key_1\": 3774.079931185925\n      },\n      \"open_interest\": 9644,\n      \"underlying_asset\": {\n        \"key_0\": 6320.198293010687,\n        \"key_1\": 6906.214469198843\n      }\n    },\n    {\n      \"break_even_price\": 7209.599914475706,\n      \"day\": {\n        \"key_0\": 6903.6493342685935\n      },\n      \"details\": {\n        \"cfi\": \"string\",\n        \"contract_type\": \"string\",\n        \"exercise_style\": \"string\",\n        \"expiration_date\": \"1966-11-05\",\n        \"primary_exchange\": \"string\",\n        \"shares_per_contract\": 980,\n        \"strike_price\": 3986.1359202981384,\n        \"ticker\": \"string\",\n        \"underlying_ticker\": \"string\"\n      },\n      \"greeks\": {\n        \"delta\": 4014.0658868977575,\n        \"gamma\": 5036.751246934455,\n        \"theta\": 3692.5356902297767,\n        \"vega\": 7627.9426369799585\n      },\n      \"implied_volatility\": 1960.626593104645,\n      \"last_quote\": {\n        \"key_0\": true,\n        \"key_1\": 9724.1689031165\n      },\n      \"last_trade\": {\n        \"key_0\": 3850\n      },\n      \"open_interest\": 1345,\n      \"underlying_asset\": {\n        \"key_0\": 9485,\n        \"key_1\": 3391.4502850791473\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.polygon.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f9c5959f-beab-4fab-82e4-aee3fc5ea5f3",
+    "name": "Polygon Crypto REST Aggregates Snapshots API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Polygon Crypto API exposes aggregated cross-exchange data for crypto\npairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec\ncovers aggregates, daily open/close, snapshots, and level-2 books.\nAuth uses an API key via `apiKey` query parameter or\n`Authorization: Bearer`.\n\n\nContact Support:\n Name: Polygon Documentation",
+      "type": "text/plain"
+    }
+  }
+}
