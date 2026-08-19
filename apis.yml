@@ -20,7 +20,7 @@ description: >-
   stocks, options, indices, forex, cryptocurrencies, and futures. Coverage is delivered through REST endpoints and
   WebSocket streams under a single api.polygon.io surface plus an S3 flat files product, with tiered subscription plans
   for retail developers and Business contracts for redistribution and exchange-licensed data.
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-05-28'
 modified: '2026-07-22'
 x-source: public-apis/public-apis
