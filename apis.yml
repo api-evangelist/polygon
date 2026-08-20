@@ -39,6 +39,20 @@ tags:
   - Indices
   - Futures
   - WebSockets
+  - Real-Time
+  - Historical
+  - Public APIs
+tags_raw:
+  - Finance
+  - Fintech
+  - Market Data
+  - Stocks
+  - Options
+  - Forex
+  - Crypto
+  - Indices
+  - Futures
+  - WebSockets
   - Real-time
   - Historical
   - Public APIs
@@ -51,6 +65,10 @@ apis:
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
+  - WebSocket
+  - Streaming
+  - Real-Time
+  tags_raw:
   - WebSocket
   - Streaming
   - Real-time
@@ -287,6 +305,8 @@ apis:
   humanURL: https://polygon.io/docs/stocks
   baseURL: https://api.polygon.io
   tags:
+  - Corporate Actions
+  tags_raw:
   - CorporateActions
   properties:
   - type: OpenAPI
