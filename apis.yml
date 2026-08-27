@@ -679,6 +679,603 @@ apis:
     url: json-structure/polygon-ticker-structure.json
   - type: Examples
     url: examples/polygon-reference-tickers-example.json
+- aid: polygon:polygon-benzinga-api
+  name: Polygon Benzinga API
+  description: The benzinga API from Polygon — 9 operation(s) for benzinga.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - benzinga
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-benzinga-api-openapi.yml
+- aid: polygon:polygon-crypto-aggregates-api
+  name: Polygon Crypto:aggregates API
+  description: The crypto:aggregates API from Polygon — 7 operation(s) for crypto:aggregates.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - crypto:aggregates
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-crypto-aggregates-api-openapi.yml
+- aid: polygon:polygon-crypto-last-trade-api
+  name: Polygon Crypto:last:trade API
+  description: The crypto:last:trade API from Polygon — 1 operation(s) for crypto:last:trade.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - crypto:last:trade
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-crypto-last-trade-api-openapi.yml
+- aid: polygon:polygon-crypto-open-close-api
+  name: Polygon Crypto:open Close API
+  description: The crypto:open-close API from Polygon — 1 operation(s) for crypto:open-close.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - crypto:open-close
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-crypto-open-close-api-openapi.yml
+- aid: polygon:polygon-crypto-snapshot-api
+  name: Polygon Crypto:snapshot API
+  description: The crypto:snapshot API from Polygon — 4 operation(s) for crypto:snapshot.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - crypto:snapshot
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-crypto-snapshot-api-openapi.yml
+- aid: polygon:polygon-crypto-trades-api
+  name: Polygon Crypto:trades API
+  description: The crypto:trades API from Polygon — 2 operation(s) for crypto:trades.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - crypto:trades
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-crypto-trades-api-openapi.yml
+- aid: polygon:polygon-etfglobal-api
+  name: Polygon Etfglobal API
+  description: The etfglobal API from Polygon — 5 operation(s) for etfglobal.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - etfglobal
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-etfglobal-api-openapi.yml
+- aid: polygon:polygon-fable-api
+  name: Polygon Fable API
+  description: The fable API from Polygon — 2 operation(s) for fable.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - fable
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-fable-api-openapi.yml
+- aid: polygon:polygon-fed-api
+  name: Polygon Fed API
+  description: The fed API from Polygon — 4 operation(s) for fed.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - fed
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-fed-api-openapi.yml
+- aid: polygon:polygon-financials-api
+  name: Polygon Financials API
+  description: The financials API from Polygon — 4 operation(s) for financials.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - financials
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-financials-api-openapi.yml
+- aid: polygon:polygon-futures-aggregates-api
+  name: Polygon Futures:aggregates API
+  description: The futures:aggregates API from Polygon — 1 operation(s) for futures:aggregates.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - futures:aggregates
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-futures-aggregates-api-openapi.yml
+- aid: polygon:polygon-fx-aggregates-api
+  name: Polygon Fx:aggregates API
+  description: The fx:aggregates API from Polygon — 7 operation(s) for fx:aggregates.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - fx:aggregates
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-fx-aggregates-api-openapi.yml
+- aid: polygon:polygon-fx-conversion-api
+  name: Polygon Fx:conversion API
+  description: The fx:conversion API from Polygon — 1 operation(s) for fx:conversion.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - fx:conversion
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-fx-conversion-api-openapi.yml
+- aid: polygon:polygon-fx-last-quote-api
+  name: Polygon Fx:last:quote API
+  description: The fx:last:quote API from Polygon — 1 operation(s) for fx:last:quote.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - fx:last:quote
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-fx-last-quote-api-openapi.yml
+- aid: polygon:polygon-fx-quotes-api
+  name: Polygon Fx:quotes API
+  description: The fx:quotes API from Polygon — 1 operation(s) for fx:quotes.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - fx:quotes
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-fx-quotes-api-openapi.yml
+- aid: polygon:polygon-fx-snapshot-api
+  name: Polygon Fx:snapshot API
+  description: The fx:snapshot API from Polygon — 3 operation(s) for fx:snapshot.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - fx:snapshot
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-fx-snapshot-api-openapi.yml
+- aid: polygon:polygon-fx-trades-api
+  name: Polygon Fx:trades API
+  description: The fx:trades API from Polygon — 1 operation(s) for fx:trades.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - fx:trades
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-fx-trades-api-openapi.yml
+- aid: polygon:polygon-global-crypto-api
+  name: Polygon Global Crypto API
+  description: The global_crypto API from Polygon — 1 operation(s) for global_crypto.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - global_crypto
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-global-crypto-api-openapi.yml
+- aid: polygon:polygon-global-forex-api
+  name: Polygon Global Forex API
+  description: The global_forex API from Polygon — 1 operation(s) for global_forex.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - global_forex
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-global-forex-api-openapi.yml
+- aid: polygon:polygon-indices-aggregates-api
+  name: Polygon Indices:aggregates API
+  description: The indices:aggregates API from Polygon — 6 operation(s) for indices:aggregates.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - indices:aggregates
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-indices-aggregates-api-openapi.yml
+- aid: polygon:polygon-indices-snapshot-api
+  name: Polygon Indices:snapshot API
+  description: The indices:snapshot API from Polygon — 1 operation(s) for indices:snapshot.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - indices:snapshot
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-indices-snapshot-api-openapi.yml
+- aid: polygon:polygon-options-aggregates-api
+  name: Polygon Options:aggregates API
+  description: The options:aggregates API from Polygon — 6 operation(s) for options:aggregates.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - options:aggregates
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-options-aggregates-api-openapi.yml
+- aid: polygon:polygon-options-last-trade-api
+  name: Polygon Options:last:trade API
+  description: The options:last:trade API from Polygon — 1 operation(s) for options:last:trade.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - options:last:trade
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-options-last-trade-api-openapi.yml
+- aid: polygon:polygon-options-open-close-api
+  name: Polygon Options:open Close API
+  description: The options:open-close API from Polygon — 1 operation(s) for options:open-close.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - options:open-close
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-options-open-close-api-openapi.yml
+- aid: polygon:polygon-options-quotes-api
+  name: Polygon Options:quotes API
+  description: The options:quotes API from Polygon — 1 operation(s) for options:quotes.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - options:quotes
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-options-quotes-api-openapi.yml
+- aid: polygon:polygon-options-snapshot-api
+  name: Polygon Options:snapshot API
+  description: The options:snapshot API from Polygon — 2 operation(s) for options:snapshot.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - options:snapshot
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-options-snapshot-api-openapi.yml
+- aid: polygon:polygon-options-trades-api
+  name: Polygon Options:trades API
+  description: The options:trades API from Polygon — 1 operation(s) for options:trades.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - options:trades
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-options-trades-api-openapi.yml
+- aid: polygon:polygon-reference-api
+  name: Polygon Reference API
+  description: Reference API
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-api-openapi.yml
+- aid: polygon:polygon-reference-conditions-api
+  name: Polygon Reference:conditions API
+  description: The reference:conditions API from Polygon — 1 operation(s) for reference:conditions.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:conditions
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-conditions-api-openapi.yml
+- aid: polygon:polygon-reference-dividends-api
+  name: Polygon Reference:dividends API
+  description: The reference:dividends API from Polygon — 1 operation(s) for reference:dividends.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:dividends
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-dividends-api-openapi.yml
+- aid: polygon:polygon-reference-exchanges-api
+  name: Polygon Reference:exchanges API
+  description: The reference:exchanges API from Polygon — 1 operation(s) for reference:exchanges.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:exchanges
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-exchanges-api-openapi.yml
+- aid: polygon:polygon-reference-news-api
+  name: Polygon Reference:news API
+  description: The reference:news API from Polygon — 1 operation(s) for reference:news.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:news
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-news-api-openapi.yml
+- aid: polygon:polygon-reference-options-contract-api
+  name: Polygon Reference:options:contract API
+  description: >-
+    The reference:options:contract API from Polygon — 1 operation(s) for reference:options:contract.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:options:contract
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-options-contract-api-openapi.yml
+- aid: polygon:polygon-reference-options-contracts-list-api
+  name: Polygon Reference:options:contracts:list API
+  description: >-
+    The reference:options:contracts:list API from Polygon — 1 operation(s) for reference:options:contracts:list.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:options:contracts:list
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-options-contracts-list-api-openapi.yml
+- aid: polygon:polygon-reference-related-companies-api
+  name: Polygon Reference:related:companies API
+  description: >-
+    The reference:related:companies API from Polygon — 1 operation(s) for reference:related:companies.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:related:companies
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-related-companies-api-openapi.yml
+- aid: polygon:polygon-reference-sec-filing-api
+  name: Polygon Reference:sec:filing API
+  description: The reference:sec:filing API from Polygon — 1 operation(s) for reference:sec:filing.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:sec:filing
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-sec-filing-api-openapi.yml
+- aid: polygon:polygon-reference-sec-filing-file-api
+  name: Polygon Reference:sec:filing:file API
+  description: >-
+    The reference:sec:filing:file API from Polygon — 1 operation(s) for reference:sec:filing:file.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:sec:filing:file
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-sec-filing-file-api-openapi.yml
+- aid: polygon:polygon-reference-sec-filing-files-api
+  name: Polygon Reference:sec:filing:files API
+  description: >-
+    The reference:sec:filing:files API from Polygon — 1 operation(s) for reference:sec:filing:files.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:sec:filing:files
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-sec-filing-files-api-openapi.yml
+- aid: polygon:polygon-reference-sec-filings-api
+  name: Polygon Reference:sec:filings API
+  description: The reference:sec:filings API from Polygon — 1 operation(s) for reference:sec:filings.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:sec:filings
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-sec-filings-api-openapi.yml
+- aid: polygon:polygon-reference-stocks-api
+  name: Polygon Reference:stocks API
+  description: The reference:stocks API from Polygon — 2 operation(s) for reference:stocks.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:stocks
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-stocks-api-openapi.yml
+- aid: polygon:polygon-reference-stocks-ipos-api
+  name: Polygon Reference:stocks:ipos API
+  description: The reference:stocks:ipos API from Polygon — 1 operation(s) for reference:stocks:ipos.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:stocks:ipos
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-stocks-ipos-api-openapi.yml
+- aid: polygon:polygon-reference-stocks-market-api
+  name: Polygon Reference:stocks:market API
+  description: >-
+    The reference:stocks:market API from Polygon — 2 operation(s) for reference:stocks:market.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:stocks:market
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-stocks-market-api-openapi.yml
+- aid: polygon:polygon-reference-tickers-get-api
+  name: Polygon Reference:tickers:get API
+  description: The reference:tickers:get API from Polygon — 2 operation(s) for reference:tickers:get.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:tickers:get
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-tickers-get-api-openapi.yml
+- aid: polygon:polygon-reference-tickers-list-api
+  name: Polygon Reference:tickers:list API
+  description: The reference:tickers:list API from Polygon — 1 operation(s) for reference:tickers:list.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:tickers:list
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-tickers-list-api-openapi.yml
+- aid: polygon:polygon-reference-tickers-types-api
+  name: Polygon Reference:tickers:types API
+  description: >-
+    The reference:tickers:types API from Polygon — 1 operation(s) for reference:tickers:types.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - reference:tickers:types
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-reference-tickers-types-api-openapi.yml
+- aid: polygon:polygon-snapshot-api
+  name: Polygon Snapshot API
+  description: The Snapshot API from Polygon — 1 operation(s) for snapshot.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - Snapshot
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-snapshot-api-openapi.yml
+- aid: polygon:polygon-stocks-aggregates-api
+  name: Polygon Stocks:aggregates API
+  description: The stocks:aggregates API from Polygon — 7 operation(s) for stocks:aggregates.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - stocks:aggregates
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-stocks-aggregates-api-openapi.yml
+- aid: polygon:polygon-stocks-last-quote-api
+  name: Polygon Stocks:last:quote API
+  description: The stocks:last:quote API from Polygon — 1 operation(s) for stocks:last:quote.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - stocks:last:quote
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-stocks-last-quote-api-openapi.yml
+- aid: polygon:polygon-stocks-last-trade-api
+  name: Polygon Stocks:last:trade API
+  description: The stocks:last:trade API from Polygon — 1 operation(s) for stocks:last:trade.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - stocks:last:trade
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-stocks-last-trade-api-openapi.yml
+- aid: polygon:polygon-stocks-open-close-api
+  name: Polygon Stocks:open Close API
+  description: The stocks:open-close API from Polygon — 2 operation(s) for stocks:open-close.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - stocks:open-close
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-stocks-open-close-api-openapi.yml
+- aid: polygon:polygon-stocks-quotes-api
+  name: Polygon Stocks:quotes API
+  description: The stocks:quotes API from Polygon — 2 operation(s) for stocks:quotes.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - stocks:quotes
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-stocks-quotes-api-openapi.yml
+- aid: polygon:polygon-stocks-snapshot-api
+  name: Polygon Stocks:snapshot API
+  description: The stocks:snapshot API from Polygon — 3 operation(s) for stocks:snapshot.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - stocks:snapshot
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-stocks-snapshot-api-openapi.yml
+- aid: polygon:polygon-stocks-trades-api
+  name: Polygon Stocks:trades API
+  description: The stocks:trades API from Polygon — 2 operation(s) for stocks:trades.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - stocks:trades
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-stocks-trades-api-openapi.yml
+- aid: polygon:polygon-summaries-api
+  name: Polygon Summaries API
+  description: The Summaries API from Polygon — 1 operation(s) for summaries.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - Summaries
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-summaries-api-openapi.yml
+- aid: polygon:polygon-tmx-api
+  name: Polygon Tmx API
+  description: The tmx API from Polygon — 1 operation(s) for tmx.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - tmx
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-tmx-api-openapi.yml
+- aid: polygon:polygon-us-futures-api
+  name: Polygon Us Futures API
+  description: The us_futures API from Polygon — 8 operation(s) for us_futures.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - us_futures
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-us-futures-api-openapi.yml
+- aid: polygon:polygon-us-options-api
+  name: Polygon Us Options API
+  description: The us_options API from Polygon — 3 operation(s) for us_options.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - us_options
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-us-options-api-openapi.yml
+- aid: polygon:polygon-us-stocks-all-api
+  name: Polygon Us Stocks All API
+  description: The us_stocks_all API from Polygon — 2 operation(s) for us_stocks_all.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - us_stocks_all
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-us-stocks-all-api-openapi.yml
+- aid: polygon:polygon-us-stocks-reference-api
+  name: Polygon Us Stocks Reference API
+  description: The us_stocks_reference API from Polygon — 3 operation(s) for us_stocks_reference.
+  humanURL: https://polygon.io/docs/stocks/ws_getting-started
+  baseURL: wss://socket.polygon.io
+  tags:
+  - us_stocks_reference
+  properties:
+  - type: OpenAPI
+    url: openapi/polygon-us-stocks-reference-api-openapi.yml
 common:
   - type: OpenAPI
     url: openapi/polygon-openapi-original.json
