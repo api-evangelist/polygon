@@ -11,8 +11,14 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: cryptoApi
-  url: ../openapi/polygon-crypto-openapi.yml
+- name: aggregatesApi
+  url: ../openapi/polygon-aggregates-api-openapi.yml
+  type: openapi
+- name: booksApi
+  url: ../openapi/polygon-books-api-openapi.yml
+  type: openapi
+- name: snapshotsApi
+  url: ../openapi/polygon-snapshots-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: crypto-pair-analysis

@@ -13,11 +13,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: referenceApi
-  url: ../openapi/polygon-reference-openapi.yml
+- name: aggregatesApi
+  url: ../openapi/polygon-aggregates-api-openapi.yml
   type: openapi
-- name: stocksApi
-  url: ../openapi/polygon-stocks-openapi.yml
+- name: tickersApi
+  url: ../openapi/polygon-tickers-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: ticker-discovery

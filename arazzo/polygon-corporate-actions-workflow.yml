@@ -11,8 +11,11 @@ info:
     the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: referenceApi
-  url: ../openapi/polygon-reference-openapi.yml
+- name: corporateactionsApi
+  url: ../openapi/polygon-corporateactions-api-openapi.yml
+  type: openapi
+- name: tickersApi
+  url: ../openapi/polygon-tickers-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: corporate-actions-review

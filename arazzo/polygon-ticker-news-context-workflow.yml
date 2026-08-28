@@ -12,11 +12,14 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: referenceApi
-  url: ../openapi/polygon-reference-openapi.yml
+- name: dailybarsApi
+  url: ../openapi/polygon-dailybars-api-openapi.yml
   type: openapi
-- name: stocksApi
-  url: ../openapi/polygon-stocks-openapi.yml
+- name: newsApi
+  url: ../openapi/polygon-news-api-openapi.yml
+  type: openapi
+- name: tickersApi
+  url: ../openapi/polygon-tickers-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: ticker-news-context

@@ -13,11 +13,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: referenceApi
-  url: ../openapi/polygon-reference-openapi.yml
+- name: dailybarsApi
+  url: ../openapi/polygon-dailybars-api-openapi.yml
   type: openapi
-- name: stocksApi
-  url: ../openapi/polygon-stocks-openapi.yml
+- name: marketsApi
+  url: ../openapi/polygon-markets-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: market-gated-stock-daily

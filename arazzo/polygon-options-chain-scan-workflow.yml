@@ -12,14 +12,14 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: referenceApi
-  url: ../openapi/polygon-reference-openapi.yml
+- name: dailybarsApi
+  url: ../openapi/polygon-dailybars-api-openapi.yml
   type: openapi
-- name: optionsApi
-  url: ../openapi/polygon-options-openapi.yml
+- name: snapshotsApi
+  url: ../openapi/polygon-snapshots-api-openapi.yml
   type: openapi
-- name: stocksApi
-  url: ../openapi/polygon-stocks-openapi.yml
+- name: tickersApi
+  url: ../openapi/polygon-tickers-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: options-chain-scan

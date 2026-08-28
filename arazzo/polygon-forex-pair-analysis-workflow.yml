@@ -12,8 +12,14 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: forexApi
-  url: ../openapi/polygon-forex-openapi.yml
+- name: aggregatesApi
+  url: ../openapi/polygon-aggregates-api-openapi.yml
+  type: openapi
+- name: conversionApi
+  url: ../openapi/polygon-conversion-api-openapi.yml
+  type: openapi
+- name: quotesApi
+  url: ../openapi/polygon-quotes-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: forex-pair-analysis

@@ -13,8 +13,14 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: optionsApi
-  url: ../openapi/polygon-options-openapi.yml
+- name: aggregatesApi
+  url: ../openapi/polygon-aggregates-api-openapi.yml
+  type: openapi
+- name: contractsApi
+  url: ../openapi/polygon-contracts-api-openapi.yml
+  type: openapi
+- name: snapshotsApi
+  url: ../openapi/polygon-snapshots-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: options-contract-deep-dive
