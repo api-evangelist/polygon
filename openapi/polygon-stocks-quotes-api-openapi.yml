@@ -1,0 +1,782 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Stocks:quotes API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: stocks:quotes
+paths:
+  /v2/ticks/stocks/nbbo/{ticker}/{date}:
+    get:
+      description: 'Get NBBO quotes for a given ticker symbol on a specified date.
+
+        '
+      operationId: DeprecatedGetHistoricStocksQuotes
+      parameters:
+      - description: The ticker symbol we want quotes for.
+        example: AAPL
+        in: path
+        name: ticker
+        required: true
+        schema:
+          type: string
+      - description: The date/day of the quotes to retrieve in the format YYYY-MM-DD.
+        example: '2020-10-14'
+        in: path
+        name: date
+        required: true
+        schema:
+          format: date
+          type: string
+      - description: 'The timestamp offset, used for pagination. This is the offset at which to start the results. Using the `timestamp` of the last result as the offset will give you the next page of results.
+
+          '
+        in: query
+        name: timestamp
+        schema:
+          type: integer
+      - description: 'The maximum timestamp allowed in the results.
+
+          '
+        in: query
+        name: timestampLimit
+        schema:
+          type: integer
+      - description: 'Reverse the order of the results.
+
+          '
+        example: true
+        in: query
+        name: reverse
+        schema:
+          type: boolean
+      - description: Limit the size of the response, max 50000 and default 5000.
+        example: 10
+        in: query
+        name: limit
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                db_latency: 43
+                map:
+                  P:
+                    name: ask_price
+                    type: float64
+                  S:
+                    name: ask_size
+                    type: int
+                  X:
+                    name: ask_exchange
+                    type: int
+                  c:
+                    name: conditions
+                    type: int
+                  f:
+                    name: trf_timestamp
+                    type: int64
+                  i:
+                    name: indicators
+                    type: int
+                  p:
+                    name: bid_price
+                    type: float64
+                  q:
+                    name: sequence_number
+                    type: int
+                  s:
+                    name: bid_size
+                    type: int
+                  t:
+                    name: sip_timestamp
+                    type: int64
+                  x:
+                    name: bid_exchange
+                    type: int
+                  y:
+                    name: participant_timestamp
+                    type: int64
+                  z:
+                    name: tape
+                    type: int
+                results:
+                - P: 0
+                  S: 0
+                  X: 0
+                  c:
+                  - 1
+                  p: 102.7
+                  q: 2060
+                  s: 60
+                  t: 1517562000065700400
+                  x: 11
+                  y: 1517562000065321200
+                  z: 3
+                - P: 0
+                  S: 0
+                  X: 0
+                  c:
+                  - 1
+                  p: 170
+                  q: 2061
+                  s: 2
+                  t: 1517562000065791500
+                  x: 11
+                  y: 1517562000065408300
+                  z: 3
+                results_count: 2
+                success: true
+                ticker: AAPL
+              schema:
+                allOf:
+                - properties:
+                    db_latency:
+                      description: Latency in milliseconds for the query results from the database.
+                      type: integer
+                    results_count:
+                      description: The total number of results for this request.
+                      type: integer
+                    success:
+                      description: Whether or not this query was executed successfully.
+                      type: boolean
+                    ticker:
+                      description: The exchange symbol that this item is traded under.
+                      type: string
+                  type: object
+                - properties:
+                    results:
+                      items:
+                        allOf:
+                        - properties:
+                            T:
+                              description: The exchange symbol that this item is traded under.
+                              type: string
+                            f:
+                              description: The nanosecond accuracy TRF(Trade Reporting Facility) Unix Timestamp. This is the timestamp of when the trade reporting facility received this message.
+                              type: integer
+                            q:
+                              description: 'The sequence number represents the sequence in which message events happened.
+
+                                These are increasing and unique per ticker symbol, but will not always be
+
+                                sequential (e.g., 1, 2, 6, 9, 10, 11).
+
+                                '
+                              format: int64
+                              type: integer
+                            t:
+                              description: The nanosecond accuracy SIP Unix Timestamp. This is the timestamp of when the SIP received this message from the exchange which produced it.
+                              type: integer
+                            y:
+                              description: The nanosecond accuracy Participant/Exchange Unix Timestamp. This is the timestamp of when the quote was actually generated at the exchange.
+                              type: integer
+                          required:
+                          - T
+                          - t
+                          - y
+                          - f
+                          - q
+                          type: object
+                        - properties:
+                            P:
+                              description: The ask price.
+                              format: double
+                              type: number
+                            S:
+                              description: The ask size. This represents the number of round lot orders at the given ask price. The normal round lot size is 100 shares. An ask size of 2 means there are 200 shares available to purchase at the given ask price.
+                              type: integer
+                            X:
+                              description: The ask exchange ID. See <a href="https://massive.com/docs/rest/stocks/market-operations/exchanges" alt="Exchanges">Exchanges</a> for Massive's mapping of exchange IDs.
+                              type: integer
+                            c:
+                              description: 'A list of condition codes.
+
+                                '
+                              items:
+                                description: 'The condition code. These are the conditions of this message. See
+
+                                  [Condition Mappings](https://massive.com/docs/rest/stocks/market-operations/condition-codes)
+
+                                  for a mapping to exchange conditions.
+
+                                  '
+                                type: integer
+                              type: array
+                            i:
+                              description: 'The indicators. For more information, see our glossary of [Conditions and
+
+                                Indicators](https://massive.com/glossary/conditions-indicators).
+
+                                '
+                              items:
+                                description: 'The indicator code.
+
+                                  '
+                                type: integer
+                              type: array
+                            p:
+                              description: The bid price.
+                              format: double
+                              type: number
+                            s:
+                              description: The bid size. This represents the number of round lot orders at the given bid price. The normal round lot size is 100 shares. A bid size of 2 means there are 200 shares for purchase at the given bid price.
+                              type: integer
+                            x:
+                              description: The bid exchange ID. See <a href="https://massive.com/docs/rest/stocks/market-operations/exchanges" alt="Exchanges">Exchanges</a> for Massive's mapping of exchange IDs.
+                              type: integer
+                            z:
+                              description: 'There are 3 tapes which define which exchange the ticker is listed on. These are integers in our objects which represent the letter of the alphabet. Eg: 1 = A, 2 = B, 3 = C.
+
+                                * Tape A is NYSE listed securities
+
+                                * Tape B is NYSE ARCA / NYSE American
+
+                                * Tape C is NASDAQ
+
+                                '
+                              type: integer
+                          required:
+                          - c
+                          - i
+                          - p
+                          - s
+                          - x
+                          - P
+                          - S
+                          - X
+                          - z
+                          type: object
+                      type: array
+                  type: object
+          description: A list of quotes.
+        default:
+          description: Unexpected error
+      summary: Quotes (NBBO)
+      tags:
+      - stocks:quotes
+      x-polygon-deprecation:
+        date: 1654056060000
+        replaces:
+          name: Quotes (NBBO) v3
+          path: get_v3_quotes__stockticker
+      x-polygon-entitlement-data-type:
+        description: NBBO data
+        name: nbbo
+      x-polygon-entitlement-market-type:
+        description: Stocks data
+        name: stocks
+  /v3/quotes/{stockTicker}:
+    get:
+      description: Get NBBO quotes for a ticker symbol in a given time range.
+      operationId: Quotes
+      parameters:
+      - description: Specify a case-sensitive ticker symbol. For example, AAPL represents Apple Inc.
+        example: AAPL
+        in: path
+        name: stockTicker
+        required: true
+        schema:
+          type: string
+        x-polygon-go-id: Ticker
+      - description: Query by timestamp. Either a date with the format YYYY-MM-DD or a nanosecond timestamp.
+        in: query
+        name: timestamp
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gt
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lt
+        schema:
+          type: string
+      - description: Order results based on the `sort` field.
+        in: query
+        name: order
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          example: asc
+          type: string
+      - description: Limit the number of results returned, default is 1000 and max is 50000.
+        in: query
+        name: limit
+        schema:
+          default: 1000
+          example: 10
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: Sort field used for ordering.
+        in: query
+        name: sort
+        schema:
+          default: timestamp
+          enum:
+          - timestamp
+          example: timestamp
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.polygon.io/v3/quotes/AAPL?cursor=YWN0aXZlPXRydWUmZGF0ZT0yMDIxLTA0LTI1JmxpbWl0PTEmb3JkZXI9YXNjJnBhZ2VfbWFya2VyPUElN0M5YWRjMjY0ZTgyM2E1ZjBiOGUyNDc5YmZiOGE1YmYwNDVkYzU0YjgwMDcyMWE2YmI1ZjBjMjQwMjU4MjFmNGZiJnNvcnQ9dGlja2Vy
+                request_id: a47d1beb8c11b6ae897ab76cdbbf35a3
+                results:
+                - ask_exchange: 0
+                  ask_price: 0
+                  ask_size: 0
+                  bid_exchange: 11
+                  bid_price: 102.7
+                  bid_size: 60
+                  conditions:
+                  - 1
+                  participant_timestamp: 1517562000065321200
+                  sequence_number: 2060
+                  sip_timestamp: 1517562000065700400
+                  tape: 3
+                - ask_exchange: 0
+                  ask_price: 0
+                  ask_size: 0
+                  bid_exchange: 11
+                  bid_price: 170
+                  bid_size: 2
+                  conditions:
+                  - 1
+                  participant_timestamp: 1517562000065408300
+                  sequence_number: 2061
+                  sip_timestamp: 1517562000065791500
+                  tape: 3
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: An array of results containing the requested data.
+                    items:
+                      properties:
+                        ask_exchange:
+                          description: The ask exchange ID
+                          type: integer
+                        ask_price:
+                          description: The ask price.
+                          format: double
+                          type: number
+                        ask_size:
+                          description: The total number of shares available for sale at the current ask price.
+                          format: double
+                          type: number
+                        bid_exchange:
+                          description: The bid exchange ID
+                          type: integer
+                        bid_price:
+                          description: The bid price.
+                          format: double
+                          type: number
+                        bid_size:
+                          description: The total number of shares that buyers want to purchase at the current bid price.
+                          format: double
+                          type: number
+                        conditions:
+                          description: A list of condition codes.
+                          items:
+                            description: 'The condition code. These are the conditions of this message. See
+
+                              [Condition Mappings](https://massive.com/docs/rest/stocks/market-operations/condition-codes)
+
+                              for a mapping to exchange conditions.'
+                            format: int32
+                            type: integer
+                          type: array
+                          x-polygon-go-type:
+                            name: Int32Array
+                        indicators:
+                          description: A list of indicator codes.
+                          items:
+                            description: 'The indicator codes. For more information, see our glossary of [Conditions and
+
+                              Indicators](https://massive.com/glossary/conditions-indicators).'
+                            format: int32
+                            type: integer
+                          type: array
+                          x-polygon-go-type:
+                            name: Int32Array
+                        participant_timestamp:
+                          description: The nanosecond accuracy Participant/Exchange Unix Timestamp. This is the timestamp of when the quote was actually generated at the exchange.
+                          format: int64
+                          type: integer
+                          x-polygon-go-type:
+                            name: INanoseconds
+                            path: github.com/polygon-io/ptime
+                        sequence_number:
+                          description: 'The sequence number represents the sequence in which quote events happened.
+
+                            These are increasing and unique per ticker symbol, but will not always be
+
+                            sequential (e.g., 1, 2, 6, 9, 10, 11). Values reset after each trading session/day.'
+                          format: int64
+                          type: integer
+                        sip_timestamp:
+                          description: The nanosecond accuracy SIP Unix Timestamp. This is the timestamp of when the SIP received this quote from the exchange which produced it.
+                          format: int64
+                          type: integer
+                          x-polygon-go-type:
+                            name: INanoseconds
+                            path: github.com/polygon-io/ptime
+                        tape:
+                          description: 'There are 3 tapes which define which exchange the ticker is listed on. These are integers in our objects which represent the letter of the alphabet. Eg: 1 = A, 2 = B, 3 = C.
+
+                            * Tape A is NYSE listed securities
+
+                            * Tape B is NYSE ARCA / NYSE American
+
+                            * Tape C is NASDAQ'
+                          format: int32
+                          type: integer
+                        trf_timestamp:
+                          description: The nanosecond accuracy TRF (Trade Reporting Facility) Unix Timestamp. This is the timestamp of when the trade reporting facility received this quote.
+                          format: int64
+                          type: integer
+                          x-polygon-go-type:
+                            name: INanoseconds
+                            path: github.com/polygon-io/ptime
+                      required:
+                      - participant_timestamp
+                      - sequence_number
+                      - sip_timestamp
+                      type: object
+                      x-polygon-go-type:
+                        name: CommonQuote
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - status
+                type: object
+            text/csv:
+              example: 'ask_exchange,ask_price,ask_size,bid_exchange,bid_price,bid_size,conditions,participant_timestamp,sequence_number,sip_timestamp,tape
+
+                0,0,0,11,102.7,60,1,1517562000065321216,2060,1517562000065700260,3
+
+                0,0,0,11,170,2,1,1517562000065408256,2061,1517562000065791515,3
+
+                '
+              schema:
+                type: string
+          description: A list of quotes.
+      summary: Quotes (NBBO)
+      tags:
+      - stocks:quotes
+      x-polygon-entitlement-data-type:
+        description: NBBO data
+        name: nbbo
+      x-polygon-entitlement-market-type:
+        description: Stocks data
+        name: stocks
+      x-polygon-paginate:
+        limit:
+          default: 1000
+          example: 10
+          max: 50000
+        order:
+          default: desc
+        sort:
+          default: timestamp
+          enum:
+          - timestamp
+      x-polygon-replaces:
+        date: 1654056060000
+        replaces:
+          name: Quotes (NBBO)
+          path: get_v2_ticks_stocks_nbbo__ticker___date
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

@@ -1,0 +1,577 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Reference:stocks:ipos API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: reference:stocks:ipos
+paths:
+  /vX/reference/ipos:
+    get:
+      description: The IPOs API provides access to detailed information about Initial Public Offerings (IPOs), including both upcoming and historical events. With this API, you can query for a comprehensive list of IPOs, along with key details such as the issuer name, ticker symbol, ISIN, IPO date, number of shares offered, expected price range, and final offering price. You can filter the results by status to focus on new, rumors, pending, historical, and more.
+      operationId: ListIPOs
+      parameters:
+      - description: Specify a case-sensitive ticker symbol. For example, TSLA represents Tesla Inc.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Specify a us_code. This is a unique nine-character alphanumeric code that identifies a North American financial security for the purposes of facilitating clearing and settlement of trades.
+        in: query
+        name: us_code
+        schema:
+          type: string
+      - description: Specify an International Securities Identification Number (ISIN). This is a unique twelve-digit code that is assigned to every security issuance in the world.
+        in: query
+        name: isin
+        schema:
+          type: string
+      - description: Specify a listing date. This is the first trading date for the newly listed entity.
+        in: query
+        name: listing_date
+        schema:
+          format: date
+          type: string
+        x-polygon-filter-field:
+          range: true
+          type: string
+      - description: Specify an IPO status.
+        in: query
+        name: ipo_status
+        schema:
+          enum:
+          - direct_listing_process
+          - history
+          - new
+          - pending
+          - postponed
+          - rumor
+          - withdrawn
+          type: string
+      - description: Range by listing_date.
+        in: query
+        name: listing_date.gte
+        schema:
+          format: date
+          type: string
+      - description: Range by listing_date.
+        in: query
+        name: listing_date.gt
+        schema:
+          format: date
+          type: string
+      - description: Range by listing_date.
+        in: query
+        name: listing_date.lte
+        schema:
+          format: date
+          type: string
+      - description: Range by listing_date.
+        in: query
+        name: listing_date.lt
+        schema:
+          format: date
+          type: string
+      - description: Order results based on the `sort` field.
+        in: query
+        name: order
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          example: desc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 1000.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          example: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: Sort field used for ordering.
+        in: query
+        name: sort
+        schema:
+          default: listing_date
+          enum:
+          - listing_date
+          - ticker
+          - last_updated
+          - security_type
+          - issuer_name
+          - currency_code
+          - isin
+          - us_code
+          - final_issue_price
+          - min_shares_offered
+          - max_shares_offered
+          - lowest_offer_price
+          - highest_offer_price
+          - total_offer_size
+          - shares_outstanding
+          - primary_exchange
+          - lot_size
+          - security_description
+          - ipo_status
+          - announced_date
+          example: listing_date
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.polygon.io/vX/reference/ipos?cursor=YWN0aXZlPXRydWUmZGF0ZT0yMDIxLTA0LTI1JmxpbWl0PTEmb3JkZXI9YXNjJnBhZ2VfbWFya2VyPUElN0M5YWRjMjY0ZTgyM2E1ZjBiOGUyNDc5YmZiOGE1YmYwNDVkYzU0YjgwMDcyMWE2YmI1ZjBjMjQwMjU4MjFmNGZiJnNvcnQ9dGlja2Vy
+                request_id: 6a7e466379af0a71039d60cc78e72282
+                results:
+                - announced_date: '2024-06-01'
+                  currency_code: USD
+                  final_issue_price: 17
+                  highest_offer_price: 17
+                  ipo_status: history
+                  isin: US75383L1026
+                  issue_end_date: '2024-06-06'
+                  issue_start_date: '2024-06-01'
+                  issuer_name: Rapport Therapeutics Inc.
+                  last_updated: '2024-06-27'
+                  listing_date: '2024-06-07'
+                  lot_size: 100
+                  lowest_offer_price: 17
+                  max_shares_offered: 8000000
+                  min_shares_offered: 1000000
+                  primary_exchange: XNAS
+                  security_description: Ordinary Shares
+                  security_type: CS
+                  shares_outstanding: 35376457
+                  ticker: RAPP
+                  total_offer_size: 136000000
+                  us_code: 75383L102
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: An array of results containing the requested data.
+                    items:
+                      properties:
+                        announced_date:
+                          description: The date when the IPO event was announced.
+                          example: '2023-01-01'
+                          format: date
+                          type: string
+                        currency_code:
+                          description: Underlying currency of the security.
+                          example: USD
+                          type: string
+                        final_issue_price:
+                          description: The price set by the company and its underwriters before the IPO goes live.
+                          example: 14.5
+                          format: float
+                          type: number
+                        highest_offer_price:
+                          description: The highest price within the IPO price range that the company might use to price the shares.
+                          example: 20
+                          format: float
+                          type: number
+                        ipo_status:
+                          description: 'The status of the IPO event. IPO events start out as status "rumor" or "pending". On listing day, the status changes to "new". After the listing day, the status changes to "history".
+
+
+                            The status "direct_listing_process" corresponds to a type of offering where, instead of going through all the IPO processes, the company decides to list its shares directly on an exchange, without using an investment bank or other intermediaries. This is called a direct listing, direct placement, or direct public offering (DPO).'
+                          enum:
+                          - direct_listing_process
+                          - history
+                          - new
+                          - pending
+                          - postponed
+                          - rumor
+                          - withdrawn
+                          example: history
+                          type: string
+                        isin:
+                          description: International Securities Identification Number. This is a unique twelve-digit code that is assigned to every security issuance in the world.
+                          example: US0378331005
+                          type: string
+                        issuer_name:
+                          description: Name of issuer.
+                          example: Apple Inc.
+                          type: string
+                        last_updated:
+                          description: The date when the IPO event was last modified.
+                          example: '2023-01-02'
+                          format: date
+                          type: string
+                        listing_date:
+                          description: First trading date for the newly listed entity.
+                          example: '2023-02-01'
+                          format: date
+                          type: string
+                        lot_size:
+                          description: The minimum number of shares that can be bought or sold in a single transaction.
+                          example: 100
+                          type: number
+                        lowest_offer_price:
+                          description: The lowest price within the IPO price range that the company is willing to offer its shares to investors.
+                          example: 10
+                          format: float
+                          type: number
+                        max_shares_offered:
+                          description: The upper limit of the shares that the company is offering to investors.
+                          example: 1000
+                          type: number
+                        min_shares_offered:
+                          description: The lower limit of shares that the company is willing to sell in the IPO.
+                          example: 1000
+                          type: number
+                        primary_exchange:
+                          description: Market Identifier Code (MIC) of the primary exchange where the security is listed. The Market Identifier Code (MIC) (ISO 10383) is a unique identification code used to identify securities trading exchanges, regulated and non-regulated trading markets.
+                          example: XNAS
+                          type: string
+                        security_description:
+                          description: Description of the security.
+                          example: Ordinary Shares - Class A
+                          type: string
+                        security_type:
+                          description: The classification of the stock. For example, "CS" stands for Common Stock.
+                          example: CS
+                          type: string
+                        shares_outstanding:
+                          description: The total number of shares that the company has issued and are held by investors.
+                          example: 1000000
+                          type: number
+                        ticker:
+                          description: The ticker symbol of the IPO event.
+                          example: TSLA
+                          type: string
+                        total_offer_size:
+                          description: The total amount raised by the company for IPO.
+                          example: 1000000
+                          format: float
+                          type: number
+                        us_code:
+                          description: This is a unique nine-character alphanumeric code that identifies a North American financial security for the purposes of facilitating clearing and settlement of trades.
+                          example: 37833100
+                          type: string
+                      required:
+                      - last_updated
+                      - issuer_name
+                      - security_type
+                      - ipo_status
+                      - ticker
+                      type: object
+                      x-polygon-go-type:
+                        name: IPOsResult
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                type: object
+          description: A list of IPO events.
+      summary: IPOs
+      tags:
+      - reference:stocks:ipos
+      x-polygon-entitlement-data-type:
+        description: Reference data
+        name: reference
+      x-polygon-paginate:
+        limit:
+          default: 10
+          max: 1000
+        order:
+          default: desc
+          example: desc
+        sort:
+          default: listing_date
+          enum:
+          - listing_date
+          - ticker
+          - last_updated
+          - security_type
+          - issuer_name
+          - currency_code
+          - isin
+          - us_code
+          - final_issue_price
+          - min_shares_offered
+          - max_shares_offered
+          - lowest_offer_price
+          - highest_offer_price
+          - total_offer_size
+          - shares_outstanding
+          - primary_exchange
+          - lot_size
+          - security_description
+          - ipo_status
+          - announced_date
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

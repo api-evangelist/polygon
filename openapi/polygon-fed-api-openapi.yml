@@ -1,0 +1,848 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Fed API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: fed
+paths:
+  /fed/v1/inflation:
+    get:
+      description: A table tracking inflation and price indices, including Consumer Price Index (CPI) and Personal Consumption Expenditures (PCE) metrics over time.
+      operationId: get_fed_v1_inflation
+      parameters:
+      - description: Calendar date of the observation (YYYY‑MM‑DD).
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'date' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: date.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - cpi: 310.45
+                  cpi_core: 320.1
+                  cpi_year_over_year: 3.18
+                  date: '2025-06-01'
+                  pce: 132.73
+                  pce_core: 131.9
+                  pce_spending: 20345.6
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        cpi:
+                          description: Consumer Price Index (CPI) for All Urban Consumers — a standard measure of headline inflation based on a fixed basket of goods and services, not seasonally adjusted.
+                          format: float
+                          type: number
+                        cpi_core:
+                          description: Core Consumer Price Index — the CPI excluding food and energy, used to understand underlying inflation trends without short-term volatility.
+                          format: float
+                          type: number
+                        cpi_year_over_year:
+                          description: Year-over-year percentage change in the headline CPI — the most commonly cited inflation rate in public discourse and economic policy.
+                          format: float
+                          type: number
+                        date:
+                          description: Calendar date of the observation (YYYY‑MM‑DD).
+                          type: string
+                        pce:
+                          description: Personal Consumption Expenditures (PCE) Price Index — a broader measure of inflation used by the Federal Reserve, reflecting actual consumer spending patterns and updated basket weights.
+                          format: float
+                          type: number
+                        pce_core:
+                          description: Core PCE Price Index — excludes food and energy prices from the PCE index, and is the Fed's preferred measure of underlying inflation.
+                          format: float
+                          type: number
+                        pce_spending:
+                          description: Nominal Personal Consumption Expenditures — total dollar value of consumer spending in the U.S. economy, reported in billions of dollars and not adjusted for inflation.
+                          format: float
+                          type: number
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - fed
+  /fed/v1/inflation-expectations:
+    get:
+      description: A table tracking inflation expectations from both market-based and economic model perspectives across different time horizons.
+      operationId: get_fed_v1_inflation-expectations
+      parameters:
+      - description: Calendar date of the observation (YYYY‑MM‑DD).
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'date' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: date.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - date: '2025-06-17'
+                  forward_years_5_to_10: 2.6
+                  market_10_year: 2.36
+                  market_5_year: 2.12
+                  model_10_year: 2.95
+                  model_1_year: 2.85
+                  model_30_year: 3
+                  model_5_year: 2.91
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        date:
+                          description: Calendar date of the observation (YYYY‑MM‑DD).
+                          type: string
+                        forward_years_5_to_10:
+                          description: 5-Year, 5-Year Forward Inflation Expectation Rate — the market's expectation of average annual inflation for the 5-year period beginning 5 years from now, based on the spread between forward nominal and real yields.
+                          format: float
+                          type: number
+                        market_10_year:
+                          description: 10-Year Breakeven Inflation Rate — the market's expectation of average annual inflation over the next 10 years, based on the spread between 10-year nominal Treasury yields and 10-year TIPS yields.
+                          format: float
+                          type: number
+                        market_5_year:
+                          description: 5-Year Breakeven Inflation Rate — the market's expectation of average annual inflation over the next 5 years, based on the spread between 5-year nominal Treasury yields and 5-year TIPS yields.
+                          format: float
+                          type: number
+                        model_10_year:
+                          description: The Cleveland Fed’s 10-year inflation expectations data estimated expected inflation, risk premiums, and the real interest rate using a model based on Treasury yields, inflation data, swaps, and surveys.
+                          format: float
+                          type: number
+                        model_1_year:
+                          description: The Cleveland Fed’s 1-year inflation expectations data estimated expected inflation, risk premiums, and the real interest rate using a model based on Treasury yields, inflation data, swaps, and surveys.
+                          format: float
+                          type: number
+                        model_30_year:
+                          description: The Cleveland Fed’s 30-year inflation expectations data estimated expected inflation, risk premiums, and the real interest rate using a model based on Treasury yields, inflation data, swaps, and surveys.
+                          format: float
+                          type: number
+                        model_5_year:
+                          description: The Cleveland Fed’s 5-year inflation expectations data estimated expected inflation, risk premiums, and the real interest rate using a model based on Treasury yields, inflation data, swaps, and surveys.
+                          format: float
+                          type: number
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - fed
+  /fed/v1/labor-market:
+    get:
+      description: Labor market indicators from the Federal Reserve, including unemployment rate, labor force participation, average hourly earnings, and job openings data.
+      operationId: get_fed_v1_labor-market
+      parameters:
+      - description: Calendar date of the observation (YYYY-MM-DD).
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'date' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: date.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - avg_hourly_earnings: 35.06
+                  date: '2024-12-01'
+                  job_openings: 8098
+                  labor_force_participation_rate: 62.5
+                  unemployment_rate: 4.2
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        avg_hourly_earnings:
+                          description: Average hourly earnings of all employees on private nonfarm payrolls in USD (CES0500000003 series from FRED).
+                          format: float
+                          type: number
+                        date:
+                          description: Calendar date of the observation (YYYY-MM-DD).
+                          type: string
+                        job_openings:
+                          description: Total nonfarm job openings in thousands (JTSJOL series from FRED).
+                          format: float
+                          type: number
+                        labor_force_participation_rate:
+                          description: Civilian labor force participation rate as a percentage of the civilian noninstitutional population (CIVPART series from FRED).
+                          format: float
+                          type: number
+                        unemployment_rate:
+                          description: Civilian unemployment rate as a percentage of the labor force (UNRATE series from FRED).
+                          format: float
+                          type: number
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - fed
+  /fed/v1/treasury-yields:
+    get:
+      description: A record of U.S. Treasury bond yields across various maturity periods, tracking historical interest rates from short-term to long-term government securities.
+      operationId: get_fed_v1_treasury-yields
+      parameters:
+      - description: Calendar date of the yield observation (YYYY-MM-DD).
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'date' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: date.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - date: '1962-01-02'
+                  yield_10_year: 4.06
+                  yield_1_year: 3.22
+                  yield_5_year: 3.88
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        date:
+                          description: Calendar date of the yield observation (YYYY-MM-DD).
+                          type: string
+                        yield_10_year:
+                          description: Market Yield on U.S. Treasury Securities at 10-Year Constant Maturity, Quoted on an Investment Basis
+                          format: float
+                          type: number
+                        yield_1_month:
+                          description: Market Yield on U.S. Treasury Securities at 1-Month Constant Maturity, Quoted on an Investment Basis
+                          format: float
+                          type: number
+                        yield_1_year:
+                          description: Market Yield on U.S. Treasury Securities at 1-Year Constant Maturity, Quoted on an Investment Basis
+                          format: float
+                          type: number
+                        yield_20_year:
+                          description: Market Yield on U.S. Treasury Securities at 20-Year Constant Maturity, Quoted on an Investment Basis
+                          format: float
+                          type: number
+                        yield_2_year:
+                          description: Market Yield on U.S. Treasury Securities at 2-Year Constant Maturity, Quoted on an Investment Basis
+                          format: float
+                          type: number
+                        yield_30_year:
+                          description: Market Yield on U.S. Treasury Securities at 30-Year Constant Maturity, Quoted on an Investment Basis
+                          format: float
+                          type: number
+                        yield_3_month:
+                          description: Market Yield on U.S. Treasury Securities at 3-Month Constant Maturity, Quoted on an Investment Basis
+                          format: float
+                          type: number
+                        yield_3_year:
+                          description: Market Yield on U.S. Treasury Securities at 3-Year Constant Maturity, Quoted on an Investment Basis
+                          format: float
+                          type: number
+                        yield_5_year:
+                          description: Market Yield on U.S. Treasury Securities at 5-Year Constant Maturity, Quoted on an Investment Basis
+                          format: float
+                          type: number
+                        yield_6_month:
+                          description: Market Yield on U.S. Treasury Securities at 6-Month Constant Maturity, Quoted on an Investment Basis
+                          format: float
+                          type: number
+                        yield_7_year:
+                          description: Market Yield on U.S. Treasury Securities at 7-Year Constant Maturity, Quoted on an Investment Basis
+                          format: float
+                          type: number
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - fed
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

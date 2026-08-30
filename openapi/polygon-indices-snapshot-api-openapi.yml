@@ -1,0 +1,488 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Indices:snapshot API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: indices:snapshot
+paths:
+  /v3/snapshot/indices:
+    get:
+      description: Get a Snapshot of indices data for said tickers
+      operationId: IndicesSnapshot
+      parameters:
+      - description: 'Comma separated list of tickers, up to a maximum of 250. If no tickers are passed then all results will be returned in a paginated manner.
+
+
+          Warning: The maximum number of characters allowed in a URL are subject to your technology stack.'
+        example: I:DJI
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Search a range of tickers lexicographically.
+        in: query
+        name: ticker
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Order results based on the `sort` field.
+        in: query
+        name: order
+        schema:
+          enum:
+          - asc
+          - desc
+          example: asc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 250.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          example: 10
+          maximum: 250
+          minimum: 1
+          type: integer
+      - description: Sort field used for ordering.
+        in: query
+        name: sort
+        schema:
+          default: ticker
+          enum:
+          - ticker
+          example: ticker
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: 6a7e466379af0a71039d60cc78e72282
+                results:
+                - last_updated: 1679597116344223500
+                  market_status: closed
+                  name: Dow Jones Industrial Average
+                  session:
+                    change: -50.01
+                    change_percent: -1.45
+                    close: 3822.39
+                    high: 3834.41
+                    low: 38217.11
+                    open: 3827.38
+                    previous_close: 3812.19
+                  ticker: I:DJI
+                  timeframe: REAL-TIME
+                  type: indices
+                  value: 3822.39
+                - error: NOT_FOUND
+                  message: Ticker not found.
+                  ticker: APx
+                - error: NOT_ENTITLED
+                  message: Not entitled to this ticker.
+                  ticker: APy
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: An array of results containing the requested data.
+                    items:
+                      properties:
+                        error:
+                          description: The error while looking for this ticker.
+                          type: string
+                        last_updated:
+                          description: The nanosecond timestamp of when this information was updated.
+                          format: int64
+                          type: integer
+                          x-polygon-go-type:
+                            name: INanoseconds
+                            path: github.com/polygon-io/ptime
+                        market_status:
+                          description: The market status for the market that trades this ticker.
+                          type: string
+                        message:
+                          description: The error message while looking for this ticker.
+                          type: string
+                        name:
+                          description: Name of Index.
+                          type: string
+                        session:
+                          description: Trading session metrics, detailing change percentages and key price points (open, close, high, low) for the asset within the current trading day.
+                          properties:
+                            change:
+                              description: The value of the change for the index from the previous trading day.
+                              format: double
+                              type: number
+                            change_percent:
+                              description: The percent of the change for the index from the previous trading day.
+                              format: double
+                              type: number
+                            close:
+                              description: The closing value for the index of the day.
+                              format: double
+                              type: number
+                            high:
+                              description: The highest value for the index of the day.
+                              format: double
+                              type: number
+                            low:
+                              description: The lowest value for the index of the day.
+                              format: double
+                              type: number
+                            open:
+                              description: The open value for the index of the day.
+                              format: double
+                              type: number
+                            previous_close:
+                              description: The closing value for the index of previous trading day.
+                              format: double
+                              type: number
+                          type: object
+                          x-polygon-go-type:
+                            name: IndicesSession
+                        ticker:
+                          description: Ticker of asset queried.
+                          type: string
+                        timeframe:
+                          description: The time relevance of the data.
+                          enum:
+                          - DELAYED
+                          - REAL-TIME
+                          type: string
+                        type:
+                          description: The indices market.
+                          enum:
+                          - indices
+                          type: string
+                        value:
+                          description: Value of Index.
+                          type: number
+                      required:
+                      - ticker
+                      type: object
+                      x-polygon-go-type:
+                        name: IndicesResult
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - status
+                - request_id
+                type: object
+          description: Snapshots for indices data of the underlying ticker
+      summary: Indices Snapshot
+      tags:
+      - indices:snapshot
+      x-polygon-entitlement-allowed-timeframes:
+      - description: Real Time Data
+        name: realtime
+      - description: 15 minute delayed data
+        name: delayed
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Indices data
+        name: indices
+      x-polygon-paginate:
+        limit:
+          default: 10
+          max: 250
+        sort:
+          default: ticker
+          enum:
+          - ticker
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

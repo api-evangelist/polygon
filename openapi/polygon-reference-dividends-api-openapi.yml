@@ -1,0 +1,659 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Reference:dividends API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: reference:dividends
+paths:
+  /v3/reference/dividends:
+    get:
+      description: 'Get a list of historical cash dividends, including the ticker symbol,
+
+        declaration date, ex-dividend date, record date, pay date, frequency,
+
+        and amount.'
+      operationId: ListDividends
+      parameters:
+      - description: Specify a case-sensitive ticker symbol. For example, AAPL represents Apple Inc.
+        in: query
+        name: ticker
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+          type: string
+      - description: Query by ex-dividend date with the format YYYY-MM-DD.
+        in: query
+        name: ex_dividend_date
+        schema:
+          format: date
+          type: string
+        x-polygon-filter-field:
+          range: true
+          type: string
+      - description: Query by record date with the format YYYY-MM-DD.
+        in: query
+        name: record_date
+        schema:
+          format: date
+          type: string
+        x-polygon-filter-field:
+          range: true
+          type: string
+      - description: Query by declaration date with the format YYYY-MM-DD.
+        in: query
+        name: declaration_date
+        schema:
+          format: date
+          type: string
+        x-polygon-filter-field:
+          range: true
+          type: string
+      - description: Query by pay date with the format YYYY-MM-DD.
+        in: query
+        name: pay_date
+        schema:
+          format: date
+          type: string
+        x-polygon-filter-field:
+          range: true
+          type: string
+      - description: Query by the number of times per year the dividend is paid out.  Possible values are 0 (one-time), 1 (annually), 2 (bi-annually), 4 (quarterly), 12 (monthly), 24 (bi-monthly), and 52 (weekly).
+        in: query
+        name: frequency
+        schema:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 4
+          - 12
+          - 24
+          - 52
+          type: integer
+      - description: Query by the cash amount of the dividend.
+        in: query
+        name: cash_amount
+        schema:
+          type: number
+        x-polygon-filter-field:
+          range: true
+          type: number
+      - description: 'Query by the type of dividend. Dividends that have been paid and/or are expected to be paid on consistent schedules are denoted as CD.
+
+          Special Cash dividends that have been paid that are infrequent or unusual, and/or can not be expected to occur in the future are denoted as SC.'
+        in: query
+        name: dividend_type
+        schema:
+          description: 'The type of dividend. Dividends that have been paid and/or are expected to be paid on consistent schedules are denoted as CD.
+
+            Special Cash dividends that have been paid that are infrequent or unusual, and/or can not be expected to occur in the future are denoted as SC.
+
+            Long-Term and Short-Term capital gain distributions are denoted as LT and ST, respectively.'
+          enum:
+          - CD
+          - SC
+          - LT
+          - ST
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Range by ex_dividend_date.
+        in: query
+        name: ex_dividend_date.gte
+        schema:
+          format: date
+          type: string
+      - description: Range by ex_dividend_date.
+        in: query
+        name: ex_dividend_date.gt
+        schema:
+          format: date
+          type: string
+      - description: Range by ex_dividend_date.
+        in: query
+        name: ex_dividend_date.lte
+        schema:
+          format: date
+          type: string
+      - description: Range by ex_dividend_date.
+        in: query
+        name: ex_dividend_date.lt
+        schema:
+          format: date
+          type: string
+      - description: Range by record_date.
+        in: query
+        name: record_date.gte
+        schema:
+          format: date
+          type: string
+      - description: Range by record_date.
+        in: query
+        name: record_date.gt
+        schema:
+          format: date
+          type: string
+      - description: Range by record_date.
+        in: query
+        name: record_date.lte
+        schema:
+          format: date
+          type: string
+      - description: Range by record_date.
+        in: query
+        name: record_date.lt
+        schema:
+          format: date
+          type: string
+      - description: Range by declaration_date.
+        in: query
+        name: declaration_date.gte
+        schema:
+          format: date
+          type: string
+      - description: Range by declaration_date.
+        in: query
+        name: declaration_date.gt
+        schema:
+          format: date
+          type: string
+      - description: Range by declaration_date.
+        in: query
+        name: declaration_date.lte
+        schema:
+          format: date
+          type: string
+      - description: Range by declaration_date.
+        in: query
+        name: declaration_date.lt
+        schema:
+          format: date
+          type: string
+      - description: Range by pay_date.
+        in: query
+        name: pay_date.gte
+        schema:
+          format: date
+          type: string
+      - description: Range by pay_date.
+        in: query
+        name: pay_date.gt
+        schema:
+          format: date
+          type: string
+      - description: Range by pay_date.
+        in: query
+        name: pay_date.lte
+        schema:
+          format: date
+          type: string
+      - description: Range by pay_date.
+        in: query
+        name: pay_date.lt
+        schema:
+          format: date
+          type: string
+      - description: Range by cash_amount.
+        in: query
+        name: cash_amount.gte
+        schema:
+          type: number
+      - description: Range by cash_amount.
+        in: query
+        name: cash_amount.gt
+        schema:
+          type: number
+      - description: Range by cash_amount.
+        in: query
+        name: cash_amount.lte
+        schema:
+          type: number
+      - description: Range by cash_amount.
+        in: query
+        name: cash_amount.lt
+        schema:
+          type: number
+      - description: Order results based on the `sort` field.
+        in: query
+        name: order
+        schema:
+          enum:
+          - asc
+          - desc
+          example: asc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 1000.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          example: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: Sort field used for ordering.
+        in: query
+        name: sort
+        schema:
+          default: ex_dividend_date
+          enum:
+          - ex_dividend_date
+          - pay_date
+          - declaration_date
+          - record_date
+          - cash_amount
+          - ticker
+          example: ex_dividend_date
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: A list of dividends.
+                example:
+                  next_url: https://api.polygon.io/v3/reference/dividends/AAPL?cursor=YWN0aXZlPXRydWUmZGF0ZT0yMDIxLTA0LTI1JmxpbWl0PTEmb3JkZXI9YXNjJnBhZ2VfbWFya2VyPUElN0M5YWRjMjY0ZTgyM2E1ZjBiOGUyNDc5YmZiOGE1YmYwNDVkYzU0YjgwMDcyMWE2YmI1ZjBjMjQwMjU4MjFmNGZiJnNvcnQ9dGlja2Vy
+                  request_id: 6a7e466379af0a71039d60cc78e72282
+                  results:
+                  - cash_amount: 0.22
+                    declaration_date: '2021-10-28'
+                    dividend_type: CD
+                    ex_dividend_date: '2021-11-05'
+                    frequency: 4
+                    id: E8e3c4f794613e9205e2f178a36c53fcc57cdabb55e1988c87b33f9e52e221444
+                    pay_date: '2021-11-11'
+                    record_date: '2021-11-08'
+                    ticker: AAPL
+                  - cash_amount: 0.22
+                    declaration_date: '2021-07-27'
+                    dividend_type: CD
+                    ex_dividend_date: '2021-08-06'
+                    frequency: 4
+                    id: E6436c5475706773f03490acf0b63fdb90b2c72bfeed329a6eb4afc080acd80ae
+                    pay_date: '2021-08-12'
+                    record_date: '2021-08-09'
+                    ticker: AAPL
+                  status: OK
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: An array of results containing the requested data.
+                    items:
+                      properties:
+                        cash_amount:
+                          description: The cash amount of the dividend per share owned.
+                          type: number
+                          x-polygon-go-field-tags:
+                            tags:
+                            - key: binding
+                              value: required
+                        currency:
+                          description: The currency in which the dividend is paid.
+                          type: string
+                        declaration_date:
+                          description: The date that the dividend was announced.
+                          type: string
+                        dividend_type:
+                          description: 'The type of dividend. Dividends that have been paid and/or are expected to be paid on consistent schedules are denoted as CD.
+
+                            Special Cash dividends that have been paid that are infrequent or unusual, and/or can not be expected to occur in the future are denoted as SC.
+
+                            Long-Term and Short-Term capital gain distributions are denoted as LT and ST, respectively.'
+                          enum:
+                          - CD
+                          - SC
+                          - LT
+                          - ST
+                          type: string
+                        ex_dividend_date:
+                          description: The date that the stock first trades without the dividend, determined by the exchange.
+                          type: string
+                        frequency:
+                          description: The number of times per year the dividend is paid out. Possible values are 0 (one-time), 1 (annually), 2 (bi-annually), 4 (quarterly), 12 (monthly), 24 (bi-monthly), and 52 (weekly).
+                          type: integer
+                        id:
+                          description: The unique identifier of the dividend.
+                          type: string
+                        pay_date:
+                          description: The date that the dividend is paid out.
+                          type: string
+                        record_date:
+                          description: The date that the stock must be held to receive the dividend, set by the company.
+                          type: string
+                        ticker:
+                          description: The ticker symbol of the dividend.
+                          type: string
+                      required:
+                      - ticker
+                      - ex_dividend_date
+                      - frequency
+                      - cash_amount
+                      - dividend_type
+                      - id
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - request_id
+                type: object
+            text/csv:
+              schema:
+                example: 'ticker,declaration_date,ex_dividend_date,record_date,pay_date,frequency,cash_amount,dividend_type
+
+                  AAPL,2021-10-28,2021-11-05,2021-11-08,2021-11-11,4,0.22,CD
+
+                  AAPL,2021-07-27,2021-08-06,2021-08-09,2021-08-12,4,0.22,CD
+
+                  '
+                type: string
+          description: OK
+      summary: Dividends v3
+      tags:
+      - reference:dividends
+      x-polygon-entitlement-data-type:
+        description: Reference data
+        name: reference
+      x-polygon-paginate:
+        limit:
+          default: 10
+          max: 1000
+        sort:
+          default: ex_dividend_date
+          enum:
+          - ex_dividend_date
+          - pay_date
+          - declaration_date
+          - record_date
+          - cash_amount
+          - ticker
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

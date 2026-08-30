@@ -1,0 +1,451 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Reference:exchanges API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: reference:exchanges
+paths:
+  /v3/reference/exchanges:
+    get:
+      description: List all exchanges that Massive knows about.
+      operationId: ListExchanges
+      parameters:
+      - description: Filter by asset class.
+        in: query
+        name: asset_class
+        schema:
+          description: An identifier for a group of similar financial instruments.
+          enum:
+          - stocks
+          - options
+          - crypto
+          - fx
+          - futures
+          example: stocks
+          type: string
+      - description: Filter by locale.
+        in: query
+        name: locale
+        schema:
+          description: An identifier for a geographical location.
+          enum:
+          - us
+          - global
+          example: us
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  count:
+                    description: The total number of results for this request.
+                    example: 1
+                    type: integer
+                  request_id:
+                    description: A request ID assigned by the server.
+                    example: 31d59dda-80e5-4721-8496-d0d32a654afe
+                    type: string
+                  results:
+                    description: An array of results containing the requested data.
+                    items:
+                      description: An entity that reports trades.
+                      properties:
+                        acronym:
+                          description: A commonly used abbreviation for this exchange.
+                          example: AMEX
+                          type: string
+                        asset_class:
+                          description: An identifier for a group of similar financial instruments.
+                          enum:
+                          - stocks
+                          - options
+                          - crypto
+                          - fx
+                          - futures
+                          example: stocks
+                          type: string
+                        id:
+                          description: A unique identifier used by Massive for this exchange.
+                          example: 1
+                          type: integer
+                        locale:
+                          description: An identifier for a geographical location.
+                          enum:
+                          - us
+                          - global
+                          example: us
+                          type: string
+                        mic:
+                          description: The Market Identifier Code of this exchange (see ISO 10383).
+                          example: XASE
+                          type: string
+                        name:
+                          description: Name of this exchange.
+                          example: NYSE American, LLC
+                          type: string
+                        operating_mic:
+                          description: The MIC of the entity that operates this exchange.
+                          example: XNYS
+                          type: string
+                        participant_id:
+                          description: The ID used by SIP's to represent this exchange.
+                          example: A
+                          type: string
+                        type:
+                          description: Represents the type of exchange.
+                          enum:
+                          - exchange
+                          - TRF
+                          - SIP
+                          example: exchange
+                          type: string
+                        url:
+                          description: A link to this exchange's website, if one exists.
+                          example: https://www.nyse.com/markets/nyse-american
+                          type: string
+                      required:
+                      - id
+                      - type
+                      - asset_class
+                      - locale
+                      - name
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    example: OK
+                    type: string
+                required:
+                - status
+                - request_id
+                type: object
+            text/csv:
+              example: 'id,type,asset_class,locale,name,acronym,mic,operating_mic,participant_id,url
+
+                1,exchange,stocks,us,"NYSE American, LLC",AMEX,XASE,XNYS,65,https://www.nyse.com/markets/nyse-american
+
+                2,exchange,stocks,us,"Nasdaq OMX BX, Inc.",,XBOS,XNAS,66,https://www.nasdaq.com/solutions/nasdaq-bx-stock-market
+
+                3,exchange,stocks,us,"NYSE National, Inc.",NSX,XCIS,XNYS,67,https://www.nyse.com/markets/nyse-national
+
+                '
+              schema:
+                type: string
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  count:
+                    description: The total number of results for this request.
+                    example: 1
+                    type: integer
+                  request_id:
+                    description: A request ID assigned by the server.
+                    example: 31d59dda-80e5-4721-8496-d0d32a654afe
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    example: OK
+                    type: string
+                required:
+                - status
+                - request_id
+                type: object
+          description: a query parameter was malformed
+        default:
+          content:
+            application/json:
+              schema:
+                properties:
+                  count:
+                    description: The total number of results for this request.
+                    example: 1
+                    type: integer
+                  request_id:
+                    description: A request ID assigned by the server.
+                    example: 31d59dda-80e5-4721-8496-d0d32a654afe
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    example: OK
+                    type: string
+                required:
+                - status
+                - request_id
+                type: object
+          description: an unknown error occurred
+      summary: Exchanges
+      tags:
+      - reference:exchanges
+      x-polygon-entitlement-data-type:
+        description: Reference data
+        name: reference
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

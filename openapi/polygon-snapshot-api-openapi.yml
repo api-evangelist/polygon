@@ -1,0 +1,941 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Snapshot API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: Snapshot
+paths:
+  /v3/snapshot:
+    get:
+      description: Get snapshots for assets of all types
+      operationId: Snapshots
+      parameters:
+      - description: Search a range of tickers lexicographically.
+        in: query
+        name: ticker
+        schema:
+          type: string
+        x-polygon-filter-field:
+          anyOf:
+            description: 'Comma separated list of tickers, up to a maximum of 250. If no tickers are passed then all results will be returned in a paginated manner.
+
+
+              Warning: The maximum number of characters allowed in a URL are subject to your technology stack.
+
+              '
+            enabled: true
+            example: NCLH,O:SPY250321C00380000,C:EURUSD,X:BTCUSD,I:SPX
+          range: true
+          type: string
+      - description: Query by the type of asset.
+        in: query
+        name: type
+        schema:
+          enum:
+          - stocks
+          - options
+          - crypto
+          - fx
+          - indices
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: 'Comma separated list of tickers, up to a maximum of 250. If no tickers are passed then all results will be returned in a paginated manner.
+
+
+          Warning: The maximum number of characters allowed in a URL are subject to your technology stack.
+
+          '
+        example: NCLH,O:SPY250321C00380000,C:EURUSD,X:BTCUSD,I:SPX
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Order results based on the `sort` field.
+        in: query
+        name: order
+        schema:
+          enum:
+          - asc
+          - desc
+          example: asc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 250.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          example: 10
+          maximum: 250
+          minimum: 1
+          type: integer
+      - description: Sort field used for ordering.
+        in: query
+        name: sort
+        schema:
+          default: ticker
+          enum:
+          - ticker
+          example: ticker
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: abc123
+                results:
+                - break_even_price: 171.075
+                  details:
+                    contract_type: call
+                    exercise_style: american
+                    expiration_date: '2022-10-14'
+                    shares_per_contract: 100
+                    strike_price: 5
+                    underlying_ticker: NCLH
+                  fmv: 0.05
+                  fmv_last_updated: 1636573458757383400
+                  greeks:
+                    delta: 0.5520187372272933
+                    gamma: 0.00706756515659829
+                    theta: -0.018532772783847958
+                    vega: 0.7274811132998142
+                  implied_volatility: 0.3048997097864957
+                  last_quote:
+                    ask: 21.25
+                    ask_exchange: 12
+                    ask_size: 110
+                    bid: 20.9
+                    bid_exchange: 10
+                    bid_size: 172
+                    last_updated: 1636573458756383500
+                    midpoint: 21.075
+                    timeframe: REAL-TIME
+                  last_trade:
+                    conditions:
+                    - 209
+                    exchange: 316
+                    price: 0.05
+                    sip_timestamp: 1675280958783136800
+                    size: 2
+                    timeframe: REAL-TIME
+                  market_status: closed
+                  name: NCLH $5 Call
+                  open_interest: 8921
+                  session:
+                    change: -0.05
+                    change_percent: -1.07
+                    close: 6.65
+                    decimal_volume: '67.0'
+                    early_trading_change: -0.01
+                    early_trading_change_percent: -0.03
+                    high: 7.01
+                    late_trading_change: -0.4
+                    late_trading_change_percent: -0.02
+                    low: 5.42
+                    open: 6.7
+                    previous_close: 6.71
+                    regular_trading_change: -0.6
+                    regular_trading_change_percent: -0.5
+                    volume: 67
+                  ticker: O:NCLH221014C00005000
+                  type: options
+                  underlying_asset:
+                    change_to_break_even: 23.123999999999995
+                    last_updated: 1636573459862384600
+                    price: 147.951
+                    ticker: AAPL
+                    timeframe: REAL-TIME
+                - fmv: 0.05
+                  fmv_last_updated: 1636573458757383400
+                  last_minute:
+                    close: 412.05
+                    decimal_volume: '610.0'
+                    high: 412.1
+                    low: 412.05
+                    open: 412.1
+                    transactions: 26
+                    volume: 610
+                    vwap: 412.0881
+                  last_quote:
+                    ask: 21.25
+                    ask_exchange: 300
+                    ask_size: 110
+                    bid: 20.9
+                    bid_exchange: 323
+                    bid_size: 172
+                    last_updated: 1636573458756383500
+                    timeframe: REAL-TIME
+                  last_trade:
+                    conditions:
+                    - 209
+                    decimal_size: '2.0'
+                    exchange: 316
+                    id: '4064'
+                    last_updated: 1675280958783136800
+                    price: 0.05
+                    size: 2
+                    timeframe: REAL-TIME
+                  market_status: closed
+                  name: Apple Inc.
+                  session:
+                    change: -1.05
+                    change_percent: -4.67
+                    close: 21.4
+                    decimal_volume: '37.0'
+                    early_trading_change: -0.39
+                    early_trading_change_percent: -0.07
+                    high: 22.49
+                    late_trading_change: 1.2
+                    late_trading_change_percent: 3.92
+                    low: 21.35
+                    open: 22.49
+                    previous_close: 22.45
+                    volume: 37
+                  ticker: AAPL
+                  type: stocks
+                - error: NOT_FOUND
+                  message: Ticker not found.
+                  ticker: TSLAAPL
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: An array of results containing the requested data.
+                    items:
+                      properties:
+                        break_even_price:
+                          description: The price of the underlying asset for the contract to break even. For a call, this value is (strike price + premium paid). For a put, this value is (strike price - premium paid).
+                          format: double
+                          type: number
+                        details:
+                          description: The details for this contract.
+                          properties:
+                            contract_type:
+                              description: The type of contract. Can be "put", "call", or in some rare cases, "other".
+                              enum:
+                              - put
+                              - call
+                              - other
+                              type: string
+                            exercise_style:
+                              description: The exercise style of this contract. See <a rel="nofollow" target="_blank" href="https://en.wikipedia.org/wiki/Option_style">this link</a> for more details on exercise styles.
+                              enum:
+                              - american
+                              - european
+                              - bermudan
+                              type: string
+                            expiration_date:
+                              description: The contract's expiration date in YYYY-MM-DD format.
+                              format: date
+                              type: string
+                              x-polygon-go-type:
+                                name: IDaysPolygonDateString
+                                path: github.com/polygon-io/ptime
+                            shares_per_contract:
+                              description: The number of shares per contract for this contract.
+                              type: number
+                            strike_price:
+                              description: The strike price of the option contract.
+                              format: double
+                              type: number
+                          required:
+                          - contract_type
+                          - exercise_style
+                          - expiration_date
+                          - shares_per_contract
+                          - strike_price
+                          type: object
+                        error:
+                          description: The error while looking for this ticker.
+                          type: string
+                        fmv:
+                          description: 'Fair Market Value is only available on Business plans. It is our proprietary algorithm to generate a real-time, accurate, fair market value of a tradable security.
+
+                            For more information, <a rel="nofollow" target="_blank" href="https://massive.com/contact">contact us</a>.'
+                          type: number
+                        fmv_last_updated:
+                          description: If Fair Market Value (FMV) is available, this field is the nanosecond timestamp of the last FMV calculation.
+                          format: int64
+                          type: integer
+                          x-polygon-go-type:
+                            name: INanoseconds
+                            path: github.com/polygon-io/ptime
+                        greeks:
+                          description: 'The greeks for this contract.
+
+                            There are certain circumstances where greeks will not be returned, such as options contracts that are deep in the money.
+
+                            See this <a href="https://massive.com/blog/greeks-and-implied-volatility/#testing"
+
+                            alt="link">article</a> for more information.'
+                          properties:
+                            delta:
+                              description: The change in the option's price per $0.01 increment in the price of the underlying asset.
+                              format: double
+                              type: number
+                            gamma:
+                              description: The change in delta per $0.01 change in the price of the underlying asset.
+                              format: double
+                              type: number
+                            theta:
+                              description: The change in the option's price per day.
+                              format: double
+                              type: number
+                            vega:
+                              description: The change in the option's price per 1% increment in volatility.
+                              format: double
+                              type: number
+                          required:
+                          - delta
+                          - gamma
+                          - theta
+                          - vega
+                          type: object
+                          x-polygon-go-type:
+                            name: Greeks
+                        implied_volatility:
+                          description: The market's forecast for the volatility of the underlying asset, based on this option's current price.
+                          format: double
+                          type: number
+                        last_minute:
+                          description: The most recent minute aggregate for this stock.
+                          properties:
+                            close:
+                              description: The closing value for the minute aggreate.
+                              format: double
+                              type: number
+                            decimal_volume:
+                              description: The trading volume for the minute aggregate with decimal precision. This field provides support for fractional shares, representing volume as a decimal string where the fractional part is expressed in millionths. This field is only returned for stocks snapshots.
+                              type: string
+                            high:
+                              description: The highest value for the minute aggregate.
+                              format: double
+                              type: number
+                            low:
+                              description: The lowest value for the minute aggregate.
+                              format: double
+                              type: number
+                            open:
+                              description: The open value for the minute aggregate.
+                              format: double
+                              type: number
+                            transactions:
+                              description: The number of transactions that took place within the minute aggregate.
+                              format: int32
+                              type: integer
+                            volume:
+                              description: The trading volume for the minute aggregate.
+                              format: double
+                              type: number
+                            vwap:
+                              description: The trading volume weighted average price for the minute aggregate.
+                              format: double
+                              type: number
+                              x-polygon-go-id: VWAP
+                          required:
+                          - close
+                          - high
+                          - low
+                          - open
+                          - volume
+                          - transactions
+                          - vwap
+                          type: object
+                          x-polygon-go-type:
+                            name: StocksLastMinute
+                        last_quote:
+                          description: The most recent quote for this contract. This is only returned if your current plan includes quotes.
+                          properties:
+                            ask:
+                              description: The ask price.
+                              format: double
+                              type: number
+                            ask_exchange:
+                              description: The ask side exchange ID. See <a href="https://massive.com/docs/rest/options/market-operations/exchanges" alt="Exchanges">Exchanges</a> for Massive's mapping of exchange IDs.
+                              type: integer
+                            ask_size:
+                              description: The ask size. This represents the number of round lot orders at the given ask price. The normal round lot size is 100 shares. An ask size of 2 means there are 200 shares available to purchase at the given ask price.
+                              format: double
+                              type: number
+                            bid:
+                              description: The bid price.
+                              format: double
+                              type: number
+                            bid_exchange:
+                              description: The bid side exchange ID. See <a href="https://massive.com/docs/rest/options/market-operations/exchanges" alt="Exchanges">Exchanges</a> for Massive's mapping of exchange IDs.
+                              type: integer
+                            bid_size:
+                              description: The bid size. This represents the number of round lot orders at the given bid price. The normal round lot size is 100 shares. A bid size of 2 means there are 200 shares for purchase at the given bid price.
+                              format: double
+                              type: number
+                            last_updated:
+                              description: The nanosecond timestamp of when this information was updated.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: INanoseconds
+                                path: github.com/polygon-io/ptime
+                            midpoint:
+                              description: The average of the bid and ask price.
+                              format: double
+                              type: number
+                            timeframe:
+                              description: The time relevance of the data.
+                              enum:
+                              - DELAYED
+                              - REAL-TIME
+                              type: string
+                          required:
+                          - ask
+                          - bid
+                          - last_updated
+                          - timeframe
+                          type: object
+                          x-polygon-go-type:
+                            name: SnapshotLastQuote
+                        last_trade:
+                          description: The most recent quote for this contract. This is only returned if your current plan includes trades.
+                          properties:
+                            conditions:
+                              description: A list of condition codes.
+                              items:
+                                description: 'The condition code. These are the conditions of this message. See
+
+                                  [Condition Mappings](https://massive.com/docs/rest/stocks/market-operations/condition-codes)
+
+                                  for a mapping to exchange conditions.'
+                                format: int32
+                                type: integer
+                              type: array
+                            decimal_size:
+                              description: The size of a trade, including fractional shares, represented as a decimal string where the fractional part is expressed in millionths. This field is only returned for stocks snapshots.
+                              type: string
+                            exchange:
+                              description: The exchange ID. See <a href="https://massive.com/docs/rest/stocks/market-operations/exchanges" alt="Exchanges">Exchanges</a> for Massive's mapping of exchange IDs.
+                              type: integer
+                            id:
+                              description: 'The Trade ID which uniquely identifies a trade. These are unique per combination of ticker, exchange, and TRF. For example: A trade for AAPL executed on NYSE and a trade for AAPL executed on NASDAQ could potentially have the same Trade ID.'
+                              type: string
+                            last_updated:
+                              description: The nanosecond timestamp of when this information was updated.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: INanoseconds
+                                path: github.com/polygon-io/ptime
+                            participant_timestamp:
+                              description: The nanosecond Exchange Unix Timestamp. This is the timestamp of when the trade was generated at the exchange.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: INanoseconds
+                                path: github.com/polygon-io/ptime
+                            price:
+                              description: 'The price of the trade. This is the actual dollar value per whole share of
+
+                                this trade. A trade of 100 shares with a price of $2.00 would be worth a
+
+                                total dollar value of $200.00.'
+                              format: double
+                              type: number
+                            sip_timestamp:
+                              description: The nanosecond accuracy SIP Unix Timestamp. This is the timestamp of when the SIP received this trade from the exchange which produced it.
+                              format: int64
+                              type: integer
+                            size:
+                              description: The size of a trade (also known as volume).
+                              format: int32
+                              type: integer
+                            timeframe:
+                              description: The time relevance of the data.
+                              enum:
+                              - DELAYED
+                              - REAL-TIME
+                              type: string
+                          required:
+                          - price
+                          - size
+                          type: object
+                          x-polygon-go-type:
+                            name: SnapshotLastTrade
+                        last_updated:
+                          description: The nanosecond timestamp of when this information was updated.
+                          format: int64
+                          type: integer
+                        market_status:
+                          description: 'The market status for the market that trades this ticker. Possible values for stocks, options, crypto, and forex snapshots are open, closed, early_trading, or late_trading.
+
+                            Possible values for indices snapshots are regular_trading, closed, early_trading, and late_trading.'
+                          type: string
+                        message:
+                          description: The error message while looking for this ticker.
+                          type: string
+                        name:
+                          description: The name of this contract.
+                          type: string
+                        open_interest:
+                          description: The quantity of this contract held at the end of the last trading day.
+                          format: double
+                          type: number
+                        session:
+                          description: Comprehensive trading session metrics, detailing price changes, trading volume, and key price points (open, close, high, low) for the asset within the current trading day. Includes specific changes during early, regular, and late trading periods to enable detailed performance analysis and trend tracking.
+                          properties:
+                            change:
+                              description: The value of the price change for the asset from the previous trading day.
+                              format: double
+                              type: number
+                            change_percent:
+                              description: The percent of the price change for the asset from the previous trading day.
+                              format: double
+                              type: number
+                            close:
+                              description: The closing price of the asset for the day.
+                              format: double
+                              type: number
+                            decimal_volume:
+                              description: The trading volume for the asset for the day with decimal precision. This field provides support for fractional shares, representing volume as a decimal string. This field is only returned for stocks snapshots.
+                              type: string
+                            early_trading_change:
+                              description: Today's early trading change amount, difference between price and previous close if in early trading hours, otherwise difference between last price during early trading and previous close.
+                              format: double
+                              type: number
+                            early_trading_change_percent:
+                              description: Today's early trading change as a percentage.
+                              format: double
+                              type: number
+                            high:
+                              description: The highest price of the asset for the day.
+                              format: double
+                              type: number
+                            late_trading_change:
+                              description: Today's late trading change amount, difference between price and today's close if in late trading hours, otherwise difference between last price during late trading and today's close.
+                              format: double
+                              type: number
+                            late_trading_change_percent:
+                              description: Today's late trading change as a percentage.
+                              format: double
+                              type: number
+                            low:
+                              description: The lowest price of the asset for the day.
+                              format: double
+                              type: number
+                            open:
+                              description: The open price of the asset for the day.
+                              format: double
+                              type: number
+                            previous_close:
+                              description: The closing price of the asset for the previous trading day.
+                              format: double
+                              type: number
+                            price:
+                              description: The price of the most recent trade or bid price for this asset.
+                              format: double
+                              type: number
+                            regular_trading_change:
+                              description: Today's change in regular trading hours, difference between current price and previous trading day's close, otherwise difference between today's close and previous day's close.
+                              format: double
+                              type: number
+                            regular_trading_change_percent:
+                              description: Today's regular trading change as a percentage.
+                              format: double
+                              type: number
+                            volume:
+                              description: The trading volume for the asset for the day.
+                              format: double
+                              type: number
+                          required:
+                          - change
+                          - change_percent
+                          - close
+                          - high
+                          - low
+                          - open
+                          - previous_close
+                          type: object
+                          x-polygon-go-type:
+                            name: Session
+                        ticker:
+                          description: The ticker symbol for the asset.
+                          type: string
+                        timeframe:
+                          description: The time relevance of the data.
+                          enum:
+                          - DELAYED
+                          - REAL-TIME
+                          type: string
+                        type:
+                          description: The asset class for this ticker.
+                          enum:
+                          - stocks
+                          - options
+                          - fx
+                          - crypto
+                          - indices
+                          type: string
+                        underlying_asset:
+                          description: Information on the underlying stock for this options contract.  The market data returned depends on your current stocks plan.
+                          properties:
+                            change_to_break_even:
+                              description: The change in price for the contract to break even.
+                              format: double
+                              type: number
+                            last_updated:
+                              description: The nanosecond timestamp of when this information was updated.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: INanoseconds
+                                path: github.com/polygon-io/ptime
+                            price:
+                              description: The price of the trade. This is the actual dollar value per whole share of this trade. A trade of 100 shares with a price of $2.00 would be worth a total dollar value of $200.00.
+                              format: double
+                              type: number
+                            ticker:
+                              description: The ticker symbol for the contract's underlying asset.
+                              type: string
+                            timeframe:
+                              description: The time relevance of the data.
+                              enum:
+                              - DELAYED
+                              - REAL-TIME
+                              type: string
+                            value:
+                              description: The value of the underlying index.
+                              format: double
+                              type: number
+                          required:
+                          - ticker
+                          - change_to_break_even
+                          type: object
+                          x-polygon-go-type:
+                            name: UnderlyingAsset
+                        value:
+                          description: Value of Index.
+                          type: number
+                      required:
+                      - ticker
+                      type: object
+                      x-polygon-go-type:
+                        name: SnapshotResponseModel
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - status
+                - request_id
+                type: object
+          description: Snapshots for the ticker list
+      summary: Universal Snapshot
+      x-polygon-entitlement-allowed-timeframes:
+      - description: Real Time Data
+        name: realtime
+      - description: 15 minute delayed data
+        name: delayed
+      x-polygon-entitlement-data-type:
+        description: Snapshot data
+        name: snapshots
+      x-polygon-entitlement-market-type:
+        description: All asset classes
+        name: universal
+      x-polygon-paginate:
+        limit:
+          default: 10
+          max: 250
+          min: 1
+        sort:
+          default: ticker
+          enum:
+          - ticker
+      tags:
+      - Snapshot
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

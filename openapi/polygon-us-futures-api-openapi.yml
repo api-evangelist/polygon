@@ -1,0 +1,2161 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Us Futures API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: us_futures
+paths:
+  /futures/v1/contracts:
+    get:
+      description: 'The Contracts API provides a single source for discovering all listed futures contracts and retrieving complete contract specifications. You can query the full contract index with filters for product code, trade dates, active status, and date, returning key attributes such as ticker, first and last trade dates, days to maturity, exchange code, and order quantity limits in paginated form. The same API also returns the full specification for a single contract, including settlement dates, tick sizes, and other trading and risk related fields. Point-in-time lookups allow you to reconstruct the exact contract definition that applied on any given day.
+
+
+        Use Cases: Historical research, trading system integration, portfolio workflows, risk management.'
+      operationId: get_futures_v1_contracts
+      parameters:
+      - description: A date string in the format YYYY-MM-DD. This parameter will return point-in-time information about contracts for the specified day. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: The identifier for the contract's product.
+        in: query
+        name: product_code
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: product_code.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: product_code.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: product_code.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: product_code.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: product_code.lte
+        schema:
+          type: string
+      - description: The ticker for the contract.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Whether or not a given contract was tradeable at the given point in time. Active is true when (first_trade_date <= date >= last_trade_date) and false otherwise.
+        in: query
+        name: active
+        schema:
+          type: boolean
+      - description: The type of contract, one of 'single' or 'combo'. Leaving this filter blank will query for contracts where type is 'single', 'combo' or empty. This field only exists on contracts as of 2025-03-12 and later. It will be null when date < 2025-03-12.
+        in: query
+        name: type
+        schema:
+          enum:
+          - single
+          - combo
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: type.any_of
+        schema:
+          enum:
+          - single
+          - combo
+          type: string
+      - description: The first day on which the contract was tradeable. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: first_trade_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: first_trade_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: first_trade_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: first_trade_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: first_trade_date.lte
+        schema:
+          type: string
+      - description: The last day on which the contract was tradeable. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: last_trade_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: last_trade_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: last_trade_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: last_trade_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: last_trade_date.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '1000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'product_code' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: product_code.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.massive.com/futures/v1/contracts?cursor=YWN0aXZlPXRydWUmZGF0ZT0yMDIxLTA0LTI1JmxpbWl0PTEmb3JkZXI9YXNjJnBhZ2VfbWFya2VyPUElN0M5YWRjMjY0ZTgyM2E1ZjBiOGUyNDc5YmZiOGE1YmYwNDVkYzU0YjgwMDcyMWE2YmI1ZjBjMjQwMjU4MjFmNGZiJnNvcnQ9dGlja2Vy
+                request_id: 000a000a0a0a000a0a0aa00a0a0000a0
+                results:
+                - active: true
+                  date: '2025-02-26'
+                  days_to_maturity: 138
+                  first_trade_date: '2025-01-15'
+                  group_code: CN
+                  last_trade_date: '2025-07-14'
+                  max_order_quantity: 1999
+                  min_order_quantity: 1
+                  name: 00CN5 Future
+                  product_code: 00C
+                  settlement_date: '2025-07-14'
+                  settlement_tick_size: 0.0025
+                  spread_tick_size: 0.0025
+                  ticker: 00CN5
+                  trade_tick_size: 0.0025
+                  trading_venue: XCBT
+                  type: single
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        active:
+                          description: Whether or not a given contract was tradeable at the given point in time. Active is true when (first_trade_date <= date >= last_trade_date) and false otherwise.
+                          type: boolean
+                        date:
+                          description: A date string in the format YYYY-MM-DD. This parameter will return point-in-time information about contracts for the specified day.
+                          format: date
+                          type: string
+                        days_to_maturity:
+                          description: The number of calendar days between the 'date' and the contract's final settlement date.
+                          format: int64
+                          type: integer
+                        first_trade_date:
+                          description: The first day on which the contract was tradeable.
+                          format: date
+                          type: string
+                        group_code:
+                          description: An identifier used to identify logical groups of products. The group_code is only populated for contracts listed for trading on CME Globex.
+                          type: string
+                        last_trade_date:
+                          description: The last day on which the contract was tradeable.
+                          format: date
+                          type: string
+                        max_order_quantity:
+                          description: The maximum order quantity.
+                          format: int64
+                          type: integer
+                        min_order_quantity:
+                          description: The minimum order quantity.
+                          format: int64
+                          type: integer
+                        name:
+                          description: The name of this contract.
+                          type: string
+                        product_code:
+                          description: The identifier for the contract's product.
+                          type: string
+                        settlement_date:
+                          description: The date on which this contract settles.
+                          format: date
+                          type: string
+                        settlement_tick_size:
+                          description: The tick size for settlement.
+                          format: double
+                          type: number
+                        spread_tick_size:
+                          description: The tick size for spreads.
+                          format: double
+                          type: number
+                        ticker:
+                          description: The ticker for the contract.
+                          type: string
+                        trade_tick_size:
+                          description: The tick size for trades.
+                          format: double
+                          type: number
+                        trading_venue:
+                          description: The trading venue (MIC) for the exchange on which this contract trades.
+                          type: string
+                        type:
+                          description: The type of contract, one of 'single' or 'combo'. Leaving this filter blank will query for contracts where type is 'single', 'combo' or empty. This field only exists on contracts as of 2025-03-12 and later. It will be null when date < 2025-03-12.
+                          type: string
+                      required:
+                      - active
+                      - date
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      summary: futures contracts API
+      tags:
+      - us_futures
+  /futures/v1/exchanges:
+    get:
+      description: US futures exchanges and trading venues including major derivatives exchanges (CME, CBOT, NYMEX, COMEX) and other futures market infrastructure for commodity, financial, and other derivative contract trading.
+      operationId: get_futures_v1_exchanges
+      parameters:
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '1000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 1000
+          minimum: 1
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - acronym: CME
+                  id: '4'
+                  locale: US
+                  mic: XCME
+                  name: Chicago Mercantile Exchange
+                  operating_mic: XCME
+                  type: exchange
+                  url: https://cmegroup.com
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        acronym:
+                          description: Well-known acronym for the exchange (e.g., 'CME', 'NYMEX', 'CBOT', 'COMEX').
+                          type: string
+                        id:
+                          description: Numeric identifier for the futures exchange or trading venue.
+                          type: string
+                        locale:
+                          description: Geographic location code where the exchange operates.
+                          type: string
+                        mic:
+                          description: Market Identifier Code (MIC) - ISO 10383 standard four-character code for the futures market.
+                          type: string
+                        name:
+                          description: Full official name of the futures exchange (e.g., 'Chicago Mercantile Exchange', 'New York Mercantile Exchange').
+                          type: string
+                        operating_mic:
+                          description: Operating Market Identifier Code for the futures exchange.
+                          type: string
+                        type:
+                          description: Type of venue - 'exchange' for futures exchanges and derivatives trading platforms.
+                          type: string
+                        url:
+                          description: Official website URL of the futures exchange organization.
+                          type: string
+                      required:
+                      - id
+                      - type
+                      - name
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - us_futures
+  /futures/v1/market-status:
+    get:
+      description: 'Retrieve the current market status for a specific product or products. This endpoint returns real-time indicators, such as open, pause, close, for futures products, along with the corresponding exchange and product codes and an evaluation timestamp. This information enables users to monitor operational conditions and adjust their trading strategies accordingly.
+
+
+        Use Cases: Real-time monitoring, algorithm scheduling, UI updates, operational planning.'
+      operationId: get_futures_v1_market-status
+      parameters:
+      - description: The product code of the futures contracts for which you want statuses.
+        in: query
+        name: product_code
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: product_code.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: product_code.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: product_code.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: product_code.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: product_code.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '10' if not specified. The maximum allowed limit is '100'.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 100
+          minimum: 1
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: 445ebfcfe5bb4b688b7971e1600c952d
+                results:
+                - market_event: open
+                  name: ERCOT North 345 kV Hub Day-Ahead 5 MW Off-Peak Futures
+                  product_code: ERL
+                  session_end_date: '2025-12-05'
+                  timestamp: '2025-12-04T23:00:00+00:00'
+                  trading_venue: XNYM
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        market_event:
+                          description: The current status of the market for the product.
+                          type: string
+                        name:
+                          description: The name of the futures product.
+                          type: string
+                        product_code:
+                          description: The product code of the futures contracts for which you want statuses.
+                          type: string
+                        session_end_date:
+                          description: The trading date for the current session.
+                          format: date
+                          type: string
+                        timestamp:
+                          description: The timestamp for the given market event.
+                          type: string
+                        trading_venue:
+                          description: The trading venue (MIC) for the exchange on which the corresponding product trades.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      summary: Market Status API
+      tags:
+      - us_futures
+  /futures/v1/products:
+    get:
+      description: 'The Products API is a unified source for discovering all supported futures products and retrieving full product specifications. It returns the complete product universe with product codes, names, exchange identifiers, sector and asset class classifications, product type, settlement method, and pricing and quotation details. You can filter by name, exchange, sector, asset class, product type, or date to capture the product set or product definition that existed at a specific point in time. It also retrieves the full specification for a single product, supporting accurate system configuration, analytics, trading workflows, and historical reconciliation.
+
+
+        Use Cases: Product specification, historical product checks, risk management, trading system integration.'
+      operationId: get_futures_v1_products
+      parameters:
+      - description: The full name of the product.
+        in: query
+        name: name
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: name.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: name.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: name.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: name.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: name.lte
+        schema:
+          type: string
+      - description: The identifier for the product.
+        in: query
+        name: product_code
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: product_code.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: product_code.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: product_code.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: product_code.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: product_code.lte
+        schema:
+          type: string
+      - description: A date string in the format YYYY-MM-DD. This parameter will return point-in-time information about products for the specified day. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: The trading venue (MIC) for the exchange on which this product's contracts trade.
+        in: query
+        name: trading_venue
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: trading_venue.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: trading_venue.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: trading_venue.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: trading_venue.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: trading_venue.lte
+        schema:
+          type: string
+      - description: The sector to which the product belongs.
+        in: query
+        name: sector
+        schema:
+          enum:
+          - asia
+          - base
+          - biofuels
+          - coal
+          - cross_rates
+          - crude_oil
+          - custom_index
+          - dairy
+          - dj_ubs_ci
+          - electricity
+          - emissions
+          - europe
+          - fertilizer
+          - forestry
+          - grains_and_oilseeds
+          - intl_index
+          - liq_nat_gas_lng
+          - livestock
+          - long_term_gov
+          - long_term_non_gov
+          - majors
+          - minors
+          - nat_gas
+          - nat_gas_liq_petro
+          - precious
+          - refined_products
+          - s_and_p_gsci
+          - sel_sector_index
+          - short_term_gov
+          - short_term_non_gov
+          - softs
+          - us
+          - us_index
+          - wet_bulk
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: sector.any_of
+        schema:
+          enum:
+          - asia
+          - base
+          - biofuels
+          - coal
+          - cross_rates
+          - crude_oil
+          - custom_index
+          - dairy
+          - dj_ubs_ci
+          - electricity
+          - emissions
+          - europe
+          - fertilizer
+          - forestry
+          - grains_and_oilseeds
+          - intl_index
+          - liq_nat_gas_lng
+          - livestock
+          - long_term_gov
+          - long_term_non_gov
+          - majors
+          - minors
+          - nat_gas
+          - nat_gas_liq_petro
+          - precious
+          - refined_products
+          - s_and_p_gsci
+          - sel_sector_index
+          - short_term_gov
+          - short_term_non_gov
+          - softs
+          - us
+          - us_index
+          - wet_bulk
+          type: string
+      - description: The sub-sector to which the product belongs.
+        in: query
+        name: sub_sector
+        schema:
+          enum:
+          - asian
+          - canadian
+          - cat
+          - cooling_degree_days
+          - ercot
+          - european
+          - gulf
+          - heating_degree_days
+          - iso_ne
+          - large_cap_index
+          - mid_cap_index
+          - miso
+          - north_american
+          - nyiso
+          - pjm
+          - small_cap_index
+          - west
+          - western_power
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: sub_sector.any_of
+        schema:
+          enum:
+          - asian
+          - canadian
+          - cat
+          - cooling_degree_days
+          - ercot
+          - european
+          - gulf
+          - heating_degree_days
+          - iso_ne
+          - large_cap_index
+          - mid_cap_index
+          - miso
+          - north_american
+          - nyiso
+          - pjm
+          - small_cap_index
+          - west
+          - western_power
+          type: string
+      - description: The asset class to which the product belongs.
+        in: query
+        name: asset_class
+        schema:
+          enum:
+          - alt_investment
+          - commodity
+          - financials
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: asset_class.any_of
+        schema:
+          enum:
+          - alt_investment
+          - commodity
+          - financials
+          type: string
+      - description: The asset sub-class to which the product belongs.
+        in: query
+        name: asset_sub_class
+        schema:
+          enum:
+          - agricultural
+          - commodity_index
+          - energy
+          - equity
+          - foreign_exchange
+          - freight
+          - housing
+          - interest_rate
+          - metals
+          - weather
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: asset_sub_class.any_of
+        schema:
+          enum:
+          - agricultural
+          - commodity_index
+          - energy
+          - equity
+          - foreign_exchange
+          - freight
+          - housing
+          - interest_rate
+          - metals
+          - weather
+          type: string
+      - description: The type of product, one of 'single' or 'combo'. Leaving this filter blank will query for both 'single' and 'combo' types.
+        in: query
+        name: type
+        schema:
+          enum:
+          - single
+          - combo
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: type.any_of
+        schema:
+          enum:
+          - single
+          - combo
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'date' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: date.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.massive.com/futures/v1/products?cursor=YXA9MTAwJmFzPSZhc19vZj0yMDI1LTA3LTA3JmxpbWl0PTEwMCZzb3J0PW5hbWUuYXNj
+                request_id: 000a000a0a0a000a0a0aa00a0a0000a0
+                results:
+                - asset_class: commodity
+                  asset_sub_class: energy
+                  date: '2025-07-07'
+                  last_updated: '2025-02-22'
+                  name: 1% Fuel Oil Barges FOB Rdam (Platts) vs. 1% Fuel Oil Cargoes FOB NWE (Platts) BALMO Futures
+                  price_quotation: U.S. dollars and cents per metric ton
+                  product_code: EBE
+                  sector: refined_products
+                  settlement_currency_code: USD
+                  settlement_method: financially_settled
+                  settlement_type: cash
+                  sub_sector: european
+                  trade_currency_code: USD
+                  trading_venue: XNYM
+                  type: single
+                  unit_of_measure: MTONS
+                  unit_of_measure_qty: 1000
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        asset_class:
+                          description: The asset class to which the product belongs.
+                          type: string
+                        asset_sub_class:
+                          description: The asset sub-class to which the product belongs.
+                          type: string
+                        date:
+                          description: A date string in the format YYYY-MM-DD. This parameter will return point-in-time information about products for the specified day.
+                          format: date
+                          type: string
+                        last_updated:
+                          description: The date and time at which this product was last updated.
+                          format: date-time
+                          type: string
+                        name:
+                          description: The full name of the product.
+                          type: string
+                        price_quotation:
+                          description: The quoted price for this product.
+                          type: string
+                        product_code:
+                          description: The identifier for the product.
+                          type: string
+                        sector:
+                          description: The sector to which the product belongs.
+                          type: string
+                        settlement_currency_code:
+                          description: The currency in which this product settles.
+                          type: string
+                        settlement_method:
+                          description: The method of settlement for this product (Financially Settled or Deliverable).
+                          type: string
+                        settlement_type:
+                          description: The type of settlement for this product.
+                          type: string
+                        sub_sector:
+                          description: The sub-sector to which the product belongs.
+                          type: string
+                        trade_currency_code:
+                          description: The currency in which this product's contracts trade.
+                          type: string
+                        trading_venue:
+                          description: The trading venue (MIC) for the exchange on which this product's contracts trade.
+                          type: string
+                        type:
+                          description: The type of product, one of 'single' or 'combo'. Leaving this filter blank will query for both 'single' and 'combo' types.
+                          type: string
+                        unit_of_measure:
+                          description: The unit of measure for this product.
+                          type: string
+                        unit_of_measure_qty:
+                          description: The quantity of the unit of measure for this product.
+                          format: float
+                          type: number
+                      required:
+                      - date
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      summary: Futures Products API
+      tags:
+      - us_futures
+  /futures/v1/quotes/{ticker}:
+    get:
+      description: 'Retrieve quote data for a specified futures contract ticker. Each record includes the best bid and offer prices, sizes, and timestamps, reflecting the prevailing quote environment at each moment. This endpoint supports detailed analysis of price dynamics and liquidity conditions to inform trading decisions and market research.
+
+
+        Use Cases: Liquidity analysis, price discovery, trading strategy refinement, market research.'
+      operationId: get_futures_v1_quotes_ticker
+      parameters:
+      - description: The time when the quote was generated at the exchange to nanosecond precision. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: timestamp
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: timestamp.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: timestamp.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: timestamp.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: timestamp.lte
+        schema:
+          type: string
+      - description: Also known as the trading date, the date of the end of the trading session, in YYYY-MM-DD format.
+        in: query
+        name: session_end_date
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'timestamp' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: timestamp.desc
+          type: string
+      - description: The futures contract identifier, including the base symbol and contract expiration (e.g., GCJ5 for the April 2025 gold contract).
+        in: path
+        name: ticker
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.massive.com/futures/v1/quotes/GCJ5?cursor=YXA9MTczNDQ2MDIzMDcwODEyNjI4MSZhcz0mbGltaXQ9MTAwMCZzZXNzaW9uX2VuZF9kYXRlPTIwMjQtMTItMTcmc29ydD10aW1lc3RhbXAuZGVzYw
+                request_id: a47d1beb8c11b6ae897ab76cdbbf35a3
+                results:
+                - ask_size: 0
+                  ask_timestamp: 1734472800076125400
+                  bid_price: 2660
+                  bid_size: 1
+                  bid_timestamp: 1734472800076125400
+                  channel: 360
+                  report_sequence: 2250337
+                  sequence_number: 15357766
+                  session_end_date: '2024-12-17'
+                  ticker: GCJ5
+                  timestamp: 1734472800076125400
+                - ask_price: 2686
+                  ask_size: 1
+                  ask_timestamp: 1734472770000588000
+                  bid_price: 2684.7
+                  bid_size: 1
+                  bid_timestamp: 1734472736352455200
+                  channel: 360
+                  report_sequence: 2249866
+                  sequence_number: 15355476
+                  session_end_date: '2024-12-17'
+                  ticker: GCJ5
+                  timestamp: 1734472770000588000
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        ask_price:
+                          description: The ask price is expressed per unit of the underlying asset, and you apply the contract multiplier to get the full contract value.
+                          format: double
+                          type: number
+                        ask_size:
+                          description: The quote size represents the number of futures contracts available at the given ask price.
+                          format: int32
+                          type: integer
+                        ask_timestamp:
+                          description: The time when the ask price was submitted to the exchange.
+                          format: int64
+                          type: integer
+                        bid_price:
+                          description: The bid price is expressed per unit of the underlying asset, and you apply the contract multiplier to get the full contract value.
+                          format: double
+                          type: number
+                        bid_size:
+                          description: The quote size represents the number of futures contracts available at the given bid price.
+                          format: int32
+                          type: integer
+                        bid_timestamp:
+                          description: The time when the bid price was submitted to the exchange.
+                          format: int64
+                          type: integer
+                        channel:
+                          description: The CME multicast channel this event was sourced from.
+                          format: int32
+                          type: integer
+                        report_sequence:
+                          description: The reporting sequence number.
+                          format: int64
+                          type: integer
+                        sequence_number:
+                          description: The unique sequence number assigned to this quote by the exchange.
+                          format: int64
+                          type: integer
+                        session_end_date:
+                          description: Also known as the trading date, the date of the end of the trading session, in YYYY-MM-DD format.
+                          type: string
+                        ticker:
+                          description: The futures contract identifier, including the base symbol and contract expiration (e.g., GCJ5 for the April 2025 gold contract).
+                          type: string
+                        timestamp:
+                          description: The time when the quote was generated at the exchange to nanosecond precision.
+                          format: int64
+                          type: integer
+                      required:
+                      - ticker
+                      - timestamp
+                      - sequence_number
+                      - report_sequence
+                      - channel
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - us_futures
+  /futures/v1/schedules:
+    get:
+      description: 'The Schedules API provides a unified way to retrieve trading schedules for futures markets, returning precise session open and close times, intraday breaks, and any adjustments for holidays or special events. You can filter schedules by session_end_date or retrieve the schedule for a single product using its product code. All times are returned in Coordinated Universal Time (UTC), making it straightforward to align trading, execution, and operational workflows across systems.
+
+
+        Use Cases: Schedule planning, market analysis, strategy alignment, risk and operations management.'
+      operationId: get_futures_v1_schedules
+      parameters:
+      - description: The product code of the futures contract.
+        in: query
+        name: product_code
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: product_code.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: product_code.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: product_code.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: product_code.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: product_code.lte
+        schema:
+          type: string
+      - description: The session end date for the schedules (also known as the trading date). This field is optional and can be used to filter results by a specific session end date. If left blank, schedules for all dates will be returned. Note that trading sessions end at 5 PM Central Time, so a session ending at 5 PM CT on January 1st would have a session_end_date of 2025-01-01. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: session_end_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: session_end_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: session_end_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: session_end_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: session_end_date.lte
+        schema:
+          type: string
+      - description: The trading venue (MIC) for the exchange on which this schedule's product trades.
+        in: query
+        name: trading_venue
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: trading_venue.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: trading_venue.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: trading_venue.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: trading_venue.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: trading_venue.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '10' if not specified. The maximum allowed limit is '1000'.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'product_code' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: product_code.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.staging.massive.com/futures/v2/schedules?cursor=AQANA0VSTAIAAAEFAAEBAwACAQ0DRVJMAQ0ZMjAyNC0wNi0xMFQyMTowMDowMCswMDowMA==
+                request_id: a83620d1ec6a4cd5b84ea669e377fd47
+                results:
+                - event: pre_open
+                  product_code: ERL
+                  product_name: ERCOT North 345 kV Hub Day-Ahead 5 MW Off-Peak Futures
+                  session_end_date: '2024-06-10'
+                  timestamp: '2024-06-09T21:00:00+00:00'
+                  trading_venue: XNYM
+                - event: open
+                  product_code: ERL
+                  product_name: ERCOT North 345 kV Hub Day-Ahead 5 MW Off-Peak Futures
+                  session_end_date: '2024-06-10'
+                  timestamp: '2024-06-09T22:00:00+00:00'
+                  trading_venue: XNYM
+                - event: close
+                  product_code: ERL
+                  product_name: ERCOT North 345 kV Hub Day-Ahead 5 MW Off-Peak Futures
+                  session_end_date: '2024-06-10'
+                  timestamp: '2024-06-10T21:00:00+00:00'
+                  trading_venue: XNYM
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        event:
+                          description: The type of session on the given trading date.
+                          type: string
+                        product_code:
+                          description: The product code of the futures contract.
+                          type: string
+                        product_name:
+                          description: The name of the futures product to which this schedule applies.
+                          type: string
+                        session_end_date:
+                          description: The session end date for the schedules (also known as the trading date). This field is optional and can be used to filter results by a specific session end date. If left blank, schedules for all dates will be returned. Note that trading sessions end at 5 PM Central Time, so a session ending at 5 PM CT on January 1st would have a session_end_date of 2025-01-01.
+                          format: date
+                          type: string
+                        timestamp:
+                          description: The timestamp for the given market event.
+                          format: date-time
+                          type: string
+                        trading_venue:
+                          description: The trading venue (MIC) for the exchange on which this schedule's product trades.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      summary: Futures Schedules API
+      tags:
+      - us_futures
+  /futures/v1/snapshot:
+    get:
+      description: Retrieve a snapshot of the most recent futures contract data.
+      operationId: get_futures_v1_snapshot
+      parameters:
+      - description: The code for the contracts' underlying product.
+        in: query
+        name: product_code
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: product_code.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: product_code.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: product_code.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: product_code.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: product_code.lte
+        schema:
+          type: string
+      - description: The futures contract identifier, including the base symbol and contract expiration (e.g., ESZ24 for the December 2024 S&P 500 E-mini contract).
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'ticker' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: ticker.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                next_url: https://api.massive.com/futures/v1/snapshot?cursor=AQANAkNCBVNQ
+                request_id: c4d50f4801874e30b63e674b844cf51f
+                results:
+                - details:
+                    settlement_date: 1753851600000000000
+                  last_minute:
+                    close: 240.00000000000003
+                    high: 240.00000000000003
+                    last_updated: 1746045300000
+                    low: 240.00000000000003
+                    open: 240.00000000000003
+                    volume: 5
+                  last_quote:
+                    ask: 240.50000000000003
+                    ask_size: 3
+                    ask_timestamp: 1746036204386194000
+                    bid: 239.50000000000003
+                    bid_size: 2
+                    bid_timestamp: 1746035747932118000
+                    last_updated: 1746046798024234200
+                  last_trade:
+                    last_updated: 1746045242858242600
+                    price: 240.00000000000003
+                    size: 5
+                  product_code: CB
+                  session:
+                    change: 21.11
+                    change_percent: 0.09622134
+                    close: 240.00000000000003
+                    high: 241.00000000000003
+                    low: 240.00000000000003
+                    open: 240.00000000000003
+                    previous_settlement: 219.39
+                    settlement_price: 240.50000000000003
+                    volume: 55
+                  ticker: CBN5
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        details:
+                          properties:
+                            product_code:
+                              type: string
+                            settlement_date:
+                              description: The day that this contract is settled.
+                              format: date
+                              type: string
+                            ticker:
+                              type: string
+                          type: object
+                        last_minute:
+                          properties:
+                            close:
+                              description: The price at the end of the minute bar.
+                              format: double
+                              type: number
+                            high:
+                              description: The highest price reached in the minute bar.
+                              format: double
+                              type: number
+                            last_updated:
+                              description: The timestamp indicating the most recent update to the minute bar.
+                              format: int64
+                              type: integer
+                            low:
+                              description: The lowest price reached in the minute bar.
+                              format: double
+                              type: number
+                            open:
+                              description: The opening price at the start of the minute bar.
+                              format: double
+                              type: number
+                            timeframe:
+                              description: The timeliness of the data as determined by your subscription. One of REAL-TIME or DELAYED.
+                              type: string
+                            volume:
+                              description: The number of contracts traded in the minute bar.
+                              format: int64
+                              type: integer
+                          type: object
+                        last_quote:
+                          properties:
+                            ask:
+                              description: The lowest price a seller is willing to accept.
+                              format: double
+                              type: number
+                            ask_size:
+                              description: The number of contracts available at the ask price.
+                              format: int32
+                              type: integer
+                            ask_timestamp:
+                              description: The time when the best ask price was last updated.
+                              format: int64
+                              type: integer
+                            bid:
+                              description: The highest price a buyer is willing to pay.
+                              format: double
+                              type: number
+                            bid_size:
+                              description: The number of contracts available at the bid price.
+                              format: int32
+                              type: integer
+                            bid_timestamp:
+                              description: The time when the best bid price was last updated.
+                              format: int64
+                              type: integer
+                            last_updated:
+                              description: The time when the quote was generated at the exchange to nanosecond precision.
+                              format: int64
+                              type: integer
+                            timeframe:
+                              description: The timeliness of the data as determined by your subscription. One of REAL-TIME or DELAYED.
+                              type: string
+                          type: object
+                        last_trade:
+                          properties:
+                            last_updated:
+                              description: The time when the trade was generated at the exchange to nanosecond precision.
+                              format: int64
+                              type: integer
+                            price:
+                              description: The price of the trade. This is the actual dollar value per whole contract of this trade. A trade of 100 contracts with a price of $2.00 would be worth a total dollar value of $200.00.
+                              format: double
+                              type: number
+                            size:
+                              description: The total number of contracts exchanged between buyers and sellers on a given trade.
+                              format: int64
+                              type: integer
+                            timeframe:
+                              description: The timeliness of the data as determined by your subscription. One of REAL-TIME or DELAYED.
+                              type: string
+                          type: object
+                        session:
+                          properties:
+                            change:
+                              description: The change in price during this session.
+                              format: double
+                              type: number
+                            change_percent:
+                              description: The percentage change in price during this session.
+                              format: double
+                              type: number
+                            close:
+                              description: The price at the end of the session.
+                              format: double
+                              type: number
+                            high:
+                              description: The highest price reached in the session.
+                              format: double
+                              type: number
+                            low:
+                              description: The lowest price reached in the session.
+                              format: double
+                              type: number
+                            open:
+                              description: The opening price at the start of the session.
+                              format: double
+                              type: number
+                            previous_settlement:
+                              description: The settlement price of the previous session.
+                              format: double
+                              type: number
+                            settlement_price:
+                              description: The final settlement price at the end of the session.
+                              format: double
+                              type: number
+                            volume:
+                              description: The number of contracts traded in the session.
+                              format: int64
+                              type: integer
+                          type: object
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      summary: futures_snapshot_v1 API
+      tags:
+      - us_futures
+  /futures/v1/trades/{ticker}:
+    get:
+      description: 'Retrieve comprehensive, tick-level trade data for a specified futures contract ticker over a defined time range. Each record includes the trade price, size, session start date, and precise timestamps, capturing individual trade events throughout the period. This granular data is essential for constructing aggregated bars and performing detailed analyses of intraday price movements, making it a valuable tool for backtesting, algorithmic strategy development, and market research.
+
+
+        Use Cases: Intraday analysis, algorithmic trading, backtesting, market research.'
+      operationId: get_futures_v1_trades_ticker
+      parameters:
+      - description: The time when the trade was generated at the exchange to nanosecond precision. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: timestamp
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: timestamp.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: timestamp.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: timestamp.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: timestamp.lte
+        schema:
+          type: string
+      - description: Also known as the trading date, the date of the end of the trading session, in YYYY-MM-DD format.
+        in: query
+        name: session_end_date
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '10' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'timestamp' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: timestamp.desc
+          type: string
+      - description: The futures contract identifier, including the base symbol and contract expiration (e.g., GCJ5 for the April 2025 gold contract).
+        in: path
+        name: ticker
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.massive.com/futures/v1/trades/ESZ4?cursor=YXA9MTczNDQ3MDk3MDAwODU5OTI2MSZhcz0yNzIzNTI4MyZsaW1pdD0xMDAwJnNlc3Npb25fZW5kX2RhdGU9MjAyNC0xMi0xNyZzb3J0PXRpbWVzdGFtcC5kZXNj
+                request_id: a47d1beb8c11b6ae897ab76cdbbf35a3
+                results:
+                - price: 6052
+                  report_sequence: 12033289
+                  sequence_number: 27317882
+                  session_end_date: '2024-12-17'
+                  size: 3
+                  ticker: ESZ4
+                  timestamp: 1734472799000509200
+                - price: 6051.75
+                  report_sequence: 12033276
+                  sequence_number: 27317863
+                  session_end_date: '2024-12-17'
+                  size: 1
+                  ticker: ESZ4
+                  timestamp: 1734472798789679900
+                - price: 6052
+                  report_sequence: 12033255
+                  sequence_number: 27317826
+                  session_end_date: '2024-12-17'
+                  size: 2
+                  ticker: ESZ4
+                  timestamp: 1734472797000893000
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        channel:
+                          description: The CME multicast channel this event was sourced from.
+                          format: int32
+                          type: integer
+                        price:
+                          description: The price of the trade. This is the actual dollar value per whole contract of this trade. A trade of 100 contracts with a price of $2.00 would be worth a total dollar value of $200.00.
+                          format: double
+                          type: number
+                        report_sequence:
+                          description: The reporting sequence number.
+                          format: int64
+                          type: integer
+                        sequence_number:
+                          description: The unique sequence number assigned to this trade.
+                          format: int64
+                          type: integer
+                        session_end_date:
+                          description: Also known as the trading date, the date of the end of the trading session, in YYYY-MM-DD format.
+                          type: string
+                        size:
+                          description: The total number of contracts exchanged between buyers and sellers on a given trade.
+                          format: int64
+                          type: integer
+                        ticker:
+                          description: The futures contract identifier, including the base symbol and contract expiration (e.g., GCJ5 for the April 2025 gold contract).
+                          type: string
+                        timestamp:
+                          description: The time when the trade was generated at the exchange to nanosecond precision.
+                          format: int64
+                          type: integer
+                      required:
+                      - ticker
+                      - timestamp
+                      - sequence_number
+                      - report_sequence
+                      - channel
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - us_futures
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

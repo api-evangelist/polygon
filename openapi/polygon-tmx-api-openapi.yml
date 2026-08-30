@@ -1,0 +1,633 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Tmx API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: tmx
+paths:
+  /tmx/v1/corporate-events:
+    get:
+      description: Contains corporate events and announcements for publicly traded companies, including earnings releases, conferences, dividends, and business updates sourced from TMX.
+      operationId: get_tmx_v1_corporate-events
+      parameters:
+      - description: Scheduled date of the corporate event, formatted as YYYY-MM-DD.
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: 'The normalized type of corporate event. Possible values include: analyst_day, business_update, capital_markets_day, conference, dividend, earnings_announcement_date, earnings_conference_call, earnings_results_announcement, forum, interim_statement, other_interim_announcement, production_update, research_and_development_day, seminar, shareholder_meeting, sales_update, stock_split, summit, service_level_update, tradeshow, company_travel, and workshop.'
+        in: query
+        name: type
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: type.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: type.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: type.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: type.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: type.lte
+        schema:
+          type: string
+      - description: 'The current status of the event. Possible values include: approved, canceled, confirmed, historical, pending_approval, postponed, and unconfirmed.'
+        in: query
+        name: status
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: status.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: status.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: status.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: status.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: status.lte
+        schema:
+          type: string
+      - description: The company's stock symbol.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Standard international identifier for the company's common stock.
+        in: query
+        name: isin
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: isin.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: isin.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: isin.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: isin.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: isin.lte
+        schema:
+          type: string
+      - description: MIC (Market Identifier Code) of the exchange where the company's stock is listed.
+        in: query
+        name: trading_venue
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: trading_venue.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: trading_venue.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: trading_venue.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: trading_venue.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: trading_venue.lte
+        schema:
+          type: string
+      - description: Unique numeric identifier for the company used by TMX. Value must be an integer.
+        in: query
+        name: tmx_company_id
+        schema:
+          format: int64
+          type: integer
+      - description: Filter greater than the value. Value must be an integer.
+        in: query
+        name: tmx_company_id.gt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter greater than or equal to the value. Value must be an integer.
+        in: query
+        name: tmx_company_id.gte
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than the value. Value must be an integer.
+        in: query
+        name: tmx_company_id.lt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than or equal to the value. Value must be an integer.
+        in: query
+        name: tmx_company_id.lte
+        schema:
+          format: int64
+          type: integer
+      - description: The unique alphanumeric identifier for the event record used by TMX.
+        in: query
+        name: tmx_record_id
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tmx_record_id.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: tmx_record_id.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: tmx_record_id.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: tmx_record_id.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: tmx_record_id.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - company_name: Rollins Inc.
+                  date: '2025-07-23'
+                  isin: US7757111049
+                  name: Q2 2025 Earnings Announcement-After Mkt
+                  status: unconfirmed
+                  ticker: ROL
+                  tmx_company_id: '2208'
+                  tmx_record_id: 4XMW4E9G
+                  trading_venue: XNYS
+                  type: earnings_announcement_date
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        company_name:
+                          description: Full name of the company.
+                          type: string
+                        date:
+                          description: Scheduled date of the corporate event, formatted as YYYY-MM-DD.
+                          type: string
+                        isin:
+                          description: Standard international identifier for the company's common stock.
+                          type: string
+                        name:
+                          description: Name or title of the event.
+                          type: string
+                        status:
+                          description: 'The current status of the event. Possible values include: approved, canceled, confirmed, historical, pending_approval, postponed, and unconfirmed.'
+                          type: string
+                        ticker:
+                          description: The company's stock symbol.
+                          type: string
+                        tmx_company_id:
+                          description: Unique numeric identifier for the company used by TMX.
+                          format: int64
+                          type: integer
+                        tmx_record_id:
+                          description: The unique alphanumeric identifier for the event record used by TMX.
+                          type: string
+                        trading_venue:
+                          description: MIC (Market Identifier Code) of the exchange where the company's stock is listed.
+                          type: string
+                        type:
+                          description: 'The normalized type of corporate event. Possible values include: analyst_day, business_update, capital_markets_day, conference, dividend, earnings_announcement_date, earnings_conference_call, earnings_results_announcement, forum, interim_statement, other_interim_announcement, production_update, research_and_development_day, seminar, shareholder_meeting, sales_update, stock_split, summit, service_level_update, tradeshow, company_travel, and workshop.'
+                          type: string
+                        url:
+                          description: URL linking to the primary public source of the event announcement, if available.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - tmx
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

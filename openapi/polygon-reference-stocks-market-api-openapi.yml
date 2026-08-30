@@ -1,0 +1,446 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Reference:stocks:market API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: reference:stocks:market
+paths:
+  /v1/marketstatus/now:
+    get:
+      description: Get the current trading status of the exchanges and overall financial markets.
+      operationId: GetMarketStatus
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                afterHours: true
+                currencies:
+                  crypto: open
+                  fx: open
+                earlyHours: false
+                exchanges:
+                  nasdaq: extended-hours
+                  nyse: extended-hours
+                  otc: closed
+                market: extended-hours
+                serverTime: '2020-11-10T17:37:37-05:00'
+              schema:
+                properties:
+                  afterHours:
+                    description: Whether or not the market is in post-market hours.
+                    type: boolean
+                    x-polygon-go-type:
+                      name: '*bool'
+                  currencies:
+                    description: Contains the status of various currency markets.
+                    properties:
+                      crypto:
+                        description: The status of the crypto market.
+                        type: string
+                      fx:
+                        description: The status of the forex market.
+                        type: string
+                    type: object
+                    x-polygon-go-type:
+                      name: Currencies
+                  earlyHours:
+                    description: Whether or not the market is in pre-market hours.
+                    type: boolean
+                    x-polygon-go-type:
+                      name: '*bool'
+                  exchanges:
+                    description: Contains the status of different US stock exchanges (e.g., Nasdaq, NYSE).
+                    properties:
+                      nasdaq:
+                        description: The status of the Nasdaq market.
+                        type: string
+                      nyse:
+                        description: The status of the NYSE market.
+                        type: string
+                      otc:
+                        description: The status of the OTC market.
+                        type: string
+                    type: object
+                    x-polygon-go-type:
+                      name: Exchanges
+                  indicesGroups:
+                    description: Contains the status of various index groups (e.g., MSCI, FTSE Russell).
+                    properties:
+                      cccy:
+                        description: The status of Cboe Streaming Market Indices Cryptocurrency ("CCCY") indices trading hours.
+                        type: string
+                      cgi:
+                        description: The status of Cboe Global Indices ("CGI") trading hours.
+                        type: string
+                      dow_jones:
+                        description: The status of Dow Jones indices trading hours
+                        type: string
+                      ftse_russell:
+                        description: The status of Financial Times Stock Exchange Group ("FTSE") Russell indices trading hours.
+                        type: string
+                      msci:
+                        description: The status of Morgan Stanley Capital International ("MSCI") indices trading hours.
+                        type: string
+                      mstar:
+                        description: The status of Morningstar ("MSTAR") indices trading hours.
+                        type: string
+                      mstarc:
+                        description: The status of Morningstar Customer ("MSTARC") indices trading hours.
+                        type: string
+                      nasdaq:
+                        description: The status of National Association of Securities Dealers Automated Quotations ("Nasdaq") indices trading hours.
+                        type: string
+                      s_and_p:
+                        description: The status of Standard & Poor's ("S&P") indices trading hours.
+                        type: string
+                      societe_generale:
+                        description: The status of Societe Generale indices trading hours.
+                        type: string
+                    type: object
+                    x-polygon-go-type:
+                      name: IndicesGroups
+                  market:
+                    description: The status of the market as a whole.
+                    type: string
+                  serverTime:
+                    description: The current time of the server, returned as a date-time in RFC3339 format.
+                    type: string
+                type: object
+          description: OK
+      summary: Market Status
+      tags:
+      - reference:stocks:market
+      x-polygon-entitlement-data-type:
+        description: Reference data
+        name: reference
+  /v1/marketstatus/upcoming:
+    get:
+      description: Get upcoming market holidays and their open/close times.
+      operationId: GetMarketHolidays
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+              - date: '2020-11-26'
+                exchange: NYSE
+                name: Thanksgiving
+                status: closed
+              - date: '2020-11-26'
+                exchange: NASDAQ
+                name: Thanksgiving
+                status: closed
+              - date: '2020-11-26'
+                exchange: OTC
+                name: Thanksgiving
+                status: closed
+              - close: '2020-11-27T18:00:00.000Z'
+                date: '2020-11-27'
+                exchange: NASDAQ
+                name: Thanksgiving
+                open: '2020-11-27T14:30:00.000Z'
+                status: early-close
+              - close: '2020-11-27T18:00:00.000Z'
+                date: '2020-11-27'
+                exchange: NYSE
+                name: Thanksgiving
+                open: '2020-11-27T14:30:00.000Z'
+                status: early-close
+              schema:
+                items:
+                  properties:
+                    close:
+                      description: The market close time on the holiday (if it's not closed).
+                      type: string
+                    date:
+                      description: The date of the holiday.
+                      type: string
+                    exchange:
+                      description: Which market the record is for.
+                      type: string
+                    name:
+                      description: The name of the holiday.
+                      type: string
+                    open:
+                      description: The market open time on the holiday (if it's not closed).
+                      type: string
+                    status:
+                      description: The status of the market on the holiday.
+                      type: string
+                  type: object
+                  x-polygon-go-type:
+                    name: MarketHoliday
+                type: array
+          description: OK
+      summary: Market Holidays
+      tags:
+      - reference:stocks:market
+      x-polygon-entitlement-data-type:
+        description: Reference data
+        name: reference
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

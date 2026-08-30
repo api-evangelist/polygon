@@ -1,0 +1,1025 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Reference:stocks API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: reference:stocks
+paths:
+  /v3/reference/splits:
+    get:
+      description: Get a list of historical stock splits, including the ticker symbol, the execution date, and the factors of the split ratio.
+      operationId: ListStockSplits
+      parameters:
+      - description: Specify a case-sensitive ticker symbol. For example, AAPL represents Apple Inc.
+        in: query
+        name: ticker
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+          type: string
+      - description: Query by execution date with the format YYYY-MM-DD.
+        in: query
+        name: execution_date
+        schema:
+          format: date
+          type: string
+        x-polygon-filter-field:
+          range: true
+          type: string
+      - description: Query for reverse stock splits. A split ratio where split_from is greater than split_to represents a reverse split. By default this filter is not used.
+        in: query
+        name: reverse_split
+        schema:
+          type:
+          - boolean
+          - 'null'
+      - description: Range by ticker.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Range by ticker.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Range by execution_date.
+        in: query
+        name: execution_date.gte
+        schema:
+          format: date
+          type: string
+      - description: Range by execution_date.
+        in: query
+        name: execution_date.gt
+        schema:
+          format: date
+          type: string
+      - description: Range by execution_date.
+        in: query
+        name: execution_date.lte
+        schema:
+          format: date
+          type: string
+      - description: Range by execution_date.
+        in: query
+        name: execution_date.lt
+        schema:
+          format: date
+          type: string
+      - description: Order results based on the `sort` field.
+        in: query
+        name: order
+        schema:
+          enum:
+          - asc
+          - desc
+          example: asc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 1000.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          example: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: Sort field used for ordering.
+        in: query
+        name: sort
+        schema:
+          default: execution_date
+          enum:
+          - execution_date
+          - ticker
+          example: execution_date
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.polygon.io/v3/splits/AAPL?cursor=YWN0aXZlPXRydWUmZGF0ZT0yMDIxLTA0LTI1JmxpbWl0PTEmb3JkZXI9YXNjJnBhZ2VfbWFya2VyPUElN0M5YWRjMjY0ZTgyM2E1ZjBiOGUyNDc5YmZiOGE1YmYwNDVkYzU0YjgwMDcyMWE2YmI1ZjBjMjQwMjU4MjFmNGZiJnNvcnQ9dGlja2Vy
+                request_id: 6a7e466379af0a71039d60cc78e72282
+                results:
+                - execution_date: '2020-08-31'
+                  id: E36416cce743c3964c5da63e1ef1626c0aece30fb47302eea5a49c0055c04e8d0
+                  split_from: 1
+                  split_to: 4
+                  ticker: AAPL
+                - execution_date: '2005-02-28'
+                  id: E90a77bdf742661741ed7c8fc086415f0457c2816c45899d73aaa88bdc8ff6025
+                  split_from: 1
+                  split_to: 2
+                  ticker: AAPL
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: An array of results containing the requested data.
+                    items:
+                      properties:
+                        execution_date:
+                          description: The execution date of the stock split. On this date the stock split was applied.
+                          type: string
+                        id:
+                          description: The unique identifier for this stock split.
+                          type: string
+                        split_from:
+                          description: 'The second number in the split ratio.
+
+
+                            For example: In a 2-for-1 split, split_from would be 1.'
+                          format: float
+                          type: number
+                        split_to:
+                          description: 'The first number in the split ratio.
+
+
+                            For example: In a 2-for-1 split, split_to would be 2.'
+                          format: float
+                          type: number
+                        ticker:
+                          description: The ticker symbol of the stock split.
+                          type: string
+                      required:
+                      - split_from
+                      - split_to
+                      - id
+                      - ticker
+                      - execution_date
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                type: object
+            text/csv:
+              example: 'ticker,execution_date,split_from,split_to
+
+                AAPL,2020-08-31,1.0,4.0
+
+                AAPL,2005-02-28,1.0,2.0
+
+                '
+              schema:
+                type: string
+          description: A list of stock splits.
+      summary: Stock Splits v3
+      tags:
+      - reference:stocks
+      x-polygon-entitlement-data-type:
+        description: Reference data
+        name: reference
+      x-polygon-paginate:
+        limit:
+          default: 10
+          max: 1000
+        sort:
+          default: execution_date
+          enum:
+          - execution_date
+          - ticker
+  /vX/reference/financials:
+    get:
+      description: 'Get historical financial data for a stock ticker.
+
+        The financials data is extracted from XBRL from company SEC filings using the methodology outlined <a rel="noopener noreferrer nofollow" target="_blank" href="http://xbrl.squarespace.com/understanding-sec-xbrl-financi/">here</a>.'
+      operationId: ListFinancials
+      parameters:
+      - description: Query by company ticker.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Query by central index key (<a rel="noopener noreferrer nofollow" target="_blank" href="https://www.sec.gov/edgar/searchedgar/cik.htm">CIK</a>) Number
+        in: query
+        name: cik
+        schema:
+          type: string
+      - description: Query by company name.
+        in: query
+        name: company_name
+        schema:
+          type: string
+        x-polygon-filter-field:
+          search: true
+      - description: Query by standard industrial classification (<a rel="noopener noreferrer nofollow" target="_blank" href="https://www.sec.gov/corpfin/division-of-corporation-finance-standard-industrial-classification-sic-code-list">SIC</a>)
+        in: query
+        name: sic
+        schema:
+          type: string
+      - description: 'Query by the date when the filing with financials data was filed in YYYY-MM-DD format.
+
+
+          Best used when querying over date ranges to find financials based on filings that happen in a time period.
+
+
+          Examples:
+
+
+          To get financials based on filings that have happened after January 1, 2009 use the query param filing_date.gte=2009-01-01
+
+
+          To get financials based on filings that happened in the year 2009 use the query params filing_date.gte=2009-01-01&filing_date.lt=2010-01-01'
+        in: query
+        name: filing_date
+        schema:
+          format: date
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: The period of report for the filing with financials data in YYYY-MM-DD format.
+        in: query
+        name: period_of_report_date
+        schema:
+          format: date
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: 'Query by timeframe. Annual financials originate from 10-K filings, and quarterly financials originate from 10-Q filings. Note: Most companies do not file quarterly reports for Q4 and instead include those financials in their annual report, so some companies my not return quarterly financials for Q4'
+        in: query
+        name: timeframe
+        schema:
+          enum:
+          - annual
+          - quarterly
+          - ttm
+          type: string
+      - description: 'Whether or not to include the `xpath` and `formula` attributes for each financial data point.
+
+          See the `xpath` and `formula` response attributes for more info. False by default.'
+        in: query
+        name: include_sources
+        schema:
+          default: false
+          type: boolean
+      - description: Search by company_name.
+        in: query
+        name: company_name.search
+        schema:
+          type: string
+      - description: Search by filing_date.
+        in: query
+        name: filing_date.gte
+        schema:
+          format: date
+          type: string
+      - description: Search by filing_date.
+        in: query
+        name: filing_date.gt
+        schema:
+          format: date
+          type: string
+      - description: Search by filing_date.
+        in: query
+        name: filing_date.lte
+        schema:
+          format: date
+          type: string
+      - description: Search by filing_date.
+        in: query
+        name: filing_date.lt
+        schema:
+          format: date
+          type: string
+      - description: Search by period_of_report_date.
+        in: query
+        name: period_of_report_date.gte
+        schema:
+          format: date
+          type: string
+      - description: Search by period_of_report_date.
+        in: query
+        name: period_of_report_date.gt
+        schema:
+          format: date
+          type: string
+      - description: Search by period_of_report_date.
+        in: query
+        name: period_of_report_date.lte
+        schema:
+          format: date
+          type: string
+      - description: Search by period_of_report_date.
+        in: query
+        name: period_of_report_date.lt
+        schema:
+          format: date
+          type: string
+      - description: Order results based on the `sort` field.
+        in: query
+        name: order
+        schema:
+          enum:
+          - asc
+          - desc
+          example: asc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 100.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          example: 10
+          maximum: 100
+          minimum: 1
+          type: integer
+      - description: Sort field used for ordering.
+        in: query
+        name: sort
+        schema:
+          default: period_of_report_date
+          enum:
+          - filing_date
+          - period_of_report_date
+          example: filing_date
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                next_url: https://api.polygon.io/vX/reference/financials?
+                request_id: 55eb92ed43b25568ab0cce159830ea34
+                results:
+                - cik: 0001650729
+                  company_name: SiteOne Landscape Supply, Inc.
+                  end_date: '2022-04-03'
+                  filing_date: '2022-05-04'
+                  financials:
+                    balance_sheet:
+                      assets:
+                        label: Assets
+                        order: 100
+                        unit: USD
+                        value: 2407400000
+                      current_assets:
+                        label: Current Assets
+                        order: 200
+                        unit: USD
+                        value: 1385900000
+                      current_liabilities:
+                        label: Current Liabilities
+                        order: 700
+                        unit: USD
+                        value: 597500000
+                      equity:
+                        label: Equity
+                        order: 1400
+                        unit: USD
+                        value: 1099200000
+                      equity_attributable_to_noncontrolling_interest:
+                        label: Equity Attributable To Noncontrolling Interest
+                        order: 1500
+                        unit: USD
+                        value: 0
+                      equity_attributable_to_parent:
+                        label: Equity Attributable To Parent
+                        order: 1600
+                        unit: USD
+                        value: 1099200000
+                      liabilities:
+                        label: Liabilities
+                        order: 600
+                        unit: USD
+                        value: 1308200000
+                      liabilities_and_equity:
+                        label: Liabilities And Equity
+                        order: 1900
+                        unit: USD
+                        value: 2407400000
+                      noncurrent_assets:
+                        label: Noncurrent Assets
+                        order: 300
+                        unit: USD
+                        value: 1021500000
+                      noncurrent_liabilities:
+                        label: Noncurrent Liabilities
+                        order: 800
+                        unit: USD
+                        value: 710700000
+                    cash_flow_statement:
+                      exchange_gains_losses:
+                        label: Exchange Gains/Losses
+                        order: 1000
+                        unit: USD
+                        value: 100000
+                      net_cash_flow:
+                        label: Net Cash Flow
+                        order: 1100
+                        unit: USD
+                        value: -8600000
+                      net_cash_flow_continuing:
+                        label: Net Cash Flow, Continuing
+                        order: 1200
+                        unit: USD
+                        value: -8700000
+                      net_cash_flow_from_financing_activities:
+                        label: Net Cash Flow From Financing Activities
+                        order: 700
+                        unit: USD
+                        value: 150600000
+                      net_cash_flow_from_financing_activities_continuing:
+                        label: Net Cash Flow From Financing Activities, Continuing
+                        order: 800
+                        unit: USD
+                        value: 150600000
+                      net_cash_flow_from_investing_activities:
+                        label: Net Cash Flow From Investing Activities
+                        order: 400
+                        unit: USD
+                        value: -41000000
+                      net_cash_flow_from_investing_activities_continuing:
+                        label: Net Cash Flow From Investing Activities, Continuing
+                        order: 500
+                        unit: USD
+                        value: -41000000
+                      net_cash_flow_from_operating_activities:
+                        label: Net Cash Flow From Operating Activities
+                        order: 100
+                        unit: USD
+                        value: -118300000
+                      net_cash_flow_from_operating_activities_continuing:
+                        label: Net Cash Flow From Operating Activities, Continuing
+                        order: 200
+                        unit: USD
+                        value: -118300000
+                    comprehensive_income:
+                      comprehensive_income_loss:
+                        label: Comprehensive Income/Loss
+                        order: 100
+                        unit: USD
+                        value: 40500000
+                      comprehensive_income_loss_attributable_to_noncontrolling_interest:
+                        label: Comprehensive Income/Loss Attributable To Noncontrolling Interest
+                        order: 200
+                        unit: USD
+                        value: 0
+                      comprehensive_income_loss_attributable_to_parent:
+                        label: Comprehensive Income/Loss Attributable To Parent
+                        order: 300
+                        unit: USD
+                        value: 40500000
+                      other_comprehensive_income_loss:
+                        label: Other Comprehensive Income/Loss
+                        order: 400
+                        unit: USD
+                        value: 40500000
+                      other_comprehensive_income_loss_attributable_to_parent:
+                        label: Other Comprehensive Income/Loss Attributable To Parent
+                        order: 600
+                        unit: USD
+                        value: 8200000
+                    income_statement:
+                      basic_earnings_per_share:
+                        label: Basic Earnings Per Share
+                        order: 4200
+                        unit: USD / shares
+                        value: 0.72
+                      benefits_costs_expenses:
+                        label: Benefits Costs and Expenses
+                        order: 200
+                        unit: USD
+                        value: 768400000
+                      cost_of_revenue:
+                        label: Cost Of Revenue
+                        order: 300
+                        unit: USD
+                        value: 536100000
+                      costs_and_expenses:
+                        label: Costs And Expenses
+                        order: 600
+                        unit: USD
+                        value: 768400000
+                      diluted_earnings_per_share:
+                        label: Diluted Earnings Per Share
+                        order: 4300
+                        unit: USD / shares
+                        value: 0.7
+                      gross_profit:
+                        label: Gross Profit
+                        order: 800
+                        unit: USD
+                        value: 269200000
+                      income_loss_from_continuing_operations_after_tax:
+                        label: Income/Loss From Continuing Operations After Tax
+                        order: 1400
+                        unit: USD
+                        value: 32300000
+                      income_loss_from_continuing_operations_before_tax:
+                        label: Income/Loss From Continuing Operations Before Tax
+                        order: 1500
+                        unit: USD
+                        value: 36900000
+                      income_tax_expense_benefit:
+                        label: Income Tax Expense/Benefit
+                        order: 2200
+                        unit: USD
+                        value: 4600000
+                      interest_expense_operating:
+                        label: Interest Expense, Operating
+                        order: 2700
+                        unit: USD
+                        value: 4300000
+                      net_income_loss:
+                        label: Net Income/Loss
+                        order: 3200
+                        unit: USD
+                        value: 32300000
+                      net_income_loss_attributable_to_noncontrolling_interest:
+                        label: Net Income/Loss Attributable To Noncontrolling Interest
+                        order: 3300
+                        unit: USD
+                        value: 0
+                      net_income_loss_attributable_to_parent:
+                        label: Net Income/Loss Attributable To Parent
+                        order: 3500
+                        unit: USD
+                        value: 32300000
+                      net_income_loss_available_to_common_stockholders_basic:
+                        label: Net Income/Loss Available To Common Stockholders, Basic
+                        order: 3700
+                        unit: USD
+                        value: 32300000
+                      operating_expenses:
+                        label: Operating Expenses
+                        order: 1000
+                        unit: USD
+                        value: 228000000
+                      operating_income_loss:
+                        label: Operating Income/Loss
+                        order: 1100
+                        unit: USD
+                        value: 41200000
+                      participating_securities_distributed_and_undistributed_earnings_loss_basic:
+                        label: Participating Securities, Distributed And Undistributed Earnings/Loss, Basic
+                        order: 3800
+                        unit: USD
+                        value: 0
+                      preferred_stock_dividends_and_other_adjustments:
+                        label: Preferred Stock Dividends And Other Adjustments
+                        order: 3900
+                        unit: USD
+                        value: 0
+                      revenues:
+                        label: Revenues
+                        order: 100
+                        unit: USD
+                        value: 805300000
+                  fiscal_period: Q1
+                  fiscal_year: '2022'
+                  source_filing_file_url: https://api.polygon.io/v1/reference/sec/filings/0001650729-22-000010/files/site-20220403_htm.xml
+                  source_filing_url: https://api.polygon.io/v1/reference/sec/filings/0001650729-22-000010
+                  start_date: '2022-01-03'
+                status: OK
+              schema:
+                properties:
+                  count:
+                    description: The total number of results for this request.
+                    type: integer
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: An array of results containing the requested data.
+                    items:
+                      properties:
+                        acceptance_datetime:
+                          description: The datetime (EST timezone) the filing was accepted by EDGAR in YYYYMMDDHHMMSS format.
+                          type: string
+                        cik:
+                          description: The CIK number for the company.
+                          type: string
+                        company_name:
+                          description: The company name.
+                          type: string
+                        end_date:
+                          description: The end date of the period that these financials cover in YYYYMMDD format.
+                          type: string
+                        filing_date:
+                          description: The date that the SEC filing which these financials were derived from was made available. Note that this is not necessarily the date when this information became public, as some companies may publish a press release before filing with the SEC.
+                          type: string
+                        financials:
+                          description: Structured financial statements with detailed data points and metadata.
+                          properties:
+                            balance_sheet:
+                              description: 'Balance sheet.
+
+                                The keys in this object can be any of the fields listed in the Balance Sheet section of the <a target="_blank" href="https://massive.com/blog/financials-api-glossary-of-fields">financials API glossary of terms</a>.'
+                              properties:
+                                '*':
+                                  description: An individual financial data point.
+                                  properties:
+                                    derived_from:
+                                      description: 'The list of report IDs (or errata) which were used to derive this data point.
+
+                                        This value is only returned for data points taken directly from XBRL when the `include_sources` query parameter is `true` and if source is SourceInterReportDerived.'
+                                      items:
+                                        type: string
+                                      type: array
+                                    formula:
+                                      description: 'The name of the formula used to derive this data point from other financial data points.
+
+                                        Information about the formulas can be found <a rel="noopener noreferrer nofollow" target="_blank" href="http://xbrlsite.azurewebsites.net/2020/reporting-scheme/us-gaap/fac/documentation/ImputeRulesList.html">here</a>.
+
+                                        This value is only returned for data points that are not explicitly expressed within the XBRL source file when the `include_sources` query parameter is `true` and if source is SourceIntraReportImpute.'
+                                      type: string
+                                    label:
+                                      description: A human readable label for the financial data point.
+                                      type: string
+                                    order:
+                                      description: An indicator of what order within the statement that you would find this data point.
+                                      type: integer
+                                    source:
+                                      description: 'The source where this data point came from. This will be one of: SourceDirectReport, SourceIntraReportImpute or SourceInterReportDerived.'
+                                      type: string
+                                    unit:
+                                      description: The unit of the financial data point.
+                                      type: string
+                                    value:
+                                      description: The value of the financial data point.
+                                      type: number
+                                    xpath:
+                                      description: 'The <a rel="noopener noreferrer nofollow" target="_blank" href="https://en.wikipedia.org/wiki/XPath">XPath 1.0</a> query that identifies the fact from within the XBRL source file.
+
+                                        This value is only returned for data points taken directly from XBRL when the `include_sources` query parameter is `true` and if source is SourceDirectReport.'
+                                      type: string
+                                  required:
+                                  - label
+                                  - order
+                                  - value
+                                  - unit
+                                  type: object
+                              type: object
+                            cash_flow_statement:
+                              description: 'Cash flow statement.
+
+                                The keys in this object can be any of the fields listed in the Cash Flow Statement section of the <a target="_blank" href="https://massive.com/blog/financials-api-glossary-of-fields">financials API glossary of terms</a>.
+
+                                See the attributes of the objects within `balance_sheet` for more details.'
+                              type: object
+                            comprehensive_income:
+                              description: 'Comprehensive income.
+
+                                The keys in this object can be any of the fields listed in the Comprehensive Income section of the <a target="_blank" href="https://massive.com/blog/financials-api-glossary-of-fields">financials API glossary of terms</a>.
+
+                                See the attributes of the objects within `balance_sheet` for more details.'
+                              type: object
+                            income_statement:
+                              description: 'Income statement.
+
+                                The keys in this object can be any of the fields listed in the Income Statement section of the <a target="_blank" href="https://massive.com/blog/financials-api-glossary-of-fields">financials API glossary of terms</a>.
+
+                                See the attributes of the objects within `balance_sheet` for more details.'
+                              type: object
+                          type: object
+                        fiscal_period:
+                          description: Fiscal period of the report according to the company (Q1, Q2, Q3, Q4, or FY).
+                          type: string
+                        fiscal_year:
+                          description: Fiscal year of the report according to the company.
+                          type: string
+                        sic:
+                          description: The Standard Industrial Classification (SIC) code for the company.
+                          type: string
+                        source_filing_file_url:
+                          description: The URL of the specific XBRL instance document within the SEC filing that these financials were derived from.
+                          type: string
+                        source_filing_url:
+                          description: The URL of the SEC filing that these financials were derived from.
+                          type: string
+                        start_date:
+                          description: The start date of the period that these financials cover in YYYYMMDD format.
+                          type: string
+                        tickers:
+                          description: The list of ticker symbols for the company.
+                          items:
+                            type: string
+                          type: array
+                        timeframe:
+                          description: The timeframe of the report (quarterly, annual or ttm).
+                          type: string
+                      required:
+                      - cik
+                      - company_name
+                      - financials
+                      - timeframe
+                      - fiscal_period
+                      type: object
+                      x-polygon-go-type:
+                        name: FinancialReport
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - status
+                - request_id
+                - count
+                - results
+                type: object
+          description: FIXME
+      summary: Stock Financials vX
+      tags:
+      - reference:stocks
+      x-polygon-entitlement-data-type:
+        description: Reference data
+        name: reference
+      x-polygon-experimental: {}
+      x-polygon-paginate:
+        limit:
+          default: 10
+          max: 100
+        sort:
+          default: period_of_report_date
+          enum:
+          - filing_date
+          - period_of_report_date
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

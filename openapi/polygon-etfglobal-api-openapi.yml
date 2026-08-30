@@ -1,0 +1,2491 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Etfglobal API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: etfglobal
+paths:
+  /etf-global/v1/analytics:
+    get:
+      description: ETF Global analytics data containing risk scores, reward metrics, and quantitative analysis for ETF composite tickers.
+      operationId: get_etf-global_v1_analytics
+      parameters:
+      - description: The stock ticker symbol used to identify this ETF product on exchanges.
+        in: query
+        name: composite_ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: composite_ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: composite_ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: composite_ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: composite_ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: composite_ticker.lte
+        schema:
+          type: string
+      - description: The date showing when ETF Global received and processed the data. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.lte
+        schema:
+          type: string
+      - description: The date showing when the information was accurate or valid; some issuers, such as Vanguard, release their data on a delay, so the effective_date can be several weeks earlier than the processed_date. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.lte
+        schema:
+          type: string
+      - description: ETF Global's proprietary Red Diamond overall risk assessment score for the ETF. Value must be a floating point number.
+        in: query
+        name: risk_total_score
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: risk_total_score.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: risk_total_score.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: risk_total_score.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: risk_total_score.lte
+        schema:
+          format: double
+          type: number
+      - description: ETF Global's proprietary Green Diamond score measuring the potential reward and return prospects of the ETF. Value must be a floating point number.
+        in: query
+        name: reward_score
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: reward_score.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: reward_score.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: reward_score.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: reward_score.lte
+        schema:
+          format: double
+          type: number
+      - description: ETF Global's comprehensive quantitative analysis score combining all quantitative factors. Value must be a floating point number.
+        in: query
+        name: quant_total_score
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: quant_total_score.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_total_score.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: quant_total_score.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_total_score.lte
+        schema:
+          format: double
+          type: number
+      - description: Letter grade summarizing the ETF's overall quantitative assessment, where A = 71-100, B = 56-70, etc.
+        in: query
+        name: quant_grade
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: quant_grade.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: quant_grade.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: quant_grade.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: quant_grade.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: quant_grade.lte
+        schema:
+          type: string
+      - description: Combined technical analysis score aggregating short, intermediate, and long-term technical factors. Value must be a floating point number.
+        in: query
+        name: quant_composite_technical
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_technical.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_technical.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_technical.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_technical.lte
+        schema:
+          format: double
+          type: number
+      - description: Overall market sentiment score combining put/call ratios, short interest, and implied volatility. Value must be a floating point number.
+        in: query
+        name: quant_composite_sentiment
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_sentiment.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_sentiment.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_sentiment.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_sentiment.lte
+        schema:
+          format: double
+          type: number
+      - description: Behavioral analysis score measuring investor psychology and market behavior patterns. Value must be a floating point number.
+        in: query
+        name: quant_composite_behavioral
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_behavioral.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_behavioral.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_behavioral.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_behavioral.lte
+        schema:
+          format: double
+          type: number
+      - description: Overall fundamental analysis score combining P/E, P/CF, P/B, and dividend yield metrics. Value must be a floating point number.
+        in: query
+        name: quant_composite_fundamental
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_fundamental.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_fundamental.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_fundamental.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_fundamental.lte
+        schema:
+          format: double
+          type: number
+      - description: Overall global theme score combining sector and country analysis for macro investment views. Value must be a floating point number.
+        in: query
+        name: quant_composite_global
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_global.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_global.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_global.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_global.lte
+        schema:
+          format: double
+          type: number
+      - description: Overall quality assessment score combining liquidity, diversification, and issuing firm factors. Value must be a floating point number.
+        in: query
+        name: quant_composite_quality
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_quality.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_quality.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_quality.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: quant_composite_quality.lte
+        schema:
+          format: double
+          type: number
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '5000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 5000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'composite_ticker' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: composite_ticker.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - composite_ticker: SPY
+                  effective_date: '2025-09-19'
+                  processed_date: '2025-09-19'
+                  quant_composite_behavioral: 67.1535
+                  quant_composite_fundamental: 1.2
+                  quant_composite_global: 52.9
+                  quant_composite_quality: 75.9
+                  quant_composite_sentiment: 54.6
+                  quant_composite_technical: 79.7
+                  quant_fundamental_div: 4.7
+                  quant_fundamental_pb: 0
+                  quant_fundamental_pcf: 0
+                  quant_fundamental_pe: 0
+                  quant_global_country: 85.4
+                  quant_global_sector: 20.4
+                  quant_grade: D
+                  quant_quality_diversification: 29.3
+                  quant_quality_firm: 98.3
+                  quant_quality_liquidity: 100
+                  quant_sentiment_iv: 23
+                  quant_sentiment_pc: 88.9
+                  quant_sentiment_si: 51.6
+                  quant_technical_it: 79
+                  quant_technical_lt: 78.7
+                  quant_technical_st: 83.1
+                  quant_total_score: 40.2
+                  reward_score: 3.12
+                  risk_country: 1.46
+                  risk_deviation: 7.68
+                  risk_efficiency: 1.85
+                  risk_liquidity: 2.5
+                  risk_structure: 2.37
+                  risk_total_score: 9.22
+                  risk_volatility: 4.66
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        composite_ticker:
+                          description: The stock ticker symbol used to identify this ETF product on exchanges.
+                          type: string
+                        effective_date:
+                          description: The date showing when the information was accurate or valid; some issuers, such as Vanguard, release their data on a delay, so the effective_date can be several weeks earlier than the processed_date.
+                          format: date
+                          type: string
+                        processed_date:
+                          description: The date showing when ETF Global received and processed the data.
+                          format: date
+                          type: string
+                        quant_composite_behavioral:
+                          description: Behavioral analysis score measuring investor psychology and market behavior patterns.
+                          format: double
+                          type: number
+                        quant_composite_fundamental:
+                          description: Overall fundamental analysis score combining P/E, P/CF, P/B, and dividend yield metrics.
+                          format: double
+                          type: number
+                        quant_composite_global:
+                          description: Overall global theme score combining sector and country analysis for macro investment views.
+                          format: double
+                          type: number
+                        quant_composite_quality:
+                          description: Overall quality assessment score combining liquidity, diversification, and issuing firm factors.
+                          format: double
+                          type: number
+                        quant_composite_sentiment:
+                          description: Overall market sentiment score combining put/call ratios, short interest, and implied volatility.
+                          format: double
+                          type: number
+                        quant_composite_technical:
+                          description: Combined technical analysis score aggregating short, intermediate, and long-term technical factors.
+                          format: double
+                          type: number
+                        quant_fundamental_div:
+                          description: Fundamental analysis score based on dividend yields of the ETF's underlying securities.
+                          format: double
+                          type: number
+                        quant_fundamental_pb:
+                          description: Fundamental analysis score based on price-to-book value ratios of the ETF's holdings.
+                          format: double
+                          type: number
+                        quant_fundamental_pcf:
+                          description: Fundamental analysis score based on price-to-cash-flow ratios of the ETF's underlying assets.
+                          format: double
+                          type: number
+                        quant_fundamental_pe:
+                          description: Fundamental analysis score based on price-to-earnings ratios of the ETF's underlying holdings.
+                          format: double
+                          type: number
+                        quant_global_country:
+                          description: Quantitative score analyzing global country themes and country-specific market factors.
+                          format: double
+                          type: number
+                        quant_global_sector:
+                          description: Quantitative score analyzing global sector themes and sector-specific performance factors.
+                          format: double
+                          type: number
+                        quant_grade:
+                          description: Letter grade summarizing the ETF's overall quantitative assessment, where A = 71-100, B = 56-70, etc.
+                          type: string
+                        quant_quality_diversification:
+                          description: Quality assessment score evaluating the diversification benefits and risk distribution of the ETF.
+                          format: double
+                          type: number
+                        quant_quality_firm:
+                          description: Quality assessment score evaluating the reputation and capabilities of the ETF's issuing firm.
+                          format: double
+                          type: number
+                        quant_quality_liquidity:
+                          description: Quality assessment score measuring the liquidity characteristics and trading ease of the ETF.
+                          format: double
+                          type: number
+                        quant_sentiment_iv:
+                          description: Market sentiment score derived from implied volatility levels in options markets.
+                          format: double
+                          type: number
+                        quant_sentiment_pc:
+                          description: Market sentiment score derived from put/call option ratios and options activity.
+                          format: double
+                          type: number
+                        quant_sentiment_si:
+                          description: Market sentiment score based on short interest levels and short selling activity.
+                          format: double
+                          type: number
+                        quant_technical_it:
+                          description: Intermediate-term technical analysis score evaluating medium-term price trends.
+                          format: double
+                          type: number
+                        quant_technical_lt:
+                          description: Long-term technical analysis score assessing extended price trend patterns.
+                          format: double
+                          type: number
+                        quant_technical_st:
+                          description: Short-term technical analysis score based on recent price movements and trading patterns.
+                          format: double
+                          type: number
+                        quant_total_score:
+                          description: ETF Global's comprehensive quantitative analysis score combining all quantitative factors.
+                          format: double
+                          type: number
+                        reward_score:
+                          description: ETF Global's proprietary Green Diamond score measuring the potential reward and return prospects of the ETF.
+                          format: double
+                          type: number
+                        risk_country:
+                          description: A component score assessing country-specific risks based on the ETF's geographic exposure.
+                          format: double
+                          type: number
+                        risk_deviation:
+                          description: A component score measuring how much the ETF deviates from expected performance.
+                          format: double
+                          type: number
+                        risk_efficiency:
+                          description: A component score assessing the operational efficiency and cost-effectiveness of the ETF.
+                          format: double
+                          type: number
+                        risk_liquidity:
+                          description: A component score measuring the liquidity risk and ease of trading the ETF.
+                          format: double
+                          type: number
+                        risk_structure:
+                          description: A component score evaluating risks related to the ETF's structural design and mechanics.
+                          format: double
+                          type: number
+                        risk_total_score:
+                          description: ETF Global's proprietary Red Diamond overall risk assessment score for the ETF.
+                          format: double
+                          type: number
+                        risk_volatility:
+                          description: A component score measuring the volatility risk of the ETF's price movements.
+                          format: double
+                          type: number
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - etfglobal
+  /etf-global/v1/constituents:
+    get:
+      description: ETF Global constituents data containing detailed information about the securities held within ETFs, including weights, market values, and security identifiers.
+      operationId: get_etf-global_v1_constituents
+      parameters:
+      - description: The stock ticker symbol of the ETF that holds these constituent securities.
+        in: query
+        name: composite_ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: composite_ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: composite_ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: composite_ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: composite_ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: composite_ticker.lte
+        schema:
+          type: string
+      - description: The stock ticker symbol of the individual security held within the ETF.
+        in: query
+        name: constituent_ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: constituent_ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: constituent_ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: constituent_ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: constituent_ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: constituent_ticker.lte
+        schema:
+          type: string
+      - description: The date showing when the information was accurate or valid; some issuers, such as Vanguard, release their data on a delay, so the effective_date can be several weeks earlier than the processed_date. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.lte
+        schema:
+          type: string
+      - description: The date showing when ETF Global received and processed the data. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.lte
+        schema:
+          type: string
+      - description: A unique identifier code for the constituent security in US markets.
+        in: query
+        name: us_code
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: us_code.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: us_code.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: us_code.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: us_code.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: us_code.lte
+        schema:
+          type: string
+      - description: The International Securities Identification Number, a global standard for identifying securities.
+        in: query
+        name: isin
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: isin.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: isin.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: isin.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: isin.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: isin.lte
+        schema:
+          type: string
+      - description: The Financial Instrument Global Identifier, an open standard for uniquely identifying financial instruments.
+        in: query
+        name: figi
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: figi.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: figi.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: figi.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: figi.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: figi.lte
+        schema:
+          type: string
+      - description: The Stock Exchange Daily Official List code, primarily used for securities trading in the UK.
+        in: query
+        name: sedol
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: sedol.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: sedol.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: sedol.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: sedol.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: sedol.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '5000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 5000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'composite_ticker' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: composite_ticker.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - asset_class: Equity
+                  composite_ticker: SPY
+                  constituent_name: CAESARS ENTERTAINMENT INC COMMON STOCK
+                  constituent_rank: 42
+                  constituent_ticker: CZR
+                  country_of_exchange: US
+                  currency_traded: USD
+                  effective_date: '2025-09-18'
+                  figi: BBG0074Q3NK6
+                  isin: US12769G1004
+                  market_value: 63308625.6
+                  processed_date: '2025-09-19'
+                  security_type: Common Stock
+                  sedol: BMWWGB0
+                  shares_held: 2398054
+                  us_code: 12769G100
+                  weight: 9.58005e-05
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        asset_class:
+                          description: The broad category of asset type, such as Equity, Corporate Bond, Municipal Bond, etc.
+                          type: string
+                        composite_ticker:
+                          description: The stock ticker symbol of the ETF that holds these constituent securities.
+                          type: string
+                        constituent_name:
+                          description: The full company or security name of the constituent holding.
+                          type: string
+                        constituent_rank:
+                          description: The rank of this constituent within the ETF for a given effective_date, ordered by weight (descending), market_value (descending), and constituent_ticker (ascending). A rank of 1 indicates the largest holding.
+                          format: int64
+                          type: integer
+                        constituent_ticker:
+                          description: The stock ticker symbol of the individual security held within the ETF.
+                          type: string
+                        country_of_exchange:
+                          description: The country where the exchange that lists this constituent security is located.
+                          type: string
+                        currency_traded:
+                          description: The local currency in which this constituent security is denominated and traded.
+                          type: string
+                        effective_date:
+                          description: The date showing when the information was accurate or valid; some issuers, such as Vanguard, release their data on a delay, so the effective_date can be several weeks earlier than the processed_date.
+                          format: date
+                          type: string
+                        exchange:
+                          description: The name of the stock exchange where this constituent security is primarily traded.
+                          type: string
+                        figi:
+                          description: The Financial Instrument Global Identifier, an open standard for uniquely identifying financial instruments.
+                          type: string
+                        isin:
+                          description: The International Securities Identification Number, a global standard for identifying securities.
+                          type: string
+                        market_value:
+                          description: The total market value of this constituent position held by the ETF.
+                          format: double
+                          type: number
+                        processed_date:
+                          description: The date showing when ETF Global received and processed the data.
+                          format: date
+                          type: string
+                        security_type:
+                          description: The specific classification of security type using ETF Global's taxonomy, such as Common Equity, Domestic, Global, etc.
+                          type: string
+                        sedol:
+                          description: The Stock Exchange Daily Official List code, primarily used for securities trading in the UK.
+                          type: string
+                        shares_held:
+                          description: The number of shares of this constituent security that the ETF currently owns.
+                          format: double
+                          type: number
+                        us_code:
+                          description: A unique identifier code for the constituent security in US markets.
+                          type: string
+                        weight:
+                          description: The percentage weight of this constituent security within the ETF's total portfolio.
+                          format: double
+                          type: number
+                      required:
+                      - constituent_rank
+                      - effective_date
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - etfglobal
+  /etf-global/v1/fund-flows:
+    get:
+      description: ETF Global fund flow data containing information about ETF share movements, net asset values, and fund flow metrics.
+      operationId: get_etf-global_v1_fund-flows
+      parameters:
+      - description: The date showing when ETF Global received and processed the data. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.lte
+        schema:
+          type: string
+      - description: The date showing when the information was accurate or valid; some issuers, such as Vanguard, release their data on a delay, so the effective_date can be several weeks earlier than the processed_date. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.lte
+        schema:
+          type: string
+      - description: The stock ticker symbol used to identify this ETF on exchanges.
+        in: query
+        name: composite_ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: composite_ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: composite_ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: composite_ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: composite_ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: composite_ticker.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '5000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 5000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'composite_ticker' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: composite_ticker.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - composite_ticker: SPY
+                  effective_date: '2025-01-29'
+                  fund_flow: -30235124.7
+                  nav: 601.877341
+                  processed_date: '2025-01-29'
+                  shares_outstanding: 1047232116
+                - composite_ticker: SPY
+                  effective_date: '2025-01-30'
+                  fund_flow: -2798729635.65
+                  nav: 605.0574
+                  processed_date: '2025-01-30'
+                  shares_outstanding: 1042582116
+                - composite_ticker: SPY
+                  effective_date: '2025-01-31'
+                  fund_flow: -3358068570
+                  nav: 602.044248
+                  processed_date: '2025-01-31'
+                  shares_outstanding: 1037032116
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        composite_ticker:
+                          description: The stock ticker symbol used to identify this ETF on exchanges.
+                          type: string
+                        effective_date:
+                          description: The date showing when the information was accurate or valid; some issuers, such as Vanguard, release their data on a delay, so the effective_date can be several weeks earlier than the processed_date.
+                          format: date
+                          type: string
+                        fund_flow:
+                          description: The net daily capital flow into or out of the ETF through the creation and redemption process, where positive values indicate inflows and negative values indicate outflows.
+                          format: double
+                          type: number
+                        nav:
+                          description: The net asset value per share, representing the per-share value of the ETF's underlying holdings.
+                          format: double
+                          type: number
+                        processed_date:
+                          description: The date showing when ETF Global received and processed the data.
+                          format: date
+                          type: string
+                        shares_outstanding:
+                          description: The total number of ETF shares currently issued and outstanding in the market.
+                          format: double
+                          type: number
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - etfglobal
+  /etf-global/v1/profiles:
+    get:
+      description: ETF Global industry profile data containing comprehensive ETF metadata including financial metrics, operational details, and exposure information.
+      operationId: get_etf-global_v1_profiles
+      parameters:
+      - description: The date showing when ETF Global received and processed the data. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.lte
+        schema:
+          type: string
+      - description: The date showing when the information was accurate or valid; some issuers, such as Vanguard, release their data on a delay, so the effective_date can be several weeks earlier than the processed_date. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.lte
+        schema:
+          type: string
+      - description: The stock ticker symbol used to identify this ETF product on exchanges.
+        in: query
+        name: composite_ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: composite_ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: composite_ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: composite_ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: composite_ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: composite_ticker.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '5000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 5000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'composite_ticker' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: composite_ticker.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - administrator: State Street Bank and Trust Company
+                  advisor: SSgA Funds Management, Inc.
+                  asset_class: Equity
+                  aum: 624531939442.66
+                  avg_daily_trading_volume: 51287737.3
+                  bid_ask_spread: 4.2e-05
+                  call_volume: 4797339
+                  category: Size and Style
+                  composite_ticker: SPY
+                  creation_fee: 3000
+                  creation_unit_size: 50000
+                  currency_exposure:
+                    usd: 1.003
+                  custodian: State Street Bank and Trust Company
+                  description: SPDR S&P 500 ETF Trust
+                  development_class: Developed Markets
+                  discount_premium: 0.136123
+                  distribution_frequency: Q
+                  distributor: ALPS Distributors, Inc.
+                  effective_date: '2025-01-02'
+                  fee_waivers: 0
+                  fiscal_year_end: 31-Aug
+                  focus: Large Cap
+                  geographic_exposure:
+                    bm: 0.001
+                    ch: 0.003
+                    ie: 0.021
+                    je: 0.001
+                    lr: 0.001
+                    nl: 0.001
+                    pa: 0.001
+                    us: 0.967
+                  inception_date: '1993-01-22'
+                  industry_exposure:
+                    aerospace_and_defense: 0.011
+                    air_freight_and_logistics: 0.004
+                    airlines: 0.002
+                    auto_components: 0
+                    automobiles: 0.024
+                    banks: 0.033
+                    beverages: 0.011
+                    biotechnology: 0.047
+                    building_products: 0.002
+                    capital_markets: 0.029
+                    cash_or_derivatives: 0.003
+                    chemicals: 0.007
+                    commercial_services_and_supplies: 0.004
+                    communications_equipment: 0.081
+                    construction_and_engineering: 0.001
+                    construction_materials: 0.001
+                    consumer_products: 0.001
+                    containers_and_packaging: 0.001
+                    distributors: 0.001
+                    diversified_consumer_services: 0.005
+                    diversified_financial_services: 0.029
+                    diversified_telecommunication_services: 0.009
+                    electrical_equipment: 0.009
+                    electronic_equipment_instruments_and_components: 0.001
+                    entertainment: 0.008
+                    equity_real_estate_investment: 0.001
+                    food_products: 0.006
+                    health_care_equipment_and_supplies: 0.031
+                    health_care_providers_and_services: 0.018
+                    health_care_technology: 0.003
+                    hotels,_restaurants_and_leisure: 0.001
+                    hotels_restaurants_and_leisure: 0.014
+                    household_durables: 0.004
+                    household_products: 0.011
+                    industrial_conglomerates: 0.005
+                    insurance: 0.035
+                    it_services: 0.021
+                    leisure_products: 0
+                    machinery: 0.013
+                    media: 0.077
+                    metals_and_mining: 0.003
+                    oil_gas_and_consumable_fuels: 0.031
+                    real_estate_management_and_development: 0.018
+                    renewable_energy: 0.001
+                    road_and_rail: 0.003
+                    semiconductors_and_semiconductor_equipment: 0.115
+                    software: 0.101
+                    specialty_retail: 0.082
+                    technology_hardware_storage_and_peripherals: 0.001
+                    textiles_apparel_and_luxury_goods: 0.003
+                    tobacco: 0.006
+                    trading_companies_and_distributors: 0.002
+                    transportation_infrastructure: 0.006
+                    utilities: 0.022
+                  industry_group_exposure:
+                    automobiles_and_components: 0.024
+                    banks: 0.033
+                    capital_goods: 0.045
+                    cash_or_derivatives: 0.003
+                    commercial_and_professional_services: 0.005
+                    consumer_durables_and_apparel: 0.007
+                    consumer_services: 0.02
+                    diversified_financials: 0.058
+                    energy: 0.032
+                    food_and_staples_retailing: 0.018
+                    food_beverage_and_tobacco: 0.023
+                    health_care_equipment_and_services: 0.046
+                    household_and_personal_products: 0.011
+                    insurance: 0.035
+                    materials: 0.013
+                    media_and_entertainment: 0.084
+                    pharmaceuticals_biotechnology_and_life_sciences: 0.053
+                    real_estate: 0.02
+                    retailing: 0.065
+                    semiconductors_and_semiconductor_equipment: 0.115
+                    software_and_services: 0.12
+                    technology_hardware_and_equipment: 0.084
+                    telecommunication_services: 0.009
+                    transportation: 0.002
+                    transportation_and_logistics: 0.012
+                    utilities: 0.022
+                  issuer: SSgA
+                  lead_market_maker: None
+                  leverage_style: unleveraged
+                  levered_amount: 0
+                  listing_exchange: NYSE Arca, Inc.
+                  management_classification: passive
+                  management_fee: 0.0945
+                  net_expenses: 0.0945
+                  num_holdings: 504
+                  options_available: 1
+                  options_volume: 9346839
+                  other_expenses: 0
+                  primary_benchmark: S&P 500 Index
+                  processed_date: '2025-01-02'
+                  product_type: etf
+                  put_call_ratio: 0.948338
+                  put_volume: 4549500
+                  region: North America
+                  sector_exposure:
+                    cash_or_derivatives: 0.003
+                    communications: 0.094
+                    consumer_discretionary: 0.113
+                    consumer_staples: 0.054
+                    energy: 0.032
+                    financials: 0.131
+                    health_care: 0.099
+                    industrials: 0.068
+                    materials: 0.013
+                    real_estate: 0.02
+                    technology: 0.321
+                    utilities: 0.022
+                  short_interest: 106750000
+                  subindustry_exposure:
+                    advertising: 0.001
+                    aerospace_and_defense: 0.011
+                    agricultural_and_farm_machinery: 0.002
+                    agricultural_products: 0.001
+                    air_freight_and_logistics: 0.004
+                    airlines: 0.002
+                    alternative_carriers: 0.009
+                    apparel_accessories_and_luxury: 0.003
+                    apparel_retail: 0.005
+                    application_software: 0.024
+                    asset_management_and_custody_banks: 0.006
+                    auto_parts_and_equipment: 0
+                    automobile_manufacturers: 0.024
+                    automotive_retail: 0.004
+                    biotechnology: 0.047
+                    brewers: 0
+                    building_products: 0.002
+                    cable_and_satellite: 0.004
+                    cash_or_derivatives: 0.003
+                    casinos_and_gaming: 0.001
+                    commodity_chemicals: 0.001
+                    communications_equipment: 0.081
+                    construction_and_engineering: 0.001
+                    construction_machinery_and_heavy_trucks: 0.006
+                    construction_materials: 0.001
+                    consumer_electronics: 0.001
+                    consumer_finance: 0.029
+                    data_processing_and_outsourced_services: 0.006
+                    distillers_and_vintners: 0.001
+                    distributors: 0
+                    diversified_banks: 0.033
+                    diversified_chemicals: 0.002
+                    diversified_metals_and_mining: 0.001
+                    diversified_support_services: 0.001
+                    drug_retail: 0
+                    electric_utilities: 0.013
+                    electrical_components_and_equipment: 0.009
+                    electronic_components: 0.001
+                    electronic_equipment_and_instruments: 0
+                    electronic_manufacturing_services: 0
+                    environmental_and_facilities_services: 0.003
+                    fertilizers_and_agricultural_che: 0.001
+                    financial_exchanges_and_data: 0.006
+                    food_retail: 0.002
+                    gas_utilities: 0
+                    general_merchandise_stores: 0.002
+                    health_care_distributors: 0.003
+                    health_care_equipment: 0.014
+                    health_care_facilities: 0.001
+                    health_care_services: 0.004
+                    health_care_supplies: 0.003
+                    heavy_electrical_equipment: 0.001
+                    highways_and_railtracks: 0.005
+                    home_improvement_retail: 0.012
+                    homebuilding: 0.002
+                    hotels_resorts_and_cruise_lines: 0.004
+                    household_products: 0.011
+                    hypermarkets_and_super_centers: 0.016
+                    independent_power_producers_and_energy_traders: 0.001
+                    industrial_conglomerates: 0.005
+                    industrial_machinery: 0.005
+                    insurance_brokers: 0.005
+                    integrated_oil_and_gas: 0.014
+                    interactive_media_and_services: 0.067
+                    internet_and_direct_marketing_retail: 0.043
+                    internet_services_and_infrastruc: 0.004
+                    investment_banking_and_brokerage: 0.01
+                    it_consulting_and_other_services: 0.011
+                    leisure_facilities: 0
+                    leisure_products: 0.001
+                    life_and_health_insurance: 0.003
+                    life_sciences_tools_and_services: 0.014
+                    managed_health_care: 0.013
+                    metal_and_glass_containers: 0.001
+                    movies_and_entertainment: 0.012
+                    multiutilities: 0.006
+                    oil_and_gas_equipment_and_services: 0.002
+                    oil_and_gas_exploration_and_production: 0.007
+                    oil_and_gas_refining_and_marketing: 0.003
+                    oil_and_gas_storage_and_transporta: 0.004
+                    packaged_foods_and_meats: 0.006
+                    paper_packaging: 0.001
+                    precious_metals_and_minerals: 0.001
+                    property_and_casualty_insurance: 0.027
+                    publishing_and_broadcasting: 0
+                    railroads: 0.001
+                    real_estate_services: 0.001
+                    reinsurance: 0
+                    reit: 0.019
+                    renewable_energy_equipment: 0.001
+                    research_and_consulting_services: 0.002
+                    restaurants: 0.009
+                    security_and_alarm_services: 0.004
+                    semiconductors: 0.115
+                    soft_drinks: 0.01
+                    specialty_chemicals: 0.004
+                    specialty_stores: 0.001
+                    steel: 0.001
+                    systems_software: 0.078
+                    technology_hardware_storage_and_peripherals: 0.002
+                    tobacco: 0.006
+                    trading_companies_and_distributors: 0.002
+                    trucking: 0.004
+                    water_utilities: 0
+                  tax_classification: Regulated Investment Company
+                  total_expenses: 0.0945
+                  transfer_agent: State Street Bank and Trust Company
+                  trustee: State Street Global Advisors Trust Company
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        administrator:
+                          description: The administrator of the ETF.
+                          type: string
+                        advisor:
+                          description: The investment advisor of the ETF.
+                          type: string
+                        asset_class:
+                          description: The primary type of assets held by the ETF, such as equities, bonds, commodities, or other securities.
+                          type: string
+                        aum:
+                          description: The total assets under management, representing the current market value of all assets held by the ETF.
+                          format: double
+                          type: number
+                        avg_daily_trading_volume:
+                          description: The average number of shares traded daily over the past month, indicating liquidity and investor interest.
+                          format: double
+                          type: number
+                        bid_ask_spread:
+                          description: The average intraday bid-ask spread as a percentage, calculated by dividing the spread by the lowest ask price sampled during the day.
+                          format: double
+                          type: number
+                        call_volume:
+                          description: Call options volume.
+                          format: double
+                          type: number
+                        category:
+                          description: The broad investment category that describes the ETF's investment focus and strategy.
+                          type: string
+                        composite_ticker:
+                          description: The stock ticker symbol used to identify this ETF product on exchanges.
+                          type: string
+                        coupon_exposure:
+                          description: Coupon exposure breakdown for fixed income ETFs.
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                format: double
+                                type: number
+                            required:
+                            - key
+                            - value
+                            type: object
+                          type: array
+                        creation_fee:
+                          description: The fee for creating new shares of the ETF.
+                          format: double
+                          type: number
+                        creation_unit_size:
+                          description: The size of creation units for the ETF.
+                          format: double
+                          type: number
+                        currency_exposure:
+                          description: Currency exposure breakdown of the ETF.
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                format: double
+                                type: number
+                            required:
+                            - key
+                            - value
+                            type: object
+                          type: array
+                        custodian:
+                          description: The custodian of the ETF assets.
+                          type: string
+                        description:
+                          description: The official name and description of the ETF product.
+                          type: string
+                        development_class:
+                          description: The economic development classification of the markets the ETF invests in, such as developed, emerging, or frontier markets.
+                          type: string
+                        discount_premium:
+                          description: Discount or premium to net asset value.
+                          format: double
+                          type: number
+                        distribution_frequency:
+                          description: How frequently the ETF makes distributions.
+                          type: string
+                        distributor:
+                          description: The distributor of the ETF.
+                          type: string
+                        effective_date:
+                          description: The date showing when the information was accurate or valid; some issuers, such as Vanguard, release their data on a delay, so the effective_date can be several weeks earlier than the processed_date.
+                          format: date
+                          type: string
+                        fee_waivers:
+                          description: Any fee waivers applied to the ETF.
+                          format: double
+                          type: number
+                        fiscal_year_end:
+                          description: The fiscal year end date for the ETF.
+                          type: string
+                        focus:
+                          description: The specific investment focus or exposure that the ETF provides, such as sector, geography, or investment style.
+                          type: string
+                        futures_commission_merchant:
+                          description: The futures commission merchant, if applicable.
+                          type: string
+                        geographic_exposure:
+                          description: Geographic exposure breakdown of the ETF.
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                format: double
+                                type: number
+                            required:
+                            - key
+                            - value
+                            type: object
+                          type: array
+                        inception_date:
+                          description: The date when this ETF was first launched and became available for trading.
+                          format: date
+                          type: string
+                        industry_exposure:
+                          description: Industry exposure breakdown of the ETF.
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                format: double
+                                type: number
+                            required:
+                            - key
+                            - value
+                            type: object
+                          type: array
+                        industry_group_exposure:
+                          description: Industry group exposure breakdown of the ETF.
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                format: double
+                                type: number
+                            required:
+                            - key
+                            - value
+                            type: object
+                          type: array
+                        issuer:
+                          description: The financial institution or fund company that created and sponsors this ETF.
+                          type: string
+                        lead_market_maker:
+                          description: The lead market maker for the ETF.
+                          type: string
+                        leverage_style:
+                          description: Indicates whether the ETF uses leverage to amplify returns ('leveraged'), or does not use leverage ('unleveraged').
+                          type: string
+                        levered_amount:
+                          description: The leverage multiplier applied by the ETF, where positive numbers indicate leveraged exposure and negative numbers indicate inverse exposure.
+                          format: double
+                          type: number
+                        listing_exchange:
+                          description: The primary exchange where the ETF is listed.
+                          type: string
+                        management_classification:
+                          description: Defines whether an ETF is considered active under SEC rules, with managers making investment decisions, or passive, tracking an index.
+                          type: string
+                        management_fee:
+                          description: The annual fee charged by the fund manager for managing the ETF's portfolio and operations.
+                          format: double
+                          type: number
+                        maturity_exposure:
+                          description: Maturity exposure breakdown for fixed income ETFs.
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                format: double
+                                type: number
+                            required:
+                            - key
+                            - value
+                            type: object
+                          type: array
+                        net_expenses:
+                          description: Net expenses after waivers.
+                          format: double
+                          type: number
+                        num_holdings:
+                          description: Number of holdings in the ETF.
+                          format: double
+                          type: number
+                        options_available:
+                          description: Availability of options on the ETF.
+                          format: int32
+                          type: integer
+                        options_volume:
+                          description: Options trading volume for the ETF.
+                          format: double
+                          type: number
+                        other_expenses:
+                          description: Other expenses charged by the ETF.
+                          format: double
+                          type: number
+                        portfolio_manager:
+                          description: The portfolio manager of the ETF.
+                          type: string
+                        primary_benchmark:
+                          description: The main index or benchmark that this ETF is designed to track or replicate.
+                          type: string
+                        processed_date:
+                          description: The date showing when ETF Global received and processed the data.
+                          format: date
+                          type: string
+                        product_type:
+                          description: Indicates whether the product is an Exchange-Traded Note ('etn') or an Exchange-Traded Fund ('etf').
+                          type: string
+                        put_call_ratio:
+                          description: Put/call ratio for options on the ETF.
+                          format: double
+                          type: number
+                        put_volume:
+                          description: Put options volume.
+                          format: double
+                          type: number
+                        region:
+                          description: The geographic region or area of the world where the ETF concentrates its investments.
+                          type: string
+                        sector_exposure:
+                          description: Sector exposure breakdown of the ETF.
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                format: double
+                                type: number
+                            required:
+                            - key
+                            - value
+                            type: object
+                          type: array
+                        short_interest:
+                          description: Short interest in the ETF.
+                          format: double
+                          type: number
+                        subadvisor:
+                          description: The subadvisor of the ETF, if applicable.
+                          type: string
+                        subindustry_exposure:
+                          description: Sub-industry exposure breakdown of the ETF.
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                format: double
+                                type: number
+                            required:
+                            - key
+                            - value
+                            type: object
+                          type: array
+                        tax_classification:
+                          description: The tax structure of the ETF, determining whether investors receive 1099 or K1 tax forms (RIC, Partnership, or UIT).
+                          type: string
+                        total_expenses:
+                          description: The total annual expense ratio of the ETF, including all fees and costs passed on to investors.
+                          format: double
+                          type: number
+                        transfer_agent:
+                          description: The transfer agent for the ETF.
+                          type: string
+                        trustee:
+                          description: The trustee of the ETF.
+                          type: string
+                      required:
+                      - product_type
+                      - leverage_style
+                      - management_classification
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - etfglobal
+  /etf-global/v1/taxonomies:
+    get:
+      description: ETF Global taxonomy data containing detailed classification and categorization information for ETFs including investment strategy, methodology, and structural characteristics.
+      operationId: get_etf-global_v1_taxonomies
+      parameters:
+      - description: The date showing when ETF Global received and processed the data. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: processed_date.lte
+        schema:
+          type: string
+      - description: The date showing when the information was accurate or valid; some issuers, such as Vanguard, release their data on a delay, so the effective_date can be several weeks earlier than the processed_date. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: effective_date.lte
+        schema:
+          type: string
+      - description: The stock ticker symbol used to identify this ETF product on exchanges.
+        in: query
+        name: composite_ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: composite_ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: composite_ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: composite_ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: composite_ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: composite_ticker.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '5000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 5000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'composite_ticker' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: composite_ticker.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - asset_class: Equity
+                  category: Size and Style
+                  composite_ticker: SPY
+                  country: U.S.
+                  description: SPDR S&P 500 ETF Trust
+                  development_class: Developed Markets
+                  effective_date: '2025-09-19'
+                  exposure_mechanism: Blended Replication
+                  factor: Size
+                  focus: Large Cap
+                  holdings_disclosure_frequency: Daily
+                  inception_date: '1993-01-22'
+                  isin: US78462F1030
+                  issuer: SSgA
+                  leverage_style: unleveraged
+                  levered_amount: 0
+                  management_classification: passive
+                  management_style: Passive - Representative Sampling
+                  objective: Index-Tracking
+                  primary_benchmark: S&P 500 Index
+                  processed_date: '2025-09-19'
+                  product_type: etf
+                  rebalance_frequency: Quarterly
+                  reconstitution_frequency: Quarterly
+                  region: North America
+                  selection_methodology: Modified Market Cap, Fundamental Multifactor, Liquidity
+                  selection_universe: U.S. Large Caps
+                  strategic_focus: Factor
+                  targeted_focus: Size
+                  tax_classification: Regulated Investment Company
+                  us_code: 78462F103
+                  weighting_methodology: Modified Market Capitalization-Weighted
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        asset_class:
+                          description: The primary type of assets held by the ETF, such as equities, bonds, commodities, or other securities.
+                          type: string
+                        category:
+                          description: The broad investment category that describes the ETF's investment focus and strategy.
+                          type: string
+                        composite_ticker:
+                          description: The stock ticker symbol used to identify this ETF product on exchanges.
+                          type: string
+                        country:
+                          description: The specific country focus of the ETF, if applicable.
+                          type: string
+                        credit_quality_rating:
+                          description: Credit quality rating for fixed income ETFs.
+                          type: string
+                        description:
+                          description: The official name and description of the ETF product.
+                          type: string
+                        development_class:
+                          description: The economic development classification of the markets the ETF invests in, such as developed, emerging, or frontier markets.
+                          type: string
+                        duration:
+                          description: The duration characteristics for fixed income ETFs.
+                          type: string
+                        effective_date:
+                          description: The date showing when the information was accurate or valid; some issuers, such as Vanguard, release their data on a delay, so the effective_date can be several weeks earlier than the processed_date.
+                          format: date
+                          type: string
+                        esg:
+                          description: Environmental, Social, and Governance characteristics.
+                          type: string
+                        exposure_mechanism:
+                          description: The mechanism used to achieve exposure.
+                          type: string
+                        factor:
+                          description: Factor exposure characteristics of the ETF.
+                          type: string
+                        focus:
+                          description: The specific investment focus or exposure that the ETF provides, such as sector, geography, or investment style.
+                          type: string
+                        hedge_reset:
+                          description: The frequency of hedge reset, if applicable.
+                          type: string
+                        holdings_disclosure_frequency:
+                          description: How frequently holdings are disclosed.
+                          type: string
+                        inception_date:
+                          description: The date when this ETF was first launched and became available for trading.
+                          format: date
+                          type: string
+                        isin:
+                          description: The International Securities Identification Number, a global standard code for uniquely identifying this ETF worldwide.
+                          type: string
+                        issuer:
+                          description: The financial institution or fund company that created and sponsors this ETF.
+                          type: string
+                        leverage_reset:
+                          description: The frequency of leverage reset, if applicable.
+                          type: string
+                        leverage_style:
+                          description: Indicates whether the ETF uses leverage to amplify returns ('leveraged'), or does not use leverage ('unleveraged').
+                          type: string
+                        levered_amount:
+                          description: The leverage multiplier applied by the ETF, where positive numbers indicate leveraged exposure and negative numbers indicate inverse exposure.
+                          format: double
+                          type: number
+                        management_classification:
+                          description: Defines whether an ETF is considered active under SEC rules, with managers making investment decisions, or passive, tracking an index.
+                          type: string
+                        management_style:
+                          description: Indicates whether an ETF is managed actively or passively, and the level of transparency or replication method used.
+                          type: string
+                        maturity:
+                          description: The maturity profile for fixed income ETFs.
+                          type: string
+                        objective:
+                          description: The primary investment objective of the ETF.
+                          type: string
+                        primary_benchmark:
+                          description: The main index or benchmark that this ETF is designed to track or replicate.
+                          type: string
+                        processed_date:
+                          description: The date showing when ETF Global received and processed the data.
+                          format: date
+                          type: string
+                        product_type:
+                          description: Indicates whether the product is an Exchange-Traded Note ('etn') or an Exchange-Traded Fund ('etf').
+                          type: string
+                        rebalance_frequency:
+                          description: How frequently the ETF rebalances its holdings.
+                          type: string
+                        reconstitution_frequency:
+                          description: How frequently the index is reconstituted.
+                          type: string
+                        region:
+                          description: The geographic region or area of the world where the ETF concentrates its investments.
+                          type: string
+                        secondary_objective:
+                          description: The secondary investment objective, if applicable.
+                          type: string
+                        selection_methodology:
+                          description: The methodology used to select securities.
+                          type: string
+                        selection_universe:
+                          description: The universe from which securities are selected.
+                          type: string
+                        strategic_focus:
+                          description: The strategic investment focus of the ETF.
+                          type: string
+                        targeted_focus:
+                          description: The targeted investment focus of the ETF.
+                          type: string
+                        tax_classification:
+                          description: The tax structure of the ETF, determining whether investors receive 1099 or K1 tax forms (RIC, Partnership, or UIT).
+                          type: string
+                        us_code:
+                          description: A unique identifier code that identifies this ETF in US markets.
+                          type: string
+                        weighting_methodology:
+                          description: The methodology used to weight holdings.
+                          type: string
+                      required:
+                      - product_type
+                      - leverage_style
+                      - management_classification
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - etfglobal
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

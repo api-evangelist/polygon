@@ -1,0 +1,887 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Fable API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: fable
+paths:
+  /consumer-spending/eu/v1/merchant-aggregates:
+    get:
+      description: 'Aggregated consumer transactions from European credit card panels, structured for flexible analysis and faster access to insights. Each row represents daily credit card, debit card, or open banking transactions (7-day lag from transaction date) at a tagged merchant or payment processor, split across Currency, Country, Online/Offline, and Credit/Debit dimensions. Includes ticker (Bloomberg standard) and industry mapping for ~250 US public companies across 6 European countries (UK, DE, FR, IT, ES, AT). Open banking data achieves >85% fill rate at 7 days. User counts provided across 8 and 28-day windows enable custom normalization. NOTE: Individual accounts have a 30-day minimum lag from transaction_date for licensing compliance. Data returned reflects the latest available values, including any corrections from the data provider.'
+      operationId: get_consumer-spending_eu_v1_merchant-aggregates
+      parameters:
+      - description: The calendar date when the consumer transactions occurred. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: transaction_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: transaction_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: transaction_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: transaction_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: transaction_date.lte
+        schema:
+          type: string
+      - description: The merchant or entity name for this aggregate (lowercase). When type is 'merchant', this value can be used as the lookup_name in the merchant-hierarchy endpoint to retrieve full corporate hierarchy details.
+        in: query
+        name: name
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: name.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: name.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: name.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: name.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: name.lte
+        schema:
+          type: string
+      - description: 'Country of consumer''s residence (ISO codes). Available countries: UK, DE, FR, ES, IT, AT. Values outside these are mapped to ''unknown''.'
+        in: query
+        name: user_country
+        schema:
+          enum:
+          - UK
+          - DE
+          - FR
+          - ES
+          - IT
+          - AT
+          - unknown
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: user_country.any_of
+        schema:
+          enum:
+          - UK
+          - DE
+          - FR
+          - ES
+          - IT
+          - AT
+          - unknown
+          type: string
+      - description: 'Transaction channel. Possible values: online, offline, bnpl (buy now pay later platforms such as Scala, Klarna, Zilch).'
+        in: query
+        name: channel
+        schema:
+          enum:
+          - online
+          - offline
+          - bnpl
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: channel.any_of
+        schema:
+          enum:
+          - online
+          - offline
+          - bnpl
+          type: string
+      - description: 'The panel the account is sourced from. Possible values: consumer_credit, consumer_debit, open_banking.'
+        in: query
+        name: consumer_type
+        schema:
+          enum:
+          - consumer_credit
+          - consumer_debit
+          - open_banking
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: consumer_type.any_of
+        schema:
+          enum:
+          - consumer_credit
+          - consumer_debit
+          - open_banking
+          type: string
+      - description: Merchant's parent business name (Title Case). Useful for aggregating transactions across subsidiary brands. Also available in the merchant-hierarchy endpoint for full corporate structure.
+        in: query
+        name: parent_name
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: parent_name.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: parent_name.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: parent_name.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: parent_name.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: parent_name.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '5000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 5000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'transaction_date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: transaction_date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: c38af84c88ba484cb8430ba1511b1f24
+                results:
+                - channel: offline
+                  consumer_type: open_banking
+                  eight_day_rolling_category_accounts: 40346
+                  eight_day_rolling_total_accounts: 463648
+                  mcc_group: memberships & organizations
+                  merchant_industry: Leisure Clubs & Facilities
+                  merchant_ticker: 0206472D US
+                  name: zumba fitness
+                  parent_name: Zumba Fitness Llc
+                  published_date: '2026-01-25'
+                  spend_in_distinct_account_key_count: 0
+                  spend_in_spend: 0
+                  spend_in_transaction_count: 0
+                  spend_out_distinct_account_key_count: 1
+                  spend_out_spend: -3
+                  spend_out_transaction_count: 1
+                  total_accounts: 1
+                  total_spend: -3
+                  total_transactions: 1
+                  transaction_currency: GBP
+                  transaction_date: '2026-01-18'
+                  twenty_eight_day_rolling_category_accounts: 91642
+                  twenty_eight_day_rolling_total_accounts: 524917
+                  type: merchant
+                  user_country: UK
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        channel:
+                          description: 'Transaction channel. Possible values: online, offline, bnpl (buy now pay later platforms such as Scala, Klarna, Zilch).'
+                          type: string
+                        consumer_type:
+                          description: 'The panel the account is sourced from. Possible values: consumer_credit, consumer_debit, open_banking.'
+                          type: string
+                        eight_day_rolling_category_accounts:
+                          description: The count of unique consumer accounts active for a given country, consumer type, and that transacted in this merchant category (MCC Group) over the prior 8 days. Used for short-term normalization calculations (e.g., spend per 1000 panelists = (total_spend / eight_day_rolling_category_accounts) * 1000).
+                          format: int64
+                          type: integer
+                        eight_day_rolling_total_accounts:
+                          description: The count of unique consumer accounts active for a given country and consumer type that had any transaction activity (across all categories) over the prior 8 days. Provides a baseline for total panel size.
+                          format: int64
+                          type: integer
+                        mcc_group:
+                          description: Merchant category code group associated with the merchant or payment processor.
+                          type: string
+                        merchant_industry:
+                          description: Industry name based on GICS/BICS/ICB data classification for the merchant.
+                          type: string
+                        merchant_ticker:
+                          description: Stock ticker associated with the merchant (~250 US public companies mapped). Uses Bloomberg tickers and they are point in time.
+                          type: string
+                        name:
+                          description: The merchant or entity name for this aggregate (lowercase). When type is 'merchant', this value can be used as the lookup_name in the merchant-hierarchy endpoint to retrieve full corporate hierarchy details.
+                          type: string
+                        parent_name:
+                          description: Merchant's parent business name (Title Case). Useful for aggregating transactions across subsidiary brands. Also available in the merchant-hierarchy endpoint for full corporate structure.
+                          type: string
+                        published_date:
+                          description: The date when this data version was published. For original data, this is approximately 7 days after transaction_date.
+                          format: date
+                          type: string
+                        spend_in_distinct_account_key_count:
+                          description: The count of distinct account keys (unique consumer accounts) with inbound transactions.
+                          format: int64
+                          type: integer
+                        spend_in_spend:
+                          description: The total inbound transaction amount (refunds, returns, credits) in the specified currency for this aggregation. Values are positive, representing money flowing back into consumer accounts.
+                          format: double
+                          type: number
+                        spend_in_transaction_count:
+                          description: The count of inbound transactions (refunds, returns).
+                          format: int64
+                          type: integer
+                        spend_out_distinct_account_key_count:
+                          description: The count of distinct account keys (unique consumer accounts) with outbound transactions.
+                          format: int64
+                          type: integer
+                        spend_out_spend:
+                          description: The total outbound transaction amount (money spent by consumers) in the specified currency for this aggregation. Values are negative, representing money flowing out of consumer accounts.
+                          format: double
+                          type: number
+                        spend_out_transaction_count:
+                          description: The count of outbound transactions (purchases, payments).
+                          format: int64
+                          type: integer
+                        total_accounts:
+                          description: The total count of distinct consumer accounts with any transaction activity for this aggregation.
+                          format: int64
+                          type: integer
+                        total_spend:
+                          description: Sum of spend_out_spend and spend_in_spend. Typically negative (net outflow). A positive value indicates refunds exceeded new spending for this aggregation.
+                          format: double
+                          type: number
+                        total_transactions:
+                          description: The total count of all transactions (outbound + inbound).
+                          format: int64
+                          type: integer
+                        transaction_currency:
+                          description: ISO currency code for the transaction (base card/account currency). Always EUR or GBP in this dataset. All spend amounts are denominated in this currency.
+                          type: string
+                        transaction_date:
+                          description: The calendar date when the consumer transactions occurred.
+                          format: date
+                          type: string
+                        twenty_eight_day_rolling_category_accounts:
+                          description: The count of unique consumer accounts active for a given country, consumer type, and that transacted in this merchant category (MCC Group) over the prior 28 days. Used for longer-term normalization calculations.
+                          format: int64
+                          type: integer
+                        twenty_eight_day_rolling_total_accounts:
+                          description: The count of unique consumer accounts active for a given country and consumer type that had any transaction activity (across all categories) over the prior 28 days. Provides a longer-term baseline for total panel size.
+                          format: int64
+                          type: integer
+                        type:
+                          description: The type of aggregation. Can be 'merchant' or 'payment_processor'.
+                          type: string
+                        user_country:
+                          description: 'Country of consumer''s residence (ISO codes). Available countries: UK, DE, FR, ES, IT, AT. Values outside these are mapped to ''unknown''.'
+                          type: string
+                      required:
+                      - user_country
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - fable
+  /consumer-spending/eu/v1/merchant-hierarchy:
+    get:
+      description: Reference data mapping merchants to parent companies, tickers, sectors, and industries across Fable's European consumer transaction panel. Each row represents a single merchant with its corporate hierarchy and classification metadata. Weekly snapshots contain ~3,500 merchants covering ~250 US public companies. Use lookup_name to join with the name field from the merchant-aggregates endpoint, filtering by active_from and active_to to match a specific transaction_date (e.g., active_from.lte=2025-06-15&active_to.gte=2025-06-15).
+      operationId: get_consumer-spending_eu_v1_merchant-hierarchy
+      parameters:
+      - description: Lowercase merchant tag used for joining with the merchant-aggregates endpoint name field (e.g., 'asda', 'amazon').
+        in: query
+        name: lookup_name
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: lookup_name.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: lookup_name.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: lookup_name.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: lookup_name.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: lookup_name.lte
+        schema:
+          type: string
+      - description: Stock ticker associated with the merchant (~250 US public companies mapped). Uses Bloomberg standard.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: 'Whether the merchant is a publicly listed company or private. Possible values: public, private.'
+        in: query
+        name: listing_status
+        schema:
+          enum:
+          - public
+          - private
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: listing_status.any_of
+        schema:
+          enum:
+          - public
+          - private
+          type: string
+      - description: Date this merchant hierarchy mapping became applicable. A value of 0001-01-01 indicates no known start date. Use with active_to to match against transaction_date from the merchant-aggregates endpoint to perform point-in-time queries. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: active_from
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: active_from.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: active_from.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: active_from.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: active_from.lte
+        schema:
+          type: string
+      - description: Date after which this merchant hierarchy mapping is no longer applicable due to a corporate action. A value of 9999-12-31 indicates the mapping is currently active. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: active_to
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: active_to.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: active_to.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: active_to.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: active_to.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'lookup_name' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: lookup_name.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: a1b2c3d4e5f6
+                results:
+                - active_from: '0001-01-01'
+                  active_to: '9999-12-31'
+                  category: General Merchandise
+                  grandparent_name: Amazon Inc
+                  grandparent_ticker: AMZN US
+                  great_grandparent_name: Amazon Inc
+                  great_grandparent_ticker: AMZN US
+                  industry: E-Commerce Discretionary
+                  industry_group: Retail - Discretionary
+                  listing_status: public
+                  lookup_name: amazon
+                  normalized_name: Amazon Inc
+                  parent_name: Amazon Inc
+                  parent_ticker: AMZN US
+                  sector: Consumer Discretionary
+                  sub_industry: E-Commerce Discretionary
+                  ticker: AMZN US
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        active_from:
+                          description: Date this merchant hierarchy mapping became applicable. A value of 0001-01-01 indicates no known start date. Use with active_to to match against transaction_date from the merchant-aggregates endpoint to perform point-in-time queries.
+                          format: date
+                          type: string
+                        active_to:
+                          description: Date after which this merchant hierarchy mapping is no longer applicable due to a corporate action. A value of 9999-12-31 indicates the mapping is currently active.
+                          format: date
+                          type: string
+                        category:
+                          description: Merchant category assigned by the data provider (Title Case, e.g., 'Groceries', 'General Merchandise', 'Travel'). Values are managed by the data provider and may expand over time.
+                          type: string
+                        grandparent_name:
+                          description: Merchant's grandparent business name (Title Case).
+                          type: string
+                        grandparent_ticker:
+                          description: Stock ticker of the merchant's grandparent company. Uses Bloomberg standard.
+                          type: string
+                        great_grandparent_name:
+                          description: Merchant's great-grandparent business name (Title Case, top-level corporate entity).
+                          type: string
+                        great_grandparent_ticker:
+                          description: Stock ticker of the merchant's great-grandparent company (top-level corporate entity). Uses Bloomberg standard.
+                          type: string
+                        industry:
+                          description: Industry classification based on GICS/BICS/ICB standards.
+                          type: string
+                        industry_group:
+                          description: Industry group classification based on GICS/BICS/ICB standards.
+                          type: string
+                        listing_status:
+                          description: 'Whether the merchant is a publicly listed company or private. Possible values: public, private.'
+                          type: string
+                        lookup_name:
+                          description: Lowercase merchant tag used for joining with the merchant-aggregates endpoint name field (e.g., 'asda', 'amazon').
+                          type: string
+                        normalized_name:
+                          description: Cleaned, standardized merchant display name (Title Case, e.g., 'Asda', 'Amazon').
+                          type: string
+                        parent_name:
+                          description: Merchant's parent business name (Title Case). Useful for aggregating transactions across subsidiary brands.
+                          type: string
+                        parent_ticker:
+                          description: Stock ticker of the merchant's parent company. Uses Bloomberg standard.
+                          type: string
+                        sector:
+                          description: Sector classification based on GICS/BICS/ICB standards.
+                          type: string
+                        sub_industry:
+                          description: Sub-industry classification based on GICS/BICS/ICB standards.
+                          type: string
+                        ticker:
+                          description: Stock ticker associated with the merchant (~250 US public companies mapped). Uses Bloomberg standard.
+                          type: string
+                      required:
+                      - listing_status
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - fable
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

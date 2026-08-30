@@ -1,0 +1,1004 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Us Stocks Reference API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: us_stocks_reference
+paths:
+  /stocks/v1/dividends:
+    get:
+      description: Contains historical dividend payment records for US stocks with split-adjusted amounts and historical adjustment factors for price normalization.
+      operationId: get_stocks_v1_dividends
+      parameters:
+      - description: Stock symbol for the company issuing the dividend
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Date when the stock begins trading without the dividend value Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: ex_dividend_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: ex_dividend_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: ex_dividend_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: ex_dividend_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: ex_dividend_date.lte
+        schema:
+          type: string
+      - description: How many times per year this dividend is expected to occur. A value of 0 means the distribution is non-recurring or irregular (e.g., special, supplemental, or a one-off dividend). Other possible values include 1 (annual), 2 (semi-annual), 3 (trimester), 4 (quarterly), 12 (monthly), 24 (bi-monthly), 52 (weekly), 104 (bi-weekly), and 365 (daily) depending on the issuer's declared or inferred payout cadence. Value must be an integer.
+        in: query
+        name: frequency
+        schema:
+          format: int64
+          type: integer
+      - description: Filter greater than the value. Value must be an integer.
+        in: query
+        name: frequency.gt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter greater than or equal to the value. Value must be an integer.
+        in: query
+        name: frequency.gte
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than the value. Value must be an integer.
+        in: query
+        name: frequency.lt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than or equal to the value. Value must be an integer.
+        in: query
+        name: frequency.lte
+        schema:
+          format: int64
+          type: integer
+      - description: 'Classification describing the nature of this dividend''s recurrence pattern: recurring (paid on a regular schedule), special (one-time or commemorative), supplemental (extra beyond the regular schedule), irregular (unpredictable or non-recurring), unknown (cannot be classified from available data)'
+        in: query
+        name: distribution_type
+        schema:
+          enum:
+          - recurring
+          - special
+          - supplemental
+          - irregular
+          - unknown
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: distribution_type.any_of
+        schema:
+          enum:
+          - recurring
+          - special
+          - supplemental
+          - irregular
+          - unknown
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '5000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 5000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'ticker' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: ticker.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: 1
+                results:
+                - cash_amount: 0.26
+                  currency: USD
+                  declaration_date: '2025-07-31'
+                  distribution_type: recurring
+                  ex_dividend_date: '2025-08-11'
+                  frequency: 4
+                  historical_adjustment_factor: 0.997899
+                  id: Ed2c9da60abda1e3f0e99a43f6465863c137b671e1f5cd3f833d1fcb4f4eb27fe
+                  pay_date: '2025-08-14'
+                  record_date: '2025-08-11'
+                  split_adjusted_cash_amount: 0.26
+                  ticker: AAPL
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        cash_amount:
+                          description: Original dividend amount per share in the specified currency
+                          format: double
+                          type: number
+                        currency:
+                          description: Currency code for the dividend payment (e.g., USD, CAD)
+                          type: string
+                        declaration_date:
+                          description: Date when the company officially announced the dividend
+                          format: date
+                          type: string
+                        distribution_type:
+                          description: 'Classification describing the nature of this dividend''s recurrence pattern: recurring (paid on a regular schedule), special (one-time or commemorative), supplemental (extra beyond the regular schedule), irregular (unpredictable or non-recurring), unknown (cannot be classified from available data)'
+                          type: string
+                        ex_dividend_date:
+                          description: Date when the stock begins trading without the dividend value
+                          format: date
+                          type: string
+                        frequency:
+                          description: How many times per year this dividend is expected to occur. A value of 0 means the distribution is non-recurring or irregular (e.g., special, supplemental, or a one-off dividend). Other possible values include 1 (annual), 2 (semi-annual), 3 (trimester), 4 (quarterly), 12 (monthly), 24 (bi-monthly), 52 (weekly), 104 (bi-weekly), and 365 (daily) depending on the issuer's declared or inferred payout cadence.
+                          format: int64
+                          type: integer
+                        historical_adjustment_factor:
+                          description: 'Cumulative adjustment factor used to offset dividend effects on historical prices. To adjust a historical price for dividends: for a price on date D, find the first dividend whose `ex_dividend_date` is after date D and multiply the price by that dividend''s `historical_adjustment_factor`.'
+                          format: double
+                          type: number
+                        id:
+                          description: Unique identifier for each dividend record
+                          type: string
+                        pay_date:
+                          description: Date when the dividend payment is distributed to shareholders
+                          format: date
+                          type: string
+                        record_date:
+                          description: Date when shareholders must be on record to be eligible for the dividend payment
+                          format: date
+                          type: string
+                        split_adjusted_cash_amount:
+                          description: Dividend amount adjusted for stock splits that occurred after the dividend was paid, expressed on a current share basis
+                          format: double
+                          type: number
+                        ticker:
+                          description: Stock symbol for the company issuing the dividend
+                          type: string
+                      required:
+                      - distribution_type
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - us_stocks_reference
+  /stocks/v1/splits:
+    get:
+      description: Contains historical stock split and reverse split events for US equities with historical adjustment factors for price normalization.
+      operationId: get_stocks_v1_splits
+      parameters:
+      - description: Stock symbol for the company that executed the split
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Date when the stock split takes effect. The adjustment is applied overnight. On the prior trading day, the post-market session is the last session that shows pre-split prices. On the execution date, all trading is already adjusted for the split. This includes the pre-market session. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: execution_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: execution_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: execution_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: execution_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: execution_date.lte
+        schema:
+          type: string
+      - description: 'Classification of the share-change event. Possible values include: forward_split (share count increases), reverse_split (share count decreases), stock_dividend (shares issued as a dividend)'
+        in: query
+        name: adjustment_type
+        schema:
+          enum:
+          - forward_split
+          - reverse_split
+          - stock_dividend
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: adjustment_type.any_of
+        schema:
+          enum:
+          - forward_split
+          - reverse_split
+          - stock_dividend
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '5000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 5000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'execution_date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: execution_date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: 1
+                results:
+                - adjustment_type: forward_split
+                  execution_date: '2005-02-28'
+                  historical_adjustment_factor: 0.017857
+                  id: E90a77bdf742661741ed7c8fc086415f0457c2816c45899d73aaa88bdc8ff6025
+                  split_from: 1
+                  split_to: 2
+                  ticker: AAPL
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        adjustment_type:
+                          description: 'Classification of the share-change event. Possible values include: forward_split (share count increases), reverse_split (share count decreases), stock_dividend (shares issued as a dividend)'
+                          type: string
+                        execution_date:
+                          description: Date when the stock split takes effect. The adjustment is applied overnight. On the prior trading day, the post-market session is the last session that shows pre-split prices. On the execution date, all trading is already adjusted for the split. This includes the pre-market session.
+                          format: date
+                          type: string
+                        historical_adjustment_factor:
+                          description: 'Cumulative adjustment factor used to offset split effects on historical prices. To adjust a historical price for splits: for a price on date D, find the first split whose `execution_date` is after date D and multiply the unadjusted price by the `historical_adjustment_factor`.'
+                          format: double
+                          type: number
+                        id:
+                          description: Unique identifier for each stock split event
+                          type: string
+                        split_from:
+                          description: Denominator of the split ratio (old shares)
+                          format: double
+                          type: number
+                        split_to:
+                          description: Numerator of the split ratio (new shares)
+                          format: double
+                          type: number
+                        ticker:
+                          description: Stock symbol for the company that executed the split
+                          type: string
+                      required:
+                      - adjustment_type
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - us_stocks_reference
+  /v1/reference/ipos:
+    get:
+      description: Contains comprehensive data about Initial Public Offerings (IPOs) and direct listings for US stocks, tracking both historical and pending offerings with detailed pricing, share, and timing information.
+      operationId: get_v1_reference_ipos
+      parameters:
+      - description: The ticker symbol of the IPO event.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Nine-character alphanumeric code that uniquely identifies a financial security in North America.
+        in: query
+        name: us_code
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: us_code.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: us_code.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: us_code.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: us_code.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: us_code.lte
+        schema:
+          type: string
+      - description: International Securities Identification Number. This is a unique twelve-digit code that is assigned to every security issuance in the world.
+        in: query
+        name: isin
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: isin.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: isin.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: isin.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: isin.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: isin.lte
+        schema:
+          type: string
+      - description: First trading date for the newly listed entity. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: listing_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: listing_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: listing_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: listing_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: listing_date.lte
+        schema:
+          type: string
+      - description: The status of the IPO.
+        in: query
+        name: ipo_status
+        schema:
+          enum:
+          - direct_listing_process
+          - history
+          - new
+          - pending
+          - postponed
+          - rumor
+          - withdrawn
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ipo_status.any_of
+        schema:
+          enum:
+          - direct_listing_process
+          - history
+          - new
+          - pending
+          - postponed
+          - rumor
+          - withdrawn
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '10' if not specified. The maximum allowed limit is '1000'.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'listing_date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: listing_date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: 6a7e466379af0a71039d60cc78e72282
+                results:
+                - announced_date: '2024-06-01'
+                  currency_code: USD
+                  final_issue_price: 17
+                  highest_offer_price: 17
+                  ipo_status: history
+                  isin: US75383L1026
+                  issuer_name: Rapport Therapeutics Inc.
+                  last_updated: '2024-06-27'
+                  listing_date: '2024-06-07'
+                  lot_size: 100
+                  lowest_offer_price: 17
+                  max_shares_offered: 8000000
+                  min_shares_offered: 1000000
+                  primary_exchange: XNAS
+                  security_description: Ordinary Shares
+                  security_type: CS
+                  shares_outstanding: 35376457
+                  ticker: RAPP
+                  total_offer_size: 136000000
+                  us_code: 75383L102
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        announced_date:
+                          description: The date when the IPO event was announced.
+                          format: int64
+                          type: integer
+                        currency_code:
+                          description: Underlying currency of the security.
+                          type: string
+                        final_issue_price:
+                          description: The price set by the company and its underwriters before the IPO goes live.
+                          format: double
+                          type: number
+                        highest_offer_price:
+                          description: The highest price within the IPO price range that the company might use to price the shares.
+                          format: double
+                          type: number
+                        ipo_status:
+                          description: The status of the IPO.
+                          type: string
+                        isin:
+                          description: International Securities Identification Number. This is a unique twelve-digit code that is assigned to every security issuance in the world.
+                          type: string
+                        issuer_name:
+                          description: Name of issuer.
+                          type: string
+                        last_updated:
+                          description: The date when the IPO event was last modified.
+                          format: int64
+                          type: integer
+                        listing_date:
+                          description: First trading date for the newly listed entity.
+                          format: int64
+                          type: integer
+                        lot_size:
+                          description: The minimum number of shares that an investor may apply for during an IPO.
+                          format: int64
+                          type: integer
+                        lowest_offer_price:
+                          description: The lowest price within the IPO price range that the company is willing to offer its shares to investors.
+                          format: double
+                          type: number
+                        max_shares_offered:
+                          description: The upper limit of the shares that the company is offering to investors.
+                          format: int64
+                          type: integer
+                        min_shares_offered:
+                          description: The lower limit of shares that the company is willing to sell in the IPO.
+                          format: int64
+                          type: integer
+                        primary_exchange:
+                          description: Market Identifier Code (MIC) of the primary exchange where the security is listed. The Market Identifier Code (MIC) (ISO 10383) is a unique identification code used to identify securities trading exchanges, regulated and non-regulated trading markets.
+                          type: string
+                        security_description:
+                          description: A brief description of the security. e.g. Class A Shares
+                          type: string
+                        security_type:
+                          description: The classification of the stock. For example, CS stands for Common Stock.
+                          type: string
+                        shares_outstanding:
+                          description: The total number of shares that the company has issued and are held by investors.
+                          format: int64
+                          type: integer
+                        ticker:
+                          description: The ticker symbol of the IPO event.
+                          type: string
+                        total_offer_size:
+                          description: The total amount raised by the company for IPO.
+                          format: double
+                          type: number
+                        us_code:
+                          description: Nine-character alphanumeric code that uniquely identifies a financial security in North America.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - us_stocks_reference
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

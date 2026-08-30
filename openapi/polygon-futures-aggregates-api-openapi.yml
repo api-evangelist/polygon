@@ -1,0 +1,478 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Futures:aggregates API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: futures:aggregates
+paths:
+  /futures/v1/aggs/{ticker}:
+    get:
+      description: Get aggregates for a contract in a given time range.
+      operationId: AggregatesV1
+      parameters:
+      - description: The futures contract identifier, including the base symbol and contract expiration (e.g., GCJ5 for the April 2025 gold contract).
+        example: GCJ5
+        in: path
+        name: ticker
+        required: true
+        schema:
+          type: string
+        x-polygon-go-id: Ticker
+      - description: 'The size of each aggregate candle, specified as a number followed by a unit: `sec`, `min`, `hour`, `session`, `week`, `month`, `quarter`, or `year`.
+
+
+          Each unit has a maximum multiplier. For instance, minute candles go up to `59min` — after that, use `1hour`. Requesting an unsupported size returns a `400 Bad Request`.'
+        example: 1min
+        in: query
+        name: resolution
+        schema:
+          default: 1session
+          type: string
+      - description: 'Filter by the start time of each candle. Accepts a `YYYY-MM-DD` date or a nanosecond Unix timestamp. The value is snapped to the start of the matching candle interval.
+
+
+          When omitted, the API returns the most recent candles up to `limit`.
+
+
+          Use comparison suffixes to query a range:
+
+          - `window_start.gte` — greater than or equal to
+
+          - `window_start.gt` — greater than
+
+          - `window_start.lte` — less than or equal to
+
+          - `window_start.lt` — less than
+
+
+          **Examples**
+
+          - Most recent minute candles: `/v1/aggs/ESU5?resolution=1min&limit=5`
+
+          - Single daily candle: `/v1/aggs/ESU5?resolution=1session&window_start=2025-08-05`
+
+          - Date range: `/v1/aggs/ESU5?resolution=1session&window_start.gte=2025-07-01&window_start.lte=2025-07-31`
+
+          - After a timestamp: `/v1/aggs/ESU5?resolution=1sec&window_start.gt=1751409877000000000&limit=1000`'
+        in: query
+        name: window_start
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: The number of results to return per page (default=1000, maximum=50000, minimum=1).
+        in: query
+        name: limit
+        schema:
+          default: 1000
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: Range by window_start.
+        in: query
+        name: window_start.gte
+        schema:
+          type: string
+      - description: Range by window_start.
+        in: query
+        name: window_start.gt
+        schema:
+          type: string
+      - description: Range by window_start.
+        in: query
+        name: window_start.lte
+        schema:
+          type: string
+      - description: Range by window_start.
+        in: query
+        name: window_start.lt
+        schema:
+          type: string
+      - description: Sort results by field and direction using dotted notation (e.g., 'ticker.asc', 'name.desc').
+        in: query
+        name: sort
+        schema:
+          default: window_start.desc
+          enum:
+          - window_start.asc
+          - window_start.desc
+          example: window_start.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: b452e45b7eaad14151c3e1ce5129b558
+                results:
+                - close: 2874.2
+                  dollar_volume: 380560636.01
+                  high: 2877.1
+                  low: 2837.4
+                  open: 2849.8
+                  session_end_date: '2025-02-04'
+                  settlement_price: 2875.8
+                  ticker: GCJ5
+                  transactions: 74223
+                  volume: 133072
+                  window_start: 1738627200000000000
+                - close: 2884.8
+                  dollar_volume: 448429944.1
+                  high: 2906
+                  low: 2870.1
+                  open: 2873.7
+                  session_end_date: '2025-02-05'
+                  settlement_price: 2893
+                  ticker: GCJ5
+                  transactions: 83673
+                  volume: 155170
+                  window_start: 1738713600000000000
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, the URL to the next page of results.
+                    type: string
+                  results:
+                    items:
+                      properties:
+                        close:
+                          description: The last price within the timeframe.
+                          format: double
+                          type: number
+                        dollar_volume:
+                          description: The total dollar volume of the transactions that occurred within the timeframe.
+                          format: double
+                          type: number
+                        high:
+                          description: The highest price within the timeframe.
+                          format: double
+                          type: number
+                        low:
+                          description: The lowest price within the timeframe.
+                          format: double
+                          type: number
+                        open:
+                          description: The opening price within the timeframe.
+                          format: double
+                          type: number
+                        session_end_date:
+                          description: Also known as the trading date, the date of the end of the trading session, in YYYY-MM-DD format.
+                          type: string
+                        settlement_price:
+                          description: The price the contract would have cost to settle for this session.
+                          format: double
+                          type: number
+                        ticker:
+                          description: The ticker for the contract.
+                          type: string
+                        transactions:
+                          description: The number of transactions that occurred within the timeframe.
+                          format: int64
+                          type: integer
+                        volume:
+                          description: The number of contracts that traded within the timeframe.
+                          format: int64
+                          type: integer
+                        window_start:
+                          description: The timestamp of the beginning of the candlestick’s aggregation window.
+                          format: int64
+                          type: integer
+                          x-polygon-go-type:
+                            name: INanoseconds
+                            path: github.com/polygon-io/ptime
+                      required:
+                      - ticker
+                      - window_start
+                      - session_end_date
+                      - open
+                      - high
+                      - low
+                      - close
+                      - transactions
+                      - volume
+                      - dollar_volume
+                      type: object
+                    type: array
+                  status:
+                    description: The status of the response.
+                    type: string
+                required:
+                - status
+                - results
+                type: object
+          description: A list of aggregates.
+      summary: Aggregates
+      tags:
+      - futures:aggregates
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Futures data
+        name: futures
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

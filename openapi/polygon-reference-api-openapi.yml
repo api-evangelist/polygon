@@ -1,0 +1,3538 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Reference API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- description: Reference API
+  name: reference
+  x-polygon-sub-tags:
+  - tickers:list
+  - tickers:types
+  - tickers:get
+  - options:contracts:list
+  - news
+  - tickers
+  - stocks
+  - sec:filings
+  - sec:filing
+  - sec:filing:files
+  - sec:filing:file
+  - stocks:market
+  - conditions
+  - stocks:meta:exchanges
+  - crypto
+  - exchanges
+paths:
+  /stocks/filings/10-K/vX/sections:
+    get:
+      description: SEC document text sections providing raw text content from specific sections of SEC filings (10-K, 10-Q, etc.).
+      operationId: get_stocks_filings_10-K_vX_sections
+      parameters:
+      - description: SEC Central Index Key (10 digits, zero-padded).
+        in: query
+        name: cik
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: cik.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: cik.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: cik.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: cik.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: cik.lte
+        schema:
+          type: string
+      - description: Stock ticker symbol for the company.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Standardized section identifier from the filing (e.g. 'business', 'risk_factors', etc.).
+        in: query
+        name: section
+        schema:
+          enum:
+          - business
+          - risk_factors
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: section.any_of
+        schema:
+          enum:
+          - business
+          - risk_factors
+          type: string
+      - description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD). Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lte
+        schema:
+          type: string
+      - description: Period end date that the filing relates to (formatted as YYYY-MM-DD). Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: period_end
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: period_end.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: period_end.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: period_end.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: period_end.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '10' if not specified. The maximum allowed limit is '100'.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 100
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'period_end' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: period_end.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 2
+                next_url: https://api.massive.com/stocks/filings/10-K/vX/sections?cursor=eyJsaW1pd...
+                request_id: a3f8b2c1d4e5f6g7
+                results:
+                - cik: 0000320193
+                  filing_date: '2023-11-03'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/320193/0000320193-23-000106.txt
+                  period_end: '2023-09-30'
+                  section: risk_factors
+                  text: 'Item 1A. Risk Factors
+
+
+                    Investing in our stock involves risk. In addition to the other information in this Annual Report on Form 10-K, the following risk factors should be carefully considered...'
+                  ticker: AAPL
+                - cik: 0000789019
+                  filing_date: '2023-07-27'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/789019/0000950170-23-035122.txt
+                  period_end: '2023-06-30'
+                  section: risk_factors
+                  text: 'Item 1A. RISK FACTORS
+
+
+                    Our operations and financial results are subject to various risks and uncertainties...'
+                  ticker: MSFT
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        cik:
+                          description: SEC Central Index Key (10 digits, zero-padded).
+                          type: string
+                        filing_date:
+                          description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        filing_url:
+                          description: SEC URL source for the full filing.
+                          type: string
+                        period_end:
+                          description: Period end date that the filing relates to (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        section:
+                          description: Standardized section identifier from the filing (e.g. 'business', 'risk_factors', etc.).
+                          type: string
+                        text:
+                          description: Full raw text content of the section, including headers and formatting.
+                          type: string
+                        ticker:
+                          description: Stock ticker symbol for the company.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/filings/10-K/vX_0/sections:
+    get:
+      description: SEC document text sections providing raw text content from specific sections of SEC filings (10-K, 10-Q, etc.).
+      operationId: get_stocks_filings_10-K_vX_0_sections
+      parameters:
+      - description: SEC Central Index Key (10 digits, zero-padded).
+        in: query
+        name: cik
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: cik.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: cik.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: cik.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: cik.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: cik.lte
+        schema:
+          type: string
+      - description: Stock ticker symbol for the company.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Standardized section identifier from the filing (e.g. 'business', 'risk_factors', etc.).
+        in: query
+        name: section
+        schema:
+          enum:
+          - business
+          - risk_factors
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: section.any_of
+        schema:
+          enum:
+          - business
+          - risk_factors
+          type: string
+      - description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD). Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lte
+        schema:
+          type: string
+      - description: Period end date that the filing relates to (formatted as YYYY-MM-DD). Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: period_end
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: period_end.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: period_end.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: period_end.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: period_end.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '10' if not specified. The maximum allowed limit is '100'.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 100
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'period_end' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: period_end.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 2
+                next_url: https://api.massive.com/stocks/filings/10-K/vX/sections?cursor=eyJsaW1pd...
+                request_id: a3f8b2c1d4e5f6g7
+                results:
+                - cik: 0000320193
+                  filing_date: '2023-11-03'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/320193/0000320193-23-000106.txt
+                  period_end: '2023-09-30'
+                  section: risk_factors
+                  text: 'Item 1A. Risk Factors
+
+
+                    Investing in our stock involves risk. In addition to the other information in this Annual Report on Form 10-K, the following risk factors should be carefully considered...'
+                  ticker: AAPL
+                - cik: 0000789019
+                  filing_date: '2023-07-27'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/789019/0000950170-23-035122.txt
+                  period_end: '2023-06-30'
+                  section: risk_factors
+                  text: 'Item 1A. RISK FACTORS
+
+
+                    Our operations and financial results are subject to various risks and uncertainties...'
+                  ticker: MSFT
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        cik:
+                          description: SEC Central Index Key (10 digits, zero-padded).
+                          type: string
+                        filing_date:
+                          description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        filing_url:
+                          description: SEC URL source for the full filing.
+                          type: string
+                        period_end:
+                          description: Period end date that the filing relates to (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        section:
+                          description: Standardized section identifier from the filing (e.g. 'business', 'risk_factors', etc.).
+                          type: string
+                        text:
+                          description: Full raw text content of the section, including headers and formatting.
+                          type: string
+                        ticker:
+                          description: Stock ticker symbol for the company.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/filings/8-K/vX/disclosures:
+    get:
+      description: SEC 8-K filing disclosure categorization. A single 8-K filing can produce multiple rows when it covers multiple disclosure types — each row represents one tagged disclosure within the filing, classified into primary, secondary, and tertiary categories with a supporting text excerpt. The full classification list is available at /stocks/taxonomies/vX/disclosures.
+      operationId: get_stocks_filings_8-K_vX_disclosures
+      parameters:
+      - description: SEC Central Index Key of the filer (10 digits, zero-padded).
+        in: query
+        name: cik
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: cik.any_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain the value.
+        in: query
+        name: tickers
+        schema:
+          type: string
+      - description: Filter for arrays that contain all of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tickers.all_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tickers.any_of
+        schema:
+          type: string
+      - description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD).
+        in: query
+        name: filing_date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: filing_date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: filing_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: filing_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: filing_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: filing_date.lte
+        schema:
+          type: string
+      - description: Most specific disclosure category (e.g., 'quarterly_results'). Filtering on this column must use an exact match. See the full taxonomy at /stocks/taxonomies/vX/disclosures.
+        in: query
+        name: tertiary_category
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '1000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'filing_date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: filing_date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 2
+                next_url: https://api.massive.com/stocks/filings/8-K/vX/disclosures?cursor=eyJsaW1pd...
+                request_id: b4e7c2a1f3d8e9g0
+                results:
+                - accession_number: 0000320193-25-000010
+                  cik: 0000320193
+                  filing_date: '2025-01-14'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/320193/0000320193-25-000010.txt
+                  primary_category: financial_results
+                  secondary_category: earnings_announcement
+                  supporting_text: On January 14, 2025, Apple Inc. announced financial results for the fiscal quarter ended December 28, 2024.
+                  tertiary_category: quarterly_results
+                  tickers:
+                  - AAPL
+                - accession_number: 0000004962-25-000002
+                  cik: 0000004962
+                  filing_date: '2025-01-15'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/4962/0000004962-25-000002.txt
+                  primary_category: regulatory_compliance
+                  secondary_category: regulation_fd
+                  supporting_text: American Express Company is hereby furnishing below delinquency and write-off statistics for its U.S. Consumer and Small Business portfolios.
+                  tertiary_category: financial_data_disclosure
+                  tickers:
+                  - AXP
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        accession_number:
+                          description: Unique SEC accession number for the filing (e.g., '0000320193-25-000010').
+                          type: string
+                        cik:
+                          description: SEC Central Index Key of the filer (10 digits, zero-padded).
+                          type: string
+                        filing_date:
+                          description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD).
+                          type: string
+                        filing_url:
+                          description: Direct URL to the full submission text file for the filing on SEC EDGAR.
+                          type: string
+                        primary_category:
+                          description: Top-level disclosure category (e.g., 'financial_results'). See the full taxonomy at /stocks/taxonomies/vX/disclosures.
+                          type: string
+                        secondary_category:
+                          description: Mid-level disclosure category (e.g., 'earnings_announcement'). See the full taxonomy at /stocks/taxonomies/vX/disclosures.
+                          type: string
+                        supporting_text:
+                          description: A verbatim excerpt from the filing text supporting the assigned categories.
+                          type: string
+                        tertiary_category:
+                          description: Most specific disclosure category (e.g., 'quarterly_results'). Filtering on this column must use an exact match. See the full taxonomy at /stocks/taxonomies/vX/disclosures.
+                          type: string
+                        tickers:
+                          description: A list of ticker symbols for the filing company. Multiple symbols may indicate different share classes; empty if no ticker is currently mapped to the filer.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/filings/8-K/vX/text:
+    get:
+      description: SEC 8-K filings text providing parsed content from current report filings. 8-K forms report material events such as earnings, acquisitions, executive changes, and other significant corporate events.
+      operationId: get_stocks_filings_8-K_vX_text
+      parameters:
+      - description: SEC Central Index Key (10 digits, zero-padded).
+        in: query
+        name: cik
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: cik.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: cik.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: cik.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: cik.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: cik.lte
+        schema:
+          type: string
+      - description: Stock ticker symbol for the company.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: SEC form type (e.g., '8-K', '8-K/A' for amendments).
+        in: query
+        name: form_type
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: form_type.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: form_type.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: form_type.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: form_type.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: form_type.lte
+        schema:
+          type: string
+      - description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD). Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '10' if not specified. The maximum allowed limit is '100'.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 100
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'filing_date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: filing_date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 2
+                next_url: https://api.massive.com/stocks/filings/8-K/vX/text?cursor=eyJsaW1pd...
+                request_id: a3f8b2c1d4e5f6g7
+                results:
+                - accession_number: 0000004962-25-000002
+                  cik: 0000004962
+                  filing_date: '2025-01-15'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/4962/0000004962-25-000002.txt
+                  form_type: 8-K
+                  items_text: "Item 7.01\tRegulation FD Disclosure\n\nAmerican Express Company is hereby furnishing below delinquency and write-off statistics..."
+                  ticker: AXP
+                - accession_number: 0000320193-25-000010
+                  cik: 0000320193
+                  filing_date: '2025-01-14'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/320193/0000320193-25-000010.txt
+                  form_type: 8-K
+                  items_text: "Item 2.02\tResults of Operations and Financial Condition\n\nOn January 14, 2025, Apple Inc. announced financial results..."
+                  ticker: AAPL
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        accession_number:
+                          description: SEC accession number uniquely identifying the filing (e.g., '0000004962-25-000002').
+                          type: string
+                        cik:
+                          description: SEC Central Index Key (10 digits, zero-padded).
+                          type: string
+                        filing_date:
+                          description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        filing_url:
+                          description: SEC URL source for the full filing.
+                          type: string
+                        form_type:
+                          description: SEC form type (e.g., '8-K', '8-K/A' for amendments).
+                          type: string
+                        items_text:
+                          description: Parsed text content from the 8-K filing, including item numbers and descriptions.
+                          type: string
+                        ticker:
+                          description: Stock ticker symbol for the company.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/filings/vX/13-F:
+    get:
+      description: SEC Form 13F filings data showing institutional investment manager holdings. Form 13F is required to be filed quarterly by institutional investment managers with at least $100 million in qualifying assets under management.
+      operationId: get_stocks_filings_vX_13-F
+      parameters:
+      - description: SEC Central Index Key (10 digits, zero-padded) of the filing entity.
+        in: query
+        name: filer_cik
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: filer_cik.any_of
+        schema:
+          type: string
+      - description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD). Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '1000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'filing_date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: filing_date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.massive.com/stocks/filings/vX/13-F?cursor=eyJsaW1pd...
+                request_id: a3f8b2c1d4e5f6g7
+                results:
+                - accession_number: 0000950123-24-011775
+                  cusip: '023135106'
+                  file_number: 028-04545
+                  filer_cik: 0001067983
+                  filing_date: '2024-11-14'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/1067983/0000950123-24-011775.txt
+                  film_number: '241461756'
+                  form_type: 13F-HR
+                  investment_discretion: DFND
+                  issuer_name: AMAZON COM INC
+                  market_value: 1439212920
+                  other_managers:
+                  - Buffett Warren E
+                  period: '2024-09-30'
+                  put_call: null
+                  shares_or_principal_amount: 7724000
+                  shares_or_principal_type: SH
+                  title_of_class: COM
+                  voting_authority_none: 0
+                  voting_authority_shared: 0
+                  voting_authority_sole: 7724000
+                - accession_number: 0000950123-24-011775
+                  cusip: 025816109
+                  file_number: 028-04545
+                  filer_cik: 0001067983
+                  filing_date: '2024-11-14'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/1067983/0000950123-24-011775.txt
+                  film_number: '241461756'
+                  form_type: 13F-HR
+                  investment_discretion: DFND
+                  issuer_name: AMERICAN EXPRESS CO
+                  market_value: 311864270
+                  other_managers:
+                  - Buffett Warren E
+                  period: '2024-09-30'
+                  put_call: null
+                  shares_or_principal_amount: 1149942
+                  shares_or_principal_type: SH
+                  title_of_class: COM
+                  voting_authority_none: 0
+                  voting_authority_shared: 0
+                  voting_authority_sole: 1149942
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        accession_number:
+                          description: Unique SEC accession number for the filing (e.g., '0000950123-24-011775').
+                          type: string
+                        cusip:
+                          description: The CUSIP identifier for the held security.
+                          type: string
+                        file_number:
+                          description: The 13F-specific file number assigned to the filer.
+                          type: string
+                        filer_cik:
+                          description: SEC Central Index Key (10 digits, zero-padded) of the filing entity.
+                          type: string
+                        filing_date:
+                          description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        filing_url:
+                          description: Direct URL to the filing on the SEC EDGAR website.
+                          type: string
+                        film_number:
+                          description: SEC EDGAR film number for the filing.
+                          type: string
+                        form_type:
+                          description: SEC form type (e.g., '13F-HR' for holdings report, '13F-HR/A' for amended report).
+                          type: string
+                        investment_discretion:
+                          description: 'Type of investment discretion. Possible values: SOLE, SHARED, DFND (defined).'
+                          type: string
+                        issuer_name:
+                          description: Name of the company whose securities are held.
+                          type: string
+                        market_value:
+                          description: Market value of the holding in USD.
+                          format: int64
+                          type: integer
+                        other_managers:
+                          description: List of names of other manager(s) sharing investment discretion over the reported holdings, if applicable.
+                          items:
+                            type: string
+                          type: array
+                        period:
+                          description: The quarter end date that the filing covers (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        put_call:
+                          description: 'Indicates if the holding is a put or call option. Possible values: PUT, CALL, or empty for common stock.'
+                          type: string
+                        shares_or_principal_amount:
+                          description: Number of shares or principal amount held.
+                          format: int64
+                          type: integer
+                        shares_or_principal_type:
+                          description: 'Type of amount reported. Possible values: SH (shares), PRN (principal amount).'
+                          type: string
+                        title_of_class:
+                          description: Description of the class of securities held (e.g., 'COM', 'CL A').
+                          type: string
+                        voting_authority_none:
+                          description: Number of shares with no voting authority.
+                          format: int64
+                          type: integer
+                        voting_authority_shared:
+                          description: Number of shares with shared voting authority.
+                          format: int64
+                          type: integer
+                        voting_authority_sole:
+                          description: Number of shares with sole voting authority.
+                          format: int64
+                          type: integer
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/filings/vX/form-3:
+    get:
+      description: SEC Form 3 filings reporting initial statements of beneficial ownership of securities. Filed by corporate insiders (directors, officers, and 10%+ shareholders) when they first acquire a position.
+      operationId: get_stocks_filings_vX_form-3
+      parameters:
+      - description: SEC Central Index Key of the issuer company (10 digits, zero-padded).
+        in: query
+        name: issuer_cik
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: issuer_cik.any_of
+        schema:
+          type: string
+      - description: SEC Central Index Key of the reporting owner (10 digits, zero-padded).
+        in: query
+        name: owner_cik
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: owner_cik.any_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain the value.
+        in: query
+        name: tickers
+        schema:
+          type: string
+      - description: Filter for arrays that contain all of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tickers.all_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tickers.any_of
+        schema:
+          type: string
+      - description: SEC form type ('3' for initial filing, '3/A' for amendments).
+        in: query
+        name: form_type
+        schema:
+          type: string
+      - description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD). Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '10000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 10000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'filing_date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: filing_date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                next_url: https://api.massive.com/stocks/filings/vX/form-3?cursor=eyJsaW1pd...
+                request_id: 047c7035a86042b1925118e5f68d81b0
+                results:
+                - accession_number: 0001628280-26-022046
+                  aff_10b5_one: null
+                  date_of_original_submission: null
+                  direct_or_indirect: D
+                  exercise_date: null
+                  exercise_price: null
+                  filing_date: '2026-03-30'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/1903508/0001628280-26-022046.txt
+                  footnotes:
+                  - description: The options granted on May 17, 2022 vested 100% on the third anniversary of the grant date.
+                    id: F1
+                  - description: The exercise price of the options granted on May 17, 2022 was GPB 8.85, or approximately $11.80 based on a GBP to USD exchange rate as of March 27, 2026 of 1.3336.
+                    id: F2
+                  form_type: '3'
+                  is_director: false
+                  is_officer: true
+                  is_other: false
+                  is_ten_percent_owner: false
+                  issuer_cik: 0001903508
+                  issuer_name: Public Policy Holding Company, Inc.
+                  nature_of_ownership: null
+                  not_subject_to_section_16: null
+                  officer_title: Chief Administrative Officer
+                  owner_cik: 0002125791
+                  owner_name: Mazzanti Matthew Ross
+                  period_of_report: '2026-03-20'
+                  remarks: null
+                  security_title: Options
+                  security_type: derivative
+                  shares_owned: null
+                  tickers:
+                  - PPHC
+                  underlying_security_shares: 9000
+                  underlying_security_title: Common Stock, $0.001 par value
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        accession_number:
+                          description: Unique SEC accession number for the filing (e.g., '0001209191-25-012345').
+                          type: string
+                        aff_10b5_one:
+                          description: Whether the transaction was made pursuant to a Rule 10b5-1 trading plan.
+                          type: boolean
+                        date_of_original_submission:
+                          description: Date of the original filing submission for amendment filings (3/A). Null for initial filings (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        direct_or_indirect:
+                          description: Whether ownership is direct ('D') or indirect ('I').
+                          type: string
+                        exercise_date:
+                          description: Date exercisable for derivative securities (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        exercise_price:
+                          description: Exercise or conversion price of derivative securities in USD.
+                          format: double
+                          type: number
+                        filing_date:
+                          description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        filing_url:
+                          description: Direct URL to the filing on the SEC EDGAR website.
+                          type: string
+                        footnotes:
+                          description: List of footnotes from the filing that are relevant to this row, each with an id and description.
+                          items:
+                            properties:
+                              description:
+                                type: string
+                              id:
+                                type: string
+                            type: object
+                          type: array
+                        form_type:
+                          description: SEC form type ('3' for initial filing, '3/A' for amendments).
+                          type: string
+                        is_director:
+                          description: Whether the reporting owner is a director of the issuer.
+                          type: boolean
+                        is_officer:
+                          description: Whether the reporting owner is an officer of the issuer.
+                          type: boolean
+                        is_other:
+                          description: Whether the reporting owner has another relationship with the issuer.
+                          type: boolean
+                        is_ten_percent_owner:
+                          description: Whether the reporting owner holds 10% or more of a class of equity securities.
+                          type: boolean
+                        issuer_cik:
+                          description: SEC Central Index Key of the issuer company (10 digits, zero-padded).
+                          type: string
+                        issuer_name:
+                          description: Name of the issuer company as reported in the filing.
+                          type: string
+                        nature_of_ownership:
+                          description: Nature of indirect ownership (e.g., 'By Trust', 'By Spouse').
+                          type: string
+                        not_subject_to_section_16:
+                          description: Whether the reporting owner is not subject to Section 16 of the Securities Exchange Act.
+                          type: boolean
+                        officer_title:
+                          description: Title of the officer, if the reporting owner is an officer.
+                          type: string
+                        owner_cik:
+                          description: SEC Central Index Key of the reporting owner (10 digits, zero-padded).
+                          type: string
+                        owner_name:
+                          description: Name of the reporting owner (individual or entity).
+                          type: string
+                        period_of_report:
+                          description: Date of the event triggering the filing (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        remarks:
+                          description: Additional remarks included in the filing.
+                          type: string
+                        security_title:
+                          description: Title or description of the security (e.g., 'Common Stock', 'Stock Option').
+                          type: string
+                        security_type:
+                          description: Type of security ('non-derivative' or 'derivative').
+                          type: string
+                        shares_owned:
+                          description: Number of shares beneficially owned.
+                          format: double
+                          type: number
+                        tickers:
+                          description: A list of ticker symbols for the issuer company. Multiple symbols may indicate different share classes.
+                          items:
+                            type: string
+                          type: array
+                        underlying_security_shares:
+                          description: Number of underlying shares for derivative holdings.
+                          format: double
+                          type: number
+                        underlying_security_title:
+                          description: Title of the underlying security for derivative holdings.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/filings/vX/form-4:
+    get:
+      description: SEC Form 4 filings reporting changes in beneficial ownership of securities. Filed by corporate insiders (directors, officers, and 10%+ shareholders) within two business days of a transaction.
+      operationId: get_stocks_filings_vX_form-4
+      parameters:
+      - description: SEC Central Index Key of the issuer company (10 digits, zero-padded).
+        in: query
+        name: issuer_cik
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: issuer_cik.any_of
+        schema:
+          type: string
+      - description: SEC Central Index Key of the reporting owner (10 digits, zero-padded).
+        in: query
+        name: owner_cik
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: owner_cik.any_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain the value.
+        in: query
+        name: tickers
+        schema:
+          type: string
+      - description: Filter for arrays that contain all of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tickers.all_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tickers.any_of
+        schema:
+          type: string
+      - description: SEC form type ('4' for standard filing, '4/A' for amendments).
+        in: query
+        name: form_type
+        schema:
+          type: string
+      - description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD). Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lte
+        schema:
+          type: string
+      - description: SEC transaction code indicating the type of transaction (e.g., 'P' for purchase, 'S' for sale, 'A' for grant/award, 'M' for exercise/conversion).
+        in: query
+        name: transaction_code
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '10000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 10000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'filing_date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: filing_date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.massive.com/stocks/filings/vX/form-4?cursor=eyJsaW1pd...
+                request_id: 047c7035a86042b1925118e5f68d81b0
+                results:
+                - accession_number: 0002123147-26-000002
+                  aff_10b5_one: false
+                  date_of_original_submission: null
+                  deemed_execution_date: '2026-03-27'
+                  direct_or_indirect: D
+                  equity_swap_involved: false
+                  exercise_date: '2026-03-27'
+                  exercise_price: 88.167
+                  expiration_date: '2026-03-27'
+                  filing_date: '2026-03-30'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/1469395/0002123147-26-000002.txt
+                  footnotes:
+                  - description: These shares were acquired at a price of 4955 argentine pesos per share. For reporting purposes, the exercise price has been converted to US dollars based on the exchange rate reported by Banco de la Nacion Argentina for the date of the acquisition, which was 1405 argentine pesos per US dollar. Then multiplied by 25, the Par value or rate of common shares to one ADR.
+                    id: F1
+                  form_type: '4'
+                  is_director: false
+                  is_officer: true
+                  is_other: false
+                  is_ten_percent_owner: false
+                  issuer_cik: 0001469395
+                  issuer_name: Pampa Energy Inc.
+                  not_subject_to_section_16: false
+                  officer_title: Chief Financial Officer
+                  owner_cik: '0002123147'
+                  owner_name: Zuberbuhler Adolfo Fernando
+                  period_of_report: '2026-03-27'
+                  record_type: transaction
+                  security_title: Common Stock, $25 Par Value
+                  security_type: derivative
+                  shares_owned_following_transaction: 2759
+                  tickers:
+                  - PAM
+                  transaction_acquired_disposed: A
+                  transaction_code: A
+                  transaction_date: '2026-03-27'
+                  transaction_price_per_share: 88.167
+                  transaction_shares: 12923
+                  transaction_timeliness: O
+                  transaction_value: 1139382.141
+                  underlying_security_shares: 12923
+                  underlying_security_title: PAMP
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        accession_number:
+                          description: Unique SEC accession number for the filing (e.g., '0001209191-25-012345').
+                          type: string
+                        aff_10b5_one:
+                          description: Whether the transaction was made pursuant to a Rule 10b5-1 trading plan.
+                          type: boolean
+                        date_of_original_submission:
+                          description: Date of the original filing submission for amendment filings (4/A). Null for standard filings (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        deemed_execution_date:
+                          description: Deemed execution date if different from transaction date (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        direct_or_indirect:
+                          description: Whether ownership is direct ('D') or indirect ('I').
+                          type: string
+                        equity_swap_involved:
+                          description: Whether an equity swap was involved in the transaction.
+                          type: boolean
+                        exercise_date:
+                          description: Date exercisable for derivative securities (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        exercise_price:
+                          description: Exercise or conversion price of derivative securities in USD.
+                          format: double
+                          type: number
+                        expiration_date:
+                          description: Expiration date for derivative securities (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        filing_date:
+                          description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        filing_url:
+                          description: Direct URL to the filing on the SEC EDGAR website.
+                          type: string
+                        footnotes:
+                          description: List of footnotes from the filing that are relevant to this row, each with an id and description.
+                          items:
+                            properties:
+                              description:
+                                type: string
+                              id:
+                                type: string
+                            type: object
+                          type: array
+                        form_type:
+                          description: SEC form type ('4' for standard filing, '4/A' for amendments).
+                          type: string
+                        is_director:
+                          description: Whether the reporting owner is a director of the issuer.
+                          type: boolean
+                        is_officer:
+                          description: Whether the reporting owner is an officer of the issuer.
+                          type: boolean
+                        is_other:
+                          description: Whether the reporting owner has another relationship with the issuer.
+                          type: boolean
+                        is_ten_percent_owner:
+                          description: Whether the reporting owner holds 10% or more of a class of equity securities.
+                          type: boolean
+                        issuer_cik:
+                          description: SEC Central Index Key of the issuer company (10 digits, zero-padded).
+                          type: string
+                        issuer_name:
+                          description: Name of the issuer company as reported in the filing.
+                          type: string
+                        nature_of_ownership:
+                          description: Nature of indirect ownership (e.g., 'By Trust', 'By Spouse').
+                          type: string
+                        not_subject_to_section_16:
+                          description: Whether the reporting owner is not subject to Section 16 of the Securities Exchange Act.
+                          type: boolean
+                        officer_title:
+                          description: Title of the officer, if the reporting owner is an officer.
+                          type: string
+                        owner_cik:
+                          description: SEC Central Index Key of the reporting owner (10 digits, zero-padded).
+                          type: string
+                        owner_name:
+                          description: Name of the reporting owner (individual or entity).
+                          type: string
+                        period_of_report:
+                          description: Date of the event triggering the filing (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        record_type:
+                          description: Type of record in the filing (e.g., 'transaction', 'holding').
+                          type: string
+                        remarks:
+                          description: Additional remarks included in the filing.
+                          type: string
+                        security_title:
+                          description: Title or description of the security (e.g., 'Common Stock', 'Stock Option').
+                          type: string
+                        security_type:
+                          description: Type of security ('non-derivative' or 'derivative').
+                          type: string
+                        shares_owned_following_transaction:
+                          description: Total shares beneficially owned after the transaction.
+                          format: double
+                          type: number
+                        tickers:
+                          description: A list of ticker symbols for the issuer company. Multiple symbols may indicate different share classes.
+                          items:
+                            type: string
+                          type: array
+                        transaction_acquired_disposed:
+                          description: Whether shares were acquired ('A') or disposed of ('D').
+                          type: string
+                        transaction_code:
+                          description: SEC transaction code indicating the type of transaction (e.g., 'P' for purchase, 'S' for sale, 'A' for grant/award, 'M' for exercise/conversion).
+                          type: string
+                        transaction_date:
+                          description: Date of the transaction (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        transaction_price_per_share:
+                          description: Price per share of the transaction in USD.
+                          format: double
+                          type: number
+                        transaction_shares:
+                          description: Number of shares involved in the transaction.
+                          format: double
+                          type: number
+                        transaction_timeliness:
+                          description: 'Timeliness of the filing: ''O'' (on time) or ''L'' (late).'
+                          type: string
+                        transaction_value:
+                          description: Total value of the transaction in USD (transaction_shares x transaction_price_per_share). Null when shares or price is not reported.
+                          format: double
+                          type: number
+                        underlying_security_shares:
+                          description: Number of underlying shares for derivative transactions.
+                          format: double
+                          type: number
+                        underlying_security_title:
+                          description: Title of the underlying security for derivative transactions.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/filings/vX/index:
+    get:
+      description: SEC EDGAR master index providing metadata for all SEC filings including form types, filing dates, and direct links to source documents.
+      operationId: get_stocks_filings_vX_index
+      parameters:
+      - description: SEC Central Index Key (CIK) identifying the filing entity.
+        in: query
+        name: cik
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: cik.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: cik.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: cik.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: cik.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: cik.lte
+        schema:
+          type: string
+      - description: Stock ticker symbol for the filing entity, if available.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: SEC form type (e.g., '10-K', '10-Q', '8-K', 'S-1', '4', etc.).
+        in: query
+        name: form_type
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: form_type.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: form_type.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: form_type.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: form_type.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: form_type.lte
+        schema:
+          type: string
+      - description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD). Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be formatted 'yyyy-mm-dd'.
+        in: query
+        name: filing_date.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '1000' if not specified. The maximum allowed limit is '10000'.
+        in: query
+        name: limit
+        schema:
+          default: 1000
+          maximum: 10000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'filing_date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: filing_date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.massive.com/stocks/filings/vX/index?cursor=eyJsaW1pd...
+                request_id: 1daccfd9794e482e96d104dee6ed432b
+                results:
+                - accession_number: 0000320193-25-000079
+                  cik: 0000320193
+                  filing_date: '2025-10-31'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/320193/0000320193-25-000079.txt
+                  form_type: 10-K
+                  issuer_name: Apple Inc.
+                  ticker: AAPL
+                - accession_number: 0000950170-25-010491
+                  cik: 0000789019
+                  filing_date: '2025-01-29'
+                  filing_url: https://www.sec.gov/Archives/edgar/data/789019/0000950170-25-010491.txt
+                  form_type: 10-Q
+                  issuer_name: MICROSOFT CORP
+                  ticker: MSFT
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        accession_number:
+                          description: SEC accession number uniquely identifying the filing (e.g., '0000320193-24-000123').
+                          type: string
+                        cik:
+                          description: SEC Central Index Key (CIK) identifying the filing entity.
+                          type: string
+                        filing_date:
+                          description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD).
+                          format: date
+                          type: string
+                        filing_url:
+                          description: Direct URL to the filing on the SEC EDGAR website.
+                          type: string
+                        form_type:
+                          description: SEC form type (e.g., '10-K', '10-Q', '8-K', 'S-1', '4', etc.).
+                          type: string
+                        issuer_name:
+                          description: Name of the company or entity that submitted the filing.
+                          type: string
+                        ticker:
+                          description: Stock ticker symbol for the filing entity, if available.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/filings/vX/risk-factors:
+    get:
+      description: The risk factors identified in companies' 10K filings.
+      operationId: get_stocks_filings_vX_risk-factors
+      parameters:
+      - description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD).
+        in: query
+        name: filing_date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: filing_date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: filing_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: filing_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: filing_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: filing_date.lte
+        schema:
+          type: string
+      - description: Stock ticker symbol for the company.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: SEC Central Index Key (10 digits, zero-padded).
+        in: query
+        name: cik
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: cik.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: cik.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: cik.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: cik.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: cik.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'filing_date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: filing_date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: c7856101f86c20d855b0ea1c5a6d6efa
+                results:
+                - cik: '0001005101'
+                  filing_date: '2025-09-19'
+                  primary_category: financial_and_market
+                  secondary_category: credit_and_liquidity
+                  supporting_text: In addition to the net proceeds we received from our recent equity and debt financings, we may need to raise additional equity or debt financing to continue the development and marketing of our Fintech app, to fund ongoing operations, invest in acquisitions, and for working capital purposes. Our inability to raise such additional financing may limit our ability to continue the development of our Fintech app.
+                  tertiary_category: access_to_capital_and_financing
+                  ticker: MGLD
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        cik:
+                          description: SEC Central Index Key (10 digits, zero-padded).
+                          type: string
+                        filing_date:
+                          description: Date when the filing was submitted to the SEC (formatted as YYYY-MM-DD).
+                          type: string
+                        primary_category:
+                          description: Top-level risk category
+                          type: string
+                        secondary_category:
+                          description: Mid-level risk category
+                          type: string
+                        supporting_text:
+                          description: Snippet of text to support the given label
+                          type: string
+                        tertiary_category:
+                          description: Most specific risk classification
+                          type: string
+                        ticker:
+                          description: Stock ticker symbol for the company.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/taxonomies/vX/disclosures:
+    get:
+      description: The complete list of 8-K disclosure classifications used in the 8-K disclosures endpoint.
+      operationId: get_stocks_taxonomies_vX_disclosures
+      parameters:
+      - description: Taxonomy version that defines this classification (e.g., '1.0').
+        in: query
+        name: taxonomy
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: taxonomy.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: taxonomy.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: taxonomy.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: taxonomy.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: taxonomy.lte
+        schema:
+          type: string
+      - description: Top-level disclosure category.
+        in: query
+        name: primary_category
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: primary_category.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: primary_category.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: primary_category.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: primary_category.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: primary_category.lte
+        schema:
+          type: string
+      - description: Mid-level disclosure category.
+        in: query
+        name: secondary_category
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: secondary_category.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: secondary_category.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: secondary_category.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: secondary_category.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: secondary_category.lte
+        schema:
+          type: string
+      - description: Most specific disclosure category.
+        in: query
+        name: tertiary_category
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tertiary_category.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: tertiary_category.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: tertiary_category.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: tertiary_category.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: tertiary_category.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '200' if not specified. The maximum allowed limit is '1000'.
+        in: query
+        name: limit
+        schema:
+          default: 200
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'taxonomy' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: taxonomy.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: a1b2c3d4e5f6a7b8c9d0e1f2
+                results:
+                - description: New CEO appointment with background, employment terms, and compensation.
+                  primary_category: leadership_and_governance
+                  secondary_category: executive_leadership
+                  taxonomy: '1.0'
+                  tertiary_category: ceo_appointment
+                - description: Quarterly financial results including revenue, net income, EPS, and key operating metrics with management commentary.
+                  primary_category: financial_results
+                  secondary_category: earnings_and_performance
+                  taxonomy: '1.0'
+                  tertiary_category: quarterly_earnings
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        description:
+                          description: Detailed explanation of what the disclosure category covers, including typical examples.
+                          type: string
+                        primary_category:
+                          description: Top-level disclosure category.
+                          type: string
+                        secondary_category:
+                          description: Mid-level disclosure category.
+                          type: string
+                        taxonomy:
+                          description: Taxonomy version that defines this classification (e.g., '1.0').
+                          type: string
+                        tertiary_category:
+                          description: Most specific disclosure category.
+                          type: string
+                      required:
+                      - taxonomy
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/taxonomies/vX/risk-factors:
+    get:
+      description: The complete list of risk factor classifications used in the risk factors endpoint.
+      operationId: get_stocks_taxonomies_vX_risk-factors
+      parameters:
+      - description: Version identifier (e.g., '1.0', '1.1') for the taxonomy Value must be a floating point number.
+        in: query
+        name: taxonomy
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: taxonomy.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: taxonomy.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: taxonomy.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: taxonomy.lte
+        schema:
+          format: double
+          type: number
+      - description: Top-level risk category
+        in: query
+        name: primary_category
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: primary_category.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: primary_category.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: primary_category.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: primary_category.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: primary_category.lte
+        schema:
+          type: string
+      - description: Mid-level risk category
+        in: query
+        name: secondary_category
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: secondary_category.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: secondary_category.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: secondary_category.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: secondary_category.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: secondary_category.lte
+        schema:
+          type: string
+      - description: Most specific risk classification
+        in: query
+        name: tertiary_category
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tertiary_category.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: tertiary_category.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: tertiary_category.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: tertiary_category.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: tertiary_category.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '200' if not specified. The maximum allowed limit is '1000'.
+        in: query
+        name: limit
+        schema:
+          default: 200
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'taxonomy' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: taxonomy.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: daac836f71724420b66011d55d88b30b
+                results:
+                - description: Risk from inadequate performance management systems, unclear accountability structures, or ineffective measurement and incentive systems that could affect employee performance, goal achievement, and organizational effectiveness.
+                  primary_category: Governance & Stakeholder
+                  secondary_category: Organizational & Management
+                  taxonomy: '1.0'
+                  tertiary_category: Performance management and accountability
+                - description: Risk from requirements to monitor, document, and report on compliance with privacy and data protection regulations including risks from compliance program effectiveness, record-keeping requirements, and breach notification obligations.
+                  primary_category: Regulatory & Compliance
+                  secondary_category: Data & Privacy
+                  taxonomy: '1.0'
+                  tertiary_category: Compliance monitoring and reporting
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        description:
+                          description: Detailed explanation of what this risk category encompasses, including specific examples and potential impacts
+                          type: string
+                        primary_category:
+                          description: Top-level risk category
+                          type: string
+                        secondary_category:
+                          description: Mid-level risk category
+                          type: string
+                        taxonomy:
+                          description: Version identifier (e.g., '1.0', '1.1') for the taxonomy
+                          format: double
+                          type: number
+                        tertiary_category:
+                          description: Most specific risk classification
+                          type: string
+                      required:
+                      - taxonomy
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/v1/short-interest:
+    get:
+      description: Comprehensive FINRA short interest data that tracks the short selling metrics for securities on a specific settlement date.
+      operationId: get_stocks_v1_short-interest
+      parameters:
+      - description: The primary ticker symbol for the stock.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Calculated as short_interest divided by avg_daily_volume, representing the estimated number of days it would take to cover all short positions based on average trading volume. Value must be a floating point number.
+        in: query
+        name: days_to_cover
+        schema:
+          format: double
+          type: number
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list. Value must be a floating point number.
+        in: query
+        name: days_to_cover.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: days_to_cover.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: days_to_cover.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: days_to_cover.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: days_to_cover.lte
+        schema:
+          format: double
+          type: number
+      - description: The date (formatted as YYYY-MM-DD) on which the short interest data is considered settled, typically based on exchange reporting schedules.
+        in: query
+        name: settlement_date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: settlement_date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: settlement_date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: settlement_date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: settlement_date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: settlement_date.lte
+        schema:
+          type: string
+      - description: The average daily trading volume for the stock over a specified period, typically used to contextualize short interest. Value must be an integer.
+        in: query
+        name: avg_daily_volume
+        schema:
+          format: int64
+          type: integer
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list. Value must be an integer.
+        in: query
+        name: avg_daily_volume.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer.
+        in: query
+        name: avg_daily_volume.gt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter greater than or equal to the value. Value must be an integer.
+        in: query
+        name: avg_daily_volume.gte
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than the value. Value must be an integer.
+        in: query
+        name: avg_daily_volume.lt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than or equal to the value. Value must be an integer.
+        in: query
+        name: avg_daily_volume.lte
+        schema:
+          format: int64
+          type: integer
+      - description: Limit the maximum number of results returned. Defaults to '10' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'ticker' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: ticker.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - avg_daily_volume: 2340158
+                  days_to_cover: 1.67
+                  settlement_date: '2025-03-14'
+                  short_interest: 3906231
+                  ticker: A
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        avg_daily_volume:
+                          description: The average daily trading volume for the stock over a specified period, typically used to contextualize short interest.
+                          format: int64
+                          type: integer
+                        days_to_cover:
+                          description: Calculated as short_interest divided by avg_daily_volume, representing the estimated number of days it would take to cover all short positions based on average trading volume.
+                          format: double
+                          type: number
+                        settlement_date:
+                          description: The date (formatted as YYYY-MM-DD) on which the short interest data is considered settled, typically based on exchange reporting schedules.
+                          type: string
+                        short_interest:
+                          description: The total number of shares that have been sold short but have not yet been covered or closed out.
+                          format: int64
+                          type: integer
+                        ticker:
+                          description: The primary ticker symbol for the stock.
+                          type: string
+                      required:
+                      - settlement_date
+                      - avg_daily_volume
+                      - days_to_cover
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/v1/short-volume:
+    get:
+      description: Contains short selling volume for different stock tickers, capturing total trading volume, short sale details, and breakdown by different trading platforms.
+      operationId: get_stocks_v1_short-volume
+      parameters:
+      - description: The primary ticker symbol for the stock.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: The date of trade activity reported in the format YYYY-MM-DD
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: The percentage of total volume that was sold short. Calculated as (short_volume / total_volume) * 100. Value must be a floating point number.
+        in: query
+        name: short_volume_ratio
+        schema:
+          format: double
+          type: number
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list. Value must be a floating point number.
+        in: query
+        name: short_volume_ratio.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: short_volume_ratio.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: short_volume_ratio.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: short_volume_ratio.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: short_volume_ratio.lte
+        schema:
+          format: double
+          type: number
+      - description: Limit the maximum number of results returned. Defaults to '10' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'ticker' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: ticker.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - adf_short_volume: 0
+                  adf_short_volume_exempt: 0
+                  date: '2025-03-25'
+                  exempt_volume: 1
+                  nasdaq_carteret_short_volume: 179943
+                  nasdaq_carteret_short_volume_exempt: 1
+                  nasdaq_chicago_short_volume: 1
+                  nasdaq_chicago_short_volume_exempt: 0
+                  non_exempt_volume: 181218
+                  nyse_short_volume: 1275
+                  nyse_short_volume_exempt: 0
+                  short_volume: 181219
+                  short_volume_ratio: 31.57
+                  ticker: A
+                  total_volume: 574084
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        adf_short_volume:
+                          description: Short volume reported via the Alternative Display Facility (ADF), excluding exempt volume.
+                          format: int64
+                          type: integer
+                        adf_short_volume_exempt:
+                          description: Short volume reported via ADF that was marked as exempt.
+                          format: int64
+                          type: integer
+                        date:
+                          description: The date of trade activity reported in the format YYYY-MM-DD
+                          type: string
+                        exempt_volume:
+                          description: Portion of short volume that was marked as exempt from regulation SHO.
+                          format: double
+                          type: number
+                        nasdaq_carteret_short_volume:
+                          description: Short volume reported from Nasdaq's Carteret facility, excluding exempt volume.
+                          format: int64
+                          type: integer
+                        nasdaq_carteret_short_volume_exempt:
+                          description: Short volume from Nasdaq Carteret that was marked as exempt.
+                          format: int64
+                          type: integer
+                        nasdaq_chicago_short_volume:
+                          description: Short volume reported from Nasdaq's Chicago facility, excluding exempt volume.
+                          format: int64
+                          type: integer
+                        nasdaq_chicago_short_volume_exempt:
+                          description: Short volume from Nasdaq Chicago that was marked as exempt.
+                          format: int64
+                          type: integer
+                        non_exempt_volume:
+                          description: Portion of short volume that was not exempt from regulation SHO (i.e., short_volume - exempt_volume).
+                          format: double
+                          type: number
+                        nyse_short_volume:
+                          description: Short volume reported from NYSE facilities, excluding exempt volume.
+                          format: int64
+                          type: integer
+                        nyse_short_volume_exempt:
+                          description: Short volume from NYSE facilities that was marked as exempt.
+                          format: int64
+                          type: integer
+                        short_volume:
+                          description: Total number of shares sold short across all venues for the ticker on the given date.
+                          format: double
+                          type: number
+                        short_volume_ratio:
+                          description: The percentage of total volume that was sold short. Calculated as (short_volume / total_volume) * 100.
+                          format: float
+                          type: number
+                        ticker:
+                          description: The primary ticker symbol for the stock.
+                          type: string
+                        total_volume:
+                          description: Total reported volume across all venues for the ticker on the given date.
+                          format: double
+                          type: number
+                      required:
+                      - date
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+  /stocks/vX/float:
+    get:
+      description: Contains free float data for US-listed securities, showing the most recent available number of shares available for public trading and the percentage of total shares outstanding.
+      operationId: get_stocks_vX_float
+      parameters:
+      - description: The primary ticker symbol for the stock.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Percentage of total shares outstanding that are available for public trading, rounded to two decimal places. Value must be a floating point number.
+        in: query
+        name: free_float_percent
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: free_float_percent.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: free_float_percent.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: free_float_percent.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: free_float_percent.lte
+        schema:
+          format: double
+          type: number
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '5000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 5000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'ticker' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: ticker.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: 1
+                results:
+                - effective_date: '2025-11-01'
+                  free_float: 15000000000
+                  free_float_percent: 98.5
+                  ticker: AAPL
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        effective_date:
+                          description: The effective date of the free float measurement.
+                          format: date
+                          type: string
+                        free_float:
+                          description: Number of shares freely tradable in the market. Free float shares represent the portion of a company's outstanding shares that is freely tradable in the market, excluding any holdings considered strategic, controlling, or long term. This excludes insiders, directors, founders, 5 percent plus shareholders, cross holdings, government stakes except pensions, restricted or locked up shares, employee plans, and any entities with board influence, leaving only shares that are genuinely available for public trading.
+                          format: int64
+                          type: integer
+                        free_float_percent:
+                          description: Percentage of total shares outstanding that are available for public trading, rounded to two decimal places.
+                          format: double
+                          type: number
+                        ticker:
+                          description: The primary ticker symbol for the stock.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - reference
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

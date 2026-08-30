@@ -1,0 +1,1533 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Indices:aggregates API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: indices:aggregates
+paths:
+  /v1/indicators/ema/{indicesTicker}:
+    x-polygon-ignore: true
+    get:
+      description: Get the exponential moving average (EMA) for a ticker symbol over a given time range.
+      operationId: IndicesEMA
+      parameters:
+      - description: The ticker symbol for which to get exponential moving average (EMA) data.
+        example: I:NDX
+        in: path
+        name: indicesTicker
+        required: true
+        schema:
+          type: string
+        x-polygon-go-id: Ticker
+      - description: Query by timestamp. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        in: query
+        name: timestamp
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: The size of the aggregate time window.
+        example: day
+        in: query
+        name: timespan
+        schema:
+          default: day
+          enum:
+          - minute
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          type: string
+      - description: 'Whether or not the aggregates used to calculate the exponential moving average are adjusted for splits. By default, aggregates are adjusted.
+
+          Set this to false to get results that are NOT adjusted for splits.'
+        example: true
+        in: query
+        name: adjusted
+        schema:
+          default: true
+          type: boolean
+      - description: The window size used to calculate the exponential moving average (EMA). i.e. a window size of 10 with daily aggregates would result in a 10 day moving average.
+        example: 50
+        in: query
+        name: window
+        schema:
+          default: 50
+          type: integer
+      - description: "The value in the aggregate which will be used to calculate the exponential moving average. i.e. 'close' will result in using close values to \ncalculate the exponential moving average (EMA)."
+        example: close
+        in: query
+        name: series_type
+        schema:
+          default: close
+          enum:
+          - open
+          - high
+          - low
+          - close
+          type: string
+      - description: Whether or not to include the aggregates used to calculate this indicator in the response.
+        in: query
+        name: expand_underlying
+        schema:
+          default: false
+          type: boolean
+      - description: The order in which to return the results, ordered by timestamp.
+        example: desc
+        in: query
+        name: order
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 5000
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 5000
+          type: integer
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gt
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lt
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.polygon.io/v1/indicators/ema/I:NDX?cursor=YWRqdXN0ZWQ9dHJ1ZSZhcD0lN0IlMjJ2JTIyJTNBMCUyQyUyMm8lMjIlM0EwJTJDJTIyYyUyMiUzQTE1MDg0Ljk5OTM4OTgyMDAzJTJDJTIyaCUyMiUzQTAlMkMlMjJsJTIyJTNBMCUyQyUyMnQlMjIlM0ExNjg3MjE5MjAwMDAwJTdEJmFzPSZleHBhbmRfdW5kZXJseWluZz1mYWxzZSZsaW1pdD0xJm9yZGVyPWRlc2Mmc2VyaWVzX3R5cGU9Y2xvc2UmdGltZXNwYW49ZGF5JnRpbWVzdGFtcC5sdD0xNjg3MjM3MjAwMDAwJndpbmRvdz01MA
+                request_id: b9201816341441eed663a90443c0623a
+                results:
+                  underlying:
+                    url: https://api.polygon.io/v2/aggs/ticker/I:NDX/range/1/day/1678338000000/1687366449650?limit=226&sort=desc
+                  values:
+                  - timestamp: 1687237200000
+                    value: 14452.002555459003
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results of the EMA indicator calculation.
+                    properties:
+                      underlying:
+                        description: The underlying aggregates used.
+                        properties:
+                          aggregates:
+                            description: The array of aggregates used in the calculation of this indicator.
+                            items:
+                              properties:
+                                c:
+                                  description: The close price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                h:
+                                  description: The highest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                l:
+                                  description: The lowest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                n:
+                                  description: The number of transactions in the aggregate window.
+                                  type: integer
+                                o:
+                                  description: The open price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                otc:
+                                  description: Whether or not this aggregate is for an OTC ticker. This field will be left off if false.
+                                  type: boolean
+                                t:
+                                  description: The Unix Msec timestamp for the start of the aggregate window.
+                                  format: float
+                                  type: number
+                                v:
+                                  description: The trading volume of the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                vw:
+                                  description: The volume weighted average price.
+                                  format: float
+                                  type: number
+                              required:
+                              - v
+                              - vw
+                              - o
+                              - c
+                              - h
+                              - l
+                              - t
+                              - n
+                              type: object
+                              x-polygon-go-type:
+                                name: Aggregate
+                                path: github.com/polygon-io/go-lib-models/v2/globals
+                            type: array
+                          url:
+                            description: The URL which can be used to request the underlying aggregates used in this request.
+                            type: string
+                        type: object
+                      values:
+                        description: Timestamp or indicator value.
+                        items:
+                          properties:
+                            timestamp:
+                              description: The Unix Msec timestamp from the last aggregate used in this calculation.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: IMicroseconds
+                                path: github.com/polygon-io/ptime
+                            value:
+                              description: The MACD line value, calculated as the difference between the short-term and long-term exponential moving averages (EMAs) based on the periods specified in the request parameters.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                          type: object
+                        type: array
+                    type: object
+                    x-polygon-go-type:
+                      name: EMAResults
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - request_id
+                - status
+                - results
+                type: object
+          description: Exponential Moving Average (EMA) data for each period.
+      summary: Exponential Moving Average (EMA)
+      tags:
+      - indices:aggregates
+      x-polygon-entitlement-allowed-limited-tickers: true
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Indices data
+        name: indices
+  /v1/indicators/macd/{indicesTicker}:
+    x-polygon-ignore: true
+    get:
+      description: Get moving average convergence/divergence (MACD) for a ticker symbol over a given time range.
+      operationId: IndicesMACD
+      parameters:
+      - description: The ticker symbol for which to get MACD data.
+        example: I:NDX
+        in: path
+        name: indicesTicker
+        required: true
+        schema:
+          type: string
+        x-polygon-go-id: Ticker
+      - description: Query by timestamp. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        in: query
+        name: timestamp
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: The size of the aggregate time window.
+        example: day
+        in: query
+        name: timespan
+        schema:
+          default: day
+          enum:
+          - minute
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          type: string
+      - description: 'Whether or not the aggregates used to calculate the MACD are adjusted for splits. By default, aggregates are adjusted.
+
+          Set this to false to get results that are NOT adjusted for splits.'
+        example: true
+        in: query
+        name: adjusted
+        schema:
+          default: true
+          type: boolean
+      - description: The short window size used to calculate MACD data.
+        example: 12
+        in: query
+        name: short_window
+        schema:
+          default: 12
+          type: integer
+      - description: The long window size used to calculate MACD data.
+        example: 26
+        in: query
+        name: long_window
+        schema:
+          default: 26
+          type: integer
+      - description: The window size used to calculate the MACD signal line.
+        example: 9
+        in: query
+        name: signal_window
+        schema:
+          default: 9
+          type: integer
+      - description: "The value in the aggregate which will be used to calculate the MACD. i.e. 'close' will result in using close values to \ncalculate the MACD."
+        example: close
+        in: query
+        name: series_type
+        schema:
+          default: close
+          enum:
+          - open
+          - high
+          - low
+          - close
+          type: string
+      - description: Whether or not to include the aggregates used to calculate this indicator in the response.
+        in: query
+        name: expand_underlying
+        schema:
+          default: false
+          type: boolean
+      - description: The order in which to return the results, ordered by timestamp.
+        example: desc
+        in: query
+        name: order
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 5000
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 5000
+          type: integer
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gt
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lt
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.polygon.io/v1/indicators/macd/I:NDX?cursor=YWRqdXN0ZWQ9dHJ1ZSZhcD0lN0IlMjJ2JTIyJTNBMCUyQyUyMm8lMjIlM0EwJTJDJTIyYyUyMiUzQTE1MDg0Ljk5OTM4OTgyMDAzJTJDJTIyaCUyMiUzQTAlMkMlMjJsJTIyJTNBMCUyQyUyMnQlMjIlM0ExNjg3MTUwODAwMDAwJTdEJmFzPSZleHBhbmRfdW5kZXJseWluZz1mYWxzZSZsaW1pdD0yJmxvbmdfd2luZG93PTI2Jm9yZGVyPWRlc2Mmc2VyaWVzX3R5cGU9Y2xvc2Umc2hvcnRfd2luZG93PTEyJnNpZ25hbF93aW5kb3c9OSZ0aW1lc3Bhbj1kYXkmdGltZXN0YW1wLmx0PTE2ODcyMTkyMDAwMDA
+                request_id: 2eeda0be57e83cbc64cc8d1a74e84dbd
+                results:
+                  underlying:
+                    url: https://api.polygon.io/v2/aggs/ticker/I:NDX/range/1/day/1678338000000/1687366537196?limit=121&sort=desc
+                  values:
+                  - histogram: -4.7646219788108795
+                    signal: 220.7596784587801
+                    timestamp: 1687237200000
+                    value: 215.9950564799692
+                  - histogram: 3.4518937661882205
+                    signal: 221.9508339534828
+                    timestamp: 1687219200000
+                    value: 225.40272771967102
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results of the MACD indicator calculation.
+                    properties:
+                      underlying:
+                        description: The underlying aggregates used.
+                        properties:
+                          aggregates:
+                            description: The array of aggregates used in the calculation of this indicator.
+                            items:
+                              properties:
+                                c:
+                                  description: The close price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                h:
+                                  description: The highest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                l:
+                                  description: The lowest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                n:
+                                  description: The number of transactions in the aggregate window.
+                                  type: integer
+                                o:
+                                  description: The open price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                otc:
+                                  description: Whether or not this aggregate is for an OTC ticker. This field will be left off if false.
+                                  type: boolean
+                                t:
+                                  description: The Unix Msec timestamp for the start of the aggregate window.
+                                  format: float
+                                  type: number
+                                v:
+                                  description: The trading volume of the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                vw:
+                                  description: The volume weighted average price.
+                                  format: float
+                                  type: number
+                              required:
+                              - v
+                              - vw
+                              - o
+                              - c
+                              - h
+                              - l
+                              - t
+                              - n
+                              type: object
+                              x-polygon-go-type:
+                                name: Aggregate
+                                path: github.com/polygon-io/go-lib-models/v2/globals
+                            type: array
+                          url:
+                            description: The URL which can be used to request the underlying aggregates used in this request.
+                            type: string
+                        type: object
+                      values:
+                        description: 'Each entry in the values array represents MACD indicator data for a specific timestamp and includes:'
+                        items:
+                          properties:
+                            histogram:
+                              description: The difference between the MACD line (value) and the signal line (signal). Positive histogram values indicate upward (bullish) momentum, while negative histogram values indicate downward (bearish) momentum.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                            signal:
+                              description: The signal line value, calculated as the exponential moving average (EMA) of the MACD line (value) over the signal period defined in the request parameters. Traders typically use crossovers between the MACD and signal lines as trading signals.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                            timestamp:
+                              description: The Unix Msec timestamp from the last aggregate used in this calculation.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: IMicroseconds
+                                path: github.com/polygon-io/ptime
+                            value:
+                              description: The MACD line value, calculated as the difference between the short-term and long-term exponential moving averages (EMAs) based on the periods specified in the request parameters.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                          type: object
+                        type: array
+                    type: object
+                    x-polygon-go-type:
+                      name: MACDResults
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - request_id
+                - status
+                - results
+                type: object
+          description: Moving Average Convergence/Divergence (MACD) data for each period.
+      summary: Moving Average Convergence/Divergence (MACD)
+      tags:
+      - indices:aggregates
+      x-polygon-entitlement-allowed-limited-tickers: true
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Indices data
+        name: indices
+  /v1/indicators/rsi/{indicesTicker}:
+    x-polygon-ignore: true
+    get:
+      description: Get the relative strength index (RSI) for a ticker symbol over a given time range.
+      operationId: IndicesRSI
+      parameters:
+      - description: The ticker symbol for which to get relative strength index (RSI) data.
+        example: I:NDX
+        in: path
+        name: indicesTicker
+        required: true
+        schema:
+          type: string
+        x-polygon-go-id: Ticker
+      - description: Query by timestamp. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        in: query
+        name: timestamp
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: The size of the aggregate time window.
+        example: day
+        in: query
+        name: timespan
+        schema:
+          default: day
+          enum:
+          - minute
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          type: string
+      - description: 'Whether or not the aggregates used to calculate the relative strength index are adjusted for splits. By default, aggregates are adjusted.
+
+          Set this to false to get results that are NOT adjusted for splits.'
+        example: true
+        in: query
+        name: adjusted
+        schema:
+          default: true
+          type: boolean
+      - description: The window size used to calculate the relative strength index (RSI).
+        example: 14
+        in: query
+        name: window
+        schema:
+          default: 14
+          type: integer
+      - description: "The value in the aggregate which will be used to calculate the relative strength index. i.e. 'close' will result in using close values to \ncalculate the relative strength index (RSI)."
+        example: close
+        in: query
+        name: series_type
+        schema:
+          default: close
+          enum:
+          - open
+          - high
+          - low
+          - close
+          type: string
+      - description: Whether or not to include the aggregates used to calculate this indicator in the response.
+        in: query
+        name: expand_underlying
+        schema:
+          default: false
+          type: boolean
+      - description: The order in which to return the results, ordered by timestamp.
+        example: desc
+        in: query
+        name: order
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 5000
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 5000
+          type: integer
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gt
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lt
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.polygon.io/v1/indicators/rsi/I:NDX?cursor=YWRqdXN0ZWQ9dHJ1ZSZhcD0lN0IlMjJ2JTIyJTNBMCUyQyUyMm8lMjIlM0EwJTJDJTIyYyUyMiUzQTE1MDg0Ljk5OTM4OTgyMDAzJTJDJTIyaCUyMiUzQTAlMkMlMjJsJTIyJTNBMCUyQyUyMnQlMjIlM0ExNjg3MjE5MjAwMDAwJTdEJmFzPSZleHBhbmRfdW5kZXJseWluZz1mYWxzZSZsaW1pdD0xJm9yZGVyPWRlc2Mmc2VyaWVzX3R5cGU9Y2xvc2UmdGltZXNwYW49ZGF5JnRpbWVzdGFtcC5sdD0xNjg3MjM3MjAwMDAwJndpbmRvdz0xNA
+                request_id: 28a8417f521f98e1d08f6ed7d1fbcad3
+                results:
+                  underlying:
+                    url: https://api.polygon.io/v2/aggs/ticker/I:NDX/range/1/day/1678338000000/1687366658253?limit=66&sort=desc
+                  values:
+                  - timestamp: 1687237200000
+                    value: 73.98019439047955
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results of the RSI indicator calculation.
+                    properties:
+                      underlying:
+                        description: The underlying aggregates used.
+                        properties:
+                          aggregates:
+                            description: The array of aggregates used in the calculation of this indicator.
+                            items:
+                              properties:
+                                c:
+                                  description: The close price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                h:
+                                  description: The highest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                l:
+                                  description: The lowest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                n:
+                                  description: The number of transactions in the aggregate window.
+                                  type: integer
+                                o:
+                                  description: The open price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                otc:
+                                  description: Whether or not this aggregate is for an OTC ticker. This field will be left off if false.
+                                  type: boolean
+                                t:
+                                  description: The Unix Msec timestamp for the start of the aggregate window.
+                                  format: float
+                                  type: number
+                                v:
+                                  description: The trading volume of the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                vw:
+                                  description: The volume weighted average price.
+                                  format: float
+                                  type: number
+                              required:
+                              - v
+                              - vw
+                              - o
+                              - c
+                              - h
+                              - l
+                              - t
+                              - n
+                              type: object
+                              x-polygon-go-type:
+                                name: Aggregate
+                                path: github.com/polygon-io/go-lib-models/v2/globals
+                            type: array
+                          url:
+                            description: The URL which can be used to request the underlying aggregates used in this request.
+                            type: string
+                        type: object
+                      values:
+                        description: Timestamp or indicator value.
+                        items:
+                          properties:
+                            timestamp:
+                              description: The Unix Msec timestamp from the last aggregate used in this calculation.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: IMicroseconds
+                                path: github.com/polygon-io/ptime
+                            value:
+                              description: The MACD line value, calculated as the difference between the short-term and long-term exponential moving averages (EMAs) based on the periods specified in the request parameters.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                          type: object
+                        type: array
+                    type: object
+                    x-polygon-go-type:
+                      name: RSIResults
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - request_id
+                - status
+                - results
+                type: object
+          description: Relative Strength Index (RSI) data for each period.
+      summary: Relative Strength Index (RSI)
+      tags:
+      - indices:aggregates
+      x-polygon-entitlement-allowed-limited-tickers: true
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Indices data
+        name: indices
+  /v1/indicators/sma/{indicesTicker}:
+    x-polygon-ignore: true
+    get:
+      description: Get the simple moving average (SMA) for a ticker symbol over a given time range.
+      operationId: IndicesSMA
+      parameters:
+      - description: The ticker symbol for which to get simple moving average (SMA) data.
+        example: I:NDX
+        in: path
+        name: indicesTicker
+        required: true
+        schema:
+          type: string
+        x-polygon-go-id: Ticker
+      - description: Query by timestamp. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        in: query
+        name: timestamp
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: The size of the aggregate time window.
+        example: day
+        in: query
+        name: timespan
+        schema:
+          default: day
+          enum:
+          - minute
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          type: string
+      - description: 'Whether or not the aggregates used to calculate the simple moving average are adjusted for splits. By default, aggregates are adjusted.
+
+          Set this to false to get results that are NOT adjusted for splits.'
+        example: true
+        in: query
+        name: adjusted
+        schema:
+          default: true
+          type: boolean
+      - description: The window size used to calculate the simple moving average (SMA). i.e. a window size of 10 with daily aggregates would result in a 10 day moving average.
+        example: 50
+        in: query
+        name: window
+        schema:
+          default: 50
+          type: integer
+      - description: "The value in the aggregate which will be used to calculate the simple moving average. i.e. 'close' will result in using close values to \ncalculate the simple moving average (SMA)."
+        example: close
+        in: query
+        name: series_type
+        schema:
+          default: close
+          enum:
+          - open
+          - high
+          - low
+          - close
+          type: string
+      - description: Whether or not to include the aggregates used to calculate this indicator in the response.
+        in: query
+        name: expand_underlying
+        schema:
+          default: false
+          type: boolean
+      - description: The order in which to return the results, ordered by timestamp.
+        example: desc
+        in: query
+        name: order
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 5000
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 5000
+          type: integer
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gt
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lt
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.polygon.io/v1/indicators/sma/I:NDX?cursor=YWRqdXN0ZWQ9dHJ1ZSZhcD0lN0IlMjJ2JTIyJTNBMCUyQyUyMm8lMjIlM0EwJTJDJTIyYyUyMiUzQTE1MDg0Ljk5OTM4OTgyMDAzJTJDJTIyaCUyMiUzQTAlMkMlMjJsJTIyJTNBMCUyQyUyMnQlMjIlM0ExNjg3MjE5MjAwMDAwJTdEJmFzPSZleHBhbmRfdW5kZXJseWluZz1mYWxzZSZsaW1pdD0xJm9yZGVyPWRlc2Mmc2VyaWVzX3R5cGU9Y2xvc2UmdGltZXNwYW49ZGF5JnRpbWVzdGFtcC5sdD0xNjg3MjM3MjAwMDAwJndpbmRvdz01Mw
+                request_id: 4cae270008cb3f947e3f92c206e3888a
+                results:
+                  underlying:
+                    url: https://api.polygon.io/v2/aggs/ticker/I:NDX/range/1/day/1678338000000/1687366378997?limit=240&sort=desc
+                  values:
+                  - timestamp: 1687237200000
+                    value: 14362.676417589264
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results of the SMA indicator calculation.
+                    properties:
+                      underlying:
+                        description: The underlying aggregates used.
+                        properties:
+                          aggregates:
+                            description: The array of aggregates used in the calculation of this indicator.
+                            items:
+                              properties:
+                                c:
+                                  description: The close price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                h:
+                                  description: The highest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                l:
+                                  description: The lowest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                n:
+                                  description: The number of transactions in the aggregate window.
+                                  type: integer
+                                o:
+                                  description: The open price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                otc:
+                                  description: Whether or not this aggregate is for an OTC ticker. This field will be left off if false.
+                                  type: boolean
+                                t:
+                                  description: The Unix Msec timestamp for the start of the aggregate window.
+                                  format: float
+                                  type: number
+                                v:
+                                  description: The trading volume of the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                vw:
+                                  description: The volume weighted average price.
+                                  format: float
+                                  type: number
+                              required:
+                              - v
+                              - vw
+                              - o
+                              - c
+                              - h
+                              - l
+                              - t
+                              - n
+                              type: object
+                              x-polygon-go-type:
+                                name: Aggregate
+                                path: github.com/polygon-io/go-lib-models/v2/globals
+                            type: array
+                          url:
+                            description: The URL which can be used to request the underlying aggregates used in this request.
+                            type: string
+                        type: object
+                      values:
+                        description: Timestamp or indicator value.
+                        items:
+                          properties:
+                            timestamp:
+                              description: The Unix Msec timestamp from the last aggregate used in this calculation.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: IMicroseconds
+                                path: github.com/polygon-io/ptime
+                            value:
+                              description: The MACD line value, calculated as the difference between the short-term and long-term exponential moving averages (EMAs) based on the periods specified in the request parameters.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                          type: object
+                        type: array
+                    type: object
+                    x-polygon-go-type:
+                      name: SMAResults
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - request_id
+                - status
+                - results
+                type: object
+          description: Simple Moving Average (SMA) data for each period.
+      summary: Simple Moving Average (SMA)
+      tags:
+      - indices:aggregates
+      x-polygon-entitlement-allowed-limited-tickers: true
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Indices data
+        name: indices
+  /v2/aggs/ticker/{indicesTicker}/prev:
+    get:
+      description: 'Get the previous day''s open, high, low, and close (OHLC) for the specified index.
+
+        '
+      operationId: GetPreviousIndicesAggregates
+      parameters:
+      - description: The ticker symbol of Index.
+        example: I:NDX
+        in: path
+        name: indicesTicker
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                queryCount: 1
+                request_id: b2170df985474b6d21a6eeccfb6bee67
+                results:
+                - T: I:NDX
+                  c: 15070.14948566977
+                  h: 15127.4195807999
+                  l: 14946.7243781848
+                  o: 15036.48391066877
+                  t: 1687291200000
+                resultsCount: 1
+                status: OK
+                ticker: I:NDX
+              schema:
+                allOf:
+                - properties:
+                    ticker:
+                      description: The exchange symbol that this item is traded under.
+                      type: string
+                  required:
+                  - ticker
+                  type: object
+                - properties:
+                    queryCount:
+                      description: The number of aggregates (minute or day) used to generate the response.
+                      type: integer
+                    request_id:
+                      description: A request id assigned by the server.
+                      type: string
+                    resultsCount:
+                      description: The total number of results for this request.
+                      type: integer
+                    status:
+                      description: The status of this request's response.
+                      type: string
+                  required:
+                  - status
+                  - queryCount
+                  - resultsCount
+                  - request_id
+                  type: object
+                - properties:
+                    results:
+                      description: An array of results containing the requested data.
+                      items:
+                        properties:
+                          c:
+                            description: The close value for the symbol in the given time period.
+                            format: double
+                            type: number
+                          h:
+                            description: The highest value for the symbol in the given time period.
+                            format: double
+                            type: number
+                          l:
+                            description: The lowest value for the symbol in the given time period.
+                            format: double
+                            type: number
+                          o:
+                            description: The open value for the symbol in the given time period.
+                            format: double
+                            type: number
+                          t:
+                            description: The Unix millisecond timestamp for the start of the aggregate window.
+                            type: integer
+                        required:
+                        - o
+                        - h
+                        - l
+                        - c
+                        - t
+                        type: object
+                      type: array
+                  type: object
+            text/csv:
+              example: 'T,c,h,l,o,t,v,vw
+
+                I:NDX,15036.48391066877,15070.14948566977,15127.4195807999,14946.7243781848,1687291200000
+
+                '
+              schema:
+                type: string
+          description: The previous day OHLC for a index.
+        default:
+          description: Unexpected error
+      summary: Previous Close
+      tags:
+      - indices:aggregates
+      x-polygon-entitlement-allowed-limited-tickers: true
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Indices data
+        name: indices
+  /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}:
+    get:
+      description: 'Get aggregate bars for an index over a given date range in custom time window sizes.
+
+        <br />
+
+        <br />
+
+        For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute bars will be returned.
+
+        '
+      operationId: GetIndicesAggregates
+      parameters:
+      - description: The ticker symbol of Index.
+        example: I:NDX
+        in: path
+        name: indicesTicker
+        required: true
+        schema:
+          type: string
+      - description: The size of the timespan multiplier.
+        example: 1
+        in: path
+        name: multiplier
+        required: true
+        schema:
+          type: integer
+      - description: The size of the time window.
+        example: day
+        in: path
+        name: timespan
+        required: true
+        schema:
+          enum:
+          - second
+          - minute
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          type: string
+      - description: The start of the aggregate time window. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        example: '2025-11-03'
+        in: path
+        name: from
+        required: true
+        schema:
+          type: string
+      - description: The end of the aggregate time window. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        example: '2025-11-28'
+        in: path
+        name: to
+        required: true
+        schema:
+          type: string
+      - description: 'Sort the results by timestamp.
+
+          `asc` will return results in ascending order (oldest at the top),
+
+          `desc` will return results in descending order (newest at the top).
+
+          '
+        example: asc
+        in: query
+        name: sort
+        schema:
+          enum:
+          - asc
+          - desc
+      - description: 'Limits the number of base aggregates queried to create the aggregate results. Max 50000 and Default 5000.
+
+          Read more about how limit is used to calculate aggregate results in our article on
+
+          <a href="https://massive.com/blog/aggs-api-updates/" target="_blank" alt="Aggregate Data API Improvements">Aggregate Data API Improvements</a>.
+
+          '
+        example: 120
+        in: query
+        name: limit
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 2
+                queryCount: 2
+                request_id: 0cf72b6da685bcd386548ffe2895904a
+                results:
+                - c: 11995.88235998666
+                  h: 12340.44936267155
+                  l: 11970.34221717375
+                  o: 12230.83658266843
+                  t: 1678341600000
+                - c: 11830.28178808306
+                  h: 12069.62262033557
+                  l: 11789.85923449393
+                  o: 12001.69552583921
+                  t: 1678428000000
+                status: OK
+                ticker: I:NDX
+              schema:
+                allOf:
+                - properties:
+                    ticker:
+                      description: The exchange symbol that this item is traded under.
+                      type: string
+                  required:
+                  - ticker
+                  type: object
+                - properties:
+                    queryCount:
+                      description: The number of aggregates (minute or day) used to generate the response.
+                      type: integer
+                    request_id:
+                      description: A request id assigned by the server.
+                      type: string
+                    resultsCount:
+                      description: The total number of results for this request.
+                      type: integer
+                    status:
+                      description: The status of this request's response.
+                      type: string
+                  required:
+                  - status
+                  - queryCount
+                  - resultsCount
+                  - request_id
+                  type: object
+                - properties:
+                    results:
+                      description: An array of results containing the requested data.
+                      items:
+                        properties:
+                          c:
+                            description: The close value for the symbol in the given time period.
+                            format: double
+                            type: number
+                          h:
+                            description: The highest value for the symbol in the given time period.
+                            format: double
+                            type: number
+                          l:
+                            description: The lowest value for the symbol in the given time period.
+                            format: double
+                            type: number
+                          o:
+                            description: The open value for the symbol in the given time period.
+                            format: double
+                            type: number
+                          t:
+                            description: The Unix millisecond timestamp for the start of the aggregate window.
+                            type: integer
+                        required:
+                        - o
+                        - h
+                        - l
+                        - c
+                        - t
+                        type: object
+                      type: array
+                  type: object
+            text/csv:
+              example: 'c,h,l,n,o,t
+
+                11995.88235998666,12340.44936267155,11970.34221717375,12230.83658266843,1678341600000
+
+                11830.28178808306,12069.62262033557,11789.85923449393,12001.69552583921,1678341600000
+
+                '
+              schema:
+                type: string
+          description: Index Aggregates.
+        default:
+          description: Unexpected error
+      summary: Aggregates (Bars)
+      tags:
+      - indices:aggregates
+      x-polygon-entitlement-allowed-limited-tickers: true
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Indices data
+        name: indices
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

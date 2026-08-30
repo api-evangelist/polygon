@@ -1,0 +1,491 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Stocks:open Close API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: stocks:open-close
+paths:
+  /v1/open-close/{indicesTicker}/{date}:
+    get:
+      description: 'Get the open, close and afterhours values of a index symbol on a certain date.
+
+        '
+      operationId: GetIndicesOpenClose
+      parameters:
+      - description: The ticker symbol of Index.
+        example: I:NDX
+        in: path
+        name: indicesTicker
+        required: true
+        schema:
+          type: string
+      - description: The date of the requested open/close in the format YYYY-MM-DD.
+        example: '2023-03-10'
+        in: path
+        name: date
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                afterHours: 11830.43006295237
+                close: 11830.28178808306
+                from: '2023-03-10T00:00:00.000Z'
+                high: 12069.62262033557
+                low: 11789.85923449393
+                open: 12001.69552583921
+                preMarket: 12001.69552583921
+                status: OK
+                symbol: I:NDX
+              schema:
+                properties:
+                  afterHours:
+                    description: The close value of the ticker symbol in after hours trading.
+                    format: double
+                    type: number
+                  close:
+                    description: The close value for the symbol in the given time period.
+                    format: double
+                    type: number
+                  from:
+                    description: The requested date.
+                    format: date
+                    type: string
+                  high:
+                    description: The highest value for the symbol in the given time period.
+                    format: double
+                    type: number
+                  low:
+                    description: The lowest value for the symbol in the given time period.
+                    format: double
+                    type: number
+                  open:
+                    description: The open value for the symbol in the given time period.
+                    format: double
+                    type: number
+                  preMarket:
+                    description: The open value of the ticker symbol in pre-market trading.
+                    type: integer
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                  symbol:
+                    description: The exchange symbol that this item is traded under.
+                    type: string
+                required:
+                - status
+                - from
+                - symbol
+                - open
+                - high
+                - low
+                - close
+                type: object
+            text/csv:
+              example: 'from,open,high,low,close,afterHours,preMarket
+
+                2023-01-10,12001.69552583921,12069.62262033557,11789.85923449393,11830.28178808306,26122646,11830.43006295237,12001.69552583921
+
+                '
+              schema:
+                type: string
+          description: The open/close of this stock symbol.
+        default:
+          description: Unexpected error
+      summary: Daily Open/Close
+      tags:
+      - stocks:open-close
+      x-polygon-entitlement-allowed-limited-tickers: true
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Indices data
+        name: indices
+  /v1/open-close/{stocksTicker}/{date}:
+    get:
+      description: 'Get the open, close and afterhours prices of a stock symbol on a certain date.
+
+        '
+      operationId: GetStocksOpenClose
+      parameters:
+      - description: Specify a case-sensitive ticker symbol. For example, AAPL represents Apple Inc.
+        example: AAPL
+        in: path
+        name: stocksTicker
+        required: true
+        schema:
+          type: string
+      - description: The date of the requested open/close in the format YYYY-MM-DD.
+        example: '2023-01-09'
+        in: path
+        name: date
+        required: true
+        schema:
+          format: date
+          type: string
+      - description: 'Whether or not the results are adjusted for splits.  By default, results are adjusted.
+
+          Set this to false to get results that are NOT adjusted for splits.
+
+          '
+        example: true
+        in: query
+        name: adjusted
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                afterHours: 322.1
+                close: 325.12
+                from: '2023-01-09'
+                high: 326.2
+                low: 322.3
+                open: 324.66
+                preMarket: 324.5
+                status: OK
+                symbol: AAPL
+                volume: 26122646
+              schema:
+                properties:
+                  afterHours:
+                    description: The close price of the ticker symbol in after hours trading.
+                    format: double
+                    type: number
+                  close:
+                    description: The close price for the symbol in the given time period.
+                    format: double
+                    type: number
+                  from:
+                    description: The requested date.
+                    format: date
+                    type: string
+                  high:
+                    description: The highest price for the symbol in the given time period.
+                    format: double
+                    type: number
+                  low:
+                    description: The lowest price for the symbol in the given time period.
+                    format: double
+                    type: number
+                  open:
+                    description: The open price for the symbol in the given time period.
+                    format: double
+                    type: number
+                  otc:
+                    description: Whether or not this aggregate is for an OTC ticker. This field will be left off if false.
+                    type: boolean
+                  preMarket:
+                    description: The open price of the ticker symbol in pre-market trading.
+                    type: integer
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                  symbol:
+                    description: The exchange symbol that this item is traded under.
+                    type: string
+                  volume:
+                    description: The trading volume of the symbol in the given time period.
+                    format: double
+                    type: number
+                required:
+                - status
+                - from
+                - symbol
+                - open
+                - high
+                - low
+                - close
+                - volume
+                type: object
+            text/csv:
+              example: 'from,open,high,low,close,volume,afterHours,preMarket
+
+                2023-01-09,324.66,326.2,322.3,325.12,26122646,322.1,324.5
+
+                '
+              schema:
+                type: string
+          description: The open/close of this stock symbol.
+        default:
+          description: Unexpected error
+      summary: Daily Open/Close
+      tags:
+      - stocks:open-close
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Stocks data
+        name: stocks
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

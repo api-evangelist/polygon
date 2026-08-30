@@ -1,0 +1,1025 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Fx:snapshot API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: fx:snapshot
+paths:
+  /v2/snapshot/locale/global/markets/forex/tickers:
+    get:
+      description: 'Get the current minute, day, and previous day’s aggregate, as well as the last trade and quote for all traded forex symbols.
+
+        <br />
+
+        <br />
+
+        Note: Snapshot data is cleared at 12am EST and gets populated as data is received from the exchanges. This can happen as early as 4am EST.
+
+        '
+      operationId: GetForexSnapshotTickers
+      parameters:
+      - description: A case-sensitive comma separated list of tickers to get snapshots for. For example, C:EURUSD, C:GBPCAD, and C:AUDINR. Empty string defaults to querying all tickers.
+        in: query
+        name: tickers
+        schema:
+          items:
+            type: string
+          type: array
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                status: OK
+                tickers:
+                - day:
+                    c: 0.11778221
+                    h: 0.11812263
+                    l: 0.11766631
+                    o: 0.11797149
+                    v: 77794
+                  lastQuote:
+                    a: 0.11780678
+                    b: 0.11777952
+                    t: 1605280919000
+                    x: 48
+                  min:
+                    c: 0.117769
+                    h: 0.11779633
+                    l: 0.11773698
+                    n: 1
+                    o: 0.11778
+                    t: 1684422000000
+                    v: 202
+                  prevDay:
+                    c: 0.11797258
+                    h: 0.11797258
+                    l: 0.11797149
+                    o: 0.11797149
+                    v: 2
+                    vw: 0
+                  ticker: C:HKDCHF
+                  todaysChange: -0.00019306
+                  todaysChangePerc: -0.1636482
+                  updated: 1605280919000
+              schema:
+                allOf:
+                - properties:
+                    status:
+                      description: The status of this request's response.
+                      type: string
+                  required:
+                  - status
+                  type: object
+                - properties:
+                    tickers:
+                      description: An array of snapshot data for the specified tickers.
+                      items:
+                        properties:
+                          day:
+                            description: The most recent daily bar for this ticker.
+                            properties:
+                              c:
+                                description: The close price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              h:
+                                description: The highest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              l:
+                                description: The lowest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              o:
+                                description: The open price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              v:
+                                description: The trading volume of the symbol in the given time period.
+                                format: double
+                                type: number
+                            required:
+                            - o
+                            - h
+                            - l
+                            - c
+                            - v
+                            type: object
+                          fmv:
+                            description: Fair market value is only available on Business plans. It is our proprietary algorithm to generate a real-time, accurate, fair market value of a tradable security. For more information, <a rel="nofollow" target="_blank" href="https://massive.com/contact">contact us</a>.
+                            format: double
+                            type: number
+                          lastQuote:
+                            description: The most recent quote for this ticker.
+                            properties:
+                              a:
+                                description: The ask price.
+                                format: double
+                                type: number
+                              b:
+                                description: The bid price.
+                                format: double
+                                type: number
+                              t:
+                                description: The millisecond accuracy timestamp of the quote.
+                                type: integer
+                              x:
+                                description: The exchange ID on which this quote happened.
+                                type: integer
+                            required:
+                            - a
+                            - b
+                            - t
+                            - x
+                            type: object
+                          min:
+                            description: The most recent minute bar for this ticker.
+                            properties:
+                              c:
+                                description: The close price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              h:
+                                description: The highest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              l:
+                                description: The lowest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              n:
+                                description: The number of transactions in the aggregate window.
+                                type: integer
+                              o:
+                                description: The open price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              t:
+                                description: The Unix millisecond timestamp for the start of the aggregate window.
+                                type: integer
+                              v:
+                                description: The trading volume of the symbol in the given time period.
+                                format: double
+                                type: number
+                            type: object
+                          prevDay:
+                            description: The previous day's bar for this ticker.
+                            properties:
+                              c:
+                                description: The close price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              h:
+                                description: The highest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              l:
+                                description: The lowest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              o:
+                                description: The open price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              v:
+                                description: The trading volume of the symbol in the given time period.
+                                format: double
+                                type: number
+                              vw:
+                                description: The volume weighted average price.
+                                format: double
+                                type: number
+                            required:
+                            - o
+                            - h
+                            - l
+                            - c
+                            - v
+                            - vw
+                            type: object
+                          ticker:
+                            description: The exchange symbol that this item is traded under.
+                            type: string
+                          todaysChange:
+                            description: The value of the change from the previous day.
+                            format: double
+                            type: number
+                          todaysChangePerc:
+                            description: The percentage change since the previous day.
+                            format: double
+                            type: number
+                          updated:
+                            description: The last updated timestamp.
+                            type: integer
+                        required:
+                        - day
+                        - lastQuote
+                        - min
+                        - prevDay
+                        - ticker
+                        - todaysChange
+                        - todaysChangePerc
+                        - updated
+                        type: object
+                      type: array
+                  type: object
+            text/csv:
+              example: 'day_c,day_h,day_l,day_o,day_v,lastQuote_a,lastQuote_b,lastQuote_i,lastQuote_t,lastQuote_x,min_c,min_h,min_l,min_o,min_v,prevDay_c,prevDay_h,prevDay_l,prevDay_o,prevDay_v,prevDay_vw
+
+                1.18403,1.1906,1.18001,1.18725,83578,1.18403,1.18398,0,1606163759000,48,1.18396,1.18423,1.1838,1.18404,41,1.18724,1.18727,1.18725,1.18725,5,0
+
+                '
+              schema:
+                type: string
+          description: Get current state for all tickers
+        default:
+          description: Unexpected error
+      summary: All Tickers
+      tags:
+      - fx:snapshot
+      x-polygon-entitlement-allowed-timeframes:
+      - description: Real Time Data
+        name: realtime
+      - description: 15 minute delayed data
+        name: delayed
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Forex data
+        name: fx
+  /v2/snapshot/locale/global/markets/forex/tickers/{ticker}:
+    get:
+      description: 'Get the current minute, day, and previous day’s aggregate, as well as the last trade and quote for a single traded currency symbol.
+
+        <br />
+
+        <br />
+
+        Note: Snapshot data is cleared at 12am EST and gets populated as data is received from the exchanges.
+
+        '
+      operationId: GetForexSnapshotTicker
+      parameters:
+      - description: The forex ticker.
+        example: C:EURUSD
+        in: path
+        name: ticker
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: ad76e76ce183002c5937a7f02dfebde4
+                status: OK
+                ticker:
+                  day:
+                    c: 1.18403
+                    h: 1.1906
+                    l: 1.18001
+                    o: 1.18725
+                    v: 83578
+                  lastQuote:
+                    a: 1.18403
+                    b: 1.18398
+                    i: 0
+                    t: 1606163759000
+                    x: 48
+                  min:
+                    c: 1.18396
+                    h: 1.18423
+                    l: 1.1838
+                    n: 85
+                    o: 1.18404
+                    t: 1684422000000
+                    v: 41
+                  prevDay:
+                    c: 1.18724
+                    h: 1.18727
+                    l: 1.18725
+                    o: 1.18725
+                    v: 5
+                    vw: 0
+                  ticker: C:EURUSD
+                  todaysChange: -0.00316
+                  todaysChangePerc: -0.27458312
+                  updated: 1606163759000
+              schema:
+                allOf:
+                - properties:
+                    status:
+                      description: The status of this request's response.
+                      type: string
+                  required:
+                  - status
+                  type: object
+                - properties:
+                    request_id:
+                      description: A request id assigned by the server.
+                      type: string
+                  required:
+                  - request_id
+                  type: object
+                - properties:
+                    ticker:
+                      description: Contains the requested snapshot data for the specified ticker.
+                      properties:
+                        day:
+                          description: The most recent daily bar for this ticker.
+                          properties:
+                            c:
+                              description: The close price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            h:
+                              description: The highest price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            l:
+                              description: The lowest price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            o:
+                              description: The open price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            v:
+                              description: The trading volume of the symbol in the given time period.
+                              format: double
+                              type: number
+                          required:
+                          - o
+                          - h
+                          - l
+                          - c
+                          - v
+                          type: object
+                        fmv:
+                          description: Fair market value is only available on Business plans. It is our proprietary algorithm to generate a real-time, accurate, fair market value of a tradable security. For more information, <a rel="nofollow" target="_blank" href="https://massive.com/contact">contact us</a>.
+                          format: double
+                          type: number
+                        lastQuote:
+                          description: The most recent quote for this ticker.
+                          properties:
+                            a:
+                              description: The ask price.
+                              format: double
+                              type: number
+                            b:
+                              description: The bid price.
+                              format: double
+                              type: number
+                            t:
+                              description: The millisecond accuracy timestamp of the quote.
+                              type: integer
+                            x:
+                              description: The exchange ID on which this quote happened.
+                              type: integer
+                          required:
+                          - a
+                          - b
+                          - t
+                          - x
+                          type: object
+                        min:
+                          description: The most recent minute bar for this ticker.
+                          properties:
+                            c:
+                              description: The close price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            h:
+                              description: The highest price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            l:
+                              description: The lowest price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            n:
+                              description: The number of transactions in the aggregate window.
+                              type: integer
+                            o:
+                              description: The open price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            t:
+                              description: The Unix millisecond timestamp for the start of the aggregate window.
+                              type: integer
+                            v:
+                              description: The trading volume of the symbol in the given time period.
+                              format: double
+                              type: number
+                          type: object
+                        prevDay:
+                          description: The previous day's bar for this ticker.
+                          properties:
+                            c:
+                              description: The close price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            h:
+                              description: The highest price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            l:
+                              description: The lowest price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            o:
+                              description: The open price for the symbol in the given time period.
+                              format: double
+                              type: number
+                            v:
+                              description: The trading volume of the symbol in the given time period.
+                              format: double
+                              type: number
+                            vw:
+                              description: The volume weighted average price.
+                              format: double
+                              type: number
+                          required:
+                          - o
+                          - h
+                          - l
+                          - c
+                          - v
+                          - vw
+                          type: object
+                        ticker:
+                          description: The exchange symbol that this item is traded under.
+                          type: string
+                        todaysChange:
+                          description: The value of the change from the previous day.
+                          format: double
+                          type: number
+                        todaysChangePerc:
+                          description: The percentage change since the previous day.
+                          format: double
+                          type: number
+                        updated:
+                          description: The last updated timestamp.
+                          type: integer
+                      required:
+                      - day
+                      - lastQuote
+                      - min
+                      - prevDay
+                      - ticker
+                      - todaysChange
+                      - todaysChangePerc
+                      - updated
+                      type: object
+                  type: object
+            text/csv:
+              example: 'day_c,day_h,day_l,day_o,day_v,lastQuote_a,lastQuote_b,lastQuote_i,lastQuote_t,lastQuote_x,min_c,min_h,min_l,min_o,min_v,prevDay_c,prevDay_h,prevDay_l,prevDay_o,prevDay_v,prevDay_vw
+
+                1.18403,1.1906,1.18001,1.18725,83578,1.18403,1.18398,0,1606163759000,48,1.18396,1.18423,1.1838,1.18404,41,1.18724,1.18727,1.18725,1.18725,5,0
+
+                '
+              schema:
+                type: string
+          description: Get current state for a ticker
+        default:
+          description: Unexpected error
+      summary: Ticker
+      tags:
+      - fx:snapshot
+      x-polygon-entitlement-allowed-timeframes:
+      - description: Real Time Data
+        name: realtime
+      - description: 15 minute delayed data
+        name: delayed
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Forex data
+        name: fx
+  /v2/snapshot/locale/global/markets/forex/{direction}:
+    get:
+      description: 'Get the current top 20 gainers or losers of the day in forex markets.
+
+        <br />
+
+        <br />
+
+        Top gainers are those tickers whose price has increased by the highest percentage since the previous day''s close.
+
+        Top losers are those tickers whose price has decreased by the highest percentage since the previous day''s close.
+
+        <br />
+
+        <br />
+
+        Note: Snapshot data is cleared at 12am EST and gets populated as data is received from the exchanges.
+
+        '
+      operationId: GetForexSnapshotDirection
+      parameters:
+      - description: 'The direction of the snapshot results to return.
+
+          '
+        example: gainers
+        in: path
+        name: direction
+        required: true
+        schema:
+          enum:
+          - gainers
+          - losers
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                status: OK
+                tickers:
+                - day:
+                    c: 0.886156
+                    h: 0.887111
+                    l: 0.8825327
+                    o: 0.8844732
+                    v: 1041
+                  lastQuote:
+                    a: 0.8879606
+                    b: 0.886156
+                    t: 1605283204000
+                    x: 48
+                  min:
+                    c: 0.886156
+                    h: 0.886156
+                    l: 0.886156
+                    n: 1
+                    o: 0.886156
+                    t: 1684422000000
+                    v: 1
+                  prevDay:
+                    c: 0.8428527
+                    h: 0.889773
+                    l: 0.8428527
+                    o: 0.8848539
+                    v: 1078
+                    vw: 0
+                  ticker: C:PLNILS
+                  todaysChange: 0.0433033
+                  todaysChangePerc: 5.13770674
+                  updated: 1605330008999
+              schema:
+                allOf:
+                - properties:
+                    status:
+                      description: The status of this request's response.
+                      type: string
+                  required:
+                  - status
+                  type: object
+                - properties:
+                    tickers:
+                      description: An array of snapshot data for the specified tickers.
+                      items:
+                        properties:
+                          day:
+                            description: The most recent daily bar for this ticker.
+                            properties:
+                              c:
+                                description: The close price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              h:
+                                description: The highest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              l:
+                                description: The lowest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              o:
+                                description: The open price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              v:
+                                description: The trading volume of the symbol in the given time period.
+                                format: double
+                                type: number
+                            required:
+                            - o
+                            - h
+                            - l
+                            - c
+                            - v
+                            type: object
+                          fmv:
+                            description: Fair market value is only available on Business plans. It is our proprietary algorithm to generate a real-time, accurate, fair market value of a tradable security. For more information, <a rel="nofollow" target="_blank" href="https://massive.com/contact">contact us</a>.
+                            format: double
+                            type: number
+                          lastQuote:
+                            description: The most recent quote for this ticker.
+                            properties:
+                              a:
+                                description: The ask price.
+                                format: double
+                                type: number
+                              b:
+                                description: The bid price.
+                                format: double
+                                type: number
+                              t:
+                                description: The millisecond accuracy timestamp of the quote.
+                                type: integer
+                              x:
+                                description: The exchange ID on which this quote happened.
+                                type: integer
+                            required:
+                            - a
+                            - b
+                            - t
+                            - x
+                            type: object
+                          min:
+                            description: The most recent minute bar for this ticker.
+                            properties:
+                              c:
+                                description: The close price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              h:
+                                description: The highest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              l:
+                                description: The lowest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              n:
+                                description: The number of transactions in the aggregate window.
+                                type: integer
+                              o:
+                                description: The open price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              t:
+                                description: The Unix millisecond timestamp for the start of the aggregate window.
+                                type: integer
+                              v:
+                                description: The trading volume of the symbol in the given time period.
+                                format: double
+                                type: number
+                            type: object
+                          prevDay:
+                            description: The previous day's bar for this ticker.
+                            properties:
+                              c:
+                                description: The close price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              h:
+                                description: The highest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              l:
+                                description: The lowest price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              o:
+                                description: The open price for the symbol in the given time period.
+                                format: double
+                                type: number
+                              v:
+                                description: The trading volume of the symbol in the given time period.
+                                format: double
+                                type: number
+                              vw:
+                                description: The volume weighted average price.
+                                format: double
+                                type: number
+                            required:
+                            - o
+                            - h
+                            - l
+                            - c
+                            - v
+                            - vw
+                            type: object
+                          ticker:
+                            description: The exchange symbol that this item is traded under.
+                            type: string
+                          todaysChange:
+                            description: The value of the change from the previous day.
+                            format: double
+                            type: number
+                          todaysChangePerc:
+                            description: The percentage change since the previous day.
+                            format: double
+                            type: number
+                          updated:
+                            description: The last updated timestamp.
+                            type: integer
+                        required:
+                        - day
+                        - lastQuote
+                        - min
+                        - prevDay
+                        - ticker
+                        - todaysChange
+                        - todaysChangePerc
+                        - updated
+                        type: object
+                      type: array
+                  type: object
+            text/csv:
+              example:
+                tickers: 'day_c,day_h,day_l,day_o,day_v,lastQuote_a,lastQuote_b,lastQuote_t,lastQuote_x,min_c,min_h,min_l,min_o,min_v,prevDay_c,prevDay_h,prevDay_l,prevDay_o,prevDay_v,prevDay_vw
+
+                  0.886156,0.887111,0.8825327,0.8844732,1041,0.8879606,0.886156,1605283204000,48,0.886156,0.886156,0.886156,0.886156,1,0.8428527,0.889773,0.8428527,0.8848539,1078,0
+
+                  '
+              schema:
+                type: string
+          description: Get the current gainers / losers of the day
+        default:
+          description: Unexpected error
+      summary: Gainers/Losers
+      tags:
+      - fx:snapshot
+      x-polygon-entitlement-allowed-timeframes:
+      - description: Real Time Data
+        name: realtime
+      - description: 15 minute delayed data
+        name: delayed
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Forex data
+        name: fx
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

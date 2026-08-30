@@ -1,0 +1,561 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Reference:news API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: reference:news
+paths:
+  /v2/reference/news:
+    get:
+      description: Get the most recent news articles relating to a stock ticker symbol, including a summary of the article and a link to the original source.
+      operationId: ListNews
+      parameters:
+      - description: Specify a case-sensitive ticker symbol. For example, AAPL represents Apple Inc.
+        in: query
+        name: ticker
+        schema:
+          description: The exchange symbol that this item is traded under.
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: Return results published on, before, or after this date.
+        in: query
+        name: published_utc
+        schema:
+          oneOf:
+          - format: date-time
+            type: string
+          - format: date
+            type: string
+        x-polygon-filter-field:
+          range: true
+      - description: Search by ticker.
+        in: query
+        name: ticker.gte
+        schema:
+          description: The exchange symbol that this item is traded under.
+          type: string
+      - description: Search by ticker.
+        in: query
+        name: ticker.gt
+        schema:
+          description: The exchange symbol that this item is traded under.
+          type: string
+      - description: Search by ticker.
+        in: query
+        name: ticker.lte
+        schema:
+          description: The exchange symbol that this item is traded under.
+          type: string
+      - description: Search by ticker.
+        in: query
+        name: ticker.lt
+        schema:
+          description: The exchange symbol that this item is traded under.
+          type: string
+      - description: Search by published_utc.
+        in: query
+        name: published_utc.gte
+        schema:
+          oneOf:
+          - format: date-time
+            type: string
+          - format: date
+            type: string
+      - description: Search by published_utc.
+        in: query
+        name: published_utc.gt
+        schema:
+          oneOf:
+          - format: date-time
+            type: string
+          - format: date
+            type: string
+      - description: Search by published_utc.
+        in: query
+        name: published_utc.lte
+        schema:
+          oneOf:
+          - format: date-time
+            type: string
+          - format: date
+            type: string
+      - description: Search by published_utc.
+        in: query
+        name: published_utc.lt
+        schema:
+          oneOf:
+          - format: date-time
+            type: string
+          - format: date
+            type: string
+      - description: Order results based on the `sort` field.
+        in: query
+        name: order
+        schema:
+          enum:
+          - asc
+          - desc
+          example: asc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 1000.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          example: 10
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: Sort field used for ordering.
+        in: query
+        name: sort
+        schema:
+          default: published_utc
+          enum:
+          - published_utc
+          example: published_utc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                next_url: https://api.polygon.io:443/v2/reference/news?cursor=eyJsaW1pdCI6MSwic29ydCI6InB1Ymxpc2hlZF91dGMiLCJvcmRlciI6ImFzY2VuZGluZyIsInRpY2tlciI6e30sInB1Ymxpc2hlZF91dGMiOnsiZ3RlIjoiMjAyMS0wNC0yNiJ9LCJzZWFyY2hfYWZ0ZXIiOlsxNjE5NDA0Mzk3MDAwLG51bGxdfQ
+                request_id: 831afdb0b8078549fed053476984947a
+                results:
+                - amp_url: https://m.uk.investing.com/news/stock-market-news/markets-are-underestimating-fed-cuts-ubs-3559968?ampMode=1
+                  article_url: https://uk.investing.com/news/stock-market-news/markets-are-underestimating-fed-cuts-ubs-3559968
+                  author: Sam Boughedda
+                  description: UBS analysts warn that markets are underestimating the extent of future interest rate cuts by the Federal Reserve, as the weakening economy is likely to justify more cuts than currently anticipated.
+                  id: 8ec638777ca03b553ae516761c2a22ba2fdd2f37befae3ab6fdab74e9e5193eb
+                  image_url: https://i-invdn-com.investing.com/news/LYNXNPEC4I0AL_L.jpg
+                  insights:
+                  - sentiment: positive
+                    sentiment_reasoning: UBS analysts are providing a bullish outlook on the extent of future Federal Reserve rate cuts, suggesting that markets are underestimating the number of cuts that will occur.
+                    ticker: UBS
+                  keywords:
+                  - Federal Reserve
+                  - interest rates
+                  - economic data
+                  published_utc: '2024-06-24T18:33:53Z'
+                  publisher:
+                    favicon_url: https://s3.polygon.io/public/assets/news/favicons/investing.ico
+                    homepage_url: https://www.investing.com/
+                    logo_url: https://s3.polygon.io/public/assets/news/logos/investing.png
+                    name: Investing.com
+                  tickers:
+                  - UBS
+                  title: 'Markets are underestimating Fed cuts: UBS By Investing.com - Investing.com UK'
+                status: OK
+              schema:
+                properties:
+                  count:
+                    description: The total number of results for this request.
+                    type: integer
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: An array of results containing the requested data.
+                    items:
+                      properties:
+                        amp_url:
+                          description: The mobile friendly Accelerated Mobile Page (AMP) URL.
+                          type: string
+                        article_url:
+                          description: A link to the news article.
+                          type: string
+                        author:
+                          description: The article's author.
+                          type: string
+                        description:
+                          description: A description of the article.
+                          type: string
+                        id:
+                          description: Unique identifier for the article.
+                          type: string
+                        image_url:
+                          description: The article's image URL.
+                          type: string
+                        insights:
+                          description: The insights related to the article.
+                          items:
+                            properties:
+                              sentiment:
+                                description: The sentiment of the insight.
+                                enum:
+                                - positive
+                                - neutral
+                                - negative
+                                type: string
+                              sentiment_reasoning:
+                                description: The reasoning behind the sentiment.
+                                type: string
+                              ticker:
+                                description: The ticker symbol associated with the insight.
+                                type: string
+                            required:
+                            - ticker
+                            - sentiment
+                            - sentiment_reasoning
+                            type: object
+                          type: array
+                        keywords:
+                          description: 'The keywords associated with the article (which will vary depending on
+
+                            the publishing source).'
+                          items:
+                            type: string
+                          type: array
+                        published_utc:
+                          description: The UTC date and time when the article was published, formatted in RFC3339 standard (e.g. YYYY-MM-DDTHH:MM:SSZ).
+                          format: date-time
+                          type: string
+                        publisher:
+                          description: Details the source of the news article, including the publisher's name, logo, and homepage URLs. This information helps users identify and access the original source of news content.
+                          properties:
+                            favicon_url:
+                              description: The publisher's homepage favicon URL.
+                              type: string
+                            homepage_url:
+                              description: The publisher's homepage URL.
+                              type: string
+                            logo_url:
+                              description: The publisher's logo URL.
+                              type: string
+                            name:
+                              description: The publisher's name.
+                              type: string
+                          required:
+                          - name
+                          - logo_url
+                          - homepage_url
+                          type: object
+                        tickers:
+                          description: The ticker symbols associated with the article.
+                          items:
+                            description: The exchange symbol that this item is traded under.
+                            type: string
+                          type: array
+                        title:
+                          description: The title of the news article.
+                          type: string
+                      required:
+                      - id
+                      - publisher
+                      - title
+                      - author
+                      - published_utc
+                      - article_url
+                      - tickers
+                      type: object
+                      x-polygon-go-type:
+                        name: NewsArticleMetadata
+                        path: github.com/polygon-io/go-lib-models/v2/globals
+                    type: array
+                    x-polygon-go-type:
+                      name: ListNewsArticlesResults
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                type: object
+            text/csv:
+              example: 'id,publisher_name,publisher_homepage_url,publisher_logo_url,publisher_favicon_url,title,author,published_utc,article_url,ticker,amp_url,image_url,description,keywords,sentiment,sentiment_reasoning
+
+                8ec638777ca03b553ae516761c2a22ba2fdd2f37befae3ab6fdab74e9e5193eb,Investing.com,https://www.investing.com/,https://s3.polygon.io/public/assets/news/logos/investing.png,https://s3.polygon.io/public/assets/news/favicons/investing.ico,Markets are underestimating Fed cuts: UBS By Investing.com - Investing.com UK,Sam Boughedda,1719254033000000000,https://uk.investing.com/news/stock-market-news/markets-are-underestimating-fed-cuts-ubs-3559968,UBS,https://m.uk.investing.com/news/stock-market-news/markets-are-underestimating-fed-cuts-ubs-3559968?ampMode=1,https://i-invdn-com.investing.com/news/LYNXNPEC4I0AL_L.jpg,"UBS analysts warn that markets are underestimating the extent of future interest rate cuts by the Federal Reserve, as the weakening economy is likely to justify more cuts than currently anticipated.","Federal Reserve,interest rates,economic data",positive,"UBS analysts are providing a bullish outlook on the extent of future Federal Reserve rate cuts, suggesting that markets are underestimating the number of cuts that will occur."
+
+                '
+              schema:
+                type: string
+          description: An array of news articles.
+        '401':
+          description: Unauthorized - Check our API Key and account status
+        '404':
+          description: The specified resource was not found
+      summary: Ticker News
+      tags:
+      - reference:news
+      x-polygon-entitlement-data-type:
+        description: Reference data
+        name: reference
+      x-polygon-paginate:
+        order:
+          example: desc
+        sort:
+          default: published_utc
+          enum:
+          - published_utc
+          limit:
+            default: 10
+            maximum: 1000
+            minimum: 1
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

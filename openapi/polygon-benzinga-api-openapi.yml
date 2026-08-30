@@ -1,0 +1,2924 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Benzinga API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: benzinga
+paths:
+  /benzinga/v1/analyst-insights:
+    get:
+      description: A comprehensive database of financial analyst insights and ratings for various publicly traded companies, capturing detailed information about analyst recommendations and price targets.
+      operationId: get_benzinga_v1_analyst-insights
+      parameters:
+      - description: The calendar date (formatted as YYYY-MM-DD) when the rating was issued.
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: The stock symbol of the company being rated.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: The timestamp (formatted as an ISO 8601 timestamp) when the rating was last updated in the system. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.lte
+        schema:
+          type: string
+      - description: The name of the research firm or investment bank issuing the rating.
+        in: query
+        name: firm
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: firm.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: firm.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: firm.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: firm.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: firm.lte
+        schema:
+          type: string
+      - description: 'The description of the change in rating from the firm''s last rating. Possible values include: downgrades, maintains, reinstates, reiterates, upgrades, assumes, initiates_coverage_on, terminates_coverage_on, removes, suspends, firm_dissolved.'
+        in: query
+        name: rating_action
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: rating_action.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: rating_action.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: rating_action.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: rating_action.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: rating_action.lte
+        schema:
+          type: string
+      - description: The identifier used by Benzinga for the firm record.
+        in: query
+        name: benzinga_firm_id
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: benzinga_firm_id.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: benzinga_firm_id.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: benzinga_firm_id.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: benzinga_firm_id.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: benzinga_firm_id.lte
+        schema:
+          type: string
+      - description: The identifier used by Benzinga for the rating record.
+        in: query
+        name: benzinga_rating_id
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: benzinga_rating_id.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: benzinga_rating_id.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: benzinga_rating_id.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: benzinga_rating_id.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: benzinga_rating_id.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'last_updated' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: last_updated.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - benzinga_firm_id: 606af0aa6538960001bced21
+                  benzinga_id: 681363c1fd0258abcbedc074
+                  benzinga_rating_id: 6813624c09c1f6000103ac25
+                  date: '2025-05-01'
+                  firm: Needham
+                  insight: "Needham maintained their Buy rating on Etsy's stock with a price target of $55.00.  \n\n **Growth Initiatives and Market Penetration**: Etsy's focus on growth initiatives, including leveraging its app for a more personalized shopping experience and marketing, has been a key factor in maintaining its Buy rating. The company's ability to drive greater consideration and purchase frequency through technology and product initiatives, alongside its significant app penetration of gross merchandise sales (GMS), showcases its strong position to capture more of the consumer wallet.\n\n**Resilience Amid Economic Uncertainty**: Despite the economic uncertainty, including potential impacts from tariffs, Etsy's asset-light model and strategic focus on product enhancements position it to navigate macro headwinds effectively. The company's efforts to lean into paid social channels for marketing and its ability to adapt to changes in consumer behavior underline its resilience and potential for sustained growth, supporting the Buy rating."
+                  last_updated: '2025-05-01T12:06:36Z'
+                  price_target: 55
+                  rating: buy
+                  rating_action: maintains
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        benzinga_firm_id:
+                          description: The identifier used by Benzinga for the firm record.
+                          type: string
+                        benzinga_id:
+                          description: The identifier used by Benzinga for this record.
+                          type: string
+                        benzinga_rating_id:
+                          description: The identifier used by Benzinga for the rating record.
+                          type: string
+                        company_name:
+                          description: The name of the company being rated.
+                          type: string
+                        date:
+                          description: The calendar date (formatted as YYYY-MM-DD) when the rating was issued.
+                          type: string
+                        firm:
+                          description: The name of the research firm or investment bank issuing the rating.
+                          type: string
+                        insight:
+                          description: Narrative commentary or reasoning provided by the analyst or firm to explain the rating or price target.
+                          type: string
+                        last_updated:
+                          description: The timestamp (formatted as an ISO 8601 timestamp) when the rating was last updated in the system.
+                          format: date-time
+                          type: string
+                        price_target:
+                          description: The current price target set by the analyst.
+                          format: double
+                          type: number
+                        rating:
+                          description: The current rating set by the analyst.
+                          type: string
+                        rating_action:
+                          description: 'The description of the change in rating from the firm''s last rating. Possible values include: downgrades, maintains, reinstates, reiterates, upgrades, assumes, initiates_coverage_on, terminates_coverage_on, removes, suspends, firm_dissolved.'
+                          type: string
+                        ticker:
+                          description: The stock symbol of the company being rated.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - benzinga
+  /benzinga/v1/analysts:
+    get:
+      description: A comprehensive database of financial analysts, containing detailed performance metrics and identification information for individual analysts across various financial firms.
+      operationId: get_benzinga_v1_analysts
+      parameters:
+      - description: The identifier used by Benzinga for this record.
+        in: query
+        name: benzinga_id
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: benzinga_id.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: benzinga_id.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: benzinga_id.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: benzinga_id.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: benzinga_id.lte
+        schema:
+          type: string
+      - description: The unique identifier assigned by Benzinga to the research firm or investment bank.
+        in: query
+        name: benzinga_firm_id
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: benzinga_firm_id.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: benzinga_firm_id.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: benzinga_firm_id.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: benzinga_firm_id.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: benzinga_firm_id.lte
+        schema:
+          type: string
+      - description: The name of the research firm or investment bank issuing the ratings.
+        in: query
+        name: firm_name
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: firm_name.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: firm_name.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: firm_name.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: firm_name.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: firm_name.lte
+        schema:
+          type: string
+      - description: The full name of the analyst associated with the ratings.
+        in: query
+        name: full_name
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: full_name.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: full_name.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: full_name.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: full_name.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: full_name.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'full_name' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: full_name.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - benzinga_firm_id: 5e17143f7da4190001b2eaa6
+                  benzinga_id: 65eb18289b25ca0001b34332
+                  firm_name: B of A Securities
+                  full_name: Alice Xiao
+                  last_updated: '2025-05-19T04:31:12Z'
+                  overall_avg_return: 12.48
+                  overall_avg_return_percentile: 66.53
+                  overall_success_rate: 100
+                  smart_score: 67.94
+                  total_ratings: 4
+                  total_ratings_percentile: 32.17
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        benzinga_firm_id:
+                          description: The unique identifier assigned by Benzinga to the research firm or investment bank.
+                          type: string
+                        benzinga_id:
+                          description: The identifier used by Benzinga for this record.
+                          type: string
+                        firm_name:
+                          description: The name of the research firm or investment bank issuing the ratings.
+                          type: string
+                        full_name:
+                          description: The full name of the analyst associated with the ratings.
+                          type: string
+                        last_updated:
+                          description: The timestamp (formatted as an ISO 8601 timestamp) when the analyst record was last updated in the system.
+                          type: string
+                        overall_avg_return:
+                          description: The average percent price difference per rating since the date of recommendation.
+                          format: double
+                          type: number
+                        overall_avg_return_percentile:
+                          description: The analyst's percentile rank based on average return, relative to other analysts.
+                          format: double
+                          type: number
+                        overall_success_rate:
+                          description: The percentage of gain/loss ratings that resulted in a gain overall.
+                          format: double
+                          type: number
+                        smart_score:
+                          description: A weighted average of the total_ratings_percentile, overall_avg_return_percentile, and overall_success_rate.
+                          format: double
+                          type: number
+                        total_ratings:
+                          description: The total number of ratings issued by the analyst included in the performance calculation.
+                          format: double
+                          type: number
+                        total_ratings_percentile:
+                          description: The analyst's percentile rank based on the total number of ratings issued, relative to other analysts.
+                          format: double
+                          type: number
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - benzinga
+  /benzinga/v1/bulls-bears-say:
+    get:
+      description: A comprehensive database of analyst bull and bear case summaries for publicly traded companies, providing concise summaries of both bullish and bearish investment arguments to help investors see both sides of the story before making investment decisions.
+      operationId: get_benzinga_v1_bulls-bears-say
+      parameters:
+      - description: The stock ticker symbol for the company associated with the bull and bear case summaries.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: The unique identifier used by Benzinga for this bull/bear case record.
+        in: query
+        name: benzinga_id
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: benzinga_id.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: benzinga_id.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: benzinga_id.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: benzinga_id.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: benzinga_id.lte
+        schema:
+          type: string
+      - description: The timestamp (formatted as an ISO 8601 timestamp) when the bull/bear case was last updated in the system. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '5000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 5000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'ticker' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: ticker.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - bear_case: Apple faces increasing regulatory scrutiny globally, potential market saturation in core iPhone markets, and intense competition in emerging categories. Supply chain vulnerabilities and dependence on China for manufacturing pose significant risks, while slowing innovation cycles could impact premium pricing.
+                  benzinga_id: 550e8400-e29b-41d4-a716-446655440000
+                  bull_case: Apple's strong ecosystem integration, loyal customer base, and continued innovation in services and hardware drive sustainable revenue growth. The company's expanding services segment provides high-margin recurring revenue, while its brand strength and pricing power maintain premium market positioning.
+                  last_updated: '2025-12-16T10:30:00Z'
+                  ticker: AAPL
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        bear_case:
+                          description: A concise summary of the bearish investment thesis, highlighting potential risks, challenges, and reasons why the stock could decline in value.
+                          type: string
+                        benzinga_id:
+                          description: The unique identifier used by Benzinga for this bull/bear case record.
+                          type: string
+                        bull_case:
+                          description: A concise summary of the bullish investment thesis, highlighting positive aspects, growth opportunities, and reasons why the stock could appreciate in value.
+                          type: string
+                        last_updated:
+                          description: The timestamp (formatted as an ISO 8601 timestamp) when the bull/bear case was last updated in the system.
+                          format: date-time
+                          type: string
+                        ticker:
+                          description: The stock ticker symbol for the company associated with the bull and bear case summaries.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - benzinga
+  /benzinga/v1/consensus-ratings/{ticker}:
+    get:
+      description: A comprehensive financial consensus ratings table that aggregates analyst recommendations and price targets for individual stock tickers, capturing detailed rating breakdowns and statistical insights.
+      operationId: get_benzinga_v1_consensus-ratings_ticker
+      parameters:
+      - description: The date range to aggregate analyst ratings over. For example, date.gte=2024-10-01 and date.lt=2025-01-01 for ratings published in Q4 2024. By default, all ratings are aggregated regardless of date.
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: The requested ticker.
+        in: path
+        name: ticker
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - buy_ratings: 6
+                  consensus_price_target: 23.28
+                  consensus_rating: hold
+                  consensus_rating_value: 4.14
+                  high_price_target: 32.14
+                  hold_ratings: 3
+                  low_price_target: 6.34
+                  price_target_contributors: 15
+                  ratings_contributors: 14
+                  sell_ratings: 0
+                  strong_buy_ratings: 5
+                  strong_sell_ratings: 0
+                  ticker: AAPL
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        buy_ratings:
+                          description: The count of 'Buy' ratings from contributing analysts.
+                          format: int64
+                          type: integer
+                        consensus_price_target:
+                          description: The average price target across all analysts, rounded to 2 decimal places.
+                          format: double
+                          type: number
+                        consensus_rating:
+                          description: 'The overall rating category determined by the average consensus weight. Possible values: ''strong_buy'', ''buy'', ''hold'', ''sell'', ''strong_sell''.'
+                          type: string
+                        consensus_rating_value:
+                          description: The numerical average of all consensus weights, rounded to 2 decimal places. Scale ranges from 1 (Strong Sell) to 5 (Strong Buy).
+                          format: double
+                          type: number
+                        high_price_target:
+                          description: The highest price target among all contributing analysts.
+                          format: double
+                          type: number
+                        hold_ratings:
+                          description: The count of 'Hold' ratings from contributing analysts.
+                          format: int64
+                          type: integer
+                        low_price_target:
+                          description: The lowest price target among all contributing analysts.
+                          format: double
+                          type: number
+                        price_target_contributors:
+                          description: The number of unique analysts contributing price targets.
+                          format: int64
+                          type: integer
+                        ratings_contributors:
+                          description: The number of unique analysts contributing to the overall ratings consensus.
+                          format: int64
+                          type: integer
+                        sell_ratings:
+                          description: The count of 'Sell' ratings from contributing analysts.
+                          format: int64
+                          type: integer
+                        strong_buy_ratings:
+                          description: The count of 'Strong Buy' ratings from contributing analysts.
+                          format: int64
+                          type: integer
+                        strong_sell_ratings:
+                          description: The count of 'Strong Sell' ratings from contributing analysts.
+                          format: int64
+                          type: integer
+                        ticker:
+                          description: The requested ticker.
+                          type: string
+                      required:
+                      - ratings_contributors
+                      - price_target_contributors
+                      - strong_buy_ratings
+                      - buy_ratings
+                      - hold_ratings
+                      - sell_ratings
+                      - strong_sell_ratings
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - benzinga
+  /benzinga/v1/earnings:
+    get:
+      description: This table contains earnings data from Benzinga, tracking both actual and estimated financial metrics for publicly traded companies. It includes EPS and revenue figures with surprise calculations, along with metadata like fiscal periods, company identifiers, and reporting timestamps.
+      operationId: get_benzinga_v1_earnings
+      parameters:
+      - description: The calendar date (formatted as YYYY-MM-DD) when the earnings are scheduled or were reported.
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: The stock symbol of the company reporting earnings.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: A subjective indicator of the importance of the event, on a scale from 0 (lowest) to 5 (highest). Value must be an integer.
+        in: query
+        name: importance
+        schema:
+          format: int64
+          type: integer
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list. Value must be an integer.
+        in: query
+        name: importance.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer.
+        in: query
+        name: importance.gt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter greater than or equal to the value. Value must be an integer.
+        in: query
+        name: importance.gte
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than the value. Value must be an integer.
+        in: query
+        name: importance.lt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than or equal to the value. Value must be an integer.
+        in: query
+        name: importance.lte
+        schema:
+          format: int64
+          type: integer
+      - description: The timestamp (formatted as an ISO 8601 timestamp) when the record was last updated in the system. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.lte
+        schema:
+          type: string
+      - description: 'Indicates whether the date of the earnings report has been confirmed. Possible values include: projected, confirmed.'
+        in: query
+        name: date_status
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date_status.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date_status.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date_status.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date_status.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date_status.lte
+        schema:
+          type: string
+      - description: The percentage difference between the actual and estimated EPS. Value must be a floating point number.
+        in: query
+        name: eps_surprise_percent
+        schema:
+          format: double
+          type: number
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list. Value must be a floating point number.
+        in: query
+        name: eps_surprise_percent.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: eps_surprise_percent.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: eps_surprise_percent.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: eps_surprise_percent.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: eps_surprise_percent.lte
+        schema:
+          format: double
+          type: number
+      - description: The percentage difference between the actual and estimated revenue. Value must be a floating point number.
+        in: query
+        name: revenue_surprise_percent
+        schema:
+          format: double
+          type: number
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list. Value must be a floating point number.
+        in: query
+        name: revenue_surprise_percent.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be a floating point number.
+        in: query
+        name: revenue_surprise_percent.gt
+        schema:
+          format: double
+          type: number
+      - description: Filter greater than or equal to the value. Value must be a floating point number.
+        in: query
+        name: revenue_surprise_percent.gte
+        schema:
+          format: double
+          type: number
+      - description: Filter less than the value. Value must be a floating point number.
+        in: query
+        name: revenue_surprise_percent.lt
+        schema:
+          format: double
+          type: number
+      - description: Filter less than or equal to the value. Value must be a floating point number.
+        in: query
+        name: revenue_surprise_percent.lte
+        schema:
+          format: double
+          type: number
+      - description: The fiscal year in which the earnings period falls. Value must be an integer.
+        in: query
+        name: fiscal_year
+        schema:
+          format: int64
+          type: integer
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list. Value must be an integer.
+        in: query
+        name: fiscal_year.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer.
+        in: query
+        name: fiscal_year.gt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter greater than or equal to the value. Value must be an integer.
+        in: query
+        name: fiscal_year.gte
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than the value. Value must be an integer.
+        in: query
+        name: fiscal_year.lt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than or equal to the value. Value must be an integer.
+        in: query
+        name: fiscal_year.lte
+        schema:
+          format: int64
+          type: integer
+      - description: 'The fiscal period for which the earnings are reported. Examples include: Q1, Q2, H1, FY.'
+        in: query
+        name: fiscal_period
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: fiscal_period.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: fiscal_period.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: fiscal_period.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: fiscal_period.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: fiscal_period.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'last_updated' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: last_updated.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - actual_eps: -0.19
+                  actual_revenue: 17566000
+                  benzinga_id: 651bcd8d7e4d6000011f2232
+                  company_name: Guardforce AI Co
+                  currency: USD
+                  date: '2029-09-24'
+                  date_status: confirmed
+                  eps_method: GAAP
+                  fiscal_period: H1
+                  fiscal_year: 2024
+                  importance: 1
+                  last_updated: '2025-01-07T10:19:50Z'
+                  previous_eps: -0.75
+                  previous_revenue: 18413292
+                  revenue_method: GAAP
+                  ticker: GFAI
+                  time: 07:00:00
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        actual_eps:
+                          description: The actual earnings per share (EPS) reported by the company for the given period.
+                          format: double
+                          type: number
+                        actual_revenue:
+                          description: The actual revenue reported by the company for the given fiscal period.
+                          format: double
+                          type: number
+                        benzinga_id:
+                          description: The identifier used by Benzinga for this record.
+                          type: string
+                        company_name:
+                          description: The name of the company releasing earnings.
+                          type: string
+                        currency:
+                          description: The ISO 4217 currency code indicating the denomination in which the figures are reported.
+                          type: string
+                        date:
+                          description: The calendar date (formatted as YYYY-MM-DD) when the earnings are scheduled or were reported.
+                          type: string
+                        date_status:
+                          description: 'Indicates whether the date of the earnings report has been confirmed. Possible values include: projected, confirmed.'
+                          type: string
+                        eps_method:
+                          description: The methodology of the EPS figure. Possible values are gaap (standardized financials under Generally Accepted Accounting Principles), ffo (Funds From Operations, a non-GAAP metric commonly used to assess the operating performance of REITs), and adj (adjusted, non-GAAP).
+                          type: string
+                        eps_surprise:
+                          description: The difference between the actual and estimated EPS.
+                          format: double
+                          type: number
+                        eps_surprise_percent:
+                          description: The percentage difference between the actual and estimated EPS.
+                          format: double
+                          type: number
+                        estimated_eps:
+                          description: The analyst consensus estimate for earnings per share (EPS) for the given period.
+                          format: double
+                          type: number
+                        estimated_revenue:
+                          description: The analyst consensus estimate for the company's revenue in the given period.
+                          format: double
+                          type: number
+                        fiscal_period:
+                          description: 'The fiscal period for which the earnings are reported. Examples include: Q1, Q2, H1, FY.'
+                          type: string
+                        fiscal_year:
+                          description: The fiscal year in which the earnings period falls.
+                          format: int64
+                          type: integer
+                        importance:
+                          description: A subjective indicator of the importance of the event, on a scale from 0 (lowest) to 5 (highest).
+                          format: int64
+                          type: integer
+                        last_updated:
+                          description: The timestamp (formatted as an ISO 8601 timestamp) when the record was last updated in the system.
+                          format: date-time
+                          type: string
+                        notes:
+                          description: Additional context, commentary, or clarifying notes related to the earnings event.
+                          type: string
+                        previous_eps:
+                          description: The company's reported earnings per share (EPS) for the previous comparable period.
+                          format: double
+                          type: number
+                        previous_revenue:
+                          description: The company's revenue for the previous comparable fiscal period.
+                          format: double
+                          type: number
+                        revenue_method:
+                          description: The methodology of the revenue figure. Possible values are gaap (standardized financials under Generally Accepted Accounting Principles), adj (adjusted, non-GAAP figures that exclude certain items like one-time charges or divestitures), and rental (revenue specifically derived from rental operations, typically used by REITs, leasing companies, or businesses with a rental-based model).
+                          type: string
+                        revenue_surprise:
+                          description: The difference between the actual and estimated revenue.
+                          format: double
+                          type: number
+                        revenue_surprise_percent:
+                          description: The percentage difference between the actual and estimated revenue.
+                          format: double
+                          type: number
+                        ticker:
+                          description: The stock symbol of the company reporting earnings.
+                          type: string
+                        time:
+                          description: The time (formatted as 24-hour HH:MM:SS EST) when the earnings are scheduled or were reported.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - benzinga
+  /benzinga/v1/firms:
+    get:
+      description: A comprehensive database of financial firms, tracking unique identifiers, names, and basic metadata for various financial institutions and research firms.
+      operationId: get_benzinga_v1_firms
+      parameters:
+      - description: The identifier used by Benzinga for this record.
+        in: query
+        name: benzinga_id
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: benzinga_id.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: benzinga_id.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: benzinga_id.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: benzinga_id.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: benzinga_id.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'name' if not specified. The sort order defaults to 'asc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: name.asc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - benzinga_id: 5e147c6b7da4190001b287b4
+                  currency: USD
+                  last_updated: '2020-01-07T12:41:25Z'
+                  name: Piper Sandler
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        benzinga_id:
+                          description: The identifier used by Benzinga for this record.
+                          type: string
+                        currency:
+                          description: Primary currency used by the financial firm, with some entries having null values.
+                          type: string
+                        last_updated:
+                          description: Timestamp indicating when the firm's information was last modified or verified in the database.
+                          type: string
+                        name:
+                          description: The name of a research firm or investment bank which issues ratings.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - benzinga
+  /benzinga/v1/guidance:
+    get:
+      description: A comprehensive database of financial guidance and earnings estimates for various companies, capturing key metrics related to earnings per share (EPS) and revenue projections across different fiscal periods.
+      operationId: get_benzinga_v1_guidance
+      parameters:
+      - description: The calendar date (formatted as YYYY-MM-DD) when the guidance was issued.
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: The stock symbol of the company issuing guidance.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: Indicates how a particular guidance value is presented relative to other figures disclosed by the company. Possible values are 'primary' (the emphasized figure) and 'secondary' (a supporting or alternate figure)
+        in: query
+        name: positioning
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: positioning.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: positioning.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: positioning.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: positioning.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: positioning.lte
+        schema:
+          type: string
+      - description: A subjective indicator of the importance of the event, on a scale from 0 (lowest) to 5 (highest). Value must be an integer.
+        in: query
+        name: importance
+        schema:
+          format: int64
+          type: integer
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list. Value must be an integer.
+        in: query
+        name: importance.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer.
+        in: query
+        name: importance.gt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter greater than or equal to the value. Value must be an integer.
+        in: query
+        name: importance.gte
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than the value. Value must be an integer.
+        in: query
+        name: importance.lt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than or equal to the value. Value must be an integer.
+        in: query
+        name: importance.lte
+        schema:
+          format: int64
+          type: integer
+      - description: The timestamp (formatted as an ISO 8601 timestamp) when the record was last updated in the system. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be an integer timestamp in nanoseconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.lte
+        schema:
+          type: string
+      - description: The fiscal year corresponding to the period for which the guidance is issued. Value must be an integer.
+        in: query
+        name: fiscal_year
+        schema:
+          format: int64
+          type: integer
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list. Value must be an integer.
+        in: query
+        name: fiscal_year.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer.
+        in: query
+        name: fiscal_year.gt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter greater than or equal to the value. Value must be an integer.
+        in: query
+        name: fiscal_year.gte
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than the value. Value must be an integer.
+        in: query
+        name: fiscal_year.lt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than or equal to the value. Value must be an integer.
+        in: query
+        name: fiscal_year.lte
+        schema:
+          format: int64
+          type: integer
+      - description: The fiscal quarter to which the guidance applies, such as Q1, Q2, Q3, or Q4.
+        in: query
+        name: fiscal_period
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: fiscal_period.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: fiscal_period.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: fiscal_period.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: fiscal_period.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: fiscal_period.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'date' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: date.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - benzinga_id: 682b28a9c068240001a9fded
+                  company_name: Bath & Body Works
+                  currency: USD
+                  date: '2025-05-19'
+                  eps_method: adj
+                  estimated_eps_guidance: 3.52
+                  estimated_revenue_guidance: 7470000000
+                  fiscal_period: FY
+                  fiscal_year: 2025
+                  importance: 3
+                  last_updated: '2025-05-19T12:54:04Z'
+                  max_eps_guidance: 3.6
+                  max_revenue_guidance: 7526000000
+                  min_eps_guidance: 3.25
+                  min_revenue_guidance: 7380000000
+                  notes: Revenue for 2025 FY is expected to up by 1 to 3% YoY from $7.307B
+                  positioning: primary
+                  previous_max_eps_guidance: 3.6
+                  previous_max_revenue_guidance: 7526000000
+                  previous_min_eps_guidance: 3.25
+                  previous_min_revenue_guidance: 7380000000
+                  release_type: preliminary
+                  revenue_method: gaap
+                  ticker: BBWI
+                  time: 08:30:00
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        benzinga_id:
+                          description: A unique identifier assigned by Benzinga to the guidance record.
+                          type: string
+                        company_name:
+                          description: The name of the company issuing guidance.
+                          type: string
+                        currency:
+                          description: The ISO 4217 code representing the currency in which the company issued its guidance figures.
+                          type: string
+                        date:
+                          description: The calendar date (formatted as YYYY-MM-DD) when the guidance was issued.
+                          type: string
+                        eps_method:
+                          description: The methodology of the EPS figure. Possible values are gaap (standardized financials under Generally Accepted Accounting Principles), ffo (Funds From Operations, a non-GAAP metric commonly used to assess the operating performance of REITs), and adj (adjusted, non-GAAP).
+                          type: string
+                        estimated_eps_guidance:
+                          description: The analyst consensus EPS estimate at the time the company issued its guidance. This can sit above, below, or in line with the company's issued range.
+                          format: double
+                          type: number
+                        estimated_revenue_guidance:
+                          description: The analyst consensus revenue estimate at the time the company issued its guidance. This can sit above, below, or in line with the company's issued range.
+                          format: double
+                          type: number
+                        fiscal_period:
+                          description: The fiscal quarter to which the guidance applies, such as Q1, Q2, Q3, or Q4.
+                          type: string
+                        fiscal_year:
+                          description: The fiscal year corresponding to the period for which the guidance is issued.
+                          format: int64
+                          type: integer
+                        importance:
+                          description: A subjective indicator of the importance of the event, on a scale from 0 (lowest) to 5 (highest).
+                          format: int64
+                          type: integer
+                        last_updated:
+                          description: The timestamp (formatted as an ISO 8601 timestamp) when the record was last updated in the system.
+                          format: date-time
+                          type: string
+                        max_eps_guidance:
+                          description: The highest EPS value the company expects for the fiscal period if a range was provided.
+                          format: double
+                          type: number
+                        max_revenue_guidance:
+                          description: The highest revenue figure the company expects for the fiscal period if a range was provided.
+                          format: double
+                          type: number
+                        min_eps_guidance:
+                          description: The lowest EPS value the company expects for the fiscal period if a range was provided.
+                          format: double
+                          type: number
+                        min_revenue_guidance:
+                          description: The lowest revenue figure the company expects for the fiscal period if a range was provided.
+                          format: double
+                          type: number
+                        notes:
+                          description: Additional descriptive text or commentary provided about the guidance record.
+                          type: string
+                        positioning:
+                          description: Indicates how a particular guidance value is presented relative to other figures disclosed by the company. Possible values are 'primary' (the emphasized figure) and 'secondary' (a supporting or alternate figure)
+                          type: string
+                        previous_max_eps_guidance:
+                          description: The highest EPS value issued in a previous guidance record for the same fiscal period.
+                          format: double
+                          type: number
+                        previous_max_revenue_guidance:
+                          description: The highest revenue value issued in a previous guidance record for the same fiscal period.
+                          format: double
+                          type: number
+                        previous_min_eps_guidance:
+                          description: The lowest EPS value issued in a previous guidance record for the same fiscal period.
+                          format: double
+                          type: number
+                        previous_min_revenue_guidance:
+                          description: The lowest revenue value issued in a previous guidance record for the same fiscal period.
+                          format: double
+                          type: number
+                        release_type:
+                          description: Indicates whether the guidance was issued as part of a scheduled earnings release ('official') or as an unscheduled update ('preliminary').
+                          type: string
+                        revenue_method:
+                          description: The methodology of the revenue figure. Possible values are gaap (standardized financials under Generally Accepted Accounting Principles) and adj (adjusted, non-GAAP).
+                          type: string
+                        ticker:
+                          description: The stock symbol of the company issuing guidance.
+                          type: string
+                        time:
+                          description: The time of day the guidance was announced, in HH:mm:ss format.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - benzinga
+  /benzinga/v1/ratings:
+    get:
+      description: This table contains analyst ratings and price target data from investment firms, tracking rating changes (upgrades, downgrades, initiates coverage, etc.) and price target adjustments for publicly traded companies. Each record includes the analyst details, company information, current and previous ratings/targets, and metadata like timestamps and Benzinga identifiers.
+      operationId: get_benzinga_v1_ratings
+      parameters:
+      - description: The calendar date (formatted as YYYY-MM-DD) when the rating was issued.
+        in: query
+        name: date
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: date.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: date.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: date.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: date.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: date.lte
+        schema:
+          type: string
+      - description: The stock symbol of the company being rated.
+        in: query
+        name: ticker
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: ticker.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: ticker.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: ticker.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: ticker.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: ticker.lte
+        schema:
+          type: string
+      - description: A subjective indicator of the importance of the earnings event, on a scale from 0 (lowest) to 5 (highest). Value must be an integer.
+        in: query
+        name: importance
+        schema:
+          format: int64
+          type: integer
+      - description: Filter greater than the value. Value must be an integer.
+        in: query
+        name: importance.gt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter greater than or equal to the value. Value must be an integer.
+        in: query
+        name: importance.gte
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than the value. Value must be an integer.
+        in: query
+        name: importance.lt
+        schema:
+          format: int64
+          type: integer
+      - description: Filter less than or equal to the value. Value must be an integer.
+        in: query
+        name: importance.lte
+        schema:
+          format: int64
+          type: integer
+      - description: The timestamp (formatted as an ISO 8601 timestamp) when the rating was last updated in the system. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: last_updated.lte
+        schema:
+          type: string
+      - description: 'The description of the change in rating from the firm''s last rating. Possible values include: downgrades, maintains, reinstates, reiterates, upgrades, assumes, initiates_coverage_on, terminates_coverage_on, removes, suspends, firm_dissolved.'
+        in: query
+        name: rating_action
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: rating_action.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: rating_action.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: rating_action.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: rating_action.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: rating_action.lte
+        schema:
+          type: string
+      - description: 'The description of the directional change in price target. Possible values include: raises, lowers, maintains, announces, sets.'
+        in: query
+        name: price_target_action
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: price_target_action.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: price_target_action.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: price_target_action.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: price_target_action.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: price_target_action.lte
+        schema:
+          type: string
+      - description: The identifier used by Benzinga for this record.
+        in: query
+        name: benzinga_id
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: benzinga_id.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: benzinga_id.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: benzinga_id.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: benzinga_id.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: benzinga_id.lte
+        schema:
+          type: string
+      - description: The identifier used by Benzinga for this analyst.
+        in: query
+        name: benzinga_analyst_id
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: benzinga_analyst_id.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: benzinga_analyst_id.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: benzinga_analyst_id.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: benzinga_analyst_id.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: benzinga_analyst_id.lte
+        schema:
+          type: string
+      - description: The identifier used by Benzinga for this firm.
+        in: query
+        name: benzinga_firm_id
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: benzinga_firm_id.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: benzinga_firm_id.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: benzinga_firm_id.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: benzinga_firm_id.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: benzinga_firm_id.lte
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'last_updated' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: last_updated.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - adjusted_price_target: 15
+                  analyst: Alexander Potter
+                  benzinga_analyst_id: 58933b2043eaaa0001698f4a
+                  benzinga_calendar_url: https://www.benzinga.com/quote/RIVN/analyst-ratings
+                  benzinga_firm_id: 5e147c6b7da4190001b287b4
+                  benzinga_id: 682f29b0e5343b000100a619
+                  benzinga_news_url: https://www.benzinga.com/stock-articles/RIVN/analyst-ratings
+                  company_name: Rivian Automotive
+                  currency: USD
+                  date: '2025-05-22'
+                  firm: Piper Sandler
+                  importance: 0
+                  last_updated: '2025-05-22T13:42:30Z'
+                  previous_adjusted_price_target: 13
+                  previous_price_target: 13
+                  previous_rating: neutral
+                  price_percent_change: 15.38
+                  price_target: 15
+                  price_target_action: raises
+                  rating: neutral
+                  rating_action: maintains
+                  ticker: RIVN
+                  time: 09:42:08
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        adjusted_price_target:
+                          description: The current price target adjusted for stock splits and dividends.
+                          format: double
+                          type: number
+                        analyst:
+                          description: The name of the individual analyst who issued the rating.
+                          type: string
+                        benzinga_analyst_id:
+                          description: The identifier used by Benzinga for this analyst.
+                          type: string
+                        benzinga_calendar_url:
+                          description: A link to the Benzinga calendar page for this ticker
+                          type: string
+                        benzinga_firm_id:
+                          description: The identifier used by Benzinga for this firm.
+                          type: string
+                        benzinga_id:
+                          description: The identifier used by Benzinga for this record.
+                          type: string
+                        benzinga_news_url:
+                          description: A link to the Benzinga articles page for this ticker
+                          type: string
+                        company_name:
+                          description: The name of the company being rated.
+                          type: string
+                        currency:
+                          description: The ISO 4217 currency code in which the price target is denominated.
+                          type: string
+                        date:
+                          description: The calendar date (formatted as YYYY-MM-DD) when the rating was issued.
+                          type: string
+                        firm:
+                          description: The name of the research firm or investment bank issuing the rating.
+                          type: string
+                        importance:
+                          description: A subjective indicator of the importance of the earnings event, on a scale from 0 (lowest) to 5 (highest).
+                          format: int64
+                          type: integer
+                        last_updated:
+                          description: The timestamp (formatted as an ISO 8601 timestamp) when the rating was last updated in the system.
+                          format: date-time
+                          type: string
+                        notes:
+                          description: Additional context or commentary.
+                          type: string
+                        previous_adjusted_price_target:
+                          description: The previous price target adjusted for stock splits and dividends.
+                          format: double
+                          type: number
+                        previous_price_target:
+                          description: The previous price target set by the analyst.
+                          format: double
+                          type: number
+                        previous_rating:
+                          description: The previous rating set by the analyst.
+                          type: string
+                        price_percent_change:
+                          description: The percentage change in price target if price target and previous price target exists
+                          format: double
+                          type: number
+                        price_target:
+                          description: The current price target set by the analyst.
+                          format: double
+                          type: number
+                        price_target_action:
+                          description: 'The description of the directional change in price target. Possible values include: raises, lowers, maintains, announces, sets.'
+                          type: string
+                        rating:
+                          description: The current rating set by the analyst.
+                          type: string
+                        rating_action:
+                          description: 'The description of the change in rating from the firm''s last rating. Possible values include: downgrades, maintains, reinstates, reiterates, upgrades, assumes, initiates_coverage_on, terminates_coverage_on, removes, suspends, firm_dissolved.'
+                          type: string
+                        ticker:
+                          description: The stock symbol of the company being rated.
+                          type: string
+                        time:
+                          description: The time (formatted as 24-hour HH:MM:SS UTC) when the rating was issued.
+                          type: string
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - benzinga
+  /benzinga/v2/news:
+    get:
+      description: A comprehensive news article database from Benzinga, containing detailed information about financial news articles including metadata, content, and associated financial information.
+      operationId: get_benzinga_v2_news
+      parameters:
+      - description: The timestamp (formatted as an ISO 8601 timestamp) when the news article was originally published. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: published
+        schema:
+          type: string
+      - description: Filter greater than the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: published.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: published.gte
+        schema:
+          type: string
+      - description: Filter less than the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: published.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value. Value must be an integer timestamp in seconds, formatted 'yyyy-mm-dd', or ISO 8601/RFC 3339 (e.g. '2024-05-28T20:27:41Z').
+        in: query
+        name: published.lte
+        schema:
+          type: string
+      - description: Filter for arrays that contain the value.
+        in: query
+        name: channels
+        schema:
+          type: string
+      - description: Filter for arrays that contain all of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: channels.all_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: channels.any_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain the value.
+        in: query
+        name: tags
+        schema:
+          type: string
+      - description: Filter for arrays that contain all of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tags.all_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tags.any_of
+        schema:
+          type: string
+      - description: The name of the journalist or entity that authored the news article.
+        in: query
+        name: author
+        schema:
+          type: string
+      - description: Filter equal to any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: author.any_of
+        schema:
+          type: string
+      - description: Filter greater than the value.
+        in: query
+        name: author.gt
+        schema:
+          type: string
+      - description: Filter greater than or equal to the value.
+        in: query
+        name: author.gte
+        schema:
+          type: string
+      - description: Filter less than the value.
+        in: query
+        name: author.lt
+        schema:
+          type: string
+      - description: Filter less than or equal to the value.
+        in: query
+        name: author.lte
+        schema:
+          type: string
+      - description: Filter for arrays that contain the value.
+        in: query
+        name: stocks
+        schema:
+          type: string
+      - description: Filter for arrays that contain all of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: stocks.all_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: stocks.any_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain the value.
+        in: query
+        name: tickers
+        schema:
+          type: string
+      - description: Filter for arrays that contain all of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tickers.all_of
+        schema:
+          type: string
+      - description: Filter for arrays that contain any of the values. Multiple values can be specified by using a comma separated list.
+        in: query
+        name: tickers.any_of
+        schema:
+          type: string
+      - description: Limit the maximum number of results returned. Defaults to '100' if not specified. The maximum allowed limit is '50000'.
+        in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 50000
+          minimum: 1
+          type: integer
+      - description: A comma separated list of sort columns. For each column, append '.asc' or '.desc' to specify the sort direction. The sort column defaults to 'published' if not specified. The sort order defaults to 'desc' if not specified.
+        in: query
+        name: sort
+        schema:
+          default: published.desc
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                count: 1
+                request_id: 1
+                results:
+                - author: Adam Eckert
+                  benzinga_id: 39046904
+                  body: <p><strong>CAVA Group Inc</strong> (NYSE:<a class="ticker" href="https://www.benzinga.com/stock/CAVA#NYSE">CAVA</a>) reported financial results for the first quarter of fiscal 2024 after market close on Tuesday. Here&#8217;s a look at the <a href="https://www.benzinga.com/pressreleases/24/05/b39046606/cava-group-reports-first-quarter-2024-results">key metrics from the quarter</a>.</p>
+                  channels:
+                  - earnings
+                  - news
+                  - restaurants
+                  - after-hours center
+                  - movers
+                  images:
+                  - https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2024/05/28/CAVA-group.jpeg
+                  - https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2024/05/28/CAVA-group.jpeg
+                  - https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2024/05/28/CAVA-group.jpeg
+                  last_updated: '2024-05-28T20:27:42Z'
+                  published: '2024-05-28T20:27:41Z'
+                  tags:
+                  - why it's moving
+                  teaser: Cava&#39;s first-quarter revenue increased 30.3% year-over-year to $256.3 million, which beat the consensus estimate of $245.935 million, according to Benzinga Pro.
+                  tickers:
+                  - CAVA
+                  title: 'Cava Group Q1 Earnings: Revenue Beat, EPS Beat, Guidance Raise, Continued Investments In Scalable Infrastructure And More'
+                  url: https://www.benzinga.com/news/earnings/24/05/39046904/cava-group-q1-earnings-revenue-beat-eps-beat-guidance-raise-continued-investments-in-scalable-infra
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results for this request.
+                    items:
+                      properties:
+                        author:
+                          description: The name of the journalist or entity that authored the news article.
+                          type: string
+                        benzinga_id:
+                          description: The identifier used by Benzinga for this record.
+                          format: int64
+                          type: integer
+                        body:
+                          description: The full text content of the news article.
+                          type: string
+                        channels:
+                          description: A list of categories or topics that the article belongs to (e.g., 'News', 'Price Target').
+                          items:
+                            type: string
+                          type: array
+                        images:
+                          description: A list of images associated with the article.
+                          items:
+                            type: string
+                          type: array
+                        last_updated:
+                          description: The timestamp (formatted as an ISO 8601 timestamp) when the news article was last updated in the system.
+                          format: date-time
+                          type: string
+                        published:
+                          description: The timestamp (formatted as an ISO 8601 timestamp) when the news article was originally published.
+                          format: date-time
+                          type: string
+                        tags:
+                          description: A list of tags that describe the themes or content of the article.
+                          items:
+                            type: string
+                          type: array
+                        teaser:
+                          description: A short summary or lead-in to the news article's content.
+                          type: string
+                        tickers:
+                          description: A list of stock or crypto tickers mentioned in the article.
+                          items:
+                            type: string
+                          type: array
+                        title:
+                          description: The headline of the news article.
+                          type: string
+                        url:
+                          description: The direct link to the source of the news article.
+                          type: string
+                      required:
+                      - benzinga_id
+                      - author
+                      - published
+                      - last_updated
+                      - title
+                      - url
+                      type: object
+                    type: array
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - OK
+                    type: string
+                required:
+                - status
+                - request_id
+                - results
+                type: object
+          description: A list of results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: A message describing the source of the error.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  status:
+                    description: The status of this request's response.
+                    enum:
+                    - ERROR
+                    type: string
+                required:
+                - status
+                - request_id
+                - error
+                type: object
+          description: An error message.
+      tags:
+      - benzinga
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

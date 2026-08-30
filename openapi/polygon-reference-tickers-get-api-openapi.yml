@@ -1,0 +1,595 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Reference:tickers:get API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: reference:tickers:get
+paths:
+  /v3/reference/tickers/{ticker}:
+    get:
+      description: Get a single ticker supported by Massive. This response will have detailed information about the ticker and the company behind it.
+      operationId: GetTicker
+      parameters:
+      - description: Specify a case-sensitive ticker symbol. For example, AAPL represents Apple Inc.
+        example: AAPL
+        in: path
+        name: ticker
+        required: true
+        schema:
+          type: string
+      - description: 'Specify a point in time to get information about the ticker available on that date.
+
+          When retrieving information from SEC filings, we compare this date with the period of report date on the SEC filing.
+
+
+          For example, consider an SEC filing submitted by AAPL on 2019-07-31, with a period of report date ending on 2019-06-29.
+
+          That means that the filing was submitted on 2019-07-31, but the filing was created based on information from 2019-06-29.
+
+          If you were to query for AAPL details on 2019-06-29, the ticker details would include information from the SEC filing.
+
+
+          Defaults to the most recent available date.'
+        in: query
+        name: date
+        schema:
+          format: date
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: 31d59dda-80e5-4721-8496-d0d32a654afe
+                results:
+                  active: true
+                  address:
+                    address1: One Apple Park Way
+                    city: Cupertino
+                    postal_code: '95014'
+                    state: CA
+                  branding:
+                    icon_url: https://api.polygon.io/v1/reference/company-branding/d3d3LmFwcGxlLmNvbQ/images/2022-01-10_icon.png
+                    logo_url: https://api.polygon.io/v1/reference/company-branding/d3d3LmFwcGxlLmNvbQ/images/2022-01-10_logo.svg
+                  cik: 0000320193
+                  composite_figi: BBG000B9XRY4
+                  currency_name: usd
+                  description: Apple designs a wide variety of consumer electronic devices, including smartphones (iPhone), tablets (iPad), PCs (Mac), smartwatches (Apple Watch), AirPods, and TV boxes (Apple TV), among others. The iPhone makes up the majority of Apple's total revenue. In addition, Apple offers its customers a variety of services such as Apple Music, iCloud, Apple Care, Apple TV+, Apple Arcade, Apple Card, and Apple Pay, among others. Apple's products run internally developed software and semiconductors, and the firm is well known for its integration of hardware, software and services. Apple's products are distributed online as well as through company-owned stores and third-party retailers. The company generates roughly 40% of its revenue from the Americas, with the remainder earned internationally.
+                  homepage_url: https://www.apple.com
+                  list_date: '1980-12-12'
+                  locale: us
+                  market: stocks
+                  market_cap: 2771126040150
+                  name: Apple Inc.
+                  phone_number: (408) 996-1010
+                  primary_exchange: XNAS
+                  round_lot: 100
+                  share_class_figi: BBG001S5N8V8
+                  share_class_shares_outstanding: 16406400000
+                  sic_code: '3571'
+                  sic_description: ELECTRONIC COMPUTERS
+                  ticker: AAPL
+                  ticker_root: AAPL
+                  total_employees: 154000
+                  type: CS
+                  weighted_shares_outstanding: 16334371000
+                status: OK
+              schema:
+                properties:
+                  count:
+                    description: The total number of results for this request.
+                    type: integer
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: Ticker with details.
+                    properties:
+                      active:
+                        description: Whether or not the asset is actively traded. False means the asset has been delisted.
+                        type: boolean
+                      address:
+                        description: Company headquarters address details.
+                        properties:
+                          address1:
+                            description: The first line of the company's headquarters address.
+                            type: string
+                          address2:
+                            description: The second line of the company's headquarters address, if applicable.
+                            type: string
+                          city:
+                            description: The city of the company's headquarters address.
+                            type: string
+                          postal_code:
+                            description: The postal code of the company's headquarters address.
+                            type: string
+                          state:
+                            description: The state of the company's headquarters address.
+                            type: string
+                        type: object
+                      branding:
+                        description: Provides URLs aiding in visual identification.
+                        properties:
+                          icon_url:
+                            description: 'A link to this ticker''s company''s icon. Icon''s are generally smaller, square images that represent the company at a glance.
+
+                              Note that you must provide an API key when accessing this URL. See the "Authentication" section at the top of this page for more details.'
+                            type: string
+                          logo_url:
+                            description: 'A link to this ticker''s company''s logo.
+
+                              Note that you must provide an API key when accessing this URL. See the "Authentication" section at the top of this page for more details.'
+                            type: string
+                        type: object
+                      cik:
+                        description: The CIK number for this ticker. Find more information [here](https://en.wikipedia.org/wiki/Central_Index_Key).
+                        type: string
+                      composite_figi:
+                        description: The composite OpenFIGI number for this ticker. Find more information [here](https://www.openfigi.com/about/figi)
+                        type: string
+                      currency_name:
+                        description: The name of the currency that this asset is traded with.
+                        type: string
+                      delisted_utc:
+                        description: The last date that the asset was traded.
+                        format: date-time
+                        type: string
+                      description:
+                        description: A description of the company and what they do/offer.
+                        type: string
+                      homepage_url:
+                        description: The URL of the company's website homepage.
+                        type: string
+                      list_date:
+                        description: The date that the symbol was first publicly listed in the format YYYY-MM-DD.
+                        type: string
+                      locale:
+                        description: The locale of the asset.
+                        enum:
+                        - us
+                        - global
+                        type: string
+                      market:
+                        description: The market type of the asset.
+                        enum:
+                        - stocks
+                        - crypto
+                        - fx
+                        - otc
+                        - indices
+                        type: string
+                      market_cap:
+                        description: The most recent close price of the ticker multiplied by weighted outstanding shares.
+                        format: double
+                        type: number
+                      name:
+                        description: The name of the asset. For stocks/equities this will be the companies registered name. For crypto/fx this will be the name of the currency or coin pair.
+                        type: string
+                      phone_number:
+                        description: The phone number for the company behind this ticker.
+                        type: string
+                      primary_exchange:
+                        description: The ISO code of the primary listing exchange for this asset.
+                        type: string
+                      round_lot:
+                        description: Round lot size of this security.
+                        format: double
+                        type: number
+                      share_class_figi:
+                        description: The share Class OpenFIGI number for this ticker. Find more information [here](https://www.openfigi.com/about/figi)
+                        type: string
+                      share_class_shares_outstanding:
+                        description: The recorded number of outstanding shares for this particular share class.
+                        format: double
+                        type: number
+                      sic_code:
+                        description: The standard industrial classification code for this ticker.  For a list of SIC Codes, see the SEC's <a rel="nofollow" target="_blank" href="https://www.sec.gov/info/edgar/siccodes.htm">SIC Code List</a>.
+                        type: string
+                      sic_description:
+                        description: A description of this ticker's SIC code.
+                        type: string
+                      ticker:
+                        description: The exchange symbol that this item is traded under.
+                        type: string
+                      ticker_root:
+                        description: The root of a specified ticker. For example, the root of BRK.A is BRK.
+                        type: string
+                      ticker_suffix:
+                        description: The suffix of a specified ticker. For example, the suffix of BRK.A is A.
+                        type: string
+                      total_employees:
+                        description: The approximate number of employees for the company.
+                        type: number
+                      type:
+                        description: The type of the asset. Find the types that we support via our [Ticker Types API](https://massive.com/docs/rest/stocks/tickers/ticker-types).
+                        type: string
+                      weighted_shares_outstanding:
+                        description: The shares outstanding calculated assuming all shares of other share classes are converted to this share class.
+                        format: double
+                        type: number
+                    required:
+                    - ticker
+                    - name
+                    - market
+                    - locale
+                    - active
+                    - currency_name
+                    type: object
+                    x-polygon-go-type:
+                      name: ReferenceTicker
+                      path: github.com/polygon-io/go-lib-models/v2/globals
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                type: object
+            text/csv:
+              example: 'ticker,name,market,locale,primary_exchange,type,active,currency_name,cik,composite_figi,share_class_figi,share_class_shares_outstanding,weighted_shares_outstanding,round_lot,market_cap,phone_number,address1,address2,city,state,postal_code,sic_code,sic_description,ticker_root,total_employees,list_date,homepage_url,description,branding/logo_url,branding/icon_url
+
+                AAPL,Apple Inc.,stocks,us,XNAS,CS,true,usd,0000320193,BBG000B9XRY4,BBG001S5N8V8,16406400000,16334371000,100,2771126040150,(408) 996-1010,One Apple Park Way,,Cupertino,CA,95014,3571,ELECTRONIC COMPUTERS,AAPL,154000,1980-12-12,https://www.apple.com,"Apple designs a wide variety of consumer electronic devices, including smartphones (iPhone), tablets (iPad), PCs (Mac), smartwatches (Apple Watch), AirPods, and TV boxes (Apple TV), among others. The iPhone makes up the majority of Apple''s total revenue. In addition, Apple offers its customers a variety of services such as Apple Music, iCloud, Apple Care, Apple TV+, Apple Arcade, Apple Card, and Apple Pay, among others. Apple''s products run internally developed software and semiconductors, and the firm is well known for its integration of hardware, software and services. Apple''s products are distributed online as well as through company-owned stores and third-party retailers. The company generates roughly 40% of its revenue from the Americas, with the remainder earned internationally.",https://api.polygon.io/v1/reference/company-branding/d3d3LmFwcGxlLmNvbQ/images/2022-01-10_logo.svg,https://api.polygon.io/v1/reference/company-branding/d3d3LmFwcGxlLmNvbQ/images/2022-01-10_icon.png
+
+                '
+              schema:
+                type: string
+          description: Reference Tickers.
+        '401':
+          description: Unauthorized - Check our API Key and account status
+      summary: Ticker Details v3
+      tags:
+      - reference:tickers:get
+      x-polygon-entitlement-data-type:
+        description: Reference data
+        name: reference
+  /vX/reference/tickers/{id}/events:
+    get:
+      description: Get a timeline of events for the entity associated with the given ticker, CUSIP, or Composite FIGI.
+      operationId: GetEvents
+      parameters:
+      - description: "Identifier of an asset, which can be a Ticker, CUSIP, or Composite FIGI. Specify a case-sensitive \nticker symbol (e.g. AAPL for Apple Inc). When provided a ticker, events for the entity currently \nrepresented by that ticker are returned. To find events for entities previously associated with a \nticker, obtain the relevant identifier using the [Ticker Details Endpoint](https://massive.com/docs/rest/stocks/tickers/ticker-overview)."
+        example: META
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: 'A comma-separated list of the types of event to include. Currently ticker_change is the only supported event_type.
+
+          Leave blank to return all supported event_types.'
+        in: query
+        name: types
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                request_id: 31d59dda-80e5-4721-8496-d0d32a654afe
+                results:
+                  events:
+                  - date: '2022-06-09'
+                    ticker_change:
+                      ticker: META
+                    type: ticker_change
+                  - date: '2012-05-18'
+                    ticker_change:
+                      ticker: FB
+                    type: ticker_change
+                  name: Meta Platforms, Inc. Class A Common Stock
+                status: OK
+              schema:
+                properties:
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: Contains the requested event data for the specified ticker.
+                    properties:
+                      events:
+                        description: An array of event containing the requested data.
+                        items:
+                          oneOf:
+                          - properties:
+                              date:
+                                description: The date the event took place
+                                format: date
+                                type: string
+                              event_type:
+                                description: The type of historical event for the asset
+                                type: string
+                              ticker_change:
+                                description: Details about a ticker change
+                                properties:
+                                  ticker:
+                                    description: A ticker symbol
+                                    type: string
+                                type: object
+                            required:
+                            - event_type
+                            - date
+                            type: object
+                        type: array
+                      name:
+                        description: The name of the asset.
+                        type: string
+                    type: object
+                    x-polygon-go-type:
+                      name: EventsResults
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                type: object
+          description: Ticker Events.
+        '401':
+          description: Unauthorized - Check our API Key and account status
+      summary: Ticker Events
+      tags:
+      - reference:tickers:get
+      x-polygon-entitlement-data-type:
+        description: Reference data
+        name: reference
+      x-polygon-experimental: {}
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates

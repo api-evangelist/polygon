@@ -1,0 +1,1840 @@
+openapi: 3.2.0
+info:
+  description: The future of fintech.
+  title: Polygon Crypto:aggregates API
+  version: 1.0.0
+servers:
+- description: Polygon Platform API
+  url: https://api.polygon.io
+- description: Polygon Platform API (Staging)
+  url: https://api.staging.polygon.io
+security:
+- apiKey: []
+tags:
+- name: crypto:aggregates
+paths:
+  /v1/indicators/ema/{cryptoTicker}:
+    x-polygon-ignore: true
+    get:
+      description: Get the exponential moving average (EMA) for a ticker symbol over a given time range.
+      operationId: CryptoEMA
+      parameters:
+      - description: The ticker symbol for which to get exponential moving average (EMA) data.
+        example: X:BTCUSD
+        in: path
+        name: cryptoTicker
+        required: true
+        schema:
+          type: string
+        x-polygon-go-id: Ticker
+      - description: Query by timestamp. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        in: query
+        name: timestamp
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: The size of the aggregate time window.
+        example: day
+        in: query
+        name: timespan
+        schema:
+          default: day
+          enum:
+          - minute
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          type: string
+      - description: The window size used to calculate the exponential moving average (EMA). i.e. a window size of 10 with daily aggregates would result in a 10 day moving average.
+        example: 50
+        in: query
+        name: window
+        schema:
+          default: 50
+          type: integer
+      - description: "The price in the aggregate which will be used to calculate the exponential moving average. i.e. 'close' will result in using close prices to \ncalculate the exponential moving average (EMA)."
+        example: close
+        in: query
+        name: series_type
+        schema:
+          default: close
+          enum:
+          - open
+          - high
+          - low
+          - close
+          type: string
+      - description: Whether or not to include the aggregates used to calculate this indicator in the response.
+        in: query
+        name: expand_underlying
+        schema:
+          default: false
+          type: boolean
+      - description: The order in which to return the results, ordered by timestamp.
+        example: desc
+        in: query
+        name: order
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 5000
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 5000
+          type: integer
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gt
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lt
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.polygon.io/v1/indicators/ema/X:BTCUSD?cursor=YWN0aXZlPXRydWUmZGF0ZT0yMDIxLTA0LTI1JmxpbWl0PTEmb3JkZXI9YXNjJnBhZ2VfbWFya2VyPUElN0M5YWRjMjY0ZTgyM2E1ZjBiOGUyNDc5YmZiOGE1YmYwNDVkYzU0YjgwMDcyMWE2YmI1ZjBjMjQwMjU4MjFmNGZiJnNvcnQ9dGlja2Vy
+                request_id: a47d1beb8c11b6ae897ab76cdbbf35a3
+                results:
+                  underlying:
+                    url: https://api.polygon.io/v2/aggs/ticker/X:BTCUSD/range/1/day/2003-01-01/2022-07-25
+                  values:
+                  - timestamp: 1517562000016
+                    value: 140.139
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results of the EMA indicator calculation.
+                    properties:
+                      underlying:
+                        description: The underlying aggregates used.
+                        properties:
+                          aggregates:
+                            description: The array of aggregates used in the calculation of this indicator.
+                            items:
+                              properties:
+                                c:
+                                  description: The close price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                h:
+                                  description: The highest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                l:
+                                  description: The lowest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                n:
+                                  description: The number of transactions in the aggregate window.
+                                  type: integer
+                                o:
+                                  description: The open price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                otc:
+                                  description: Whether or not this aggregate is for an OTC ticker. This field will be left off if false.
+                                  type: boolean
+                                t:
+                                  description: The Unix Msec timestamp for the start of the aggregate window.
+                                  format: float
+                                  type: number
+                                v:
+                                  description: The trading volume of the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                vw:
+                                  description: The volume weighted average price.
+                                  format: float
+                                  type: number
+                              required:
+                              - v
+                              - vw
+                              - o
+                              - c
+                              - h
+                              - l
+                              - t
+                              - n
+                              type: object
+                              x-polygon-go-type:
+                                name: Aggregate
+                                path: github.com/polygon-io/go-lib-models/v2/globals
+                            type: array
+                          url:
+                            description: The URL which can be used to request the underlying aggregates used in this request.
+                            type: string
+                        type: object
+                      values:
+                        description: Timestamp or indicator value.
+                        items:
+                          properties:
+                            timestamp:
+                              description: The Unix Msec timestamp from the last aggregate used in this calculation.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: IMicroseconds
+                                path: github.com/polygon-io/ptime
+                            value:
+                              description: The MACD line value, calculated as the difference between the short-term and long-term exponential moving averages (EMAs) based on the periods specified in the request parameters.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                          type: object
+                        type: array
+                    type: object
+                    x-polygon-go-type:
+                      name: EMAResults
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - request_id
+                - status
+                - results
+                type: object
+            text/csv:
+              example: 'aggregate_T,aggregate_v,aggregate_vw,aggregate_a,aggregate_o,aggregate_c,aggregate_h,aggregate_l,aggregate_t,aggregate_n,aggregate_m,aggregate_x,aggregate_g,aggregate_op,aggregate_z,aggregate_av,aggregate_s,aggregate_e,aggregate_otc,timestamp,value
+
+                X:BTCUSD,55188.33773657,18970.3019,0,18816.66899332,19165.98,19333,18690,1664164800000,297389,,0,,0,0,0,0,0,false,1664164800000,19846.01135387188
+
+                X:BTCUSD,4798.38258637,18914.0766,0,18928,18784.41,19184.3,18636,1664078400000,78936,,0,,0,0,0,0,0,false,1664078400000,19902.65703099573
+
+                X:BTCUSD,4798.38258637,18914.0766,0,18928,18784.41,19184.3,18636,1664064000000,78936,,0,,0,0,0,0,0,false,1664064000000,19948.29976695474
+
+                X:BTCUSD,15457.24362826,19317.486,0,19529.04,19475.84,19651.2772302,18846.67,1664409600000,191936,,0,,0,0,0,0,0,false,1664409600000,19751.714760699124
+
+                X:BTCUSD,23180.93663313,19103.9189,0,19090,19416.20352522,19791,18461,1664337600000,225076,,0,,0,0,0,0,0,false,1664337600000,19762.974955013375
+
+                X:BTCUSD,17479.00092209,19776.6697,0,19228.2,19141.78,20372.17374536,18821.55,1664251200000,183075,,0,,0,0,0,0,0,false,1664251200000,19791.86053850303
+
+                X:BTCUSD,2868.09828007,19069.8521,0,19210.31,18925.87,19400,18805.1,1663992000000,58721,,0,,0,0,0,0,0,false,1663992000000,19995.805471728403
+
+                X:BTCUSD,23180.93663313,19103.9189,0,19090,19416.20352522,19791,18461,1664323200000,225076,,0,,0,0,0,0,0,false,1664323200000,19777.128890923308
+
+                X:BTCUSD,17479.00092209,19776.6697,0,19228.2,19141.78,20372.17374536,18821.55,1664236800000,183075,,0,,0,0,0,0,0,false,1664236800000,19818.394438033767
+
+                X:BTCUSD,55188.33773657,18970.3019,0,18816.66899332,19165.98,19333,18690,1664150400000,297389,,0,,0,0,0,0,0,false,1664150400000,19873.767735662568
+
+                '
+              schema:
+                type: string
+          description: Exponential Moving Average (EMA) data for each period.
+      summary: Exponential Moving Average (EMA)
+      tags:
+      - crypto:aggregates
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Crypto data
+        name: crypto
+  /v1/indicators/macd/{cryptoTicker}:
+    x-polygon-ignore: true
+    get:
+      description: Get moving average convergence/divergence (MACD) data for a ticker symbol over a given time range.
+      operationId: CryptoMACD
+      parameters:
+      - description: The ticker symbol for which to get MACD data.
+        example: X:BTCUSD
+        in: path
+        name: cryptoTicker
+        required: true
+        schema:
+          type: string
+        x-polygon-go-id: Ticker
+      - description: Query by timestamp. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        in: query
+        name: timestamp
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: The size of the aggregate time window.
+        example: day
+        in: query
+        name: timespan
+        schema:
+          default: day
+          enum:
+          - minute
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          type: string
+      - description: The short window size used to calculate MACD data.
+        example: 12
+        in: query
+        name: short_window
+        schema:
+          default: 12
+          type: integer
+      - description: The long window size used to calculate MACD data.
+        example: 26
+        in: query
+        name: long_window
+        schema:
+          default: 26
+          type: integer
+      - description: The window size used to calculate the MACD signal line.
+        example: 9
+        in: query
+        name: signal_window
+        schema:
+          default: 9
+          type: integer
+      - description: "The price in the aggregate which will be used to calculate MACD data. i.e. 'close' will result in using close prices to \ncalculate the MACD."
+        example: close
+        in: query
+        name: series_type
+        schema:
+          default: close
+          enum:
+          - open
+          - high
+          - low
+          - close
+          type: string
+      - description: Whether or not to include the aggregates used to calculate this indicator in the response.
+        in: query
+        name: expand_underlying
+        schema:
+          default: false
+          type: boolean
+      - description: The order in which to return the results, ordered by timestamp.
+        example: desc
+        in: query
+        name: order
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 5000
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 5000
+          type: integer
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gt
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lt
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.polygon.io/v1/indicators/macd/X:BTCUSD?cursor=YWN0aXZlPXRydWUmZGF0ZT0yMDIxLTA0LTI1JmxpbWl0PTEmb3JkZXI9YXNjJnBhZ2VfbWFya2VyPUElN0M5YWRjMjY0ZTgyM2E1ZjBiOGUyNDc5YmZiOGE1YmYwNDVkYzU0YjgwMDcyMWE2YmI1ZjBjMjQwMjU4MjFmNGZiJnNvcnQ9dGlja2Vy
+                request_id: a47d1beb8c11b6ae897ab76cdbbf35a3
+                results:
+                  underlying:
+                    url: https://api.polygon.io/v2/aggs/ticker/X:BTCUSD/range/1/day/2003-01-01/2022-07-25
+                  values:
+                  - histogram: 38.3801666667
+                    signal: 106.9811666667
+                    timestamp: 1517562000016
+                    value: 145.3613333333
+                  - histogram: 41.098859136
+                    signal: 102.7386283473
+                    timestamp: 1517562001016
+                    value: 143.8374874833
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results of the MACD indicator calculation.
+                    properties:
+                      underlying:
+                        description: The underlying aggregates used.
+                        properties:
+                          aggregates:
+                            description: The array of aggregates used in the calculation of this indicator.
+                            items:
+                              properties:
+                                c:
+                                  description: The close price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                h:
+                                  description: The highest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                l:
+                                  description: The lowest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                n:
+                                  description: The number of transactions in the aggregate window.
+                                  type: integer
+                                o:
+                                  description: The open price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                otc:
+                                  description: Whether or not this aggregate is for an OTC ticker. This field will be left off if false.
+                                  type: boolean
+                                t:
+                                  description: The Unix Msec timestamp for the start of the aggregate window.
+                                  format: float
+                                  type: number
+                                v:
+                                  description: The trading volume of the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                vw:
+                                  description: The volume weighted average price.
+                                  format: float
+                                  type: number
+                              required:
+                              - v
+                              - vw
+                              - o
+                              - c
+                              - h
+                              - l
+                              - t
+                              - n
+                              type: object
+                              x-polygon-go-type:
+                                name: Aggregate
+                                path: github.com/polygon-io/go-lib-models/v2/globals
+                            type: array
+                          url:
+                            description: The URL which can be used to request the underlying aggregates used in this request.
+                            type: string
+                        type: object
+                      values:
+                        description: 'Each entry in the values array represents MACD indicator data for a specific timestamp and includes:'
+                        items:
+                          properties:
+                            histogram:
+                              description: The difference between the MACD line (value) and the signal line (signal). Positive histogram values indicate upward (bullish) momentum, while negative histogram values indicate downward (bearish) momentum.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                            signal:
+                              description: The signal line value, calculated as the exponential moving average (EMA) of the MACD line (value) over the signal period defined in the request parameters. Traders typically use crossovers between the MACD and signal lines as trading signals.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                            timestamp:
+                              description: The Unix Msec timestamp from the last aggregate used in this calculation.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: IMicroseconds
+                                path: github.com/polygon-io/ptime
+                            value:
+                              description: The MACD line value, calculated as the difference between the short-term and long-term exponential moving averages (EMAs) based on the periods specified in the request parameters.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                          type: object
+                        type: array
+                    type: object
+                    x-polygon-go-type:
+                      name: MACDResults
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - request_id
+                - status
+                - results
+                type: object
+            text/csv:
+              example: 'aggregate_T,aggregate_v,aggregate_vw,aggregate_a,aggregate_o,aggregate_c,aggregate_h,aggregate_l,aggregate_t,aggregate_n,aggregate_m,aggregate_x,aggregate_g,aggregate_op,aggregate_z,aggregate_av,aggregate_s,aggregate_e,aggregate_otc,timestamp,value,signal,histogram
+
+                X:BTCUSD,23180.93663313,19103.9189,0,19090,19416.20352522,19791,18461,1664323200000,225076,,0,,0,0,0,0,0,false,1664323200000,-200.79662915774315,-281.5009533935604,80.70432423581724
+
+                X:BTCUSD,17479.00092209,19776.6697,0,19228.2,19141.78,20372.17374536,18821.55,1664236800000,183075,,0,,0,0,0,0,0,false,1664236800000,-264.55324270273195,-316.4388906203941,51.88564791766214
+
+                X:BTCUSD,55188.33773657,18970.3019,0,18816.66899332,19165.98,19333,18690,1664150400000,297389,,0,,0,0,0,0,0,false,1664150400000,-317.75700272815084,-339.5909474061525,21.83394467800167
+
+                X:BTCUSD,4798.38258637,18914.0766,0,18928,18784.41,19184.3,18636,1664078400000,78936,,0,,0,0,0,0,0,false,1664078400000,-350.23805379084297,-345.0494335756529,-5.188620215190042
+
+                X:BTCUSD,4798.38258637,18914.0766,0,18928,18784.41,19184.3,18636,1664064000000,78936,,0,,0,0,0,0,0,false,1664064000000,-347.75055091027025,-343.7522785218554,-3.9982723884148754
+
+                X:BTCUSD,2868.09828007,19069.8521,0,19210.31,18925.87,19400,18805.1,1663992000000,58721,,0,,0,0,0,0,0,false,1663992000000,-339.51740285673077,-342.7527104247516,3.2353075680208576
+
+                X:BTCUSD,11337.77105153,19346.509,0,19527.23,19487.24,19640,18846.95,1664409600000,142239,,0,,0,0,0,0,0,false,1664409600000,-130.70646519456568,-232.81921860513586,102.11275341057018
+
+                X:BTCUSD,23180.93663313,19103.9189,0,19090,19416.20352522,19791,18461,1664337600000,225076,,0,,0,0,0,0,0,false,1664337600000,-165.73322121465026,-258.3474069577784,92.61418574312813
+
+                X:BTCUSD,17479.00092209,19776.6697,0,19228.2,19141.78,20372.17374536,18821.55,1664251200000,183075,,0,,0,0,0,0,0,false,1664251200000,-242.62960978099727,-301.6770344525147,59.04742467151743
+
+                X:BTCUSD,55188.33773657,18970.3019,0,18816.66899332,19165.98,19333,18690,1664164800000,297389,,0,,0,0,0,0,0,false,1664164800000,-288.68772337443806,-329.4103025998096,40.72257922537153
+
+                '
+              schema:
+                type: string
+          description: Moving Average Convergence/Divergence (MACD) data for each period.
+      summary: Moving Average Convergence/Divergence (MACD)
+      tags:
+      - crypto:aggregates
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Crypto data
+        name: crypto
+  /v1/indicators/rsi/{cryptoTicker}:
+    x-polygon-ignore: true
+    get:
+      description: Get the relative strength index (RSI) for a ticker symbol over a given time range.
+      operationId: CryptoRSI
+      parameters:
+      - description: The ticker symbol for which to get relative strength index (RSI) data.
+        example: X:BTCUSD
+        in: path
+        name: cryptoTicker
+        required: true
+        schema:
+          type: string
+        x-polygon-go-id: Ticker
+      - description: Query by timestamp. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        in: query
+        name: timestamp
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: The size of the aggregate time window.
+        example: day
+        in: query
+        name: timespan
+        schema:
+          default: day
+          enum:
+          - minute
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          type: string
+      - description: The window size used to calculate the relative strength index (RSI). i.e. a window size of 10 with daily aggregates would result in a 10 day moving average.
+        example: 14
+        in: query
+        name: window
+        schema:
+          default: 14
+          type: integer
+      - description: "The price in the aggregate which will be used to calculate the relative strength index. i.e. 'close' will result in using close prices to \ncalculate the relative strength index (RSI)."
+        example: close
+        in: query
+        name: series_type
+        schema:
+          default: close
+          enum:
+          - open
+          - high
+          - low
+          - close
+          type: string
+      - description: Whether or not to include the aggregates used to calculate this indicator in the response.
+        in: query
+        name: expand_underlying
+        schema:
+          default: false
+          type: boolean
+      - description: The order in which to return the results, ordered by timestamp.
+        example: desc
+        in: query
+        name: order
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 5000
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 5000
+          type: integer
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gt
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lt
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.polygon.io/v1/indicators/rsi/X:BTCUSD?cursor=YWN0aXZlPXRydWUmZGF0ZT0yMDIxLTA0LTI1JmxpbWl0PTEmb3JkZXI9YXNjJnBhZ2VfbWFya2VyPUElN0M5YWRjMjY0ZTgyM2E1ZjBiOGUyNDc5YmZiOGE1YmYwNDVkYzU0YjgwMDcyMWE2YmI1ZjBjMjQwMjU4MjFmNGZiJnNvcnQ9dGlja2Vy
+                request_id: a47d1beb8c11b6ae897ab76cdbbf35a3
+                results:
+                  underlying:
+                    url: https://api.polygon.io/v2/aggs/ticker/X:BTCUSD/range/1/day/2003-01-01/2022-07-25
+                  values:
+                  - timestamp: 1517562000016
+                    value: 82.19
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results of the RSI indicator calculation.
+                    properties:
+                      underlying:
+                        description: The underlying aggregates used.
+                        properties:
+                          aggregates:
+                            description: The array of aggregates used in the calculation of this indicator.
+                            items:
+                              properties:
+                                c:
+                                  description: The close price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                h:
+                                  description: The highest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                l:
+                                  description: The lowest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                n:
+                                  description: The number of transactions in the aggregate window.
+                                  type: integer
+                                o:
+                                  description: The open price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                otc:
+                                  description: Whether or not this aggregate is for an OTC ticker. This field will be left off if false.
+                                  type: boolean
+                                t:
+                                  description: The Unix Msec timestamp for the start of the aggregate window.
+                                  format: float
+                                  type: number
+                                v:
+                                  description: The trading volume of the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                vw:
+                                  description: The volume weighted average price.
+                                  format: float
+                                  type: number
+                              required:
+                              - v
+                              - vw
+                              - o
+                              - c
+                              - h
+                              - l
+                              - t
+                              - n
+                              type: object
+                              x-polygon-go-type:
+                                name: Aggregate
+                                path: github.com/polygon-io/go-lib-models/v2/globals
+                            type: array
+                          url:
+                            description: The URL which can be used to request the underlying aggregates used in this request.
+                            type: string
+                        type: object
+                      values:
+                        description: Timestamp or indicator value.
+                        items:
+                          properties:
+                            timestamp:
+                              description: The Unix Msec timestamp from the last aggregate used in this calculation.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: IMicroseconds
+                                path: github.com/polygon-io/ptime
+                            value:
+                              description: The MACD line value, calculated as the difference between the short-term and long-term exponential moving averages (EMAs) based on the periods specified in the request parameters.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                          type: object
+                        type: array
+                    type: object
+                    x-polygon-go-type:
+                      name: RSIResults
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - request_id
+                - status
+                - results
+                type: object
+            text/csv:
+              example: 'aggregate_T,aggregate_v,aggregate_vw,aggregate_a,aggregate_o,aggregate_c,aggregate_h,aggregate_l,aggregate_t,aggregate_n,aggregate_m,aggregate_x,aggregate_g,aggregate_op,aggregate_z,aggregate_av,aggregate_s,aggregate_e,aggregate_otc,timestamp,value
+
+                X:BTCUSD,15457.24362826,19317.486,0,19529.04,19475.84,19651.2772302,18846.67,1664409600000,191936,,0,,0,0,0,0,0,false,1664409600000,52.040915721136884
+
+                X:BTCUSD,17479.00092209,19776.6697,0,19228.2,19141.78,20372.17374536,18821.55,1664251200000,183075,,0,,0,0,0,0,0,false,1664251200000,44.813590401722564
+
+                X:BTCUSD,17479.00092209,19776.6697,0,19228.2,19141.78,20372.17374536,18821.55,1664236800000,183075,,0,,0,0,0,0,0,false,1664236800000,44.813590401722564
+
+                X:BTCUSD,55188.33773657,18970.3019,0,18816.66899332,19165.98,19333,18690,1664164800000,297389,,0,,0,0,0,0,0,false,1664164800000,45.22751170711286
+
+                X:BTCUSD,55188.33773657,18970.3019,0,18816.66899332,19165.98,19333,18690,1664150400000,297389,,0,,0,0,0,0,0,false,1664150400000,45.22751170711286
+
+                X:BTCUSD,4798.38258637,18914.0766,0,18928,18784.41,19184.3,18636,1664078400000,78936,,0,,0,0,0,0,0,false,1664078400000,37.361825384231004
+
+                X:BTCUSD,4798.38258637,18914.0766,0,18928,18784.41,19184.3,18636,1664064000000,78936,,0,,0,0,0,0,0,false,1664064000000,37.361825384231004
+
+                X:BTCUSD,23180.93663313,19103.9189,0,19090,19416.20352522,19791,18461,1664337600000,225076,,0,,0,0,0,0,0,false,1664337600000,50.74235333598462
+
+                X:BTCUSD,23180.93663313,19103.9189,0,19090,19416.20352522,19791,18461,1664323200000,225076,,0,,0,0,0,0,0,false,1664323200000,50.74235333598462
+
+                X:BTCUSD,2868.09828007,19069.8521,0,19210.31,18925.87,19400,18805.1,1663992000000,58721,,0,,0,0,0,0,0,false,1663992000000,39.159457782344376
+
+                '
+              schema:
+                type: string
+          description: Relative strength index data for each period.
+      summary: Relative Strength Index (RSI)
+      tags:
+      - crypto:aggregates
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Crypto data
+        name: crypto
+  /v1/indicators/sma/{cryptoTicker}:
+    x-polygon-ignore: true
+    get:
+      description: Get the simple moving average (SMA) for a ticker symbol over a given time range.
+      operationId: CryptoSMA
+      parameters:
+      - description: The ticker symbol for which to get simple moving average (SMA) data.
+        example: X:BTCUSD
+        in: path
+        name: cryptoTicker
+        required: true
+        schema:
+          type: string
+        x-polygon-go-id: Ticker
+      - description: Query by timestamp. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        in: query
+        name: timestamp
+        schema:
+          type: string
+        x-polygon-filter-field:
+          range: true
+      - description: The size of the aggregate time window.
+        example: day
+        in: query
+        name: timespan
+        schema:
+          default: day
+          enum:
+          - minute
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          type: string
+      - description: The window size used to calculate the simple moving average (SMA). i.e. a window size of 10 with daily aggregates would result in a 10 day moving average.
+        example: 50
+        in: query
+        name: window
+        schema:
+          default: 50
+          type: integer
+      - description: "The price in the aggregate which will be used to calculate the simple moving average. i.e. 'close' will result in using close prices to \ncalculate the simple moving average (SMA)."
+        example: close
+        in: query
+        name: series_type
+        schema:
+          default: close
+          enum:
+          - open
+          - high
+          - low
+          - close
+          type: string
+      - description: Whether or not to include the aggregates used to calculate this indicator in the response.
+        in: query
+        name: expand_underlying
+        schema:
+          default: false
+          type: boolean
+      - description: The order in which to return the results, ordered by timestamp.
+        example: desc
+        in: query
+        name: order
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: Limit the number of results returned, default is 10 and max is 5000
+        in: query
+        name: limit
+        schema:
+          default: 10
+          maximum: 5000
+          type: integer
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.gt
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lte
+        schema:
+          type: string
+      - description: Range by timestamp.
+        in: query
+        name: timestamp.lt
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                next_url: https://api.polygon.io/v1/indicators/sma/X:BTCUSD?cursor=YWN0aXZlPXRydWUmZGF0ZT0yMDIxLTA0LTI1JmxpbWl0PTEmb3JkZXI9YXNjJnBhZ2VfbWFya2VyPUElN0M5YWRjMjY0ZTgyM2E1ZjBiOGUyNDc5YmZiOGE1YmYwNDVkYzU0YjgwMDcyMWE2YmI1ZjBjMjQwMjU4MjFmNGZiJnNvcnQ9dGlja2Vy
+                request_id: a47d1beb8c11b6ae897ab76cdbbf35a3
+                results:
+                  underlying:
+                    aggregates:
+                    - c: 75.0875
+                      h: 75.15
+                      l: 73.7975
+                      n: 1
+                      o: 74.06
+                      t: 1577941200000
+                      v: 135647456
+                      vw: 74.6099
+                    - c: 74.3575
+                      h: 75.145
+                      l: 74.125
+                      n: 1
+                      o: 74.2875
+                      t: 1578027600000
+                      v: 146535512
+                      vw: 74.7026
+                    url: https://api.polygon.io/v2/aggs/ticker/X:BTCUSD/range/1/day/2003-01-01/2022-07-25
+                  values:
+                  - timestamp: 1517562000016
+                    value: 140.139
+                status: OK
+              schema:
+                properties:
+                  next_url:
+                    description: If present, this value can be used to fetch the next page of data.
+                    type: string
+                  request_id:
+                    description: A request id assigned by the server.
+                    type: string
+                  results:
+                    description: The results of the SMA indicator calculation.
+                    properties:
+                      underlying:
+                        description: The underlying aggregates used.
+                        properties:
+                          aggregates:
+                            description: The array of aggregates used in the calculation of this indicator.
+                            items:
+                              properties:
+                                c:
+                                  description: The close price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                h:
+                                  description: The highest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                l:
+                                  description: The lowest price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                n:
+                                  description: The number of transactions in the aggregate window.
+                                  type: integer
+                                o:
+                                  description: The open price for the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                otc:
+                                  description: Whether or not this aggregate is for an OTC ticker. This field will be left off if false.
+                                  type: boolean
+                                t:
+                                  description: The Unix Msec timestamp for the start of the aggregate window.
+                                  format: float
+                                  type: number
+                                v:
+                                  description: The trading volume of the symbol in the given time period.
+                                  format: float
+                                  type: number
+                                vw:
+                                  description: The volume weighted average price.
+                                  format: float
+                                  type: number
+                              required:
+                              - v
+                              - vw
+                              - o
+                              - c
+                              - h
+                              - l
+                              - t
+                              - n
+                              type: object
+                              x-polygon-go-type:
+                                name: Aggregate
+                                path: github.com/polygon-io/go-lib-models/v2/globals
+                            type: array
+                          url:
+                            description: The URL which can be used to request the underlying aggregates used in this request.
+                            type: string
+                        type: object
+                      values:
+                        description: Timestamp or indicator value.
+                        items:
+                          properties:
+                            timestamp:
+                              description: The Unix Msec timestamp from the last aggregate used in this calculation.
+                              format: int64
+                              type: integer
+                              x-polygon-go-type:
+                                name: IMicroseconds
+                                path: github.com/polygon-io/ptime
+                            value:
+                              description: The MACD line value, calculated as the difference between the short-term and long-term exponential moving averages (EMAs) based on the periods specified in the request parameters.
+                              format: float
+                              type: number
+                              x-polygon-go-type:
+                                name: '*float64'
+                          type: object
+                        type: array
+                    type: object
+                    x-polygon-go-type:
+                      name: SMAResults
+                  status:
+                    description: The status of this request's response.
+                    type: string
+                required:
+                - request_id
+                - status
+                - results
+                type: object
+            text/csv:
+              example: 'aggregate_T,aggregate_v,aggregate_vw,aggregate_a,aggregate_o,aggregate_c,aggregate_h,aggregate_l,aggregate_t,aggregate_n,aggregate_m,aggregate_x,aggregate_g,aggregate_op,aggregate_z,aggregate_av,aggregate_s,aggregate_e,aggregate_otc,timestamp,value
+
+                X:BTCUSD,55188.33773657,18970.3019,0,18816.66899332,19165.98,19333,18690,1664164800000,297389,,0,,0,0,0,0,0,false,1664164800000,19846.01135387188
+
+                X:BTCUSD,4798.38258637,18914.0766,0,18928,18784.41,19184.3,18636,1664078400000,78936,,0,,0,0,0,0,0,false,1664078400000,19902.65703099573
+
+                X:BTCUSD,4798.38258637,18914.0766,0,18928,18784.41,19184.3,18636,1664064000000,78936,,0,,0,0,0,0,0,false,1664064000000,19948.29976695474
+
+                X:BTCUSD,15457.24362826,19317.486,0,19529.04,19475.84,19651.2772302,18846.67,1664409600000,191936,,0,,0,0,0,0,0,false,1664409600000,19751.714760699124
+
+                X:BTCUSD,23180.93663313,19103.9189,0,19090,19416.20352522,19791,18461,1664337600000,225076,,0,,0,0,0,0,0,false,1664337600000,19762.974955013375
+
+                X:BTCUSD,17479.00092209,19776.6697,0,19228.2,19141.78,20372.17374536,18821.55,1664251200000,183075,,0,,0,0,0,0,0,false,1664251200000,19791.86053850303
+
+                X:BTCUSD,2868.09828007,19069.8521,0,19210.31,18925.87,19400,18805.1,1663992000000,58721,,0,,0,0,0,0,0,false,1663992000000,19995.805471728403
+
+                X:BTCUSD,23180.93663313,19103.9189,0,19090,19416.20352522,19791,18461,1664323200000,225076,,0,,0,0,0,0,0,false,1664323200000,19777.128890923308
+
+                X:BTCUSD,17479.00092209,19776.6697,0,19228.2,19141.78,20372.17374536,18821.55,1664236800000,183075,,0,,0,0,0,0,0,false,1664236800000,19818.394438033767
+
+                X:BTCUSD,55188.33773657,18970.3019,0,18816.66899332,19165.98,19333,18690,1664150400000,297389,,0,,0,0,0,0,0,false,1664150400000,19873.767735662568
+
+                '
+              schema:
+                type: string
+          description: Simple Moving Average (SMA) data for each period.
+      summary: Simple Moving Average (SMA)
+      tags:
+      - crypto:aggregates
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Crypto data
+        name: crypto
+  /v2/aggs/grouped/locale/global/market/crypto/{date}:
+    get:
+      description: 'Get the daily open, high, low, and close (OHLC) for the entire cryptocurrency markets.
+
+        '
+      operationId: GetGroupedCryptoAggregates
+      parameters:
+      - description: The beginning date for the aggregate window.
+        example: '2025-11-03'
+        in: path
+        name: date
+        required: true
+        schema:
+          type: string
+      - description: 'Whether or not the results are adjusted for splits.  By default, results are adjusted.
+
+          Set this to false to get results that are NOT adjusted for splits.
+
+          '
+        example: true
+        in: query
+        name: adjusted
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                adjusted: true
+                queryCount: 3
+                request_id:
+                  description: A request id assigned by the server.
+                  type: string
+                results:
+                - T: X:ARDRUSD
+                  c: 0.0550762
+                  h: 0.0550762
+                  l: 0.0550762
+                  n: 18388
+                  o: 0.0550762
+                  t: 1580676480000
+                  v: 2
+                  vw: 0.0551
+                - T: X:NGCUSD
+                  c: 0.0272983
+                  h: 0.0273733
+                  l: 0.0272983
+                  n: 18
+                  o: 0.0273733
+                  t: 1580674080000
+                  v: 4734
+                  vw: 0.0273
+                - T: X:ZSCUSD
+                  c: 0.00028531
+                  h: 0.00028531
+                  l: 0.00028531
+                  n: 151
+                  o: 0.00028531
+                  t: 1580671080000
+                  v: 390
+                  vw: 0.0003
+                resultsCount: 3
+                status: OK
+              schema:
+                allOf:
+                - properties:
+                    adjusted:
+                      description: Whether or not this response was adjusted for splits.
+                      type: boolean
+                    queryCount:
+                      description: The number of aggregates (minute or day) used to generate the response.
+                      type: integer
+                    request_id:
+                      description: A request id assigned by the server.
+                      type: string
+                    resultsCount:
+                      description: The total number of results for this request.
+                      type: integer
+                    status:
+                      description: The status of this request's response.
+                      type: string
+                  required:
+                  - status
+                  - adjusted
+                  - queryCount
+                  - resultsCount
+                  - request_id
+                  type: object
+                - properties:
+                    results:
+                      description: An array of results containing the requested data.
+                      items:
+                        properties:
+                          T:
+                            description: The exchange symbol that this item is traded under.
+                            type: string
+                          c:
+                            description: The close price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          h:
+                            description: The highest price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          l:
+                            description: The lowest price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          n:
+                            description: The number of transactions in the aggregate window.
+                            type: integer
+                          o:
+                            description: The open price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          t:
+                            description: The Unix millisecond timestamp for the end of the aggregate window.
+                            type: integer
+                          v:
+                            description: The trading volume of the symbol in the given time period.
+                            format: double
+                            type: number
+                          vw:
+                            description: The volume weighted average price.
+                            format: double
+                            type: number
+                        required:
+                        - o
+                        - h
+                        - l
+                        - c
+                        - v
+                        - t
+                        - T
+                        type: object
+                      type: array
+                  type: object
+            text/csv:
+              example: 'T,c,h,l,n,o,t,v,vw
+
+                X:ARDRUSD,0.0550762,0.0550762,0.0550762,18388,0.0550762,1580676480000,2,0.0551
+
+                X:NGCUSD,0.0272983,0.0273733,0.0272983,18,0.0273733,1580674080000,4734,0.0273
+
+                X:ZSCUSD,0.00028531,0.00028531,0.00028531,151,0.00028531,1580671080000,390,0.0003
+
+                '
+              schema:
+                type: string
+          description: The previous day OHLC for the ticker.
+        default:
+          description: Unexpected error
+      summary: Grouped Daily (Bars)
+      tags:
+      - crypto:aggregates
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Crypto data
+        name: crypto
+  /v2/aggs/ticker/{cryptoTicker}/prev:
+    get:
+      description: 'Get the previous day''s open, high, low, and close (OHLC) for the specified cryptocurrency pair.
+
+        '
+      operationId: GetPreviousCryptoAggregates
+      parameters:
+      - description: The ticker symbol of the currency pair.
+        example: X:BTCUSD
+        in: path
+        name: cryptoTicker
+        required: true
+        schema:
+          type: string
+      - description: 'Whether or not the results are adjusted for splits.  By default, results are adjusted.
+
+          Set this to false to get results that are NOT adjusted for splits.
+
+          '
+        example: true
+        in: query
+        name: adjusted
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                adjusted: true
+                queryCount: 1
+                request_id: b2170df985474b6d21a6eeccfb6bee67
+                results:
+                - T: X:BTCUSD
+                  c: 16035.9
+                  h: 16180
+                  l: 15639.2
+                  o: 15937.1
+                  t: 1605416400000
+                  v: 95045.16897951
+                  vw: 15954.2111
+                resultsCount: 1
+                status: OK
+                ticker: X:BTCUSD
+              schema:
+                allOf:
+                - properties:
+                    ticker:
+                      description: The exchange symbol that this item is traded under.
+                      type: string
+                  required:
+                  - ticker
+                  type: object
+                - properties:
+                    adjusted:
+                      description: Whether or not this response was adjusted for splits.
+                      type: boolean
+                    queryCount:
+                      description: The number of aggregates (minute or day) used to generate the response.
+                      type: integer
+                    request_id:
+                      description: A request id assigned by the server.
+                      type: string
+                    resultsCount:
+                      description: The total number of results for this request.
+                      type: integer
+                    status:
+                      description: The status of this request's response.
+                      type: string
+                  required:
+                  - status
+                  - adjusted
+                  - queryCount
+                  - resultsCount
+                  - request_id
+                  type: object
+                - properties:
+                    results:
+                      description: An array of results containing the requested data.
+                      items:
+                        properties:
+                          T:
+                            description: The exchange symbol that this item is traded under.
+                            type: string
+                          c:
+                            description: The close price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          h:
+                            description: The highest price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          l:
+                            description: The lowest price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          n:
+                            description: The number of transactions in the aggregate window.
+                            type: integer
+                          o:
+                            description: The open price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          t:
+                            description: The Unix millisecond timestamp for the end of the aggregate window.
+                            type: integer
+                          v:
+                            description: The trading volume of the symbol in the given time period.
+                            format: double
+                            type: number
+                          vw:
+                            description: The volume weighted average price.
+                            format: double
+                            type: number
+                        required:
+                        - o
+                        - h
+                        - l
+                        - c
+                        - v
+                        - t
+                        - T
+                        type: object
+                      type: array
+                  type: object
+            text/csv:
+              example: 'T,c,h,l,o,t,v,vw
+
+                X:BTCUSD,16035.9,16180,15639.2,15937.1,1605416400000,95045.16897951,15954.2111
+
+                '
+              schema:
+                type: string
+          description: The previous day OHLC for a ticker.
+        default:
+          description: Unexpected error
+      summary: Previous Close
+      tags:
+      - crypto:aggregates
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Crypto data
+        name: crypto
+  /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}:
+    get:
+      description: 'Get aggregate bars for a cryptocurrency pair over a given date range in custom time window sizes.
+
+        <br />
+
+        <br />
+
+        For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute bars will be returned.
+
+        '
+      operationId: GetCryptoAggregates
+      parameters:
+      - description: The ticker symbol of the currency pair.
+        example: X:BTCUSD
+        in: path
+        name: cryptoTicker
+        required: true
+        schema:
+          type: string
+      - description: The size of the timespan multiplier.
+        example: 1
+        in: path
+        name: multiplier
+        required: true
+        schema:
+          type: integer
+      - description: The size of the time window.
+        example: day
+        in: path
+        name: timespan
+        required: true
+        schema:
+          enum:
+          - second
+          - minute
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+          type: string
+      - description: The start of the aggregate time window. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        example: '2025-11-03'
+        in: path
+        name: from
+        required: true
+        schema:
+          type: string
+      - description: The end of the aggregate time window. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+        example: '2025-11-28'
+        in: path
+        name: to
+        required: true
+        schema:
+          type: string
+      - description: 'Whether or not the results are adjusted for splits.  By default, results are adjusted.
+
+          Set this to false to get results that are NOT adjusted for splits.
+
+          '
+        example: true
+        in: query
+        name: adjusted
+        schema:
+          type: boolean
+      - description: 'Sort the results by timestamp.
+
+          `asc` will return results in ascending order (oldest at the top),
+
+          `desc` will return results in descending order (newest at the top).
+
+          '
+        example: asc
+        in: query
+        name: sort
+        schema:
+          enum:
+          - asc
+          - desc
+      - description: 'Limits the number of base aggregates queried to create the aggregate results. Max 50000 and Default 5000.
+
+          Read more about how limit is used to calculate aggregate results in our article on
+
+          <a href="https://massive.com/blog/aggs-api-updates/" target="_blank" alt="Aggregate Data API Improvements">Aggregate Data API Improvements</a>.
+
+          '
+        example: 120
+        in: query
+        name: limit
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                adjusted: true
+                queryCount: 2
+                request_id: 0cf72b6da685bcd386548ffe2895904a
+                results:
+                - c: 10094.75
+                  h: 10429.26
+                  l: 9490
+                  n: 1
+                  o: 9557.9
+                  t: 1590984000000
+                  v: 303067.6562332156
+                  vw: 9874.5529
+                - c: 9492.62
+                  h: 10222.72
+                  l: 9135.68
+                  n: 1
+                  o: 10096.87
+                  t: 1591070400000
+                  v: 323339.6922892879
+                  vw: 9729.5701
+                resultsCount: 2
+                status: OK
+                ticker: X:BTCUSD
+              schema:
+                allOf:
+                - properties:
+                    ticker:
+                      description: The exchange symbol that this item is traded under.
+                      type: string
+                  required:
+                  - ticker
+                  type: object
+                - properties:
+                    adjusted:
+                      description: Whether or not this response was adjusted for splits.
+                      type: boolean
+                    queryCount:
+                      description: The number of aggregates (minute or day) used to generate the response.
+                      type: integer
+                    request_id:
+                      description: A request id assigned by the server.
+                      type: string
+                    resultsCount:
+                      description: The total number of results for this request.
+                      type: integer
+                    status:
+                      description: The status of this request's response.
+                      type: string
+                  required:
+                  - status
+                  - adjusted
+                  - queryCount
+                  - resultsCount
+                  - request_id
+                  type: object
+                - properties:
+                    results:
+                      description: An array of results containing the requested data.
+                      items:
+                        properties:
+                          c:
+                            description: The close price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          h:
+                            description: The highest price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          l:
+                            description: The lowest price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          n:
+                            description: The number of transactions in the aggregate window.
+                            type: integer
+                          o:
+                            description: The open price for the symbol in the given time period.
+                            format: double
+                            type: number
+                          t:
+                            description: The Unix millisecond timestamp for the start of the aggregate window.
+                            type: integer
+                          v:
+                            description: The trading volume of the symbol in the given time period.
+                            format: double
+                            type: number
+                          vw:
+                            description: The volume weighted average price.
+                            format: double
+                            type: number
+                        required:
+                        - o
+                        - h
+                        - l
+                        - c
+                        - v
+                        - t
+                        type: object
+                      type: array
+                  type: object
+            text/csv:
+              example: 'c,h,l,n,o,t,v,vw
+
+                10094.75,10429.26,9490,1,9557.9,1590984000000,303067.6562332156,9874.5529
+
+                9492.62,10222.72,9135.68,1,10096.87,1591070400000,323339.6922892879,9729.5701
+
+                '
+              schema:
+                type: string
+          description: Cryptocurrency Aggregates.
+        default:
+          description: Unexpected error
+      summary: Aggregates (Bars)
+      tags:
+      - crypto:aggregates
+      x-polygon-entitlement-data-type:
+        description: Aggregate data
+        name: aggregates
+      x-polygon-entitlement-market-type:
+        description: Crypto data
+        name: crypto
+components:
+  securitySchemes:
+    apiKey:
+      in: query
+      name: apiKey
+      type: apiKey
+x-polygon-order:
+  crypto:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{cryptoTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/crypto/{date}
+    - paths:
+      - /v1/open-close/crypto/{from}/{to}/{date}
+    - paths:
+      - /v2/aggs/ticker/{cryptoTicker}/prev
+    - paths:
+      - /v3/trades/{cryptoTicker}
+    - paths:
+      - /v1/historic/crypto/{from}/{to}/{date}
+    - paths:
+      - /v1/last/crypto/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/crypto/tickers
+      - /v2/snapshot/locale/global/markets/crypto/{direction}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}
+      - /v2/snapshot/locale/global/markets/crypto/tickers/{ticker}/book
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{cryptoTicker}
+      - /v1/indicators/ema/{cryptoTicker}
+      - /v1/indicators/macd/{cryptoTicker}
+      - /v1/indicators/rsi/{cryptoTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  fx:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{forexTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/global/market/fx/{date}
+    - paths:
+      - /v2/aggs/ticker/{forexTicker}/prev
+    - paths:
+      - /v3/quotes/{fxTicker}
+    - paths:
+      - /v1/historic/forex/{from}/{to}/{date}
+    - paths:
+      - /v1/last_quote/currencies/{from}/{to}
+    - paths:
+      - /v1/conversion/{from}/{to}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/global/markets/forex/tickers
+      - /v2/snapshot/locale/global/markets/forex/{direction}
+      - /v2/snapshot/locale/global/markets/forex/tickers/{ticker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{fxTicker}
+      - /v1/indicators/ema/{fxTicker}
+      - /v1/indicators/macd/{fxTicker}
+      - /v1/indicators/rsi/{fxTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  indices:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{indicesTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - paths:
+      - /v2/aggs/ticker/{indicesTicker}/prev
+    - paths:
+      - /v1/open-close/{indicesTicker}/{date}
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{indicesTicker}
+      - /v1/indicators/ema/{indicesTicker}
+      - /v1/indicators/macd/{indicesTicker}
+      - /v1/indicators/rsi/{indicesTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/indices
+      - /v3/snapshot
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+  options:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{optionsTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v1/open-close/{optionsTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{optionsTicker}/prev
+    - paths:
+      - /v3/trades/{optionsTicker}
+    - paths:
+      - /v2/last/trade/{optionsTicker}
+    - paths:
+      - /v3/quotes/{optionsTicker}
+    - group: Snapshots
+      paths:
+      - /v3/snapshot/options/{underlyingAsset}/{optionContract}
+      - /v3/snapshot/options/{underlyingAsset}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{optionsTicker}
+      - /v1/indicators/ema/{optionsTicker}
+      - /v1/indicators/macd/{optionsTicker}
+      - /v1/indicators/rsi/{optionsTicker}
+    reference:
+    - paths:
+      - /v3/reference/options/contracts/{options_ticker}
+    - paths:
+      - /v3/reference/options/contracts
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+  stocks:
+    market:
+    - launchpad: shared
+      paths:
+      - /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    - launchpad: exclusive
+      paths:
+      - /v1/summaries
+    - paths:
+      - /v2/aggs/grouped/locale/us/market/stocks/{date}
+    - paths:
+      - /v1/open-close/{stocksTicker}/{date}
+    - paths:
+      - /v2/aggs/ticker/{stocksTicker}/prev
+    - paths:
+      - /v3/trades/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/trades/{ticker}/{date}
+    - paths:
+      - /v2/last/trade/{stocksTicker}
+    - paths:
+      - /v3/quotes/{stockTicker}
+    - paths:
+      - /v2/ticks/stocks/nbbo/{ticker}/{date}
+    - paths:
+      - /v2/last/nbbo/{stocksTicker}
+    - group: Snapshots
+      paths:
+      - /v2/snapshot/locale/us/markets/stocks/tickers
+      - /v2/snapshot/locale/us/markets/stocks/{direction}
+      - /v2/snapshot/locale/us/markets/stocks/tickers/{stocksTicker}
+      - /v3/snapshot
+    - group: Technical Indicators
+      paths:
+      - /v1/indicators/sma/{stockTicker}
+      - /v1/indicators/ema/{stockTicker}
+      - /v1/indicators/macd/{stockTicker}
+      - /v1/indicators/rsi/{stockTicker}
+    reference:
+    - paths:
+      - /v3/reference/tickers
+    - paths:
+      - /v1/meta/symbols/{stocksTicker}/company
+    - paths:
+      - /v3/reference/tickers/{ticker}
+    - paths:
+      - /vX/reference/tickers/{id}/events
+    - paths:
+      - /v2/reference/news
+    - paths:
+      - /v3/reference/tickers/types
+    - paths:
+      - /vX/reference/tickers/taxonomies
+    - paths:
+      - /v1/marketstatus/upcoming
+    - paths:
+      - /v1/marketstatus/now
+    - group: SEC Filings
+      paths:
+      - /v1/reference/sec/filings
+      - /v1/reference/sec/filings/{filing_id}
+      - /v1/reference/sec/filings/{filing_id}/files
+      - /v1/reference/sec/filings/{filing_id}/files/{file_id}
+    - paths:
+      - /v3/reference/splits
+    - paths:
+      - /v3/reference/dividends
+    - paths:
+      - /vX/reference/financials
+    - paths:
+      - /v3/reference/conditions
+    - paths:
+      - /v3/reference/exchanges
+    - paths:
+      - /v1/related-companies/{ticker}
+    - paths:
+      - /vX/reference/ipos
+    - paths:
+      - /vX/reference/short-interest/{identifier_type}/{identifier}
+    - paths:
+      - stocks/vX/listings
+      - stocks/vX/listing/{identifier_type}/{identifier}
+      - stocks/vX/listings/updates
