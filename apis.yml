@@ -317,7 +317,7 @@ apis:
   humanURL: https://polygon.io/docs/stocks
   baseURL: https://api.polygon.io
   tags:
-  - Corporate Actions
+  - CorporateActions
   tags_raw:
   - CorporateActions
   properties:
@@ -787,6 +787,8 @@ apis:
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
+  - Financials
+  tags_raw:
   - financials
   properties:
   - type: OpenAPI
@@ -866,7 +868,8 @@ apis:
   description: The global_crypto API from Polygon — 1 operation(s) for global_crypto.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
-  tags:
+  tags: []
+  tags_raw:
   - global_crypto
   properties:
   - type: OpenAPI
@@ -876,7 +879,8 @@ apis:
   description: The global_forex API from Polygon — 1 operation(s) for global_forex.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
-  tags:
+  tags: []
+  tags_raw:
   - global_forex
   properties:
   - type: OpenAPI
@@ -967,6 +971,8 @@ apis:
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
+  - Reference
+  tags_raw:
   - reference
   properties:
   - type: OpenAPI
@@ -1234,6 +1240,8 @@ apis:
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
+  - Summary
+  tags_raw:
   - Summaries
   properties:
   - type: OpenAPI
@@ -1253,7 +1261,8 @@ apis:
   description: The us_futures API from Polygon — 8 operation(s) for us_futures.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
-  tags:
+  tags: []
+  tags_raw:
   - us_futures
   properties:
   - type: OpenAPI
@@ -1263,7 +1272,8 @@ apis:
   description: The us_options API from Polygon — 3 operation(s) for us_options.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
-  tags:
+  tags: []
+  tags_raw:
   - us_options
   properties:
   - type: OpenAPI
@@ -1273,7 +1283,8 @@ apis:
   description: The us_stocks_all API from Polygon — 2 operation(s) for us_stocks_all.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
-  tags:
+  tags: []
+  tags_raw:
   - us_stocks_all
   properties:
   - type: OpenAPI
@@ -1283,7 +1294,8 @@ apis:
   description: The us_stocks_reference API from Polygon — 3 operation(s) for us_stocks_reference.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
-  tags:
+  tags: []
+  tags_raw:
   - us_stocks_reference
   properties:
   - type: OpenAPI
