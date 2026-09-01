@@ -317,7 +317,7 @@ apis:
   humanURL: https://polygon.io/docs/stocks
   baseURL: https://api.polygon.io
   tags:
-  - CorporateActions
+  - Corporate Actions
   tags_raw:
   - CorporateActions
   properties:
