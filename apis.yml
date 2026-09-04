@@ -24,7 +24,10 @@ accessModel:
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
+  - scopes
+  - security
+  - {url: 'https://polygon.io/', status: 301, note: 'declared website redirects to https://massive.com/ — a different registrable domain (polygon.io -> massive.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
+  generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/polygon.png
 description: >-
