@@ -1,0 +1,1547 @@
+asyncapi: 2.6.0
+id: urn:polygon-io:websocket
+info:
+  title: Polygon.io WebSocket APIs
+  version: 2.0.0
+  description: >-
+    Streaming WebSocket APIs from Polygon.io (now operating as Massive) for
+    real-time and delayed US Stocks, Options, Forex, Crypto, Indices, and
+    Futures market data. Clients connect to a market-specific WebSocket
+    cluster, authenticate with an API key, then subscribe to one or more event
+    topics scoped to a ticker, contract, or pair (e.g. `T.AAPL`, `Q.MSFT`,
+    `AM.*`). Messages from the server are JSON arrays where each object
+    carries an `ev` field identifying the event type. Endpoints exist for the
+    real-time feed (`socket.polygon.io` / `socket.massive.com`), the 15-minute
+    delayed feed, Launchpad multi-market entitlements, and Business-tier
+    enrichment streams such as Fair Market Value (FMV).
+  contact:
+    name: Polygon.io Developer Support
+    url: https://polygon.io/contact
+  license:
+    name: Polygon.io Terms of Service
+    url: https://polygon.io/legal/terms
+  x-source: https://polygon.io/docs/websocket
+  x-status: production
+defaultContentType: application/json
+servers:
+  stocks:
+    url: socket.polygon.io/stocks
+    protocol: wss
+    description: Real-time stocks WebSocket cluster.
+    security:
+      - apiKey: []
+  stocks-delayed:
+    url: delayed.polygon.io/stocks
+    protocol: wss
+    description: 15-minute delayed stocks WebSocket cluster.
+    security:
+      - apiKey: []
+  options:
+    url: socket.polygon.io/options
+    protocol: wss
+    description: Real-time options (OPRA) WebSocket cluster.
+    security:
+      - apiKey: []
+  options-delayed:
+    url: delayed.polygon.io/options
+    protocol: wss
+    description: 15-minute delayed options WebSocket cluster.
+    security:
+      - apiKey: []
+  forex:
+    url: socket.polygon.io/forex
+    protocol: wss
+    description: Real-time forex WebSocket cluster.
+    security:
+      - apiKey: []
+  crypto:
+    url: socket.polygon.io/crypto
+    protocol: wss
+    description: Real-time crypto WebSocket cluster.
+    security:
+      - apiKey: []
+  indices:
+    url: socket.polygon.io/indices
+    protocol: wss
+    description: Real-time indices WebSocket cluster.
+    security:
+      - apiKey: []
+  futures:
+    url: socket.polygon.io/futures
+    protocol: wss
+    description: >-
+      Real-time futures WebSocket cluster. Sub-paths exist for individual
+      venues: `/futures/cme`, `/futures/cbot`, `/futures/nymex`, `/futures/comex`.
+    security:
+      - apiKey: []
+  launchpad:
+    url: launchpad.polygon.io
+    protocol: wss
+    description: >-
+      Launchpad multi-market feed. Append the market segment to the path,
+      e.g. `launchpad.polygon.io/stocks`. Carries `AM` (per-minute aggregates)
+      and `LV` (Launchpad Value) topics across stocks, options, forex, and crypto.
+    security:
+      - apiKey: []
+  business:
+    url: business.polygon.io
+    protocol: wss
+    description: >-
+      Business-tier feed. Append the market segment to the path,
+      e.g. `business.polygon.io/stocks`. Carries the `FMV` (Fair Market Value)
+      topic across stocks, options, forex, and crypto.
+    security:
+      - apiKey: []
+  nasdaq:
+    url: nasdaqfeed.polygon.io/stocks
+    protocol: wss
+    description: Nasdaq-only direct feed for stocks (entitlement required).
+    security:
+      - apiKey: []
+  polyfeed:
+    url: polyfeed.polygon.io/stocks
+    protocol: wss
+    description: PolyFeed aggregated stocks feed (entitlement required).
+    security:
+      - apiKey: []
+  polyfeedplus:
+    url: polyfeedplus.polygon.io/stocks
+    protocol: wss
+    description: PolyFeed Plus aggregated stocks feed (entitlement required).
+    security:
+      - apiKey: []
+  starterfeed:
+    url: starterfeed.polygon.io/stocks
+    protocol: wss
+    description: Starter feed for stocks (entitlement required).
+    security:
+      - apiKey: []
+channels:
+  stocks/T:
+    description: Stream real-time trades for a given stock ticker symbol.
+    servers:
+      - stocks
+      - stocks-delayed
+      - nasdaq
+      - polyfeed
+      - polyfeedplus
+      - starterfeed
+    parameters:
+      ticker:
+        description: Ticker symbol or `*` for all. Comma-separated for multiple.
+        schema:
+          type: string
+        location: $message.payload#/sym
+    subscribe:
+      operationId: subscribeStocksTrades
+      summary: Receive real-time stock trade events.
+      message:
+        $ref: '#/components/messages/StockTrade'
+  stocks/Q:
+    description: Stream real-time NBBO quotes for a given stock ticker symbol.
+    servers:
+      - stocks
+      - nasdaq
+      - polyfeed
+      - polyfeedplus
+      - starterfeed
+    subscribe:
+      operationId: subscribeStocksQuotes
+      summary: Receive real-time stock quote (NBBO) events.
+      message:
+        $ref: '#/components/messages/StockQuote'
+  stocks/A:
+    description: Stream real-time per-second aggregates for a given stock ticker.
+    servers:
+      - stocks
+      - stocks-delayed
+    subscribe:
+      operationId: subscribeStocksSecAggregates
+      summary: Receive per-second stock aggregate (OHLCV) events.
+      message:
+        $ref: '#/components/messages/StockAggregate'
+  stocks/AM:
+    description: Stream real-time per-minute aggregates for a given stock ticker.
+    servers:
+      - stocks
+      - stocks-delayed
+    subscribe:
+      operationId: subscribeStocksMinAggregates
+      summary: Receive per-minute stock aggregate (OHLCV) events.
+      message:
+        $ref: '#/components/messages/StockAggregateMinute'
+  stocks/LULD:
+    description: Stream Limit-Up Limit-Down events for a given stock ticker.
+    servers:
+      - stocks
+    subscribe:
+      operationId: subscribeStocksLULD
+      summary: Receive LULD (price band) events.
+      message:
+        $ref: '#/components/messages/LimitUpLimitDown'
+  stocks/NOI:
+    description: Stream NYSE/Nasdaq Order Imbalance (NOI) events for a given stock.
+    servers:
+      - stocks
+    subscribe:
+      operationId: subscribeStocksImbalances
+      summary: Receive auction imbalance events.
+      message:
+        $ref: '#/components/messages/Imbalance'
+  business/stocks/FMV:
+    description: >-
+      Stream Fair Market Value (FMV) for a given stock ticker. Available on
+      the Business-tier feed (`business.polygon.io/stocks`).
+    servers:
+      - business
+    subscribe:
+      operationId: subscribeStocksFMV
+      summary: Receive Fair Market Value events for stocks.
+      message:
+        $ref: '#/components/messages/FairMarketValue'
+  launchpad/stocks/AM:
+    description: >-
+      Per-minute aggregates for stocks delivered over the Launchpad multi-market feed.
+    servers:
+      - launchpad
+    subscribe:
+      operationId: subscribeLaunchpadStocksMinAggregates
+      summary: Receive per-minute stock aggregates over Launchpad.
+      message:
+        $ref: '#/components/messages/LaunchpadAggregateMinute'
+  launchpad/stocks/LV:
+    description: Launchpad Value events for stocks.
+    servers:
+      - launchpad
+    subscribe:
+      operationId: subscribeLaunchpadStocksValue
+      summary: Receive Launchpad Value events for stocks.
+      message:
+        $ref: '#/components/messages/LaunchpadValue'
+  options/T:
+    description: Stream real-time trades for a given option contract.
+    servers:
+      - options
+      - options-delayed
+    subscribe:
+      operationId: subscribeOptionsTrades
+      summary: Receive real-time option trade events.
+      message:
+        $ref: '#/components/messages/OptionTrade'
+  options/Q:
+    description: Stream real-time quotes for a given option contract.
+    servers:
+      - options
+    subscribe:
+      operationId: subscribeOptionsQuotes
+      summary: Receive real-time option quote events.
+      message:
+        $ref: '#/components/messages/OptionQuote'
+  options/A:
+    description: Stream real-time per-second aggregates for a given option contract.
+    servers:
+      - options
+      - options-delayed
+    subscribe:
+      operationId: subscribeOptionsSecAggregates
+      summary: Receive per-second option aggregate events.
+      message:
+        $ref: '#/components/messages/OptionAggregate'
+  options/AM:
+    description: Stream real-time per-minute aggregates for a given option contract.
+    servers:
+      - options
+      - options-delayed
+    subscribe:
+      operationId: subscribeOptionsMinAggregates
+      summary: Receive per-minute option aggregate events.
+      message:
+        $ref: '#/components/messages/OptionAggregateMinute'
+  business/options/FMV:
+    description: >-
+      Stream Fair Market Value (FMV) for a given option contract over the
+      Business-tier feed.
+    servers:
+      - business
+    subscribe:
+      operationId: subscribeOptionsFMV
+      summary: Receive Fair Market Value events for options.
+      message:
+        $ref: '#/components/messages/FairMarketValue'
+  launchpad/options/AM:
+    description: Per-minute aggregates for options delivered over Launchpad.
+    servers:
+      - launchpad
+    subscribe:
+      operationId: subscribeLaunchpadOptionsMinAggregates
+      summary: Receive per-minute option aggregates over Launchpad.
+      message:
+        $ref: '#/components/messages/LaunchpadAggregateMinute'
+  launchpad/options/LV:
+    description: Launchpad Value events for options.
+    servers:
+      - launchpad
+    subscribe:
+      operationId: subscribeLaunchpadOptionsValue
+      summary: Receive Launchpad Value events for options.
+      message:
+        $ref: '#/components/messages/LaunchpadValue'
+  forex/C:
+    description: Stream real-time quotes for a forex currency pair.
+    servers:
+      - forex
+    subscribe:
+      operationId: subscribeForexQuotes
+      summary: Receive real-time forex quote events.
+      message:
+        $ref: '#/components/messages/ForexQuote'
+  forex/CA:
+    description: Stream per-minute aggregates for a forex currency pair.
+    servers:
+      - forex
+    subscribe:
+      operationId: subscribeForexMinAggregates
+      summary: Receive per-minute forex aggregate events.
+      message:
+        $ref: '#/components/messages/ForexAggregateMinute'
+  forex/CAS:
+    description: Stream per-second aggregates for a forex currency pair.
+    servers:
+      - forex
+    subscribe:
+      operationId: subscribeForexSecAggregates
+      summary: Receive per-second forex aggregate events.
+      message:
+        $ref: '#/components/messages/ForexAggregateSecond'
+  business/forex/FMV:
+    description: Stream Fair Market Value for a forex pair over the Business feed.
+    servers:
+      - business
+    subscribe:
+      operationId: subscribeForexFMV
+      summary: Receive Fair Market Value events for forex.
+      message:
+        $ref: '#/components/messages/FairMarketValue'
+  launchpad/forex/AM:
+    description: Per-minute aggregates for forex delivered over Launchpad.
+    servers:
+      - launchpad
+    subscribe:
+      operationId: subscribeLaunchpadForexMinAggregates
+      summary: Receive per-minute forex aggregates over Launchpad.
+      message:
+        $ref: '#/components/messages/LaunchpadAggregateMinute'
+  launchpad/forex/LV:
+    description: Launchpad Value events for forex.
+    servers:
+      - launchpad
+    subscribe:
+      operationId: subscribeLaunchpadForexValue
+      summary: Receive Launchpad Value events for forex.
+      message:
+        $ref: '#/components/messages/LaunchpadValue'
+  crypto/XT:
+    description: Stream real-time trades for a crypto pair.
+    servers:
+      - crypto
+    subscribe:
+      operationId: subscribeCryptoTrades
+      summary: Receive real-time crypto trade events.
+      message:
+        $ref: '#/components/messages/CryptoTrade'
+  crypto/XQ:
+    description: Stream real-time quotes for a crypto pair.
+    servers:
+      - crypto
+    subscribe:
+      operationId: subscribeCryptoQuotes
+      summary: Receive real-time crypto quote events.
+      message:
+        $ref: '#/components/messages/CryptoQuote'
+  crypto/XA:
+    description: Stream per-minute aggregates for a crypto pair.
+    servers:
+      - crypto
+    subscribe:
+      operationId: subscribeCryptoMinAggregates
+      summary: Receive per-minute crypto aggregate events.
+      message:
+        $ref: '#/components/messages/CryptoAggregateMinute'
+  crypto/XAS:
+    description: Stream per-second aggregates for a crypto pair.
+    servers:
+      - crypto
+    subscribe:
+      operationId: subscribeCryptoSecAggregates
+      summary: Receive per-second crypto aggregate events.
+      message:
+        $ref: '#/components/messages/CryptoAggregateSecond'
+  crypto/XL2:
+    description: Stream Level 2 order book updates for a crypto pair.
+    servers:
+      - crypto
+    subscribe:
+      operationId: subscribeCryptoLevel2
+      summary: Receive Level 2 order book snapshots.
+      message:
+        $ref: '#/components/messages/CryptoLevel2Book'
+  business/crypto/FMV:
+    description: Stream Fair Market Value for a crypto pair over the Business feed.
+    servers:
+      - business
+    subscribe:
+      operationId: subscribeCryptoFMV
+      summary: Receive Fair Market Value events for crypto.
+      message:
+        $ref: '#/components/messages/FairMarketValue'
+  launchpad/crypto/AM:
+    description: Per-minute aggregates for crypto delivered over Launchpad.
+    servers:
+      - launchpad
+    subscribe:
+      operationId: subscribeLaunchpadCryptoMinAggregates
+      summary: Receive per-minute crypto aggregates over Launchpad.
+      message:
+        $ref: '#/components/messages/LaunchpadAggregateMinute'
+  launchpad/crypto/LV:
+    description: Launchpad Value events for crypto.
+    servers:
+      - launchpad
+    subscribe:
+      operationId: subscribeLaunchpadCryptoValue
+      summary: Receive Launchpad Value events for crypto.
+      message:
+        $ref: '#/components/messages/LaunchpadValue'
+  indices/V:
+    description: Stream real-time index values for a given index ticker.
+    servers:
+      - indices
+    subscribe:
+      operationId: subscribeIndicesValue
+      summary: Receive real-time index value events.
+      message:
+        $ref: '#/components/messages/IndexValue'
+  indices/A:
+    description: Stream per-second aggregates for a given index ticker.
+    servers:
+      - indices
+    subscribe:
+      operationId: subscribeIndicesSecAggregates
+      summary: Receive per-second index aggregate events.
+      message:
+        $ref: '#/components/messages/IndexAggregate'
+  indices/AM:
+    description: Stream per-minute aggregates for a given index ticker.
+    servers:
+      - indices
+    subscribe:
+      operationId: subscribeIndicesMinAggregates
+      summary: Receive per-minute index aggregate events.
+      message:
+        $ref: '#/components/messages/IndexAggregateMinute'
+  futures/T:
+    description: Stream real-time trades for a futures contract.
+    servers:
+      - futures
+    subscribe:
+      operationId: subscribeFuturesTrades
+      summary: Receive real-time futures trade events.
+      message:
+        $ref: '#/components/messages/FuturesTrade'
+  futures/Q:
+    description: Stream real-time quotes for a futures contract.
+    servers:
+      - futures
+    subscribe:
+      operationId: subscribeFuturesQuotes
+      summary: Receive real-time futures quote events.
+      message:
+        $ref: '#/components/messages/FuturesQuote'
+  futures/A:
+    description: Stream per-second aggregates for a futures contract.
+    servers:
+      - futures
+    subscribe:
+      operationId: subscribeFuturesSecAggregates
+      summary: Receive per-second futures aggregate events.
+      message:
+        $ref: '#/components/messages/FuturesAggregate'
+  futures/AM:
+    description: Stream per-minute aggregates for a futures contract.
+    servers:
+      - futures
+    subscribe:
+      operationId: subscribeFuturesMinAggregates
+      summary: Receive per-minute futures aggregate events.
+      message:
+        $ref: '#/components/messages/FuturesAggregateMinute'
+  control:
+    description: >-
+      Control channel for client-to-server messages. After the connection is
+      established, the client must send an `auth` message with its API key,
+      then issue `subscribe` and `unsubscribe` messages whose `params` field
+      is a comma-separated list of `<TOPIC>.<TICKER>` tuples (e.g.
+      `T.AAPL,T.MSFT`, `Q.*`, `AM.O:A230616C00070000`). The server
+      acknowledges each control message with a `status` event.
+    publish:
+      operationId: sendControlMessage
+      summary: Send auth, subscribe, or unsubscribe control messages.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/AuthMessage'
+          - $ref: '#/components/messages/SubscribeMessage'
+          - $ref: '#/components/messages/UnsubscribeMessage'
+    subscribe:
+      operationId: receiveStatusMessage
+      summary: Receive connection / auth / subscription status events.
+      message:
+        $ref: '#/components/messages/StatusMessage'
+components:
+  securitySchemes:
+    apiKey:
+      type: userPassword
+      description: >-
+        Authentication is performed inside the WebSocket session by sending
+        a JSON message of the form
+        `{"action":"auth","params":"<APIKEY>"}` after the connection opens.
+        The server responds with `[{"ev":"status","status":"auth_success",...}]`
+        on success or `auth_failed` on failure.
+  messages:
+    AuthMessage:
+      name: AuthMessage
+      title: Authentication request
+      summary: Authenticate the WebSocket session with an API key.
+      contentType: application/json
+      payload:
+        type: object
+        required:
+          - action
+          - params
+        properties:
+          action:
+            type: string
+            enum:
+              - auth
+          params:
+            type: string
+            description: The API key.
+        example:
+          action: auth
+          params: YOUR_API_KEY
+    SubscribeMessage:
+      name: SubscribeMessage
+      title: Subscribe request
+      summary: Subscribe to one or more topics.
+      contentType: application/json
+      payload:
+        type: object
+        required:
+          - action
+          - params
+        properties:
+          action:
+            type: string
+            enum:
+              - subscribe
+          params:
+            type: string
+            description: >-
+              Comma-separated list of `<TOPIC>.<TICKER>` tuples. The wildcard
+              `*` subscribes to all symbols on that topic (entitlement
+              permitting). Examples: `T.AAPL,T.MSFT`, `AM.*`, `XT.BTC-USD`,
+              `FMV.NVDA`.
+        example:
+          action: subscribe
+          params: T.AAPL,T.MSFT
+    UnsubscribeMessage:
+      name: UnsubscribeMessage
+      title: Unsubscribe request
+      summary: Unsubscribe from one or more topics.
+      contentType: application/json
+      payload:
+        type: object
+        required:
+          - action
+          - params
+        properties:
+          action:
+            type: string
+            enum:
+              - unsubscribe
+          params:
+            type: string
+            description: Comma-separated list of `<TOPIC>.<TICKER>` tuples to unsubscribe from.
+        example:
+          action: unsubscribe
+          params: T.AAPL
+    StatusMessage:
+      name: StatusMessage
+      title: Connection status event
+      summary: >-
+        Server-side status update for connect, auth, subscribe, and
+        unsubscribe operations.
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          ev:
+            type: string
+            enum:
+              - status
+          status:
+            type: string
+            description: >-
+              Status code such as `connected`, `auth_success`, `auth_failed`,
+              `success`, `error`, `max_connections`.
+          message:
+            type: string
+            description: Human-readable status message.
+        example:
+          ev: status
+          status: auth_success
+          message: authenticated
+    StockTrade:
+      name: StockTrade
+      title: Stock trade (T)
+      summary: A single stock trade tick from the SIP or a TRF.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/StockTrade'
+    StockQuote:
+      name: StockQuote
+      title: Stock quote (Q)
+      summary: A single stock NBBO quote update.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/StockQuote'
+    StockAggregate:
+      name: StockAggregate
+      title: Stock per-second aggregate (A)
+      summary: Aggregated OHLCV window covering one second.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/StockAggregate'
+    StockAggregateMinute:
+      name: StockAggregateMinute
+      title: Stock per-minute aggregate (AM)
+      summary: Aggregated OHLCV window covering one minute.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/StockAggregateMinute'
+    LimitUpLimitDown:
+      name: LimitUpLimitDown
+      title: Limit-Up Limit-Down (LULD)
+      summary: National price bands published under Reg NMS LULD.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/LimitUpLimitDown'
+    Imbalance:
+      name: Imbalance
+      title: Order imbalance (NOI)
+      summary: NYSE / Nasdaq opening or closing auction imbalance event.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/Imbalance'
+    FairMarketValue:
+      name: FairMarketValue
+      title: Fair Market Value (FMV)
+      summary: Polygon's proprietary fair value estimate for the asset.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/FairMarketValue'
+    LaunchpadAggregateMinute:
+      name: LaunchpadAggregateMinute
+      title: Launchpad per-minute aggregate (AM)
+      summary: Per-minute aggregate routed via the Launchpad multi-market feed.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/LaunchpadAggregateMinute'
+    LaunchpadValue:
+      name: LaunchpadValue
+      title: Launchpad Value (LV)
+      summary: Launchpad-feed value event.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/LaunchpadValue'
+    OptionTrade:
+      name: OptionTrade
+      title: Option trade (T)
+      summary: A single OPRA-licensed option trade tick.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OptionTrade'
+    OptionQuote:
+      name: OptionQuote
+      title: Option quote (Q)
+      summary: A single OPRA-licensed option quote update.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OptionQuote'
+    OptionAggregate:
+      name: OptionAggregate
+      title: Option per-second aggregate (A)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OptionAggregate'
+    OptionAggregateMinute:
+      name: OptionAggregateMinute
+      title: Option per-minute aggregate (AM)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OptionAggregateMinute'
+    ForexQuote:
+      name: ForexQuote
+      title: Forex quote (C)
+      summary: Currency pair quote update.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ForexQuote'
+    ForexAggregateMinute:
+      name: ForexAggregateMinute
+      title: Forex per-minute aggregate (CA)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ForexAggregateMinute'
+    ForexAggregateSecond:
+      name: ForexAggregateSecond
+      title: Forex per-second aggregate (CAS)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ForexAggregateSecond'
+    CryptoTrade:
+      name: CryptoTrade
+      title: Crypto trade (XT)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CryptoTrade'
+    CryptoQuote:
+      name: CryptoQuote
+      title: Crypto quote (XQ)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CryptoQuote'
+    CryptoAggregateMinute:
+      name: CryptoAggregateMinute
+      title: Crypto per-minute aggregate (XA)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CryptoAggregateMinute'
+    CryptoAggregateSecond:
+      name: CryptoAggregateSecond
+      title: Crypto per-second aggregate (XAS)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CryptoAggregateSecond'
+    CryptoLevel2Book:
+      name: CryptoLevel2Book
+      title: Crypto Level 2 book (XL2)
+      summary: Aggregated Level 2 book snapshot for a crypto pair.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CryptoLevel2Book'
+    IndexValue:
+      name: IndexValue
+      title: Index value (V)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/IndexValue'
+    IndexAggregate:
+      name: IndexAggregate
+      title: Index per-second aggregate (A)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/IndexAggregate'
+    IndexAggregateMinute:
+      name: IndexAggregateMinute
+      title: Index per-minute aggregate (AM)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/IndexAggregateMinute'
+    FuturesTrade:
+      name: FuturesTrade
+      title: Futures trade (T)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/FuturesTrade'
+    FuturesQuote:
+      name: FuturesQuote
+      title: Futures quote (Q)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/FuturesQuote'
+    FuturesAggregate:
+      name: FuturesAggregate
+      title: Futures per-second aggregate (A)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/FuturesAggregate'
+    FuturesAggregateMinute:
+      name: FuturesAggregateMinute
+      title: Futures per-minute aggregate (AM)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/FuturesAggregateMinute'
+  schemas:
+    StockTrade:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [T]
+          description: The event type.
+        sym:
+          type: string
+          description: The ticker symbol for the given stock.
+        x:
+          type: integer
+          description: The exchange ID.
+        i:
+          type: string
+          description: The trade ID.
+        z:
+          type: integer
+          description: The tape (1 = NYSE, 2 = AMEX, 3 = Nasdaq).
+        p:
+          type: number
+          format: double
+          description: The price.
+        s:
+          type: integer
+          description: The trade size.
+        c:
+          type: array
+          description: The trade conditions.
+          items:
+            type: integer
+        t:
+          type: integer
+          description: The SIP timestamp in Unix MS.
+        q:
+          type: integer
+          description: Per-ticker sequence number.
+        trfi:
+          type: integer
+          description: The TRF ID where the trade took place.
+        trft:
+          type: integer
+          description: The TRF timestamp in Unix MS.
+      example:
+        ev: T
+        sym: MSFT
+        x: 4
+        i: "12345"
+        z: 3
+        p: 114.125
+        s: 100
+        c: [0, 12]
+        t: 1536036818784
+        q: 3681328
+    StockQuote:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [Q]
+        sym:
+          type: string
+        bx:
+          type: integer
+          description: The bid exchange ID.
+        bp:
+          type: number
+          format: double
+          description: The bid price.
+        bs:
+          type: integer
+          description: The bid size in round lots.
+        ax:
+          type: integer
+          description: The ask exchange ID.
+        ap:
+          type: number
+          format: double
+          description: The ask price.
+        as:
+          type: integer
+          description: The ask size in round lots.
+        c:
+          type: integer
+          description: The condition.
+        i:
+          type: array
+          items:
+            type: integer
+          description: The indicators.
+        t:
+          type: integer
+          description: The SIP timestamp in Unix MS.
+        q:
+          type: integer
+          description: Per-ticker sequence number.
+        z:
+          type: integer
+          description: The tape.
+    StockAggregate:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [A]
+        sym:
+          type: string
+        v:
+          type: integer
+          description: The tick volume.
+        av:
+          type: integer
+          description: Today's accumulated volume.
+        op:
+          type: number
+          format: double
+          description: Today's official opening price.
+        vw:
+          type: number
+          format: float
+          description: The tick's VWAP.
+        o:
+          type: number
+          format: double
+        c:
+          type: number
+          format: double
+        h:
+          type: number
+          format: double
+        l:
+          type: number
+          format: double
+        a:
+          type: number
+          format: float
+          description: Today's VWAP.
+        z:
+          type: integer
+          description: Average trade size for this aggregate window.
+        s:
+          type: integer
+          description: Start timestamp (Unix MS).
+        e:
+          type: integer
+          description: End timestamp (Unix MS).
+        otc:
+          type: boolean
+          description: Present and true when the ticker is OTC.
+    StockAggregateMinute:
+      allOf:
+        - $ref: '#/components/schemas/StockAggregate'
+        - type: object
+          properties:
+            ev:
+              type: string
+              enum: [AM]
+    LimitUpLimitDown:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [LULD]
+        T:
+          type: string
+          description: The ticker symbol.
+        h:
+          type: number
+          format: double
+          description: The high price band.
+        l:
+          type: number
+          format: double
+          description: The low price band.
+        i:
+          type: array
+          items:
+            type: integer
+          description: Indicators.
+        z:
+          type: integer
+          description: The tape.
+        t:
+          type: integer
+          description: SIP timestamp in Unix MS.
+        q:
+          type: integer
+          description: Per-ticker sequence number.
+    Imbalance:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [NOI]
+        T:
+          type: string
+          description: The ticker symbol.
+        t:
+          type: integer
+          description: SIP timestamp in Unix MS.
+        at:
+          type: integer
+          description: Auction time.
+        a:
+          type: string
+          description: Auction type.
+        i:
+          type: integer
+          description: Symbol sequence.
+        x:
+          type: integer
+          description: Exchange ID.
+        o:
+          type: integer
+          description: Imbalance quantity.
+        p:
+          type: integer
+          description: Paired quantity.
+        b:
+          type: number
+          format: double
+          description: Book clearing price.
+    FairMarketValue:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [FMV]
+        fmv:
+          type: number
+          format: double
+          description: Polygon-derived fair market value.
+        sym:
+          type: string
+          description: The ticker, contract symbol, or pair.
+        t:
+          type: integer
+          description: Nanosecond Unix timestamp.
+    LaunchpadAggregateMinute:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [AM]
+        sym:
+          type: string
+        v:
+          type: integer
+        av:
+          type: integer
+        op:
+          type: number
+          format: double
+        vw:
+          type: number
+          format: float
+        o:
+          type: number
+          format: double
+        c:
+          type: number
+          format: double
+        h:
+          type: number
+          format: double
+        l:
+          type: number
+          format: double
+        a:
+          type: number
+          format: float
+        z:
+          type: integer
+        s:
+          type: integer
+        e:
+          type: integer
+    LaunchpadValue:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [LV]
+        val:
+          type: number
+          format: double
+          description: Launchpad value.
+        sym:
+          type: string
+        t:
+          type: integer
+    OptionTrade:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [T]
+        sym:
+          type: string
+          description: Option contract symbol (e.g. `O:SPY230616C00400000`).
+        x:
+          type: integer
+          description: Exchange ID.
+        p:
+          type: number
+          format: double
+        s:
+          type: integer
+        c:
+          type: array
+          items:
+            type: integer
+          description: Trade conditions.
+        t:
+          type: integer
+          description: SIP timestamp in Unix MS.
+        q:
+          type: integer
+          description: Sequence number.
+    OptionQuote:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [Q]
+        sym:
+          type: string
+        bx:
+          type: integer
+        ax:
+          type: integer
+        bp:
+          type: number
+          format: double
+        ap:
+          type: number
+          format: double
+        bs:
+          type: integer
+        as:
+          type: integer
+        t:
+          type: integer
+        q:
+          type: integer
+    OptionAggregate:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [A]
+        sym:
+          type: string
+        v:
+          type: integer
+        av:
+          type: integer
+        op:
+          type: number
+          format: double
+        vw:
+          type: number
+          format: float
+        o:
+          type: number
+          format: double
+        c:
+          type: number
+          format: double
+        h:
+          type: number
+          format: double
+        l:
+          type: number
+          format: double
+        a:
+          type: number
+          format: float
+        z:
+          type: integer
+        s:
+          type: integer
+        e:
+          type: integer
+    OptionAggregateMinute:
+      allOf:
+        - $ref: '#/components/schemas/OptionAggregate'
+        - type: object
+          properties:
+            ev:
+              type: string
+              enum: [AM]
+    ForexQuote:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [C]
+        p:
+          type: string
+          description: Currency pair (e.g. `EUR/USD`).
+        x:
+          type: integer
+          description: Exchange ID.
+        a:
+          type: number
+          format: double
+          description: Ask price.
+        b:
+          type: number
+          format: double
+          description: Bid price.
+        t:
+          type: integer
+          description: Timestamp in Unix MS.
+    ForexAggregateMinute:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [CA]
+        pair:
+          type: string
+        o:
+          type: number
+          format: double
+        c:
+          type: number
+          format: double
+        h:
+          type: number
+          format: double
+        l:
+          type: number
+          format: double
+        v:
+          type: integer
+        s:
+          type: integer
+        e:
+          type: integer
+    ForexAggregateSecond:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [CAS]
+        pair:
+          type: string
+        o:
+          type: number
+          format: double
+        c:
+          type: number
+          format: double
+        h:
+          type: number
+          format: double
+        l:
+          type: number
+          format: double
+        v:
+          type: integer
+        s:
+          type: integer
+        e:
+          type: integer
+    CryptoTrade:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [XT]
+        pair:
+          type: string
+          description: Crypto pair (e.g. `BTC-USD`).
+        p:
+          type: number
+          format: double
+        t:
+          type: integer
+          description: Exchange-provided timestamp in Unix MS.
+        s:
+          type: number
+          format: double
+          description: Trade size.
+        c:
+          type: array
+          items:
+            type: integer
+          description: Conditions.
+        i:
+          type: string
+          description: Trade ID.
+        x:
+          type: integer
+          description: Exchange ID.
+        r:
+          type: integer
+          description: Received timestamp in Unix MS.
+    CryptoQuote:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [XQ]
+        pair:
+          type: string
+        bp:
+          type: number
+          format: double
+        bs:
+          type: number
+          format: double
+        ap:
+          type: number
+          format: double
+        as:
+          type: number
+          format: double
+        t:
+          type: integer
+        x:
+          type: integer
+        r:
+          type: integer
+    CryptoAggregateMinute:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [XA]
+        pair:
+          type: string
+        o:
+          type: number
+          format: double
+        c:
+          type: number
+          format: double
+        h:
+          type: number
+          format: double
+        l:
+          type: number
+          format: double
+        v:
+          type: number
+          format: double
+        s:
+          type: integer
+        e:
+          type: integer
+        vw:
+          type: number
+          format: double
+        z:
+          type: integer
+    CryptoAggregateSecond:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [XAS]
+        pair:
+          type: string
+        o:
+          type: number
+          format: double
+        c:
+          type: number
+          format: double
+        h:
+          type: number
+          format: double
+        l:
+          type: number
+          format: double
+        v:
+          type: number
+          format: double
+        s:
+          type: integer
+        e:
+          type: integer
+        vw:
+          type: number
+          format: double
+        z:
+          type: integer
+    CryptoLevel2Book:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [XL2]
+        pair:
+          type: string
+        b:
+          type: array
+          description: Bid side of the book.
+          items:
+            type: array
+            items:
+              type: number
+              format: double
+        a:
+          type: array
+          description: Ask side of the book.
+          items:
+            type: array
+            items:
+              type: number
+              format: double
+        t:
+          type: integer
+          description: Exchange-provided timestamp in Unix MS.
+        x:
+          type: integer
+          description: Exchange ID.
+        r:
+          type: integer
+          description: Received timestamp in Unix MS.
+    IndexValue:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [V]
+        val:
+          type: number
+          format: double
+          description: The index value.
+        T:
+          type: string
+          description: The index ticker (e.g. `I:SPX`).
+        t:
+          type: integer
+          description: Timestamp in Unix MS.
+    IndexAggregate:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [A]
+        sym:
+          type: string
+        op:
+          type: number
+          format: double
+        o:
+          type: number
+          format: double
+        c:
+          type: number
+          format: double
+        h:
+          type: number
+          format: double
+        l:
+          type: number
+          format: double
+        s:
+          type: integer
+        e:
+          type: integer
+    IndexAggregateMinute:
+      allOf:
+        - $ref: '#/components/schemas/IndexAggregate'
+        - type: object
+          properties:
+            ev:
+              type: string
+              enum: [AM]
+    FuturesTrade:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [T]
+        sym:
+          type: string
+          description: Futures contract symbol.
+        p:
+          type: number
+          format: double
+          description: Price.
+        s:
+          type: integer
+          description: Size.
+        t:
+          type: integer
+          description: SIP timestamp in Unix MS.
+        q:
+          type: integer
+          description: Sequence number.
+    FuturesQuote:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [Q]
+        sym:
+          type: string
+        bp:
+          type: number
+          format: double
+        bs:
+          type: integer
+        bt:
+          type: integer
+          description: Bid timestamp.
+        ap:
+          type: number
+          format: double
+        as:
+          type: integer
+        at:
+          type: integer
+          description: Ask timestamp.
+        t:
+          type: integer
+          description: SIP timestamp.
+    FuturesAggregate:
+      type: object
+      properties:
+        ev:
+          type: string
+          enum: [A]
+        sym:
+          type: string
+        v:
+          type: integer
+        dv:
+          type: integer
+          description: Total dollar value.
+        o:
+          type: number
+          format: double
+        c:
+          type: number
+          format: double
+        h:
+          type: number
+          format: double
+        l:
+          type: number
+          format: double
+        n:
+          type: integer
+          description: Transaction count.
+        s:
+          type: integer
+        e:
+          type: integer
+    FuturesAggregateMinute:
+      allOf:
+        - $ref: '#/components/schemas/FuturesAggregate'
+        - type: object
+          properties:
+            ev:
+              type: string
+              enum: [AM]
