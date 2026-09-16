@@ -26,57 +26,60 @@ accessModel:
   - authentication
   - scopes
   - security
-  - {url: 'https://polygon.io/', status: 301, note: 'declared website redirects to https://massive.com/ — a different registrable domain (polygon.io -> massive.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
+  - url: https://polygon.io/
+    status: 301
+    note: declared website redirects to https://massive.com/ — a different registrable domain (polygon.io
+      -> massive.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)
   generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/polygon.png
-description: >-
-  Polygon (Polygon.io, rebranded as Massive in early 2026) provides real-time and historical market data APIs across US
-  stocks, options, indices, forex, cryptocurrencies, and futures. Coverage is delivered through REST endpoints and
-  WebSocket streams under a single api.polygon.io surface plus an S3 flat files product, with tiered subscription plans
-  for retail developers and Business contracts for redistribution and exchange-licensed data.
+description: Polygon (Polygon.io, rebranded as Massive in early 2026) provides real-time and historical
+  market data APIs across US stocks, options, indices, forex, cryptocurrencies, and futures. Coverage
+  is delivered through REST endpoints and WebSocket streams under a single api.polygon.io surface plus
+  an S3 flat files product, with tiered subscription plans for retail developers and Business contracts
+  for redistribution and exchange-licensed data.
 specificationVersion: '0.23'
 created: '2026-05-28'
-modified: '2026-07-22'
+modified: '2026-09-15'
 x-source: public-apis/public-apis
 x-category: Finance
 x-type: company
 x-tier: 2
 x-tier-reason: pipeline-enriched
 tags:
-  - Finance
-  - Fintech
-  - Market Data
-  - Stocks
-  - Options
-  - Forex
-  - Crypto
-  - Indices
-  - Futures
-  - WebSockets
-  - Real-Time
-  - Historical
-  - Public APIs
+- Finance
+- Fintech
+- Market Data
+- Stocks
+- Options
+- Forex
+- Crypto
+- Indices
+- Futures
+- WebSockets
+- Real-Time
+- Historical
+- Public APIs
 tags_raw:
-  - Finance
-  - Fintech
-  - Market Data
-  - Stocks
-  - Options
-  - Forex
-  - Crypto
-  - Indices
-  - Futures
-  - WebSockets
-  - Real-time
-  - Historical
-  - Public APIs
+- Finance
+- Fintech
+- Market Data
+- Stocks
+- Options
+- Forex
+- Crypto
+- Indices
+- Futures
+- WebSockets
+- Real-time
+- Historical
+- Public APIs
 apis:
 - aid: polygon:websocket-api
   name: Polygon WebSocket API
-  description: >-
-    Real-time streaming WebSocket clusters per asset class (stocks/options/indices/forex/crypto). Subscribers
-    authenticate with an API key and subscribe to channels for trades, quotes, aggregates, and book updates.
+  description: Real-time streaming WebSocket clusters per asset class (stocks/options/indices/forex/crypto).
+    Subscribers authenticate with an API key and subscribe to channels for trades, quotes, aggregates,
+    and book updates.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
@@ -1022,8 +1025,7 @@ apis:
     url: openapi/polygon-reference-news-api-openapi.yml
 - aid: polygon:polygon-reference-options-contract-api
   name: Polygon Reference:options:contract API
-  description: >-
-    The reference:options:contract API from Polygon — 1 operation(s) for reference:options:contract.
+  description: The reference:options:contract API from Polygon — 1 operation(s) for reference:options:contract.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
@@ -1033,8 +1035,7 @@ apis:
     url: openapi/polygon-reference-options-contract-api-openapi.yml
 - aid: polygon:polygon-reference-options-contracts-list-api
   name: Polygon Reference:options:contracts:list API
-  description: >-
-    The reference:options:contracts:list API from Polygon — 1 operation(s) for reference:options:contracts:list.
+  description: The reference:options:contracts:list API from Polygon — 1 operation(s) for reference:options:contracts:list.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
@@ -1044,8 +1045,7 @@ apis:
     url: openapi/polygon-reference-options-contracts-list-api-openapi.yml
 - aid: polygon:polygon-reference-related-companies-api
   name: Polygon Reference:related:companies API
-  description: >-
-    The reference:related:companies API from Polygon — 1 operation(s) for reference:related:companies.
+  description: The reference:related:companies API from Polygon — 1 operation(s) for reference:related:companies.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
@@ -1065,8 +1065,7 @@ apis:
     url: openapi/polygon-reference-sec-filing-api-openapi.yml
 - aid: polygon:polygon-reference-sec-filing-file-api
   name: Polygon Reference:sec:filing:file API
-  description: >-
-    The reference:sec:filing:file API from Polygon — 1 operation(s) for reference:sec:filing:file.
+  description: The reference:sec:filing:file API from Polygon — 1 operation(s) for reference:sec:filing:file.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
@@ -1076,8 +1075,7 @@ apis:
     url: openapi/polygon-reference-sec-filing-file-api-openapi.yml
 - aid: polygon:polygon-reference-sec-filing-files-api
   name: Polygon Reference:sec:filing:files API
-  description: >-
-    The reference:sec:filing:files API from Polygon — 1 operation(s) for reference:sec:filing:files.
+  description: The reference:sec:filing:files API from Polygon — 1 operation(s) for reference:sec:filing:files.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
@@ -1117,8 +1115,7 @@ apis:
     url: openapi/polygon-reference-stocks-ipos-api-openapi.yml
 - aid: polygon:polygon-reference-stocks-market-api
   name: Polygon Reference:stocks:market API
-  description: >-
-    The reference:stocks:market API from Polygon — 2 operation(s) for reference:stocks:market.
+  description: The reference:stocks:market API from Polygon — 2 operation(s) for reference:stocks:market.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
@@ -1148,8 +1145,7 @@ apis:
     url: openapi/polygon-reference-tickers-list-api-openapi.yml
 - aid: polygon:polygon-reference-tickers-types-api
   name: Polygon Reference:tickers:types API
-  description: >-
-    The reference:tickers:types API from Polygon — 1 operation(s) for reference:tickers:types.
+  description: The reference:tickers:types API from Polygon — 1 operation(s) for reference:tickers:types.
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
@@ -1303,185 +1299,337 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/polygon-us-stocks-reference-api-openapi.yml
-common:
-  - type: OpenAPI
-    url: openapi/polygon-openapi-original.json
-    name: Official Massive (Polygon.io) OpenAPI 3.0.3 — 146 operations, harvested from https://api.polygon.io/openapi
-  - type: Overlay
-    url: overlays/polygon-openapi-overlay.yaml
-  - type: MCPServer
-    url: mcp/polygon-mcp.yml
-    name: Massive MCP server — remote https://mcp.massive.com (OAuth) + open-source mcp_massive (stdio)
-  - type: ToolCrosswalk
-    url: mcp/polygon-tool-crosswalk.yml
-  - type: LLMsTxt
-    url: llms/polygon-llms.txt
-  - type: WellKnown
-    url: well-known/polygon-well-known.yml
-  - type: Packages
-    url: packages/polygon-packages.yml
-  - type: Conformance
-    url: conformance/polygon-conformance.yml
-  - type: ErrorCatalog
-    url: errors/polygon-problem-types.yml
-  - type: Lifecycle
-    url: lifecycle/polygon-lifecycle.yml
-  - type: ChangeLog
-    url: changelog/polygon-changelog.yml
-  - type: Conventions
-    url: conventions/polygon-conventions.yml
-  - type: Idempotency
-    url: conventions/polygon-conventions.yml
-  - type: DataModel
-    url: data-model/polygon-data-model.yml
-  - type: OAuthScopes
-    url: scopes/polygon-scopes.yml
-  - type: AgentSkill
-    url: skills/_index.yml
-  - type: AgenticAccess
-    url: agentic-access/polygon-agentic-access.yml
-  - type: DomainSecurity
-    url: security/polygon-domain-security.yml
-  - type: Authentication
-    url: authentication/polygon-authentication.yml
-  - type: PostmanWorkspace
-    url: https://www.postman.com/kinlaneapi/polygon/overview
-  - type: Arazzo
-    url: arazzo/polygon-corporate-actions-workflow.yml
-    name: Polygon Corporate Actions Review
-  - type: Arazzo
-    url: arazzo/polygon-crypto-daily-comparison-workflow.yml
-    name: Polygon Crypto Daily Comparison
-  - type: Arazzo
-    url: arazzo/polygon-crypto-pair-analysis-workflow.yml
-    name: Polygon Crypto Pair Analysis
-  - type: Arazzo
-    url: arazzo/polygon-forex-pair-analysis-workflow.yml
-    name: Polygon Forex Pair Analysis
-  - type: Arazzo
-    url: arazzo/polygon-grouped-market-scan-workflow.yml
-    name: Polygon Grouped Market Scan
-  - type: Arazzo
-    url: arazzo/polygon-index-analysis-workflow.yml
-    name: Polygon Index Analysis
-  - type: Arazzo
-    url: arazzo/polygon-market-gated-stock-daily-workflow.yml
-    name: Polygon Market-Gated Stock Daily Snapshot
-  - type: Arazzo
-    url: arazzo/polygon-options-chain-scan-workflow.yml
-    name: Polygon Options Chain Scan
-  - type: Arazzo
-    url: arazzo/polygon-options-contract-deep-dive-workflow.yml
-    name: Polygon Options Contract Deep Dive
-  - type: Arazzo
-    url: arazzo/polygon-stock-research-workflow.yml
-    name: Polygon Stock Research
-  - type: Arazzo
-    url: arazzo/polygon-ticker-discovery-workflow.yml
-    name: Polygon Ticker Discovery and Profile
-  - type: Arazzo
-    url: arazzo/polygon-ticker-news-context-workflow.yml
-    name: Polygon Ticker News Context
-  - type: Portal
-    url: https://polygon.io/
+- name: Polygon.io Stocks API
+  tags:
+  - Stocks
+  - Equities
+  - Market Data
+  - Real-Time
+  tags_raw:
+  - Stocks
+  - Equities
+  - Market Data
+  - Real-time
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  baseURL: https://api.polygon.io
+  humanURL: https://polygon.io/docs/stocks
+  description: Real-time and historical US equity market data including aggregates (minute/hour/day bars),
+    trades, NBBO quotes, snapshots, ticker reference, splits, dividends, and financials. Available via
+    REST and WebSocket.
+  properties:
   - type: Documentation
-    url: https://polygon.io/docs
-  - type: APIReference
-    url: https://polygon.io/docs
-  - type: GettingStarted
-    url: https://polygon.io/docs/getting-started
-  - type: Signup
-    url: https://polygon.io/dashboard/signup
-  - type: Login
-    url: https://polygon.io/dashboard/login
-  - type: Pricing
-    url: https://polygon.io/pricing
-  - type: StatusPage
-    url: https://status.polygon.io/
-  - type: Blog
-    url: https://polygon.io/blog
-  - type: Support
-    url: https://polygon.io/contact
-  - type: TermsOfService
-    url: https://polygon.io/terms
-  - type: PrivacyPolicy
-    url: https://polygon.io/privacy
-  - type: GitHubOrganization
-    url: https://github.com/polygon-io
-  - type: Tools
-    url: https://github.com/polygon-io/mcp_polygon
-    title: Official Polygon (Massive) MCP Server
-  - type: SDKs
-    url: https://github.com/polygon-io/client-php
-    title: Official PHP SDK
-  - type: SDKs
-    url: https://pypi.org/project/polygon-api-client/
-    title: Python SDK
-  - type: SDKs
-    url: https://www.npmjs.com/package/@polygon.io/client-js
-    title: JavaScript / TypeScript SDK
-  - type: SDKs
-    url: https://central.sonatype.com/artifact/io.polygon.kotlin.sdk/polygon-kotlin-sdk-jvm
-    title: Kotlin / JVM SDK
-  - type: SDKs
-    url: https://pkg.go.dev/github.com/polygon-io/client-go
-    title: Go SDK
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/polygon-io
-  - type: Plans
-    url: plans/polygon-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/polygon-rate-limits.yml
-  - type: FinOps
-    url: finops/polygon-finops.yml
-  - type: SpectralRules
-    url: rules/polygon-rules.yml
-  - type: Vocabulary
-    url: vocabulary/polygon-vocabulary.yml
-  - type: JSONLD
-    url: json-ld/polygon-context.jsonld
-  - type: Features
-    data:
-      - name: Multi-asset market data
-        description: Unified REST and WebSocket surface for stocks, options, indices, forex, crypto, and futures.
-      - name: Real-time and historical
-        description: Sub-second live feeds plus 20+ years of historical aggregates depending on tier.
-      - name: WebSocket clusters per asset class
-        description: Dedicated streaming clusters for stocks, options, indices, forex, and crypto subscriptions.
-      - name: Flat files
-        description: S3-style daily aggregate, trade, and quote files for bulk historical loads on paid tiers.
-      - name: Tiered subscriptions
-        description: Basic / Starter / Developer / Advanced / Business plans per asset class with distinct rate limits.
-  - type: UseCases
-    data:
-      - name: Trading platform price feeds
-        description: Power retail and institutional trading UIs with consolidated real-time quotes and bars.
-      - name: Backtesting and research
-        description: Pull decades of aggregated bars and tick data for systematic strategy research.
-      - name: Risk and surveillance
-        description: Stream live trades and quotes into compliance, surveillance, and risk engines.
-      - name: Analytics dashboards
-        description: Build market dashboards, terminals, and embedded charts across asset classes.
-      - name: Quant pipelines
-        description: Drive options Greeks, volatility surfaces, and FX hedging models with reliable feeds.
-  - type: Integrations
-    data:
-      - name: TradingView
-        description: Polygon data feeds integrate with charting libraries used by trading apps.
-      - name: Pandas and DataFrames
-        description: Python SDK returns DataFrames for direct use in research notebooks.
-      - name: Snowflake and Databricks
-        description: Flat files load into modern data warehouses for SQL-based market analytics.
-      - name: Kafka and streaming platforms
-        description: WebSocket feeds bridge into Kafka, Redpanda, and Kinesis for downstream processing.
-  - type: Solutions
-    data:
-      - name: Retail brokerages and fintech apps
-        description: Tiered plans for consumer-facing investing apps and personal-finance tools.
-      - name: Quant funds and prop trading
-        description: Business contracts for redistribution and full SIP / OPRA / CME exchange-licensed data.
-      - name: Data and AI research
-        description: Flat files and historical APIs for ML feature engineering and financial NLP.
+    url: https://polygon.io/docs/stocks
+  - type: AsyncAPI
+    url: asyncapi/polygon-io-asyncapi.yml
+  x-features:
+  - Real-time and historical aggregates
+  - NBBO trades and quotes
+  - Snapshots and ticker reference
+  - Corporate actions
+  - WebSocket streaming
+  x-use-cases:
+  - Power equity charts and tickers
+  - Backtest strategies on historical bars
+  - Stream live trades into surveillance systems
+- name: Polygon.io Options API
+  tags:
+  - Options
+  - OPRA
+  - Market Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  baseURL: https://api.polygon.io
+  humanURL: https://polygon.io/docs/options
+  description: 'OPRA-licensed options market data via REST and WebSocket: aggregates, trades, quotes,
+    snapshots, contract reference, and option chains.'
+  properties:
+  - type: Documentation
+    url: https://polygon.io/docs/options
+  - type: AsyncAPI
+    url: asyncapi/polygon-io-asyncapi.yml
+  x-features:
+  - OPRA-licensed options data
+  - Snapshot and chain endpoints
+  - Greeks and IV (paid tiers)
+  - WebSocket streaming
+  x-use-cases:
+  - Options trading research
+  - Volatility surface modeling
+  - Greeks dashboards
+- name: Polygon.io Indices API
+  tags:
+  - Indices
+  - Market Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  baseURL: https://api.polygon.io
+  humanURL: https://polygon.io/docs/indices
+  description: Real-time and historical index values for major US and global indices via REST and WebSocket.
+  properties:
+  - type: Documentation
+    url: https://polygon.io/docs/indices
+  - type: AsyncAPI
+    url: asyncapi/polygon-io-asyncapi.yml
+  x-features:
+  - Index values and aggregates
+  - Snapshots
+  - WebSocket streaming
+  x-use-cases:
+  - Benchmark performance tracking
+  - Index-based product pricing
+- name: Polygon.io Forex API
+  tags:
+  - Forex
+  - FX
+  - Currency
+  - Market Data
+  tags_raw:
+  - Forex
+  - FX
+  - Currencies
+  - Market Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  baseURL: https://api.polygon.io
+  humanURL: https://polygon.io/docs/forex
+  description: Real-time and historical FX prices for 1,000+ currency pairs via REST and WebSocket.
+  properties:
+  - type: Documentation
+    url: https://polygon.io/docs/forex
+  - type: AsyncAPI
+    url: asyncapi/polygon-io-asyncapi.yml
+  x-features:
+  - 1,000+ currency pairs
+  - Aggregates and quotes
+  - WebSocket streaming
+  x-use-cases:
+  - Multi-currency reporting
+  - FX trading strategies
+- name: Polygon.io Crypto API
+  tags:
+  - Crypto
+  - Cryptocurrency
+  - Market Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  baseURL: https://api.polygon.io
+  humanURL: https://polygon.io/docs/crypto
+  description: Aggregates, trades, snapshots, level-2 books, and L2 streaming for crypto pairs across
+    major exchanges.
+  properties:
+  - type: Documentation
+    url: https://polygon.io/docs/crypto
+  - type: AsyncAPI
+    url: asyncapi/polygon-io-asyncapi.yml
+  x-features:
+  - Aggregated cross-exchange data
+  - Level-2 order books
+  - WebSocket streaming
+  x-use-cases:
+  - Crypto trading and analytics
+  - Cross-exchange arbitrage research
+- name: Polygon.io Futures API
+  tags:
+  - Futures
+  - Market Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  baseURL: https://api.polygon.io
+  humanURL: https://polygon.io/docs/futures
+  description: Real-time and historical futures market data including aggregates, trades, quotes, and
+    snapshots.
+  properties:
+  - type: Documentation
+    url: https://polygon.io/docs/futures
+  - type: AsyncAPI
+    url: asyncapi/polygon-io-asyncapi.yml
+  x-features:
+  - CME-licensed futures data
+  - Aggregates and snapshots
+  - Continuous contracts
+  x-use-cases:
+  - Futures trading research
+  - Commodities and rates analytics
+common:
+- type: Website
+  url: https://polygon.io
+- type: OpenAPI
+  url: openapi/polygon-openapi-original.json
+  name: Official Massive (Polygon.io) OpenAPI 3.0.3 — 146 operations, harvested from https://api.polygon.io/openapi
+- type: Overlay
+  url: overlays/polygon-openapi-overlay.yaml
+- type: MCPServer
+  url: mcp/polygon-mcp.yml
+  name: Massive MCP server — remote https://mcp.massive.com (OAuth) + open-source mcp_massive (stdio)
+- type: ToolCrosswalk
+  url: mcp/polygon-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/polygon-llms.txt
+- type: WellKnown
+  url: well-known/polygon-well-known.yml
+- type: Packages
+  url: packages/polygon-packages.yml
+- type: Conformance
+  url: conformance/polygon-conformance.yml
+- type: ErrorCatalog
+  url: errors/polygon-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/polygon-lifecycle.yml
+- type: ChangeLog
+  url: changelog/polygon-changelog.yml
+- type: Conventions
+  url: conventions/polygon-conventions.yml
+- type: Idempotency
+  url: conventions/polygon-conventions.yml
+- type: DataModel
+  url: data-model/polygon-data-model.yml
+- type: OAuthScopes
+  url: scopes/polygon-scopes.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/polygon-agentic-access.yml
+- type: DomainSecurity
+  url: security/polygon-domain-security.yml
+- type: Authentication
+  url: authentication/polygon-authentication.yml
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/polygon/overview
+- type: Arazzo
+  url: arazzo/polygon-corporate-actions-workflow.yml
+  name: Polygon Corporate Actions Review
+- type: Arazzo
+  url: arazzo/polygon-crypto-daily-comparison-workflow.yml
+  name: Polygon Crypto Daily Comparison
+- type: Arazzo
+  url: arazzo/polygon-crypto-pair-analysis-workflow.yml
+  name: Polygon Crypto Pair Analysis
+- type: Arazzo
+  url: arazzo/polygon-forex-pair-analysis-workflow.yml
+  name: Polygon Forex Pair Analysis
+- type: Arazzo
+  url: arazzo/polygon-grouped-market-scan-workflow.yml
+  name: Polygon Grouped Market Scan
+- type: Arazzo
+  url: arazzo/polygon-index-analysis-workflow.yml
+  name: Polygon Index Analysis
+- type: Arazzo
+  url: arazzo/polygon-market-gated-stock-daily-workflow.yml
+  name: Polygon Market-Gated Stock Daily Snapshot
+- type: Arazzo
+  url: arazzo/polygon-options-chain-scan-workflow.yml
+  name: Polygon Options Chain Scan
+- type: Arazzo
+  url: arazzo/polygon-options-contract-deep-dive-workflow.yml
+  name: Polygon Options Contract Deep Dive
+- type: Arazzo
+  url: arazzo/polygon-stock-research-workflow.yml
+  name: Polygon Stock Research
+- type: Arazzo
+  url: arazzo/polygon-ticker-discovery-workflow.yml
+  name: Polygon Ticker Discovery and Profile
+- type: Arazzo
+  url: arazzo/polygon-ticker-news-context-workflow.yml
+  name: Polygon Ticker News Context
+- type: Portal
+  url: https://polygon.io/
+- type: Documentation
+  url: https://polygon.io/docs
+- type: APIReference
+  url: https://polygon.io/docs
+- type: GettingStarted
+  url: https://polygon.io/docs/getting-started
+- type: Signup
+  url: https://polygon.io/dashboard/signup
+- type: Login
+  url: https://polygon.io/dashboard/login
+- type: Pricing
+  url: https://polygon.io/pricing
+- type: StatusPage
+  url: https://status.polygon.io/
+- type: Blog
+  url: https://polygon.io/blog
+- type: Support
+  url: https://polygon.io/contact
+- type: TermsOfService
+  url: https://polygon.io/terms
+- type: PrivacyPolicy
+  url: https://polygon.io/privacy
+- type: GitHubOrganization
+  url: https://github.com/polygon-io
+- type: Tools
+  url: https://github.com/polygon-io/mcp_polygon
+  title: Official Polygon (Massive) MCP Server
+- type: SDKs
+  url: https://github.com/polygon-io/client-php
+  title: Official PHP SDK
+- type: SDKs
+  url: https://pypi.org/project/polygon-api-client/
+  title: Python SDK
+- type: SDKs
+  url: https://www.npmjs.com/package/@polygon.io/client-js
+  title: JavaScript / TypeScript SDK
+- type: SDKs
+  url: https://central.sonatype.com/artifact/io.polygon.kotlin.sdk/polygon-kotlin-sdk-jvm
+  title: Kotlin / JVM SDK
+- type: SDKs
+  url: https://pkg.go.dev/github.com/polygon-io/client-go
+  title: Go SDK
+- type: LinkedIn
+  url: https://www.linkedin.com/company/polygon-io
+- type: Plans
+  url: plans/polygon-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/polygon-rate-limits.yml
+- type: FinOps
+  url: finops/polygon-finops.yml
+- type: SpectralRules
+  url: rules/polygon-rules.yml
+- type: Vocabulary
+  url: vocabulary/polygon-vocabulary.yml
+- type: JSONLD
+  url: json-ld/polygon-context.jsonld
+- type: Features
+  data:
+  - name: Multi-asset market data
+    description: Unified REST and WebSocket surface for stocks, options, indices, forex, crypto, and futures.
+  - name: Real-time and historical
+    description: Sub-second live feeds plus 20+ years of historical aggregates depending on tier.
+  - name: WebSocket clusters per asset class
+    description: Dedicated streaming clusters for stocks, options, indices, forex, and crypto subscriptions.
+  - name: Flat files
+    description: S3-style daily aggregate, trade, and quote files for bulk historical loads on paid tiers.
+  - name: Tiered subscriptions
+    description: Basic / Starter / Developer / Advanced / Business plans per asset class with distinct
+      rate limits.
+- type: UseCases
+  data:
+  - name: Trading platform price feeds
+    description: Power retail and institutional trading UIs with consolidated real-time quotes and bars.
+  - name: Backtesting and research
+    description: Pull decades of aggregated bars and tick data for systematic strategy research.
+  - name: Risk and surveillance
+    description: Stream live trades and quotes into compliance, surveillance, and risk engines.
+  - name: Analytics dashboards
+    description: Build market dashboards, terminals, and embedded charts across asset classes.
+  - name: Quant pipelines
+    description: Drive options Greeks, volatility surfaces, and FX hedging models with reliable feeds.
+- type: Integrations
+  data:
+  - name: TradingView
+    description: Polygon data feeds integrate with charting libraries used by trading apps.
+  - name: Pandas and DataFrames
+    description: Python SDK returns DataFrames for direct use in research notebooks.
+  - name: Snowflake and Databricks
+    description: Flat files load into modern data warehouses for SQL-based market analytics.
+  - name: Kafka and streaming platforms
+    description: WebSocket feeds bridge into Kafka, Redpanda, and Kinesis for downstream processing.
+- type: Solutions
+  data:
+  - name: Retail brokerages and fintech apps
+    description: Tiered plans for consumer-facing investing apps and personal-finance tools.
+  - name: Quant funds and prop trading
+    description: Business contracts for redistribution and full SIP / OPRA / CME exchange-licensed data.
+  - name: Data and AI research
+    description: Flat files and historical APIs for ML feature engineering and financial NLP.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-aliases:
+- Massive
+- Polygon.io
