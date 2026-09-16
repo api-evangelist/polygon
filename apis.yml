@@ -1069,7 +1069,7 @@ apis:
   - Commodities and rates analytics
 common:
 - type: Website
-  url: https://polygon.io
+  url: https://massive.com
 - type: OpenAPI
   url: openapi/_original/polygon-openapi-original.json
   name: Official Massive (Polygon.io) OpenAPI 3.0.3 — 146 operations, harvested from https://api.polygon.io/openapi
