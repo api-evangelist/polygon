@@ -1,5 +1,5 @@
 aid: polygon
-name: Polygon
+name: Massive (formerly Polygon.io)
 url: https://raw.githubusercontent.com/api-evangelist/polygon/refs/heads/main/apis.yml
 deliveryModel:
   model: saas
