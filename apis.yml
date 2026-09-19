@@ -56,7 +56,7 @@ tags:
 - Crypto
 - Indices
 - Futures
-- WebSockets
+- WebSocket
 - Real-Time
 - Historical
 - Public APIs
@@ -359,7 +359,7 @@ apis:
   humanURL: https://polygon.io/docs/stocks/ws_getting-started
   baseURL: wss://socket.polygon.io
   tags:
-  - Financials
+  - Financial
   tags_raw:
   - financials
   properties:
@@ -875,7 +875,6 @@ apis:
 - name: Polygon.io Stocks API
   tags:
   - Stocks
-  - Equities
   - Market Data
   - Real-Time
   tags_raw:
