@@ -2,16 +2,16 @@
 kin_checks:
   slug: polygon
   schema_version: 0.22.0
-  scored_at: '2026-09-19'
-  run_ts: 2026-09-19T193153
+  scored_at: '2026-09-21'
+  run_ts: 2026-09-21T233935
   note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
     apply in `na`. Everything else in rubric/scoring-0.22.0.yml was earned; counts
     below let you verify that.
   counts:
     total: 136
-    earned: 55
+    earned: 57
     partial: 23
-    missed: 37
+    missed: 35
     na: 21
   checks:
   - id: maintainer_present
@@ -41,10 +41,6 @@ kin_checks:
   - id: server_bindings
     status: missed
     detail: 0 of 7 asyncapi documents pass
-  - id: json_schema_present
-    status: missed
-  - id: json_schema_per_resource
-    status: missed
   - id: lifecycle_documented
     status: missed
   - id: domain_standard_conformance
