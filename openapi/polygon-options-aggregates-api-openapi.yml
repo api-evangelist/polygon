@@ -1070,9 +1070,7 @@ paths:
         name: options
   /v2/aggs/ticker/{optionsTicker}/prev:
     get:
-      description: 'Get the previous day''s open, high, low, and close (OHLC) for the specified option contract.
-
-        '
+      description: Get the previous day's open, high, low, and close (OHLC) for the specified option contract.
       operationId: GetPreviousOptionsAggregates
       parameters:
       - description: The ticker symbol of the options contract.
@@ -1214,13 +1212,8 @@ paths:
     get:
       description: 'Get aggregate bars for an option contract over a given date range in custom time window sizes.
 
-        <br />
 
-        <br />
-
-        For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute bars will be returned.
-
-        '
+        For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute bars will be returned.'
       operationId: GetOptionsAggregates
       parameters:
       - description: The ticker symbol of the options contract.

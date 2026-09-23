@@ -108,6 +108,8 @@ paths:
           description: An error message.
       tags:
       - global_crypto
+      summary: Get crypto v1 exchanges
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

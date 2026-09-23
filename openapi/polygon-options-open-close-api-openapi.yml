@@ -15,9 +15,7 @@ tags:
 paths:
   /v1/open-close/{optionsTicker}/{date}:
     get:
-      description: 'Get the open, close and afterhours prices of an options contract on a certain date.
-
-        '
+      description: Get the open, close and afterhours prices of an options contract on a certain date.
       operationId: GetOptionsOpenClose
       parameters:
       - description: The ticker symbol of the options contract.

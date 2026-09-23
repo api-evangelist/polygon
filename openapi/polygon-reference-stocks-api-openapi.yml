@@ -210,7 +210,7 @@ paths:
     get:
       description: 'Get historical financial data for a stock ticker.
 
-        The financials data is extracted from XBRL from company SEC filings using the methodology outlined <a rel="noopener noreferrer nofollow" target="_blank" href="http://xbrl.squarespace.com/understanding-sec-xbrl-financi/">here</a>.'
+        The financials data is extracted from XBRL from company SEC filings using the methodology outlined here.'
       operationId: ListFinancials
       parameters:
       - description: Query by company ticker.

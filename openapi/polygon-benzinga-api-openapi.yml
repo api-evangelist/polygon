@@ -343,6 +343,8 @@ paths:
           description: An error message.
       tags:
       - benzinga
+      summary: Get benzinga v1 analyst insights
+      x-summary-source: derived
   /benzinga/v1/analysts:
     get:
       description: A comprehensive database of financial analysts, containing detailed performance metrics and identification information for individual analysts across various financial firms.
@@ -590,6 +592,8 @@ paths:
           description: An error message.
       tags:
       - benzinga
+      summary: Get benzinga v1 analysts
+      x-summary-source: derived
   /benzinga/v1/bulls-bears-say:
     get:
       description: A comprehensive database of analyst bull and bear case summaries for publicly traded companies, providing concise summaries of both bullish and bearish investment arguments to help investors see both sides of the story before making investment decisions.
@@ -773,6 +777,8 @@ paths:
           description: An error message.
       tags:
       - benzinga
+      summary: Get benzinga v1 bulls bears say
+      x-summary-source: derived
   /benzinga/v1/consensus-ratings/{ticker}:
     get:
       description: A comprehensive financial consensus ratings table that aggregates analyst recommendations and price targets for individual stock tickers, capturing detailed rating breakdowns and statistical insights.
@@ -951,6 +957,8 @@ paths:
           description: An error message.
       tags:
       - benzinga
+      summary: Get benzinga v1 consensus ratings ticker
+      x-summary-source: derived
   /benzinga/v1/earnings:
     get:
       description: This table contains earnings data from Benzinga, tracking both actual and estimated financial metrics for publicly traded companies. It includes EPS and revenue figures with surprise calculations, along with metadata like fiscal periods, company identifiers, and reporting timestamps.
@@ -1420,6 +1428,8 @@ paths:
           description: An error message.
       tags:
       - benzinga
+      summary: Get benzinga v1 earnings
+      x-summary-source: derived
   /benzinga/v1/firms:
     get:
       description: A comprehensive database of financial firms, tracking unique identifiers, names, and basic metadata for various financial institutions and research firms.
@@ -1543,6 +1553,8 @@ paths:
           description: An error message.
       tags:
       - benzinga
+      summary: Get benzinga v1 firms
+      x-summary-source: derived
   /benzinga/v1/guidance:
     get:
       description: A comprehensive database of financial guidance and earnings estimates for various companies, capturing key metrics related to earnings per share (EPS) and revenue projections across different fiscal periods.
@@ -1953,6 +1965,8 @@ paths:
           description: An error message.
       tags:
       - benzinga
+      summary: Get benzinga v1 guidance
+      x-summary-source: derived
   /benzinga/v1/ratings:
     get:
       description: This table contains analyst ratings and price target data from investment firms, tracking rating changes (upgrades, downgrades, initiates coverage, etc.) and price target adjustments for publicly traded companies. Each record includes the analyst details, company information, current and previous ratings/targets, and metadata like timestamps and Benzinga identifiers.
@@ -2397,6 +2411,8 @@ paths:
           description: An error message.
       tags:
       - benzinga
+      summary: Get benzinga v1 ratings
+      x-summary-source: derived
   /benzinga/v2/news:
     get:
       description: A comprehensive news article database from Benzinga, containing detailed information about financial news articles including metadata, content, and associated financial information.
@@ -2665,6 +2681,8 @@ paths:
           description: An error message.
       tags:
       - benzinga
+      summary: Get benzinga v2 news
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

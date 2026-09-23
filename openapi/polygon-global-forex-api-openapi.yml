@@ -100,6 +100,8 @@ paths:
           description: An error message.
       tags:
       - global_forex
+      summary: Get forex v1 exchanges
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

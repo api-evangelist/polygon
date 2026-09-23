@@ -353,6 +353,8 @@ paths:
           description: An error message.
       tags:
       - fable
+      summary: Get consumer spending eu v1 merchant aggregates
+      x-summary-source: derived
   /consumer-spending/eu/v1/merchant-hierarchy:
     get:
       description: Reference data mapping merchants to parent companies, tickers, sectors, and industries across Fable's European consumer transaction panel. Each row represents a single merchant with its corporate hierarchy and classification metadata. Weekly snapshots contain ~3,500 merchants covering ~250 US public companies. Use lookup_name to join with the name field from the merchant-aggregates endpoint, filtering by active_from and active_to to match a specific transaction_date (e.g., active_from.lte=2025-06-15&active_to.gte=2025-06-15).
@@ -628,6 +630,8 @@ paths:
           description: An error message.
       tags:
       - fable
+      summary: Get consumer spending eu v1 merchant hierarchy
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

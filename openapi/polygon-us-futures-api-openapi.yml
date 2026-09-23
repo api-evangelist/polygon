@@ -438,6 +438,8 @@ paths:
           description: An error message.
       tags:
       - us_futures
+      summary: Get futures v1 exchanges
+      x-summary-source: derived
   /futures/v1/market-status:
     get:
       description: 'Retrieve the current market status for a specific product or products. This endpoint returns real-time indicators, such as open, pause, close, for futures products, along with the corresponding exchange and product codes and an evaluation timestamp. This information enables users to monitor operational conditions and adjust their trading strategies accordingly.
@@ -1221,6 +1223,8 @@ paths:
           description: An error message.
       tags:
       - us_futures
+      summary: Get futures v1 quotes ticker
+      x-summary-source: derived
   /futures/v1/schedules:
     get:
       description: 'The Schedules API provides a unified way to retrieve trading schedules for futures markets, returning precise session open and close times, intraday breaks, and any adjustments for holidays or special events. You can filter schedules by session_end_date or retrieve the schedule for a single product using its product code. All times are returned in Coordinated Universal Time (UTC), making it straightforward to align trading, execution, and operational workflows across systems.
@@ -1902,6 +1906,8 @@ paths:
           description: An error message.
       tags:
       - us_futures
+      summary: Get futures v1 trades ticker
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

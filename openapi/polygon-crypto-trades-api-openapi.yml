@@ -15,9 +15,7 @@ tags:
 paths:
   /v1/historic/crypto/{from}/{to}/{date}:
     get:
-      description: 'Get historic trade ticks for a cryptocurrency pair.
-
-        '
+      description: Get historic trade ticks for a cryptocurrency pair.
       operationId: DeprecatedGetHistoricCryptoTrades
       parameters:
       - description: The "from" symbol of the crypto pair.

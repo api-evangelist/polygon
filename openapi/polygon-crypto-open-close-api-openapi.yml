@@ -15,9 +15,7 @@ tags:
 paths:
   /v1/open-close/crypto/{from}/{to}/{date}:
     get:
-      description: 'Get the open, close prices of a cryptocurrency symbol on a certain day.
-
-        '
+      description: Get the open, close prices of a cryptocurrency symbol on a certain day.
       operationId: GetCryptoOpenClose
       parameters:
       - description: The "from" symbol of the pair.

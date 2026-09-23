@@ -199,6 +199,8 @@ paths:
           description: An error message.
       tags:
       - us_stocks_all
+      summary: Get stocks dev trades ticker
+      x-summary-source: derived
   /stocks/v1/exchanges:
     get:
       description: US stock exchanges, trading venues, and reporting facilities including exchanges (NYSE, Nasdaq), Trade Reporting Facilities (TRF), Securities Information Processors (SIP), and OTC Reporting Facilities (ORF) for equity trading.
@@ -317,6 +319,8 @@ paths:
           description: An error message.
       tags:
       - us_stocks_all
+      summary: Get stocks v1 exchanges
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

@@ -154,6 +154,8 @@ paths:
           description: An error message.
       tags:
       - fed
+      summary: Get fed v1 inflation
+      x-summary-source: derived
   /fed/v1/inflation-expectations:
     get:
       description: A table tracking inflation expectations from both market-based and economic model perspectives across different time horizons.
@@ -300,6 +302,8 @@ paths:
           description: An error message.
       tags:
       - fed
+      summary: Get fed v1 inflation expectations
+      x-summary-source: derived
   /fed/v1/labor-market:
     get:
       description: Labor market indicators from the Federal Reserve, including unemployment rate, labor force participation, average hourly earnings, and job openings data.
@@ -431,6 +435,8 @@ paths:
           description: An error message.
       tags:
       - fed
+      summary: Get fed v1 labor market
+      x-summary-source: derived
   /fed/v1/treasury-yields:
     get:
       description: A record of U.S. Treasury bond yields across various maturity periods, tracking historical interest rates from short-term to long-term government securities.
@@ -589,6 +595,8 @@ paths:
           description: An error message.
       tags:
       - fed
+      summary: Get fed v1 treasury yields
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

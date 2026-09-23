@@ -15,9 +15,7 @@ tags:
 paths:
   /v2/ticks/stocks/nbbo/{ticker}/{date}:
     get:
-      description: 'Get NBBO quotes for a given ticker symbol on a specified date.
-
-        '
+      description: Get NBBO quotes for a given ticker symbol on a specified date.
       operationId: DeprecatedGetHistoricStocksQuotes
       parameters:
       - description: The ticker symbol we want quotes for.

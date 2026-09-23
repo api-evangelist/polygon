@@ -638,6 +638,8 @@ paths:
           description: An error message.
       tags:
       - etfglobal
+      summary: Get etf global v1 analytics
+      x-summary-source: derived
   /etf-global/v1/constituents:
     get:
       description: ETF Global constituents data containing detailed information about the securities held within ETFs, including weights, market values, and security identifiers.
@@ -1025,6 +1027,8 @@ paths:
           description: An error message.
       tags:
       - etfglobal
+      summary: Get etf global v1 constituents
+      x-summary-source: derived
   /etf-global/v1/fund-flows:
     get:
       description: ETF Global fund flow data containing information about ETF share movements, net asset values, and fund flow metrics.
@@ -1223,6 +1227,8 @@ paths:
           description: An error message.
       tags:
       - etfglobal
+      summary: Get etf global v1 fund flows
+      x-summary-source: derived
   /etf-global/v1/profiles:
     get:
       description: ETF Global industry profile data containing comprehensive ETF metadata including financial metrics, operational details, and exposure information.
@@ -1918,6 +1924,8 @@ paths:
           description: An error message.
       tags:
       - etfglobal
+      summary: Get etf global v1 profiles
+      x-summary-source: derived
   /etf-global/v1/taxonomies:
     get:
       description: ETF Global taxonomy data containing detailed classification and categorization information for ETFs including investment strategy, methodology, and structural characteristics.
@@ -2232,6 +2240,8 @@ paths:
           description: An error message.
       tags:
       - etfglobal
+      summary: Get etf global v1 taxonomies
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

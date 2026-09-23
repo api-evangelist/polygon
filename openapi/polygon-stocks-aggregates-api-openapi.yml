@@ -1082,9 +1082,7 @@ paths:
         name: stocks
   /v2/aggs/grouped/locale/us/market/stocks/{date}:
     get:
-      description: 'Get the daily open, high, low, and close (OHLC) for the entire stocks/equities markets.
-
-        '
+      description: Get the daily open, high, low, and close (OHLC) for the entire stocks/equities markets.
       operationId: GetGroupedStocksAggregates
       parameters:
       - description: The beginning date for the aggregate window.
@@ -1254,9 +1252,7 @@ paths:
         name: stocks
   /v2/aggs/ticker/{stocksTicker}/prev:
     get:
-      description: 'Get the previous day''s open, high, low, and close (OHLC) for the specified stock ticker.
-
-        '
+      description: Get the previous day's open, high, low, and close (OHLC) for the specified stock ticker.
       operationId: GetPreviousStocksAggregates
       parameters:
       - description: Specify a case-sensitive ticker symbol. For example, AAPL represents Apple Inc.
@@ -1397,13 +1393,8 @@ paths:
     get:
       description: 'Get aggregate bars for a stock over a given date range in custom time window sizes.
 
-        <br />
 
-        <br />
-
-        For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute bars will be returned.
-
-        '
+        For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute bars will be returned.'
       operationId: GetStocksAggregates
       parameters:
       - description: Specify a case-sensitive ticker symbol. For example, AAPL represents Apple Inc.

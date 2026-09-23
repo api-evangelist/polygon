@@ -975,9 +975,7 @@ paths:
         name: indices
   /v2/aggs/ticker/{indicesTicker}/prev:
     get:
-      description: 'Get the previous day''s open, high, low, and close (OHLC) for the specified index.
-
-        '
+      description: Get the previous day's open, high, low, and close (OHLC) for the specified index.
       operationId: GetPreviousIndicesAggregates
       parameters:
       - description: The ticker symbol of Index.
@@ -1090,13 +1088,8 @@ paths:
     get:
       description: 'Get aggregate bars for an index over a given date range in custom time window sizes.
 
-        <br />
 
-        <br />
-
-        For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute bars will be returned.
-
-        '
+        For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute bars will be returned.'
       operationId: GetIndicesAggregates
       parameters:
       - description: The ticker symbol of Index.

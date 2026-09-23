@@ -1056,9 +1056,7 @@ paths:
         name: crypto
   /v2/aggs/grouped/locale/global/market/crypto/{date}:
     get:
-      description: 'Get the daily open, high, low, and close (OHLC) for the entire cryptocurrency markets.
-
-        '
+      description: Get the daily open, high, low, and close (OHLC) for the entire cryptocurrency markets.
       operationId: GetGroupedCryptoAggregates
       parameters:
       - description: The beginning date for the aggregate window.
@@ -1218,9 +1216,7 @@ paths:
         name: crypto
   /v2/aggs/ticker/{cryptoTicker}/prev:
     get:
-      description: 'Get the previous day''s open, high, low, and close (OHLC) for the specified cryptocurrency pair.
-
-        '
+      description: Get the previous day's open, high, low, and close (OHLC) for the specified cryptocurrency pair.
       operationId: GetPreviousCryptoAggregates
       parameters:
       - description: The ticker symbol of the currency pair.
@@ -1365,13 +1361,8 @@ paths:
     get:
       description: 'Get aggregate bars for a cryptocurrency pair over a given date range in custom time window sizes.
 
-        <br />
 
-        <br />
-
-        For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute bars will be returned.
-
-        '
+        For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute bars will be returned.'
       operationId: GetCryptoAggregates
       parameters:
       - description: The ticker symbol of the currency pair.

@@ -11,7 +11,7 @@ servers:
 security:
 - apiKey: []
 tags:
-- name: financials
+- name: Financials
 paths:
   /stocks/financials/v1/balance-sheets:
     get:
@@ -457,7 +457,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - financials
+      - Financials
+      summary: Get stocks financials v1 balance sheets
+      x-summary-source: derived
   /stocks/financials/v1/cash-flow-statements:
     get:
       description: A comprehensive financial dataset containing quarterly, annual, and trailing twelve-month cash flow statement data for public companies. Includes detailed operating, investing, and financing cash flows with proper TTM calculations that sum all cash flow components over four quarters. TTM records are validated to ensure exactly four distinct quarters spanning 250-400 days for accurate trailing twelve-month cash flow analysis.
@@ -870,7 +872,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - financials
+      - Financials
+      summary: Get stocks financials v1 cash flow statements
+      x-summary-source: derived
   /stocks/financials/v1/income-statements:
     get:
       description: A comprehensive database of income statement financial data for public companies, including key metrics such as revenue, expenses, and net income for various reporting periods.
@@ -1293,7 +1297,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - financials
+      - Financials
+      summary: Get stocks financials v1 income statements
+      x-summary-source: derived
   /stocks/financials/v1/ratios:
     get:
       description: A comprehensive financial ratios dataset providing key valuation, profitability, liquidity, and leverage metrics for public companies. Combines data from income statements, balance sheets, and cash flow statements with daily stock prices to calculate ratios on a daily basis. Uses trailing twelve months (TTM) data for income/cash flow metrics and quarterly data for balance sheet items. Fundamental data updates are applied starting from each filing's period end date. Market cap calculations use point-in-time shares outstanding for historical accuracy.
@@ -2146,7 +2152,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - financials
+      - Financials
+      summary: Get stocks financials v1 ratios
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

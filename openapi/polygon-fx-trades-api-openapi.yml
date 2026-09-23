@@ -15,9 +15,7 @@ tags:
 paths:
   /v1/historic/forex/{from}/{to}/{date}:
     get:
-      description: 'Get historic ticks for a forex currency pair.
-
-        '
+      description: Get historic ticks for a forex currency pair.
       operationId: DeprecatedGetHistoricForexQuotes
       parameters:
       - description: 'The "from" symbol of the currency pair.

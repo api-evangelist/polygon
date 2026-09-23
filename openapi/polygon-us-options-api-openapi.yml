@@ -132,6 +132,8 @@ paths:
           description: An error message.
       tags:
       - us_options
+      summary: Get options v1 exchanges
+      x-summary-source: derived
   /options/v3/quotes/{ticker}:
     get:
       description: Contains NBBO (National Best Bid and Offer) quote records for US options contracts, capturing bid/ask prices, sizes, and exchange attribution at nanosecond precision.
@@ -280,6 +282,8 @@ paths:
           description: An error message.
       tags:
       - us_options
+      summary: Get options v3 quotes ticker
+      x-summary-source: derived
   /options/v3/trades/{ticker}:
     get:
       description: Contains individual trade transactions for US options contracts, capturing trade execution details including pricing, timing, and exchange information.
@@ -421,6 +425,8 @@ paths:
           description: An error message.
       tags:
       - us_options
+      summary: Get options v3 trades ticker
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

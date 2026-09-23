@@ -374,6 +374,8 @@ paths:
           description: An error message.
       tags:
       - tmx
+      summary: Get tmx v1 corporate events
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

@@ -15,9 +15,7 @@ tags:
 paths:
   /v1/open-close/{indicesTicker}/{date}:
     get:
-      description: 'Get the open, close and afterhours values of a index symbol on a certain date.
-
-        '
+      description: Get the open, close and afterhours values of a index symbol on a certain date.
       operationId: GetIndicesOpenClose
       parameters:
       - description: The ticker symbol of Index.
@@ -115,9 +113,7 @@ paths:
         name: indices
   /v1/open-close/{stocksTicker}/{date}:
     get:
-      description: 'Get the open, close and afterhours prices of a stock symbol on a certain date.
-
-        '
+      description: Get the open, close and afterhours prices of a stock symbol on a certain date.
       operationId: GetStocksOpenClose
       parameters:
       - description: Specify a case-sensitive ticker symbol. For example, AAPL represents Apple Inc.

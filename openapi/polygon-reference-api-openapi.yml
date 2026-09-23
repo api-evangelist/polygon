@@ -12,7 +12,7 @@ security:
 - apiKey: []
 tags:
 - description: Reference API
-  name: reference
+  name: Reference
   x-polygon-sub-tags:
   - tickers:list
   - tickers:types
@@ -277,7 +277,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks filings 10 K v X sections
+      x-summary-source: derived
   /stocks/filings/10-K/vX_0/sections:
     get:
       description: SEC document text sections providing raw text content from specific sections of SEC filings (10-K, 10-Q, etc.).
@@ -524,7 +526,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks filings 10 K v X 0 sections
+      x-summary-source: derived
   /stocks/filings/8-K/vX/disclosures:
     get:
       description: SEC 8-K filing disclosure categorization. A single 8-K filing can produce multiple rows when it covers multiple disclosure types — each row represents one tagged disclosure within the filing, classified into primary, secondary, and tertiary categories with a supporting text excerpt. The full classification list is available at /stocks/taxonomies/vX/disclosures.
@@ -711,7 +715,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks filings 8 K v X disclosures
+      x-summary-source: derived
   /stocks/filings/8-K/vX/text:
     get:
       description: SEC 8-K filings text providing parsed content from current report filings. 8-K forms report material events such as earnings, acquisitions, executive changes, and other significant corporate events.
@@ -940,7 +946,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks filings 8 K v X text
+      x-summary-source: derived
   /stocks/filings/vX/13-F:
     get:
       description: SEC Form 13F filings data showing institutional investment manager holdings. Form 13F is required to be filed quarterly by institutional investment managers with at least $100 million in qualifying assets under management.
@@ -1163,7 +1171,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks filings v X 13 F
+      x-summary-source: derived
   /stocks/filings/vX/form-3:
     get:
       description: SEC Form 3 filings reporting initial statements of beneficial ownership of securities. Filed by corporate insiders (directors, officers, and 10%+ shareholders) when they first acquire a position.
@@ -1443,7 +1453,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks filings v X form 3
+      x-summary-source: derived
   /stocks/filings/vX/form-4:
     get:
       description: SEC Form 4 filings reporting changes in beneficial ownership of securities. Filed by corporate insiders (directors, officers, and 10%+ shareholders) within two business days of a transaction.
@@ -1773,7 +1785,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks filings v X form 4
+      x-summary-source: derived
   /stocks/filings/vX/index:
     get:
       description: SEC EDGAR master index providing metadata for all SEC filings including form types, filing dates, and direct links to source documents.
@@ -2001,7 +2015,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks filings v X index
+      x-summary-source: derived
   /stocks/filings/vX/risk-factors:
     get:
       description: The risk factors identified in companies' 10K filings.
@@ -2195,7 +2211,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks filings v X risk factors
+      x-summary-source: derived
   /stocks/taxonomies/vX/disclosures:
     get:
       description: The complete list of 8-K disclosure classifications used in the 8-K disclosures endpoint.
@@ -2418,7 +2436,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks taxonomies v X disclosures
+      x-summary-source: derived
   /stocks/taxonomies/vX/risk-factors:
     get:
       description: The complete list of risk factor classifications used in the risk factors endpoint.
@@ -2642,7 +2662,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks taxonomies v X risk factors
+      x-summary-source: derived
   /stocks/v1/short-interest:
     get:
       description: Comprehensive FINRA short interest data that tracks the short selling metrics for securities on a specific settlement date.
@@ -2876,7 +2898,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks v1 short interest
+      x-summary-source: derived
   /stocks/v1/short-volume:
     get:
       description: Contains short selling volume for different stock tickers, capturing total trading volume, short sale details, and breakdown by different trading platforms.
@@ -3123,7 +3147,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks v1 short volume
+      x-summary-source: derived
   /stocks/vX/float:
     get:
       description: Contains free float data for US-listed securities, showing the most recent available number of shares available for public trading and the percentage of total shares outstanding.
@@ -3278,7 +3304,9 @@ paths:
                 type: object
           description: An error message.
       tags:
-      - reference
+      - Reference
+      summary: Get stocks v X float
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:

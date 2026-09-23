@@ -1,21 +1,21 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Polygon Crypto REST Aggregates CorporateActions API
+  title: Polygon Reference REST Corporate Actions API
   version: '1.0'
-  description: 'Polygon Crypto API exposes aggregated cross-exchange data for crypto
+  description: 'Polygon Reference API exposes reference and corporate-actions data
 
-    pairs (e.g., X:BTCUSD) via `https://api.polygon.io`. This spec
+    shared across asset classes via `https://api.polygon.io`. This spec
 
-    covers aggregates, daily open/close, snapshots, and level-2 books.
+    covers tickers, ticker details, ticker types, markets, exchanges,
 
-    Auth uses an API key via `apiKey` query parameter or
+    market holidays, market status, conditions, splits, dividends, and
 
-    `Authorization: Bearer`.
+    ticker news. Auth uses an API key via `apiKey` query parameter or
 
-    '
+    `Authorization: Bearer`.'
   contact:
     name: Polygon Documentation
-    url: https://polygon.io/docs/crypto
+    url: https://polygon.io/docs/stocks/get_v3_reference_tickers
 servers:
 - url: https://api.polygon.io
   description: Polygon REST API
@@ -23,13 +23,13 @@ security:
 - apiKeyQuery: []
 - bearerAuth: []
 tags:
-- name: CorporateActions
+- name: Corporate Actions
   description: Stock splits and dividends.
 paths:
   /v3/reference/splits:
     get:
       tags:
-      - CorporateActions
+      - Corporate Actions
       operationId: listStockSplits
       summary: List Stock Splits
       parameters:
@@ -58,7 +58,7 @@ paths:
   /v3/reference/dividends:
     get:
       tags:
-      - CorporateActions
+      - Corporate Actions
       operationId: listDividends
       summary: List Stock Dividends
       parameters:
@@ -98,20 +98,6 @@ components:
           type: number
         ticker:
           type: string
-    DividendsResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        request_id:
-          type: string
-        next_url:
-          type: string
-          format: uri
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Dividend'
     StockSplitsResponse:
       type: object
       properties:
@@ -126,6 +112,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StockSplit'
+    DividendsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        request_id:
+          type: string
+        next_url:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dividend'
     Dividend:
       type: object
       properties:

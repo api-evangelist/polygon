@@ -254,6 +254,8 @@ paths:
           description: An error message.
       tags:
       - us_stocks_reference
+      summary: Get stocks v1 dividends
+      x-summary-source: derived
   /stocks/v1/splits:
     get:
       description: Contains historical stock split and reverse split events for US equities with historical adjustment factors for price normalization.
@@ -437,6 +439,8 @@ paths:
           description: An error message.
       tags:
       - us_stocks_reference
+      summary: Get stocks v1 splits
+      x-summary-source: derived
   /v1/reference/ipos:
     get:
       description: Contains comprehensive data about Initial Public Offerings (IPOs) and direct listings for US stocks, tracking both historical and pending offerings with detailed pricing, share, and timing information.
@@ -745,6 +749,8 @@ paths:
           description: An error message.
       tags:
       - us_stocks_reference
+      summary: Get v1 reference ipos
+      x-summary-source: derived
 components:
   securitySchemes:
     apiKey:
